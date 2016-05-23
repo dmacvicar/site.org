@@ -1,0 +1,7 @@
+#+title: Where to learn more about org-mode
+#+author: Rasmus
+#+date: <2016-05-22 Sun>
+
+- You can find the Org manual [[http://orgmode.org/org.html][here]].
+- Development and discussion happens on [[http://dir.gmane.org/gmane.emacs.orgmode][gmane]].
+- Some people also like the [[http://emacs.stackexchange.com/questions/tagged/org-mode][Emacs StackExchange]].

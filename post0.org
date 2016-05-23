@@ -1,0 +1,22 @@
+#+title: What is org-mode
+#+author: Rasmus
+#+date: <2016-05-21 Sat>
+
+On [[http://orgmode.org/][orgmode.org]], the description of org-mode is: 
+
+#+BEGIN_QUOTE
+Org mode is for keeping notes, maintaining TODO lists, planning
+projects, and authoring documents with a fast and effective plain-text
+system.
+
+Created by Carsten Dominik in 2003, maintained by Bastien Guerry and
+developed by many others.
+#+END_QUOTE
+
+To me, the most important aspects are:
+- A nice syntax that's more powerful than Markdown, but easier than
+  LaTeX.
+- the excellent export framework, =ox.el=.
+- The code evaluation, Babel or =ob.el=.
+
+It is distributed as part of [[https://www.gnu.org/s/emacs/][GNU Emacs]].

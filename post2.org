@@ -1,0 +1,10 @@
+#+title: Gitlab Pages and Org-mode
+#+author: Rasmus
+#+date: <2016-05-23 Mon>
+
+It's easy to publish org-mode pages via [[https://about.gitlab.com/gitlab-ci/][Gitab CI]] and [[https://pages.gitlab.io/][Pages]].
+
+This project was published with the following =.gitlab-ci.yml=:
+
+#+INCLUDE: ".gitlab-ci.yml" src conf 
+
