@@ -66,4 +66,4 @@ necessary unless you want to contribute back to the upstream project.
 
 ---
 
-Forked from https://gitlab.com/pank/org-mode-gitlab-pages
+Forked from [[https://gitlab.com/pank/org-mode-gitlab-pages]]
