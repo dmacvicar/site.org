@@ -2,7 +2,7 @@
 #+author: Rasmus
 #+date: <2016-05-23 Mon>
 
-Example [[http://orgmode.org][org-mode]] website using [[http://pages.gitlab.io/][GitLab Pages]].  See the output [[https://pank.gitlab.io/org-mode-gitlab-pages][here]].
+Example [[http://orgmode.org][org-mode]] website using [[http://pages.gitlab.io/][GitLab Pages]].
 
 Learn more about GitLab Pages at [[https://pages.gitlab.io]] and the
 official documentation [[http://doc.gitlab.com/ee/pages/README.html]].
@@ -18,9 +18,6 @@ The org-mode manual can be accessed here: [[http://orgmode.org/org.html]].
 The main place for Org development is the mailing list, available on
 [[http://dir.gmane.org/gmane.emacs.orgmode][Gmane]].
 * Gitlab CI
-*Note*: Gitlab Pages is *not Free Software* as it is only part of the
-GitLab Enterprise Edition, not the community edition!
-
 
 This project's static Pages are built by [[https://about.gitlab.com/gitlab-ci/][GitLab CI]], following the
 steps defined in [[https://gitlab.com/pages/nikola/blob/master/.gitlab-ci.yml][.gitlab-ci.yml]]:
@@ -66,3 +63,7 @@ Read more about [[http://doc.gitlab.com/ee/pages/README.html#user-or-group-pages
 If you forked this project for your own use, please go to your
 project's Settings and remove the forking relationship, which won't be
 necessary unless you want to contribute back to the upstream project.
+
+---
+
+Forked from https://gitlab.com/pank/org-mode-gitlab-pages
