@@ -5,7 +5,7 @@
 Example [[http://orgmode.org][org-mode]] website using [[http://pages.gitlab.io/][GitLab Pages]].
 
 Learn more about GitLab Pages at [[https://pages.gitlab.io]] and the
-official documentation [[http://doc.gitlab.com/ee/pages/README.html]].
+official documentation [[https://docs.gitlab.com/ce/user/project/pages/]].
 
 * Org-mode
 Org-mode is [[http://www.gnu.org/philosophy/free-sw.en.html][Free Software]] and part of [[https://www.gnu.org/s/emacs/][GNU Emacs]].  It's a simple
@@ -56,7 +56,7 @@ additional step: just rename your project to ~namespace.gitlab.io~,
 where ~namespace~ is your ~username~ or ~groupname~. This can be done by
 navigating to your project's Settings.
 
-Read more about [[http://doc.gitlab.com/ee/pages/README.html#user-or-group-pages][user/group Pages]] and [[http://doc.gitlab.com/ee/pages/README.html#project-pages][project Pages]].
+Read more about [[https://docs.gitlab.com/ce/user/project/pages/#user-or-group-pages][user/group Pages]] and [[https://docs.gitlab.com/ce/user/project/pages/#project-pages][project Pages]].
 
 * Did you fork this project?
 
