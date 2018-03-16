@@ -1,12 +1,18 @@
-image: moul/emacs
+image: iquiw/alpine-emacs
 
-pages:
+.build: &build
   script:
-  - emacs --batch --eval "(progn (package-initialize) (package-refresh-contents) (package-install 'org))"
   - emacs --batch --no-init-file --load publish.el --funcall org-publish-all
   artifacts:
     paths:
     - public
+
+pages:
+  <<: *build
   only:
   - master
 
+test:
+  <<: *build
+  except:
+  - master
