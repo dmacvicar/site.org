@@ -1,12 +1,25 @@
 ;; publish.el --- Publish org-mode project on Gitlab Pages
 ;; Author: Rasmus
 
+;;; Commentary:
+;; This script will convert the org-mode files in this directory into
+;; html.
+
+;;; Code:
+
+(require 'package)
 (package-initialize)
+(add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(package-refresh-contents)
+(package-install 'org-plus-contrib)
+(package-install 'htmlize)
+
 (require 'org)
 (require 'ox-publish)
-(setq org-publish-use-timestamps-flag nil)
-(setq user-full-name "Rasmus")
-(setq user-mail-address "gitlab-pages@pank.eu")
+
+;; setting to nil, avoids "Author: x" at the bottom
+(setq user-full-name nil)
 
 (setq org-export-with-section-numbers nil
       org-export-with-smart-quotes t
@@ -19,9 +32,13 @@
       org-html-metadata-timestamp-format "%Y-%m-%d"
       org-html-checkbox-type 'html
       org-html-html5-fancy t
+      org-html-validation-link nil
       org-html-doctype "html5")
-(defvar site-attachments (regexp-opt '("jpg" "jpeg" "gif" "png" "svg"
-                                       "ico" "cur" "css" "js" "woff" "html" "pdf")))
+
+(defvar site-attachments
+  (regexp-opt '("jpg" "jpeg" "gif" "png" "svg"
+                "ico" "cur" "css" "js" "woff" "html" "pdf"))
+  "File types that are published as static files.")
 
 (setq org-publish-project-alist
       (list
@@ -46,3 +63,6 @@
              :publishing-function 'org-publish-attachment
              :recursive t)
        (list "site" :components '("site-org"))))
+
+(provide 'publish)
+;;; publish.el ends here
