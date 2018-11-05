@@ -11,3 +11,4 @@ Here's some examples of pages generated using =ox-publish.el= and
 - Nicolas Petton :: http://nicolas-petton.fr/blog/blogging-with-org-mode.html
 - Pavel Panchekha :: https://pavpanchekha.com/blog/org-mode-publish.html
 - Pierre Neidhardt :: https://ambrevar.xyz/blog-architecture
+- Caolan McMahon :: https://caolan.org/dotfiles/emacs.html#org-mode-publishing
