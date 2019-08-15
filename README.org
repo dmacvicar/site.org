@@ -1,69 +1,20 @@
-#+title: Publishing org-mode projects on Gitlab Pages
-#+author: Rasmus
-#+date: <2016-05-23 Mon>
+#+title: Jekyll-like publishing with org-mode
+#+author: Duncan Mac-Vicar P.
+#+date: <2019-08-15 Thu>
 
-Example [[http://orgmode.org][org-mode]] website using [[http://pages.gitlab.io/][GitLab Pages]].
+* Introduction
 
-Learn more about GitLab Pages at [[https://pages.gitlab.io]] and the
-official documentation [[https://docs.gitlab.com/ce/user/project/pages/]].
+This setup aims to replace Jekyll publishing with =org-mode=, with the following requirements:
 
-* Org-mode
-Org-mode is [[http://www.gnu.org/philosophy/free-sw.en.html][Free Software]] and part of [[https://www.gnu.org/s/emacs/][GNU Emacs]].  It's a simple
-document format ("Org") with a powerful and intuitive interface
-(org-mode) that can [[http://orgmode.org/org.html#Exporting][export]] and [[http://orgmode.org/org.html#Publishing][publish]] to html, LaTeX, ascii, odt
-amongst others, and [[http://orgmode.org/org.html#Working-with-source-code][evaluate source code]].
+- Use as much standard packages as possible. eg. =org-publish=
+- Backward compatible with my old site, which means implementing at least the permalink layout
+- Ability to migrate content gradually, which means probably support Markdown posts for a while
+- Ability to run it from the command line, so that CI can be used later
 
-The org-mode manual can be accessed here: [[http://orgmode.org/org.html]].
+* Inspiration
 
-The main place for Org development is the mailing list, available on
-[[http://dir.gmane.org/gmane.emacs.orgmode][Gmane]].
-* Gitlab CI
+Ideas, snippets, skeletons and more were taken from the following projects:
 
-This project's static Pages are built by [[https://about.gitlab.com/gitlab-ci/][GitLab CI]], following the
-steps defined in [[https://gitlab.com/pages/nikola/blob/master/.gitlab-ci.yml][.gitlab-ci.yml]]:
+- Example [[http://orgmode.org][org-mode]] website using [[http://pages.gitlab.io/][GitLab Pages]] by Rasmus
+- https://github.com/bastibe/org-static-blog
 
-#+BEGIN_SRC conf
-image: moul/emacs
-
-pages:
-  script:
-  - emacs --batch --eval "(progn (package-initialize) (package-refresh-contents) (package-install 'org))"
-  - emacs --batch --no-init-file --load publish.el --funcall org-publish-all
-  artifacts:
-    paths:
-    - public
-  only:
-  - master
-#+END_SRC
-
-These build instructions are using a docker image, namely ~moul/emacs~.
-It makes it possible to publish the project on a public runner on
-Gitlab.com.
-
-You could probably get a better experience by using a local runner on
-a server you control.  If so, you can drop the ~image~ keyword.
-
-* Building locally
-Org-mode is part of GNU Emacs.  See how to obtain GNU Emacs on your OS
-here: [[https://www.gnu.org/software/emacs/download.html]].
-
-To get the latest version of Org see [[http://orgmode.org]].
-
-* GitLab User or Group Pages
-
-To use this project as your user/group website, you will need one
-additional step: just rename your project to ~namespace.gitlab.io~,
-where ~namespace~ is your ~username~ or ~groupname~. This can be done by
-navigating to your project's Settings.
-
-Read more about [[https://docs.gitlab.com/ce/user/project/pages/#user-or-group-pages][user/group Pages]] and [[https://docs.gitlab.com/ce/user/project/pages/#project-pages][project Pages]].
-
-* Did you fork this project?
-
-If you forked this project for your own use, please go to your
-project's Settings and remove the forking relationship, which won't be
-necessary unless you want to contribute back to the upstream project.
-
----
-
-Forked from [[https://gitlab.com/pank/org-mode-gitlab-pages]]
