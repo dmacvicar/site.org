@@ -1,0 +1,36 @@
+
+
+* \faBookmark Latest writings
+  :PROPERTIES:
+  :HTML_CONTAINER_CLASS: post-list
+  :END:
+
+#+INCLUDE: posts/posts.org
+
+Full list at my [[file:./posts/archive.org][my Blog.]]
+
+* Hello everybody
+
+this is a tutorial
+
+#+begin_src C
+#include <stdio.h>
+
+int main() {
+    printf("Hello");
+}
+#+end_src
+
+-----
+
+* \faCode Projects/Code
+  :PROPERTIES:
+  :HTML_CONTAINER_CLASS: post-list
+  :END:
+
+* \faGraduationCap Tutorials
+  :PROPERTIES:
+  :HTML_CONTAINER_CLASS: post-list
+  :END:
+
+- <2017-03-08 Wed> [[file:tutorials/rpm-packaging/index.org][Full overview of RPM based packaging.]]
