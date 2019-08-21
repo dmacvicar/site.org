@@ -4,7 +4,7 @@
   (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
   (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
   (package-refresh-contents))
-(dolist (pkg '(org-plus-contrib htmlize))
+(dolist (pkg '(projectile org-plus-contrib htmlize))
   (unless (package-installed-p pkg)
     (package-install pkg)))
 
@@ -13,6 +13,7 @@
 (require 'ox-publish)
 (require 'ert)
 (require 's)
+(require 'projectile)
 
 (defvar duncan-website-html-head
   "<link rel='stylesheet' href='css/site.css' type='text/css'/>
@@ -71,7 +72,7 @@ PROJECT is the current project."
              :base-directory "./posts"
              :exclude (regexp-opt '("posts.org" "archive.org"))
              :base-extension "org"
-             :publishing-directory "./public/posts"
+             :publishing-directory (expand-file-name "public" (projectile-project-root))
              :publishing-function 'org-html-publish-to-html
              :section-numbers nil
              :with-toc nil
@@ -104,7 +105,7 @@ PROJECT is the current project."
         (list "content"
               :base-directory "./"
               :base-extension "org"
-              :publishing-directory "./public"
+              :publishing-directory (expand-file-name "public" (projectile-project-root))
               :publishing-function 'duncan/org-html-publish-to-html
               :section-numbers nil
 
