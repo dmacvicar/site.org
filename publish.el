@@ -102,13 +102,12 @@ PROJECT is the current project."
                                         ;:sitemap-sort-files 'anti-chronologically
               :sitemap-function 'duncan/org-publish-sitemap-archive)
 
-        (list "content"
+        (list "website"
               :base-directory "./"
               :base-extension "org"
               :publishing-directory (expand-file-name "public" (projectile-project-root))
               :publishing-function 'duncan/org-html-publish-to-html
               :section-numbers nil
-
               :html-head duncan-website-html-head
               :html-htmlized-css-url "css/site.css"
               :html-preamble t
