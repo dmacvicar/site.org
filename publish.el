@@ -63,6 +63,13 @@ PROJECT is the current project."
 				      "html"))
 		      plist pub-dir))
 
+(defun duncan/org-html-publish-post-to-html (plist filename pub-dir)
+  "Appends post date as subtitle"
+  (let ((project (cons 'blog plist)))
+    (plist-put plist :subtitle
+               (format-time-string "%b %d, %Y" (org-publish-find-date filename project)))
+    (duncan/org-html-publish-to-html plist filename pub-dir)))
+
 ; Project definition
 (defvar duncan--publish-project-alist
       (list
@@ -70,8 +77,9 @@ PROJECT is the current project."
              :base-directory "./posts"
              :exclude (regexp-opt '("posts.org" "archive.org"))
              :base-extension "org"
-             :publishing-directory (expand-file-name "public" (projectile-project-root))
-             :publishing-function 'org-html-publish-to-html
+             :recursive t
+             :publishing-directory (expand-file-name "public/posts" (projectile-project-root))
+             :publishing-function 'duncan/org-html-publish-post-to-html
              :section-numbers nil
              :with-toc nil
              :html-head duncan-website-html-head
@@ -80,10 +88,11 @@ PROJECT is the current project."
              :html-postamble t
              :html-postamble-format (duncan--layout-format 'postamble)
              :html-head-include-scripts nil
-             :html-htmlized-css-url "../css/site.css"
+             :html-htmlized-css-url "/css/site.css"
              :html-head-include-default-style nil
              :auto-sitemap t
              :sitemap-filename "posts.org"
+             :sitemap-style 'list
              :sitemap-title nil
              :sitemap-sort-files 'anti-chronologically
              :sitemap-function 'duncan/org-publish-sitemap-latest-posts
