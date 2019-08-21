@@ -85,8 +85,7 @@ PROJECT is the current project."
              :auto-sitemap t
              :sitemap-filename "posts.org"
              :sitemap-title nil
-                                        ;:sitemap-style 'list
-                                        ;:sitemap-sort-files 'anti-chronologically
+             :sitemap-sort-files 'anti-chronologically
              :sitemap-function 'duncan/org-publish-sitemap-latest-posts
              :sitemap-format-entry 'duncan/org-publish-sitemap-entry)
 
