@@ -1,5 +1,6 @@
 /* https://jgthms.com/web-design-in-4-minutes */
-@import 'https://fonts.googleapis.com/css?family=Roboto:300,400,500';
+/* @import 'https://fonts.googleapis.com/css?family=Roboto:300,400,500'; */
+@import 'https://fonts.googleapis.com/css?family=Raleway:400,300,600';
 
 body {
   margin: 0 auto;
@@ -18,7 +19,7 @@ body {
   width: 80%;
 }
 
-header, main, footer {
+header#preamble, main#content, footer#postamble {
   padding-left: 2em;
 }
 
@@ -61,7 +62,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
 }
 
-.outline-2 h2 {
+.post-list.outline-2 h2 {
   font-size: 0.9rem;
 }
 
@@ -74,6 +75,20 @@ h1,
 h2,
 strong {
   color: #333;
+}
+
+h1.title {
+  font-weight: 800;
+}
+
+h1 {
+  font-size: 32px;
+  line-height: 40px;
+}
+
+h2 {
+    font-size: 24px;
+    line-height: 30px;
 }
 
 code, pre {
@@ -132,4 +147,34 @@ section.post-list li .timestamp:after {
 
 #social {
   font-size: 13px;
+}
+
+hr {
+  margin-top: 3rem;
+  margin-bottom: 3.5rem;
+  border-width: 0;
+  border-top-width: 0px;
+  border-top: 1px solid #E1E1E1;
+}
+
+blockquote {
+  background: #f9f9f9;
+
+  border-left: 10px solid #ccc;
+  margin: 1.5em 10px;
+  padding: 0.5em 10px;
+  quotes: "\201C""\201D""\2018""\2019";
+}
+
+blockquote p {
+  display: inline;
+}
+
+blockquote::before {
+  color: #ccc;
+  content: open-quote;
+  font-size: 4em;
+  line-height: 0.1em;
+  margin-right: 0.25em;
+  vertical-align: -0.4em;
 }
