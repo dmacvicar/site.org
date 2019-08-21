@@ -1,4 +1,4 @@
-#+title: Jekyll-like publishing with org-mode
+#+title: My homepage with org-mode
 #+author: Duncan Mac-Vicar P.
 #+date: <2019-08-15 Thu>
 
@@ -17,4 +17,4 @@ Ideas, snippets, skeletons and more were taken from the following projects:
 
 - Example [[http://orgmode.org][org-mode]] website using [[http://pages.gitlab.io/][GitLab Pages]] by Rasmus
 - https://github.com/bastibe/org-static-blog
-
+- [[https://gitlab.com/to1ne/blog][Toon Clae's blog]]
