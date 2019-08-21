@@ -126,23 +126,17 @@ PROJECT is the current project."
               :publishing-function 'org-html-publish-to-html
               :section-numbers nil
               :with-toc t)
-                                        ;         :html-head ,duncan-website-html-blog-head)
-                                        ;         :html-preamble ,duncan-website-html-preamble
-                                        ;         :html-postamble ,duncan-website-html-postamble)
-
         (list "images"
               :base-directory "./assets/images"
               :recursive t
               :base-extension "jpg\\|gif\\|png"
               :publishing-directory "./public/assets/images"
               :publishing-function 'org-publish-attachment)
-        
         (list "js"
               :base-directory "./assets/js"
               :base-extension "js"
               :publishing-directory "./public/js"
          :publishing-function 'org-publish-attachment)
-        
         (list "css"
               :base-directory "./css"
               :base-extension "css"
