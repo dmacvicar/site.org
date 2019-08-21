@@ -70,6 +70,13 @@ PROJECT is the current project."
                (format-time-string "%b %d, %Y" (org-publish-find-date filename project)))
     (duncan/org-html-publish-to-html plist filename pub-dir)))
 
+(defun duncan/org-rss-publish-to-rss (plist filename pub-dir)
+  "Publish RSS with PLIST, only when FILENAME is 'archive.org'.
+PUB-DIR is when the output will be placed."
+  (if (equal "archive.org" (file-name-nondirectory filename))
+      (org-rss-publish-to-rss plist filename pub-dir)))
+
+
 ; Project definition
 (defvar duncan--publish-project-alist
       (list
@@ -98,33 +105,35 @@ PROJECT is the current project."
              :sitemap-function 'duncan/org-publish-sitemap-latest-posts
              :sitemap-format-entry 'duncan/org-publish-sitemap-entry)
 
-        (list "rss"
+        (list "archive-rss"
               :base-directory "./posts"
+              :recursive t
               :exclude (regexp-opt '("posts.org" "archive.org"))
               :base-extension "org"
               :publishing-directory "./public"
-              :publishing-function 'org-rss-publish-to-rss
+              :publishing-function 'duncan/org-rss-publish-to-rss
               :html-link-home "http://duncan.codes/"
               :html-link-use-abs-url t
               :auto-sitemap t
+              :sitemap-style 'list
               :sitemap-filename "archive.org"
                                         ;:sitemap-sort-files 'anti-chronologically
               :sitemap-function 'duncan/org-publish-sitemap-archive)
 
         (list "website"
               :base-directory "./"
+              :include '("posts/archive.org")
               :base-extension "org"
               :publishing-directory (expand-file-name "public" (projectile-project-root))
               :publishing-function 'duncan/org-html-publish-to-html
               :section-numbers nil
               :html-head duncan-website-html-head
-              :html-htmlized-css-url "css/site.css"
               :html-preamble t
               :html-preamble-format (duncan--layout-format 'preamble)
               :html-postamble t
               :html-postamble-format (duncan--layout-format 'postamble)
               :html-validation-link nil
-              :html-htmlized-css-url "css/site.css"
+              :html-htmlized-css-url "/css/site.css"
               :html-head-include-scripts nil
               :html-head-include-default-style nil)
         (list "tutorials"
