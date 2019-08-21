@@ -18,3 +18,5 @@ Ideas, snippets, skeletons and more were taken from the following projects:
 - Example [[http://orgmode.org][org-mode]] website using [[http://pages.gitlab.io/][GitLab Pages]] by Rasmus
 - https://github.com/bastibe/org-static-blog
 - [[https://gitlab.com/to1ne/blog][Toon Clae's blog]]
+- The theme is a port of [[https://github.com/swanson/lagom][Lagom]]
+
