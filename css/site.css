@@ -178,3 +178,21 @@ blockquote::before {
   margin-right: 0.25em;
   vertical-align: -0.4em;
 }
+
+.subtitle {
+  color: #aaa;
+  margin: 0 0 10px 0;
+}
+
+main img {
+  outline: 0;
+  max-width: 100%;
+  height: auto;
+}
+
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
