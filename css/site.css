@@ -91,20 +91,20 @@ h2 {
     line-height: 30px;
 }
 
-code, pre {
-  background: #f5f7f9;
-  border-bottom: 1px solid #d8dee9;
-  color: #a7adba;
-}
-
-code {
-  padding: 2px 4px;
-  vertical-align: text-bottom;
-}
-
 pre {
   padding: 1em;
   border-left: 2px solid #69c;
+}
+
+pre.example, pre.src, code {
+  font-family: monospace, monospace;
+  border: 1px solid #ddd;
+  background-color: #eef;
+  font-size: 85%;
+}
+
+pre.example, pre.src {
+  padding: 0 1em;
 }
 
 a {
