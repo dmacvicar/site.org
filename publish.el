@@ -135,21 +135,12 @@ PROJECT is the current project."
               :publishing-function 'org-html-publish-to-html
               :section-numbers nil
               :with-toc t)
-        (list "images"
-              :base-directory "./assets/images"
+        (list "assets"
+              :base-directory "./"
+              :exclude (regexp-opt '("assets"))
               :recursive t
-              :base-extension "jpg\\|gif\\|png"
-              :publishing-directory "./public/assets/images"
-              :publishing-function 'org-publish-attachment)
-        (list "js"
-              :base-directory "./assets/js"
-              :base-extension "js"
-              :publishing-directory "./public/js"
-         :publishing-function 'org-publish-attachment)
-        (list "css"
-              :base-directory "./css"
-              :base-extension "css"
-              :publishing-directory "./public/css"
+              :base-extension "jpg\\|gif\\|png\\|js\\|css"
+              :publishing-directory "./public"
               :publishing-function 'org-publish-attachment)))
 
 ; Our publishing definition
