@@ -16,9 +16,7 @@
 (require 'projectile)
 
 (defvar duncan-website-html-head
-  "<link rel='stylesheet' href='css/site.css' type='text/css'/>
-   <link href='//fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
-   <link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css' rel='stylesheet' integrity='sha256-k2/8zcNbxVIh5mnQ52A0r3a6jAgMGxFJFE2707UxGCk= sha512-ZV9KawG2Legkwp3nAlxLIVFudTauWuBpC10uEafMHYL0Sarrz5A7G79kXh5+5+woxQ5HM559XX2UZjMJ36Wplg==' crossorigin='anonymous'/>")
+  "<link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css' rel='stylesheet' integrity='sha256-k2/8zcNbxVIh5mnQ52A0r3a6jAgMGxFJFE2707UxGCk= sha512-ZV9KawG2Legkwp3nAlxLIVFudTauWuBpC10uEafMHYL0Sarrz5A7G79kXh5+5+woxQ5HM559XX2UZjMJ36Wplg==' crossorigin='anonymous'/>")
 (defvar duncan-website-html-blog-head "")
 
 (defun duncan--layout-format (name)
@@ -76,11 +74,14 @@ PROJECT is the current project."
              :publishing-function 'org-html-publish-to-html
              :section-numbers nil
              :with-toc nil
-             :html-head duncan-website-html-blog-head
-             :html-head-extra
-             "<link rel=\"alternate\" type=\"application/rss+xml\"
-                href=\"http://duncan.codes/blog/blog.xml\"
-                title=\"RSS feed\">"
+             :html-head duncan-website-html-head
+             :html-preamble t
+             :html-preamble-format (duncan--layout-format 'preamble)
+             :html-postamble t
+             :html-postamble-format (duncan--layout-format 'postamble)
+             :html-head-include-scripts nil
+             :html-htmlized-css-url "../css/site.css"
+             :html-head-include-default-style nil
              :auto-sitemap t
              :sitemap-filename "posts.org"
              :sitemap-title nil
@@ -110,13 +111,13 @@ PROJECT is the current project."
               :section-numbers nil
 
               :html-head duncan-website-html-head
+              :html-htmlized-css-url "css/site.css"
               :html-preamble t
               :html-preamble-format (duncan--layout-format 'preamble)
               :html-postamble t
               :html-postamble-format (duncan--layout-format 'postamble)
               :html-validation-link nil
-;              :html-html5-fancy t
-;              :html-doctype "html5"
+              :html-htmlized-css-url "css/site.css"
               :html-head-include-scripts nil
               :html-head-include-default-style nil)
         (list "tutorials"
