@@ -1,27 +1,30 @@
 require 'fileutils'
 
 BASE = '../dmacvicar.github.io'.freeze
-MD_IMAGE_REGEX = /\!\[(.+)\]\(\s*\{\{\s*site\.baseurl\s*\}\}(.+)\)/.freeze
-IMAGE_PATH_REGEX = /\/assets\/images\/posts\/(.+)\/(.+)/.freeze
+MD_IMAGE_REGEX = /\!\[(.*)\]\(\s*\{\{\s*site\.baseurl\s*\}\}(.+)\)/.freeze
 
 Dir.glob(File.join(Dir.pwd, 'posts/**/*.org')).each do |entry|
+  next unless File.basename(entry) == 'index.org'
+  post_id = File.basename(File.dirname(entry))
   content = File.read(entry)
-  content.to_enum(:scan, MD_IMAGE_REGEX).map { Regexp.last_match }.each do |data| 
+  puts "Analyzing #{entry} (#{post_id})"
+  content.to_enum(:scan, MD_IMAGE_REGEX).map { Regexp.last_match }.each do |data|
+    caption = data[1].strip
     asset = data[2]
-    # /assets/images/posts/2016-03-16-susemanager-3-backstage/minion-clients-2.png
-    puts asset
-    IMAGE_PATH_REGEX.match(asset) do |asset_data|
-      post_id = asset_data[1]
-      image = asset_data[2]
-      img_dir = File.join(Dir.pwd, 'posts', post_id, "images")
-      FileUtils.mkdir_p(img_dir)
-      img_path = File.join(img_dir, image)
-      puts "* " + File.join(BASE, asset) + " -> " + File.join(img_dir, image)
-      FileUtils.cp File.join(BASE, asset), img_path
-      content.gsub!(IMAGE_PATH_REGEX, '\2')
-      content.gsub!(MD_IMAGE_REGEX, '[[file:images/\2]]')
-      puts content
-      File.write(entry, content)
+    img_src = File.join(BASE, asset)
+    img_target_dir = File.join(Dir.pwd, 'posts', post_id, "images")
+    img_target_path = File.join(img_target_dir, File.basename(img_src))
+
+    puts "#{img_src} -> #{img_target_path}"
+
+    replace_regex = /#{Regexp.escape(data[0])}/
+
+    img_org_markup = "[[file:images/#{File.basename(img_target_path)}]]"
+    puts "Replace #{replace_regex}"
+    if caption != ""
+      img_org_markup = "#+ATTR_HTML: :alt #{caption}\n#{img_org_markup}"
     end
+    content.gsub!(replace_regex, img_org_markup)
+    File.write(entry, content)
   end
 end
