@@ -27,13 +27,11 @@ framework, but not the only one.
 For example, you can create more scalable topoligies using the concept
 of syndics:
 
-![Salt syndic]({{ site.baseurl
-}}/assets/images/posts/2016-05-13-using-salt-like-ansible/salt-syndic.png)
+[[file:images/salt-syndic.png]]
 
 Or manage dumb devices with the concept of Salt proxies:
 
-![Salt 0mq]({{ site.baseurl
-}}/assets/images/posts/2016-05-13-using-salt-like-ansible/salt-proxy.png)
+[[file:images/salt-proxy.png]]
 
 It is [[https://docs.saltstack.com/en/getstarted/][worth to learn the
 whole framework]].

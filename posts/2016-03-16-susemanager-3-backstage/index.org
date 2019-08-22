@@ -140,8 +140,9 @@ Infrastructure]] plus the support for
 [[https://docs.saltstack.com/en/latest/topics/proxyminion/index.html][dumb
 devices]] culminated in the great SUSECon demo.
 
-![SUSECon 1]({{ site.baseurl
-}}/assets/images/posts/2016-03-16-susemanager-3-backstage/susecon-susemanager-1.png)
+#+CAPTION: Weird picture
+#+ATTR_HTML: :alt SUSECon I
+[[file:images/susecon-susemanager-1.png]]
 
 At SUSECon we showed that with the concept of reactive infrastructure;
 it was trivial to react to changes in configuration drift, in this case,
@@ -153,8 +154,7 @@ minions]], just like you will have to do once the
 [[https://en.wikipedia.org/wiki/Internet_of_Things][IoT]] takes over the
 world.
 
-![SUSECon 1]({{ site.baseurl
-}}/assets/images/posts/2016-03-16-susemanager-3-backstage/susecon-susemanager-2.png)
+[[file:images/susecon-susemanager-2.png]]
 
 On top of that we showed that we could achieve all using the power of
 opensource that SUSE has been doing for almost 25 years. Support for
@@ -209,8 +209,7 @@ The basic architecture of a reactor that handles Salt events and
 interacts with Spacewalk was in place. What we needed now was a way for
 Spacewalk to interact with Salt.
 
-![SUSE Manager 3 Salt Architecture 1]({{ site.baseurl
-}}/assets/images/posts/2016-03-16-susemanager-3-backstage/suma-salt-architecture.png)
+[[file:images/suma-salt-architecture.png]]
 
 *** salt-netapi-client
     :PROPERTIES:
@@ -277,26 +276,22 @@ The next step was to make SUSE Manager aware of minions. First by
 registering them as they appeared (after =salt-key --accept= was done),
 so that they show up together with traditional systems:
 
-![Minion Clients Updates 1]({{ site.baseurl
-}}/assets/images/posts/2016-03-16-susemanager-3-backstage/minion-clients-2.png)
+[[file:images/minion-clients-2.png]]
 
 After we had done work in order to retrieve the inventory data using
 Salt itself, the details page of minions was also available:
 
-![Minion Overview 1]({{ site.baseurl
-}}/assets/images/posts/2016-03-16-susemanager-3-backstage/minion-overview-1.png)
+[[file:images/minion-overview-1.png]]
 
 Once this was working we improved on it, allowing to operate the
 =salt-key= functionality directly from the user interface. Once a minion
 key needs to be accepted you would see it in the overview page:
 
-![Minion Pending 1]({{ site.baseurl
-}}/assets/images/posts/2016-03-16-susemanager-3-backstage/pending-minions-1.png)
+[[file:images/pending-minions-1.png]]
 
 And from there you can accept which ones to onboard:
 
-![Minion Onboarding 1]({{ site.baseurl
-}}/assets/images/posts/2016-03-16-susemanager-3-backstage/minion-onboarding-1.png)
+[[file:images/minion-onboarding-1.png]]
 
 *** Configuration Management with SUSE Manager
     :PROPERTIES:
@@ -315,15 +310,13 @@ traditional clients, there are two main differences:
   of States]].
 - You can write plain =sls= data in custom states
 
-![State Catalog 1]({{ site.baseurl
-}}/assets/images/posts/2016-03-16-susemanager-3-backstage/states-catalog-1.png)
+[[file:images/states-catalog-1.png]]
 
 Additionally, SUSE Manager also has a higher level state user interface
 for packages. With this user interface you can search packages in the
 assigned channels.
 
-![Minion Package Stats 1]({{ site.baseurl
-}}/assets/images/posts/2016-03-16-susemanager-3-backstage/package-states-1.png)
+[[file:images/package-states-1.png]]
 
 **** Common states for organizations and groups
      :PROPERTIES:
@@ -336,8 +329,7 @@ Organizations and Groups. Every system belonging to those entities
 [[https://docs.saltstack.com/en/latest/ref/states/top.html][will be
 subject to those states]].
 
-![Minion Custom States 1]({{ site.baseurl
-}}/assets/images/posts/2016-03-16-susemanager-3-backstage/minion-custom-states-1.png)
+[[file:images/minion-custom-states-1.png]]
 
 ** Massive command execution
    :PROPERTIES:
@@ -350,8 +342,7 @@ version of =salt '*' cmd.run=. You can preview which minions will be
 affected with the target before sending the commands and then see the
 results in real time:
 
-![Remote Commands 1]({{ site.baseurl
-}}/assets/images/posts/2016-03-16-susemanager-3-backstage/remote-commands-1.png)
+[[file:images/remote-commands-1.png]]
 
 ** Being part of the ecosystem
    :PROPERTIES:
@@ -369,8 +360,7 @@ works if you are part of it.
   and help shape Salt's future
 - SUSE will be gold sponsor at Saltconf 2016
 
-![Saltconf Sponsors 1]({{ site.baseurl
-}}/assets/images/posts/2016-03-16-susemanager-3-backstage/saltconf-sponsor-1.png)
+[[file:images/saltconf-sponsor-1.png]]
 
 ** The future
    :PROPERTIES:
