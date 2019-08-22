@@ -178,3 +178,7 @@
            ("faGraduationCap" "\\faGraduationCap" nil "<i aria-hidden='true' class='fa fa-graduation-cap'></i>" "" "" ""))))
         (org-html-htmlize-output-type       'css))
     (org-publish-all)))
+
+(provide 'publish)
+;;; publish.el ends here
+
