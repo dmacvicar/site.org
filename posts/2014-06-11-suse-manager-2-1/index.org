@@ -8,8 +8,7 @@ SUSE Manager would look like:
   I really appreciate this update! The new interface looks more clean
   and well-designed than the elderly look. I'm really interested to see
   what the implementation in SUSE Manager will look like and whether Red
-  Hat Satellite will also get a new design.  #+ATTR_HTML: :alt :)
-[[file:images/icon_smile.gif]]
+  Hat Satellite will also get a new design.
 #+END_QUOTE
 
 Well, now you can see it yourself, as [[https://www.suse.com/company/press/2014/6/new-suse-manager-to-simplify-improve-linux-server-lifecycle-management.html][SUSE Manager 2.1 is out!]]
@@ -23,9 +22,11 @@ New features include, among others:
 
 - A slick setup wizard to guide administrators through the basic steps
   needed to configure a fully operational SUSE Manager: Proxy, Novell
-  Mirror Credentials, SUSE Products.\\
+  Mirror Credentials, SUSE Products.
+
   #+ATTR_HTML: :alt SUSE Manager Admin Setup Wizard Mirror Credentials
 [[file:images/suse-manager-admin-setup-wizard-mirror-credentials.png]]
+
 - Action chaining that lets administrators bundle and execute related
   management actions in one step
 - Unattended bare-metal provisioning that allows customers to power on
@@ -39,11 +40,12 @@ New features include, among others:
   systems: what vulnerabilities affect you where you haven't yet
   assigned the right channels. For example, you may have an affected
   system in production. CVE Auditing may tell you that you can fix the
-  security issue by assigning the stage channel to a system.\\
+  security issue by assigning the stage channel to a system.
+
   #+ATTR_HTML: :alt CVE Audit
 [[file:images/cve-audit.png]]
+
 - Locks packages on the server which are then enforced on the client
   side (eg. if you login via ssh to the client).
 
-And of course, most of the work is [[https://github.com/spacewalkproject/spacewalk/pulls][already merged
-upstream]].
+And of course, most of the work is [[https://github.com/spacewalkproject/spacewalk/pulls][already merged upstream]].
