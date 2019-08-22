@@ -53,8 +53,34 @@
   :translate-alist
   '((timestamp . duncan/org-html-timestamp)))
 
+(defun duncan/post-get-metadata-from-frontmatter (post-filename key)
+  "Extract the KEY as`#+KEY:` from POST-FILENAME."
+  (let ((case-fold-search t))
+    (with-temp-buffer
+      (insert-file-contents post-filename)
+      (goto-char (point-min))
+      (ignore-errors (search-forward-regexp (format "^\\#\\+%s\\:\s+\\(.+\\)$" key)))
+      (match-string 1))))
+
+(defun duncan/org-html-publish-generate-redirect (plist filename pub-dir)
+  "Generate redirect files in PUB-DIR from the #+REDIRECT_FROM header in FILENAME, using PLIST."
+  (let* ((redirect-from (duncan/post-get-metadata-from-frontmatter filename "REDIRECT_FROM"))
+         (root (projectile-project-root))
+         (pub-root (concat root "public"))
+         (target-filepath (concat pub-root redirect-from))
+         (target-filename (file-name-nondirectory target-filepath))
+         (rel-filename (file-relative-name filename (file-name-directory target-filepath))))
+    (when redirect-from
+      (with-temp-buffer
+                                        ;(insert-file-contents (concat root "layouts/redirect.html"))
+        (insert (format "[[file:%s][Redirect]]" rel-filename))
+        (make-directory (file-name-directory target-filepath) :parents)
+        (org-export-to-file 'duncan/html target-filepath nil nil nil nil plist))
+      (message (format "Create %s" target-filepath)))))
+
 (defun duncan/org-html-publish-to-html (plist filename pub-dir)
   "Analog to org-html-publish-to-html using duncan/html backend.  PLIST, FILENAME and PUB-DIR are passed as is."
+  (duncan/org-html-publish-generate-redirect plist filename pub-dir)
   (org-publish-org-to 'duncan/html filename
 		      (concat "." (or (plist-get plist :html-extension)
 				      org-html-extension
@@ -135,7 +161,7 @@
         (list "tutorials"
               :base-directory "./tutorials"
               :base-extension "org"
-              :recursive t
+              :recursive nil
               :publishing-directory "./public/tutorials"
               :publishing-function 'org-html-publish-to-html
               :section-numbers nil
