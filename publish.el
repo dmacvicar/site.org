@@ -26,17 +26,15 @@
              (buffer-string)))))
 
 (defun duncan/org-publish-sitemap-latest-posts (title list)
-  "Wrapper to skip title. See https://orgmode.org/manual/Sitemap.html"
+  "Wrapper to skip TITLE and just use LIST (https://orgmode.org/manual/Sitemap.html)."
   (org-list-to-org list))
 
 (defun duncan/org-publish-sitemap-archive (title list)
-  "Wrapper to skip title. See https://orgmode.org/manual/Sitemap.html"
+  "Wrapper to skip TITLE and just use LIST (https://orgmode.org/manual/Sitemap.html)."
   (org-list-to-org list))
 
 (defun duncan/org-publish-sitemap-entry (entry style project)
-  "Format for sitemap ENTRY, as a string.
-ENTRY is a file name.  STYLE is the style of the sitemap.
-PROJECT is the current project."
+  "Format sitemap ENTRY for PROJECT with the post date before the link, to generate a recent posts list.  STYLE is not used."
   (unless (equal entry "404.org")
     (format "%s [[file:%s][%s]]"
             (format-time-string "<%Y-%m-%d>" (org-publish-find-date entry project))
@@ -44,7 +42,7 @@ PROJECT is the current project."
             (org-publish-find-title entry project))))
 
 (defun duncan/org-html-timestamp (timestamp contents info)
-  "We are not going to leak org mode silly <date> format to the world, aren't we?"
+  "We are not going to leak org mode silly <date> format when rendering TIMESTAMP to the world, aren't we?.  CONTENTS and INFO are passed down to org-html-timestamp."
   (let ((org-time-stamp-custom-formats
        '("%d %b %Y" . "%d %b %Y %H:%M"))
         (org-display-custom-times 't))
@@ -56,7 +54,7 @@ PROJECT is the current project."
   '((timestamp . duncan/org-html-timestamp)))
 
 (defun duncan/org-html-publish-to-html (plist filename pub-dir)
-  "Analog to org-html-publish-to-html for duncan/html backend"
+  "Analog to org-html-publish-to-html using duncan/html backend.  PLIST, FILENAME and PUB-DIR are passed as is."
   (org-publish-org-to 'duncan/html filename
 		      (concat "." (or (plist-get plist :html-extension)
 				      org-html-extension
@@ -64,18 +62,16 @@ PROJECT is the current project."
 		      plist pub-dir))
 
 (defun duncan/org-html-publish-post-to-html (plist filename pub-dir)
-  "Appends post date as subtitle"
+  "Wraps org-html-publish-to-html.  Append post date as subtitle to PLIST.  FILENAME and PUB-DIR are passed."
   (let ((project (cons 'blog plist)))
     (plist-put plist :subtitle
                (format-time-string "%b %d, %Y" (org-publish-find-date filename project)))
     (duncan/org-html-publish-to-html plist filename pub-dir)))
 
 (defun duncan/org-rss-publish-to-rss (plist filename pub-dir)
-  "Publish RSS with PLIST, only when FILENAME is 'archive.org'.
-PUB-DIR is when the output will be placed."
+  "Wrap org-rss-publish-to-rss with PLIST and PUB-DIR, publishing only when FILENAME is 'archive.org'."
   (if (equal "archive.org" (file-name-nondirectory filename))
       (org-rss-publish-to-rss plist filename pub-dir)))
-
 
 ; Project definition
 (defvar duncan--publish-project-alist
