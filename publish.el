@@ -142,7 +142,7 @@
               :with-toc t)
         (list "assets"
               :base-directory "./"
-              :exclude (regexp-opt '("assets"))
+              :exclude (regexp-opt '("assets" "public"))
               :recursive t
               :base-extension "jpg\\|gif\\|png\\|js\\|css"
               :publishing-directory "./public"
