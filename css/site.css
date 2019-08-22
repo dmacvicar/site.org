@@ -66,9 +66,12 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 0.9rem;
 }
 
+.post-list ul {
+  padding-left: 0;
+}
+
 h2 {
   margin-top: 1em;
-  padding-top: 1em;
 }
 
 h1,
@@ -116,7 +119,7 @@ aside h1, aside h2 {
   text-align: center;
 }
 
-img {
+#preamble img {
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -150,8 +153,8 @@ section.post-list li .timestamp:after {
 }
 
 hr {
-  margin-top: 3rem;
-  margin-bottom: 3.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
   border-width: 0;
   border-top-width: 0px;
   border-top: 1px solid #E1E1E1;
@@ -179,9 +182,17 @@ blockquote::before {
   vertical-align: -0.4em;
 }
 
-.subtitle {
+.subtitle, figcaption {
   color: #aaa;
   margin: 0 0 10px 0;
+}
+
+figcaption {
+  font-size: 0.7em;
+}
+
+.figure-number {
+  visibility: hidden;
 }
 
 main img {
@@ -190,7 +201,7 @@ main img {
   height: auto;
 }
 
-img {
+main img {
   display: block;
   margin-left: auto;
   margin-right: auto;
