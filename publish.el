@@ -20,7 +20,7 @@
 (defvar duncan-website-html-blog-head "")
 
 (defun duncan--layout-format (name)
-  "Format the layout named NAME"
+  "Formats the layout named NAME by reading a file from a directory."
   `(("en" ,(with-temp-buffer
              (insert-file-contents (expand-file-name (format "%s.html" name) "./layouts"))
              (buffer-string)))))
