@@ -140,7 +140,8 @@
               :sitemap-style 'list
               :sitemap-filename "archive.org"
               :sitemap-sort-files 'anti-chronologically
-              :sitemap-function 'duncan/org-publish-sitemap-archive)
+              :sitemap-function 'duncan/org-publish-sitemap-archive
+              :sitemap-format-entry 'duncan/org-publish-sitemap-entry)
 
         (list "website"
               :base-directory "./"
