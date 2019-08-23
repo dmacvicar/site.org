@@ -34,7 +34,7 @@
   (org-list-to-org list))
 
 (defun duncan/org-publish-sitemap-entry (entry style project)
-  "Format sitemap ENTRY for PROJECT with the post date before the link, to generate a recent posts list.  STYLE is not used."
+  "Format sitemap ENTRY for PROJECT with the post date before the link, to generate a posts list.  STYLE is not used."
   (unless (equal entry "404.org")
     (format "%s [[file:%s][%s]]"
             (format-time-string "<%Y-%m-%d>" (org-publish-find-date entry project))
