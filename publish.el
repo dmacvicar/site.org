@@ -93,6 +93,8 @@
              (duncan/org-html-head-extra
               (append (duncan/head-common-list plist)
                       (plist-get plist :html-head-extra-list)) plist))
+  (plist-put plist :html-htmlized-css-url
+             (file-relative-name (concat (duncan/project-root) "/css/site.css") filename))
   (duncan/org-html-publish-generate-redirect plist filename pub-dir)
   (org-publish-org-to 'duncan/html filename
 		      (concat "." (or (plist-get plist :html-extension)
@@ -129,14 +131,15 @@
 
 (defun duncan/project-relative-filename (filename)
   "Return the relative path of FILENAME to the project root."
-  (file-relative-name filename (projectile-project-root)))
+  (file-relative-name filename (duncan/project-root)))
 
 (defun duncan/org-html-publish-site-to-html (plist filename pub-dir)
   "Wraps org-html-publish-to-html.  Append css to hide title to PLIST and other front-page styles.  FILENAME and PUB-DIR are passed."
   (when (equal "index.org" (duncan/project-relative-filename filename))
     (plist-put plist :html-head-extra-list
                (list
-                (list "link" '(rel stylesheet href "/css/index.css")))))
+                (list "link"
+                      '(rel stylesheet href (file-relative-name (concat (duncan/project-root) "/css/index.css") filename))))))
   (duncan/org-html-publish-to-html plist filename pub-dir))
 
 (defun duncan/org-rss-publish-to-rss (plist filename pub-dir)
@@ -162,7 +165,6 @@
              :html-postamble t
              :html-postamble-format (duncan--layout-format 'postamble)
              :html-head-include-scripts nil
-             :html-htmlized-css-url "/css/site.css"
              :html-head-include-default-style nil
              :auto-sitemap t
              :sitemap-filename "posts.org"
@@ -201,7 +203,6 @@
               :html-postamble t
               :html-postamble-format (duncan--layout-format 'postamble)
               :html-validation-link nil
-              :html-htmlized-css-url "/css/site.css"
               :html-head-include-scripts nil
               :html-head-include-default-style nil)
         (list "tutorials"
