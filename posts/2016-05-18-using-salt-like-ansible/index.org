@@ -9,7 +9,7 @@
 
 When we were looking for a configuration management engine to integrate with SUSE Manager, we discussed [[https://www.ansible.com/][Ansible]] with some colleagues that were familiar with it.
 
-At the end, we ended [choosing Salt for SUSE Manager 3]({% post_url 2016-03-16-susemanager-3-backstage %}), but I still often get the question "Why not Ansible?".
+At the end, we ended [[file:../2016-03-16-susemanager-3-backstage/index.org][choosing Salt for SUSE Manager 3]], but I still often get the question "Why not Ansible?".
 
 The first part of the answer had to do that the master-minion architecture of Salt results in a bunch of interesting features and synergies with the way SUSE Manager operates: real-time management, event-bus, etc. Salt is much more of a framework than a simple "command line tool". The minion/master pair is one of the tools built over that framework, but not the only one.
 
