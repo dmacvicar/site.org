@@ -31,7 +31,9 @@
 
 (defun duncan/org-publish-sitemap-archive (title list)
   "Wrapper to skip TITLE and just use LIST (https://orgmode.org/manual/Sitemap.html)."
-  (org-list-to-org list))
+  (let ((title "Blog") (subtitle "Archive"))
+    (concat (format "#+TITLE: %s\n\n* %s\n" title subtitle)
+            (org-list-to-org list) "\n#+BEGIN_EXPORT html\n<a href='../archive.xml'><i class='fa fa-rss'></i></a>\n#+END_EXPORT\n")))
 
 (defun duncan/org-publish-sitemap-entry (entry style project)
   "Format sitemap ENTRY for PROJECT with the post date before the link, to generate a posts list.  STYLE is not used."
@@ -193,14 +195,16 @@
                          (content   "main"   "content")
                          (postamble "footer" "postamble")))
         (org-html-container-element         "section")
-        (org-html-metadata-timestamp-format "%Y-%m-%d")
+        (org-html-metadata-timestamp-format "%d %b. %Y")
         (org-html-checkbox-type             'html)
         (org-html-html5-fancy               t)
         (org-html-validation-link           nil)
         (org-html-doctype                   "html5")
         (org-entities-user
          (quote
-          (("faBookmark" "\\faBookmark" nil "<i aria-hidden='true' class='fa fa-bookmark'></i>" "" "" "")
+          (("faArchive" "\\faArchive" nil "<i aria-hidden='true' class='fa fa-archive'></i>" "" "" "")
+           ("faRss" "\\faRss" nil "<i aria-hidden='true' class='fa fa-rss'></i>" "" "" "")
+           ("faBookmark" "\\faBookmark" nil "<i aria-hidden='true' class='fa fa-bookmark'></i>" "" "" "")
            ("faCode" "\\faCode" nil "<i aria-hidden='true' class='fa fa-code'></i>" "" "" "")
            ("faGraduationCap" "\\faGraduationCap" nil "<i aria-hidden='true' class='fa fa-graduation-cap'></i>" "" "" ""))))
         (org-html-htmlize-output-type       'css))
