@@ -80,8 +80,19 @@
         (org-export-to-file 'duncan/html target-filepath nil nil nil nil plist))
       (message (format "Create %s" target-filepath)))))
 
+(defun duncan/head-common-list (plist)
+  "List of elements going in head for all pages.  Takes PLIST as context."
+  (let ((description "The blog of Duncan Mac-Vicar P."))
+    (list
+     (list "meta" (list "description" description))
+     (list "link" (list "rel" "alternate" "type" "application+rss/xml" "title" description "href" "/archive.xml")))))
+
 (defun duncan/org-html-publish-to-html (plist filename pub-dir)
   "Analog to org-html-publish-to-html using duncan/html backend.  PLIST, FILENAME and PUB-DIR are passed as is."
+  (plist-put plist :html-head-extra
+             (duncan/org-html-head-extra
+              (append (duncan/head-common-list plist)
+                      (plist-get plist :html-head-extra-list)) plist))
   (duncan/org-html-publish-generate-redirect plist filename pub-dir)
   (org-publish-org-to 'duncan/html filename
 		      (concat "." (or (plist-get plist :html-extension)
@@ -89,12 +100,44 @@
 				      "html"))
 		      plist pub-dir))
 
+(defun duncan/org-html-head-extra (tags plist)
+  "Generate extra header elements from TAGS.  Accept PLIST for extra context."
+  (mapconcat (lambda (x)
+               (let ((tag (nth 0 x))
+                     (attrs (nth 1 x)))
+                 (format "<%s %s/>" tag
+                         (mapconcat
+                          (lambda (x)
+                            (let ((attr (nth 0 x))
+                                  (value (nth 1 x)))
+                              (when x
+                                (format "%s='%s'" attr value)))) (seq-partition attrs 2) " ")))) tags "\n"))
+
 (defun duncan/org-html-publish-post-to-html (plist filename pub-dir)
   "Wraps org-html-publish-to-html.  Append post date as subtitle to PLIST.  FILENAME and PUB-DIR are passed."
+    (plist-put plist :html-head-extra-list
+               (list
+                (list "meta" '(page-type blog))))
   (let ((project (cons 'blog plist)))
     (plist-put plist :subtitle
                (format-time-string "%b %d, %Y" (org-publish-find-date filename project)))
     (duncan/org-html-publish-to-html plist filename pub-dir)))
+
+(defun duncan/project-root ()
+  "Thin (zero) wrapper over projectile to find project root."
+  (projectile-project-root))
+
+(defun duncan/project-relative-filename (filename)
+  "Return the relative path of FILENAME to the project root."
+  (file-relative-name filename (projectile-project-root)))
+
+(defun duncan/org-html-publish-site-to-html (plist filename pub-dir)
+  "Wraps org-html-publish-to-html.  Append css to hide title to PLIST and other front-page styles.  FILENAME and PUB-DIR are passed."
+  (when (equal "index.org" (duncan/project-relative-filename filename))
+    (plist-put plist :html-head-extra-list
+               (list
+                (list "link" '(rel stylesheet href "/css/index.css")))))
+  (duncan/org-html-publish-to-html plist filename pub-dir))
 
 (defun duncan/org-rss-publish-to-rss (plist filename pub-dir)
   "Wrap org-rss-publish-to-rss with PLIST and PUB-DIR, publishing only when FILENAME is 'archive.org'."
@@ -145,12 +188,12 @@
               :sitemap-function 'duncan/org-publish-sitemap-archive
               :sitemap-format-entry 'duncan/org-publish-sitemap-entry)
 
-        (list "website"
+        (list "site"
               :base-directory "./"
               :include '("posts/archive.org")
               :base-extension "org"
               :publishing-directory (expand-file-name "public" (projectile-project-root))
-              :publishing-function 'duncan/org-html-publish-to-html
+              :publishing-function 'duncan/org-html-publish-site-to-html
               :section-numbers nil
               :html-head duncan-website-html-head
               :html-preamble t
