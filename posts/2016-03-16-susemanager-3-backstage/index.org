@@ -15,7 +15,7 @@ During the last year we have been working on SUSE Manager 3, the next release of
    :ID:       8fde3a52-1064-45ff-b998-78a0dc67226e
    :END:
 
-In mid-2014 I wrote about [SUSE Manager 2.1]({% post_url 2014-06-11-suse-manager-2-1 %}). It was an important release for us because at that point we became very active upstream, to the point that on a typical day, a considerable chunk of the open pull requests came from SUSE, including a refreshed mobile-enabled user interface.
+In mid-2014 I wrote about [[file:../2014-06-11-suse-manager-2-1/index.org][SUSE Manager 2.1]]. It was an important release for us because at that point we became very active upstream, to the point that on a typical day, a considerable chunk of the open pull requests came from SUSE, including a refreshed mobile-enabled user interface.
 
 But the world is changing, and management offerings are taking new innovative directions, especially around Configuration Management and Compliance. This trend was in several dimensions quite radical for our product, based on the [[http://spacewalk.redhat.com/][Spacewalk]] project, which has been managing Linux systems with the same paradigm since 2008.
 
