@@ -15,10 +15,6 @@
 (require 's)
 (require 'projectile)
 
-(defvar duncan-website-html-head
-  "<link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css' rel='stylesheet' integrity='sha256-k2/8zcNbxVIh5mnQ52A0r3a6jAgMGxFJFE2707UxGCk= sha512-ZV9KawG2Legkwp3nAlxLIVFudTauWuBpC10uEafMHYL0Sarrz5A7G79kXh5+5+woxQ5HM559XX2UZjMJ36Wplg==' crossorigin='anonymous'/>")
-(defvar duncan-website-html-blog-head "")
-
 (defun duncan--layout-format (name)
   "Formats the layout named NAME by reading a file from a directory."
   `(("en" ,(with-temp-buffer
@@ -84,15 +80,16 @@
   "List of elements going in head for all pages.  Takes PLIST as context."
   (let ((description "The blog of Duncan Mac-Vicar P."))
     (list
+     (list "link" (list "href" "https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" "rel" "stylesheet" "integrity" "sha256-k2/8zcNbxVIh5mnQ52A0r3a6jAgMGxFJFE2707UxGCk= sha512-ZV9KawG2Legkwp3nAlxLIVFudTauWuBpC10uEafMHYL0Sarrz5A7G79kXh5+5+woxQ5HM559XX2UZjMJ36Wplg==" "crossorigin" "anonymous"))
      (list "meta" (list "description" description))
      (list "link" (list "rel" "alternate" "type" "application+rss/xml" "title" description "href" "/archive.xml")))))
 
 (defun duncan/org-html-publish-to-html (plist filename pub-dir)
   "Analog to org-html-publish-to-html using duncan/html backend.  PLIST, FILENAME and PUB-DIR are passed as is."
-  (plist-put plist :html-head-extra
-             (duncan/org-html-head-extra
+  (plist-put plist :html-head
+             (duncan/org-html-head
               (append (duncan/head-common-list plist)
-                      (plist-get plist :html-head-extra-list)) plist))
+                      (plist-get plist :html-head-list)) plist))
   (plist-put plist :html-htmlized-css-url
              (file-relative-name (concat (duncan/project-root) "/css/site.css") filename))
   (duncan/org-html-publish-generate-redirect plist filename pub-dir)
@@ -102,8 +99,8 @@
 				      "html"))
 		      plist pub-dir))
 
-(defun duncan/org-html-head-extra (tags plist)
-  "Generate extra header elements from TAGS.  Accept PLIST for extra context."
+(defun duncan/org-html-head (tags plist)
+  "Generate header elements from TAGS.  Accept PLIST for extra context."
   (mapconcat (lambda (x)
                (let ((tag (nth 0 x))
                      (attrs (nth 1 x)))
@@ -117,7 +114,7 @@
 
 (defun duncan/org-html-publish-post-to-html (plist filename pub-dir)
   "Wraps org-html-publish-to-html.  Append post date as subtitle to PLIST.  FILENAME and PUB-DIR are passed."
-    (plist-put plist :html-head-extra-list
+    (plist-put plist :html-head-list
                (list
                 (list "meta" '(page-type blog))))
   (let ((project (cons 'blog plist)))
@@ -136,10 +133,10 @@
 (defun duncan/org-html-publish-site-to-html (plist filename pub-dir)
   "Wraps org-html-publish-to-html.  Append css to hide title to PLIST and other front-page styles.  FILENAME and PUB-DIR are passed."
   (when (equal "index.org" (duncan/project-relative-filename filename))
-    (plist-put plist :html-head-extra-list
+    (plist-put plist :html-head-list
                (list
                 (list "link"
-                      '(rel stylesheet href (file-relative-name (concat (duncan/project-root) "/css/index.css") filename))))))
+                      (list "rel" "stylesheet" "href" (file-relative-name (concat (duncan/project-root) "/css/index.css") filename))))))
   (duncan/org-html-publish-to-html plist filename pub-dir))
 
 (defun duncan/org-rss-publish-to-rss (plist filename pub-dir)
@@ -159,7 +156,6 @@
              :publishing-function 'duncan/org-html-publish-post-to-html
              :section-numbers nil
              :with-toc nil
-             :html-head duncan-website-html-head
              :html-preamble t
              :html-preamble-format (duncan--layout-format 'preamble)
              :html-postamble t
@@ -197,7 +193,6 @@
               :publishing-directory (expand-file-name "public" (projectile-project-root))
               :publishing-function 'duncan/org-html-publish-site-to-html
               :section-numbers nil
-              :html-head duncan-website-html-head
               :html-preamble t
               :html-preamble-format (duncan--layout-format 'preamble)
               :html-postamble t
