@@ -1,5 +1,6 @@
 #+TITLE: Not sweet but salty, SUSE Manager 3 Technical Backstage Part I
 #+DATE: <2016-03-16 Wed>
+#+REDIRECT_FROM: /2016/03/16/susemanager-3-backstage.html
 
 ** Introduction
    :PROPERTIES:
