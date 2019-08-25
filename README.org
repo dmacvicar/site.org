@@ -13,10 +13,56 @@ This setup aims to replace Jekyll publishing with =org-mode=, with the following
 
 * Inspiration
 
-Ideas, snippets, skeletons and more were taken from the following projects:
+Structure, ideas, conventions and more were taken from the following projects:
 
+- [[https://gitlab.com/to1ne/blog][Toon Clae's blog]]
 - Example [[http://orgmode.org][org-mode]] website using [[http://pages.gitlab.io/][GitLab Pages]] by Rasmus
 - https://github.com/bastibe/org-static-blog
-- [[https://gitlab.com/to1ne/blog][Toon Clae's blog]]
 - The theme is a port of [[https://github.com/swanson/lagom][Lagom]]
 
+* Usage
+
+- Posts go into =posts/=
+  Preferably in their own subdirectory together with all their assets (self-contained)
+- Tutorials go in =tutorials/=, as they are rendered (for now) with the [[https://github.com/fniessen/org-html-themes][readtheorg]] theme
+
+To generate:
+
+#+BEGIN_EXAMPLE
+$ make
+#+END_EXAMPLE
+
+The output site will be rendered in =public/=.
+
+** Redirection
+
+When the site was generated using Jekyll, posts where generated in the =/:year/:month/:day/:id.html= route.
+In order to generate a redirect page, use the following keyword to generate a redirect page:
+
+#+BEGIN_SRC org
+#+REDIRECT_FROM /old/url/index.html
+#+END_SRC
+
+* Implementation
+
+- file:publish.el is a standard [[https://orgmode.org/manual/Publishing.html][org-publish]] project, separated in a few components:
+
+  - The site and general content
+  - Posts
+  - Tutorials
+  - Static assets
+
+- A custom =html= [[https://www.gnu.org/software/emacs/manual/html_node/org/Advanced-configuration.html][derived backend]] is implemented to override how the =html= backend formats things like timestamps, and to allow certain flexibility in the future.
+
+- The =site= and =posts= =org-publish= components have their own publishing functions, which do some magic:
+  - For posts, adding the post date as a subtitle (see =duncan/org-html-publish-post-to-html= in file:publish.el)
+  - For the site, adding another CSS stylesheet, to hide the title (see =duncan/org-html-publish-site-to-html= in file:publish.el)
+  - For all of them, adding the CSS stylesheets, relative to the file. (see =duncan/org-html-publish-to-html= in file:publish.el), and also generating redirects  (see =duncan/org-html-publish-generate-redirect=)
+
+- The list of latest posts is generated using the sitemap functionality in the =blog= component, using a custom sitemap function (see =duncan/org-publish-sitemap-latest-posts=) which limits the number of posts. This sitemap org file is then included in file:index.org.
+
+- The archive is generated also using the sitemap functionality in the =archive-rss= component, with a custom sitemap function (=duncan/org-publish-sitemap-archive=) and also a custom function to format each entry (=duncan/org-publish-sitemap-entry=). The component uses the =duncan/org-rss-publish-to-rss= wrapper over =org-rss-publish-to-rss= to only generate RSS for the archive, skipping everything else. I took this idea from [[https://gitlab.com/to1ne/blog][Toon Clae's blog]].
+
+* License
+
+- [[file:LICENSE][MIT]]
