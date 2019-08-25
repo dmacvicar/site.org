@@ -4,12 +4,14 @@
 
 * Introduction
 
-This setup aims to replace Jekyll publishing with =org-mode=, with the following requirements:
+This setup based on [[https://orgmode.org][org-mode]] aims to replace my previous [[https://jekyllrb.com][Jekyll]] setup used to publish my site.
 
-- Use as much standard packages as possible. eg. =org-publish=
-- Backward compatible with my old site, which means implementing at least the permalink layout
-- Ability to migrate content gradually, which means probably support Markdown posts for a while
-- Ability to run it from the command line, so that CI can be used later
+My requirements where the following:
+
+- [X] Use as much standard packages as possible. eg. [[https://orgmode.org/manual/Publishing.html][org-publish]]. Avoid using "frameworks" on top of emacs
+- [X] Backward compatible with my old site, which means implementing at least redirection from the permalink layout
+- [ ] Ability to migrate content gradually, which means probably support Markdown posts for a while
+- [X] Ability to run it from the command line, so that CI can be used later
 
 * Inspiration
 
@@ -45,7 +47,7 @@ In order to generate a redirect page, use the following keyword to generate a re
 
 * Implementation
 
-- file:publish.el is a standard [[https://orgmode.org/manual/Publishing.html][org-publish]] project, separated in a few components:
+- file:publish.el is a standard =org-publish= project, separated in a few components:
 
   - The site and general content
   - Posts
