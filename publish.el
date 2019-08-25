@@ -188,7 +188,7 @@
 
         (list "site"
               :base-directory "./"
-              :include '("posts/archive.org")
+              :include '("posts/archive.org" "README.org")
               :base-extension "org"
               :publishing-directory (expand-file-name "public" (projectile-project-root))
               :publishing-function 'duncan/org-html-publish-site-to-html
