@@ -67,4 +67,6 @@ In order to generate a redirect page, use the following keyword to generate a re
 
 * License
 
-- [[file:LICENSE][MIT]]
+The code used for generating the site is licensed under the [[file:LICENSE][MIT]] license.
+
+The content of the site, Copyright (©) 2014-2019 {{{author}}}.
