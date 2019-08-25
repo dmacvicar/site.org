@@ -65,16 +65,19 @@
   (let* ((redirect-from (duncan/post-get-metadata-from-frontmatter filename "REDIRECT_FROM"))
          (root (projectile-project-root))
          (pub-root (concat root "public"))
-         (target-filepath (concat pub-root redirect-from))
-         (target-filename (file-name-nondirectory target-filepath))
-         (rel-filename (file-relative-name filename (file-name-directory target-filepath))))
+         (new-filepath (file-relative-name filename pub-dir))
+         (deprecated-filepath (concat pub-root redirect-from))
+         (target-url (concat (file-name-sans-extension new-filepath) ".html"))
+         (project (cons 'redirect plist))
+         (title (org-publish-find-title filename project)))
     (when redirect-from
       (with-temp-buffer
-                                        ;(insert-file-contents (concat root "layouts/redirect.html"))
-        (insert (format "[[file:%s][Redirect]]" rel-filename))
-        (make-directory (file-name-directory target-filepath) :parents)
-        (org-export-to-file 'duncan/html target-filepath nil nil nil nil plist))
-      (message (format "Create %s" target-filepath)))))
+        (insert (format "This page was moved. [[file:%s][Click here if you are not yet redirected]]." new-filepath))
+        (make-directory (file-name-directory deprecated-filepath) :parents)
+        (let ((plist (append plist
+                             (list :html-head-extra
+                                   (format "<meta http-equiv='refresh' content='10; url=%s'>" target-url)))))
+          (org-export-to-file 'duncan/html deprecated-filepath nil nil nil nil plist))))))
 
 (defun duncan/head-common-list (plist)
   "List of elements going in head for all pages.  Takes PLIST as context."
@@ -114,9 +117,6 @@
 
 (defun duncan/org-html-publish-post-to-html (plist filename pub-dir)
   "Wraps org-html-publish-to-html.  Append post date as subtitle to PLIST.  FILENAME and PUB-DIR are passed."
-    (plist-put plist :html-head-list
-               (list
-                (list "meta" '(page-type blog))))
   (let ((project (cons 'blog plist)))
     (plist-put plist :subtitle
                (format-time-string "%b %d, %Y" (org-publish-find-date filename project)))
