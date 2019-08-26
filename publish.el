@@ -1,0 +1,252 @@
+(require 'package)
+(package-initialize)
+(unless package-archive-contents
+  (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
+  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+  (package-refresh-contents))
+(dolist (pkg '(projectile org-plus-contrib htmlize))
+  (unless (package-installed-p pkg)
+    (package-install pkg)))
+
+(require 'org)
+(require 'ox-rss)
+(require 'ox-publish)
+(require 'projectile)
+
+(defun duncan--layout-format (name)
+  "Formats the layout named NAME by reading a file from a directory."
+  `(("en" ,(with-temp-buffer
+             (insert-file-contents (expand-file-name (format "%s.html" name) "./layouts"))
+             (buffer-string)))))
+
+(defun duncan/org-publish-sitemap-latest-posts (title list)
+  "Wrapper to skip TITLE and just use LIST (https://orgmode.org/manual/Sitemap.html)."
+  (org-list-to-org list))
+
+(defun duncan/org-publish-sitemap-archive (title list)
+  "Wrapper to skip TITLE and just use LIST (https://orgmode.org/manual/Sitemap.html)."
+  (let ((title "Blog") (subtitle "Archive"))
+    (concat (format "#+TITLE: %s\n\n* %s\n" title subtitle)
+            (org-list-to-org list) "\n#+BEGIN_EXPORT html\n<a href='../archive.xml'><i class='fa fa-rss'></i></a>\n#+END_EXPORT\n")))
+
+(defun duncan/org-publish-sitemap-entry (entry style project)
+  "Format sitemap ENTRY for PROJECT with the post date before the link, to generate a posts list.  STYLE is not used."
+  (unless (equal entry "404.org")
+    (format "%s [[file:%s][%s]]"
+            (format-time-string "<%Y-%m-%d>" (org-publish-find-date entry project))
+            entry
+            (org-publish-find-title entry project))))
+
+(defun duncan/org-html-timestamp (timestamp contents info)
+  "We are not going to leak org mode silly <date> format when rendering TIMESTAMP to the world, aren't we?.  CONTENTS and INFO are passed down to org-html-timestamp."
+  (let ((org-time-stamp-custom-formats
+       '("%d %b %Y" . "%d %b %Y %H:%M"))
+        (org-display-custom-times 't))
+    (org-html-timestamp timestamp contents info)))
+
+; We derive our own backend in order to override the timestamp format of the html backend
+(org-export-define-derived-backend 'duncan/html 'html
+  :translate-alist
+  '((timestamp . duncan/org-html-timestamp)))
+
+(defun duncan/post-get-metadata-from-frontmatter (post-filename key)
+  "Extract the KEY as`#+KEY:` from POST-FILENAME."
+  (let ((case-fold-search t))
+    (with-temp-buffer
+      (insert-file-contents post-filename)
+      (goto-char (point-min))
+      (ignore-errors (search-forward-regexp (format "^\\#\\+%s\\:\s+\\(.+\\)$" key)))
+      (match-string 1))))
+
+(defun duncan/org-html-publish-generate-redirect (plist filename pub-dir)
+  "Generate redirect files in PUB-DIR from the #+REDIRECT_FROM header in FILENAME, using PLIST."
+  (let* ((redirect-from (duncan/post-get-metadata-from-frontmatter filename "REDIRECT_FROM"))
+         (root (projectile-project-root))
+         (pub-root (concat root "public"))
+         (new-filepath (file-relative-name filename pub-dir))
+         (deprecated-filepath (concat pub-root redirect-from))
+         (target-url (concat (file-name-sans-extension new-filepath) ".html"))
+         (project (cons 'redirect plist))
+         (title (org-publish-find-title filename project)))
+    (when redirect-from
+      (with-temp-buffer
+        (insert (format "This page was moved. [[file:%s][Click here if you are not yet redirected]]." new-filepath))
+        (make-directory (file-name-directory deprecated-filepath) :parents)
+        (let ((plist (append plist
+                             (list :html-head-extra
+                                   (format "<meta http-equiv='refresh' content='10; url=%s'>" target-url)))))
+          (org-export-to-file 'duncan/html deprecated-filepath nil nil nil nil plist))))))
+
+(defun duncan/head-common-list (plist)
+  "List of elements going in head for all pages.  Takes PLIST as context."
+  (let ((description "The blog of Duncan Mac-Vicar P."))
+    (list
+     (list "link" (list "href" "https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" "rel" "stylesheet" "integrity" "sha256-k2/8zcNbxVIh5mnQ52A0r3a6jAgMGxFJFE2707UxGCk= sha512-ZV9KawG2Legkwp3nAlxLIVFudTauWuBpC10uEafMHYL0Sarrz5A7G79kXh5+5+woxQ5HM559XX2UZjMJ36Wplg==" "crossorigin" "anonymous"))
+     (list "meta" (list "description" description))
+     (list "link" (list "rel" "alternate" "type" "application+rss/xml" "title" description "href" "/archive.xml")))))
+
+(defun duncan/org-html-publish-to-html (plist filename pub-dir)
+  "Analog to org-html-publish-to-html using duncan/html backend.  PLIST, FILENAME and PUB-DIR are passed as is."
+  (plist-put plist :html-head
+             (duncan/org-html-head
+              (append (duncan/head-common-list plist)
+                      (plist-get plist :html-head-list)) plist))
+  (plist-put plist :html-htmlized-css-url
+             (file-relative-name (concat pub-dir "css/site.css") (file-name-directory (concat pub-dir (file-relative-name filename (projectile-project-root))))))
+  (duncan/org-html-publish-generate-redirect plist filename pub-dir)
+  (org-publish-org-to 'duncan/html filename
+		      (concat "." (or (plist-get plist :html-extension)
+				      org-html-extension
+				      "html"))
+		      plist pub-dir))
+
+(defun duncan/org-html-head (tags plist)
+  "Generate header elements from TAGS.  Accept PLIST for extra context."
+  (mapconcat (lambda (x)
+               (let ((tag (nth 0 x))
+                     (attrs (nth 1 x)))
+                 (format "<%s %s/>" tag
+                         (mapconcat
+                          (lambda (x)
+                            (let ((attr (nth 0 x))
+                                  (value (nth 1 x)))
+                              (when x
+                                (format "%s='%s'" attr value)))) (seq-partition attrs 2) " ")))) tags "\n"))
+
+(defun duncan/org-html-publish-post-to-html (plist filename pub-dir)
+  "Wraps org-html-publish-to-html.  Append post date as subtitle to PLIST.  FILENAME and PUB-DIR are passed."
+  (let ((project (cons 'blog plist)))
+    (plist-put plist :subtitle
+               (format-time-string "%b %d, %Y" (org-publish-find-date filename project)))
+    (duncan/org-html-publish-to-html plist filename pub-dir)))
+
+(defun duncan/project-root ()
+  "Thin (zero) wrapper over projectile to find project root."
+  (projectile-project-root))
+
+(defun duncan/project-relative-filename (filename)
+  "Return the relative path of FILENAME to the project root."
+  (file-relative-name filename (duncan/project-root)))
+
+(defun duncan/org-html-publish-site-to-html (plist filename pub-dir)
+  "Wraps org-html-publish-to-html.  Append css to hide title to PLIST and other front-page styles.  FILENAME and PUB-DIR are passed."
+  (when (equal "index.org" (duncan/project-relative-filename filename))
+    (plist-put plist :html-head-list
+               (list
+                (list "link"
+                      (list "rel" "stylesheet" "href" "css/index.css")))))
+  (duncan/org-html-publish-to-html plist filename pub-dir))
+
+(defun duncan/org-rss-publish-to-rss (plist filename pub-dir)
+  "Wrap org-rss-publish-to-rss with PLIST and PUB-DIR, publishing only when FILENAME is 'archive.org'."
+  (if (equal "archive.org" (file-name-nondirectory filename))
+      (org-rss-publish-to-rss plist filename pub-dir)))
+
+; Project definition
+(defvar duncan--publish-project-alist
+      (list
+       (list "blog"
+             :base-directory "./posts"
+             :exclude (regexp-opt '("posts.org" "archive.org"))
+             :base-extension "org"
+             :recursive t
+             :publishing-directory (expand-file-name "public/posts" (projectile-project-root))
+             :publishing-function 'duncan/org-html-publish-post-to-html
+             :section-numbers nil
+             :with-toc nil
+             :html-preamble t
+             :html-preamble-format (duncan--layout-format 'preamble)
+             :html-postamble t
+             :html-postamble-format (duncan--layout-format 'postamble)
+             :html-head-include-scripts nil
+             :html-head-include-default-style nil
+             :auto-sitemap t
+             :sitemap-filename "posts.org"
+             :sitemap-style 'list
+             :sitemap-title nil
+             :sitemap-sort-files 'anti-chronologically
+             :sitemap-function 'duncan/org-publish-sitemap-latest-posts
+             :sitemap-format-entry 'duncan/org-publish-sitemap-entry)
+
+        (list "archive-rss"
+              :base-directory "./posts"
+              :recursive t
+              :exclude (regexp-opt '("posts.org" "archive.org"))
+              :base-extension "org"
+              :publishing-directory "./public"
+              :publishing-function 'duncan/org-rss-publish-to-rss
+              :html-link-home "http://duncan.codes/"
+              :html-link-use-abs-url t
+              :auto-sitemap t
+              :sitemap-style 'list
+              :sitemap-filename "archive.org"
+              :sitemap-sort-files 'anti-chronologically
+              :sitemap-function 'duncan/org-publish-sitemap-archive
+              :sitemap-format-entry 'duncan/org-publish-sitemap-entry)
+
+        (list "site"
+              :base-directory "./"
+              :include '("posts/archive.org" "README.org")
+              :base-extension "org"
+              :publishing-directory (expand-file-name "public" (projectile-project-root))
+              :publishing-function 'duncan/org-html-publish-site-to-html
+              :section-numbers nil
+              :html-preamble t
+              :html-preamble-format (duncan--layout-format 'preamble)
+              :html-postamble t
+              :html-postamble-format (duncan--layout-format 'postamble)
+              :html-validation-link nil
+              :html-head-include-scripts nil
+              :html-head-include-default-style nil)
+        (list "tutorials"
+              :base-directory "./tutorials"
+              :base-extension "org"
+              :recursive nil
+              :publishing-directory "./public/tutorials"
+              :publishing-function 'org-html-publish-to-html
+              :section-numbers nil
+              :with-toc t)
+        (list "assets"
+              :base-directory "./"
+              :exclude (regexp-opt '("assets" "public"))
+              :recursive t
+              :base-extension "jpg\\|gif\\|png\\|js\\|css"
+              :publishing-directory "./public"
+              :publishing-function 'org-publish-attachment)))
+
+; Our publishing definition
+(defun duncan-publish-all ()
+  "Publish the blog to HTML."
+  (interactive)
+  (let ((make-backup-files nil)
+        (org-publish-project-alist       duncan--publish-project-alist)
+        ;; deactivate cache as it does not take the publish.el file into account
+        (org-publish-cache nil)
+        (org-publish-use-timestamps-flag nil)
+        (org-export-with-section-numbers nil)
+        (org-export-with-smart-quotes    t)
+        (org-export-with-toc             nil)
+        (org-export-with-sub-superscripts '{})
+        (org-html-divs '((preamble  "header" "preamble")
+                         (content   "main"   "content")
+                         (postamble "footer" "postamble")))
+        (org-html-container-element         "section")
+        (org-html-metadata-timestamp-format "%d %b. %Y")
+        (org-html-checkbox-type             'html)
+        (org-html-html5-fancy               t)
+        (org-html-validation-link           nil)
+        (org-html-doctype                   "html5")
+        (org-entities-user
+         (quote
+          (("faArchive" "\\faArchive" nil "<i aria-hidden='true' class='fa fa-archive'></i>" "" "" "")
+           ("faRss" "\\faRss" nil "<i aria-hidden='true' class='fa fa-rss'></i>" "" "" "")
+           ("faBookmark" "\\faBookmark" nil "<i aria-hidden='true' class='fa fa-bookmark'></i>" "" "" "")
+           ("faCode" "\\faCode" nil "<i aria-hidden='true' class='fa fa-code'></i>" "" "" "")
+           ("faGraduationCap" "\\faGraduationCap" nil "<i aria-hidden='true' class='fa fa-graduation-cap'></i>" "" "" ""))))
+        (org-html-htmlize-output-type       'css))
+    (org-publish-all)))
+
+(provide 'publish)
+;;; publish.el ends here
+
+

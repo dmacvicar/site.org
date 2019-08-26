@@ -1,0 +1,53 @@
+Debug on Error enabled globally
+Loading /home/duncan/.org-timestamps/blog.cache...
+Generating sitemap for Sitemap for project blog
+Publishing file /space/git/dmacvicar.github.com/site.org/posts/2014-06-11-suse-manager-2-1/index.org using ‘duncan/org-html-publish-post-to-html’
+Publishing file /space/git/dmacvicar.github.com/site.org/posts/2016-03-16-susemanager-3-backstage/index.org using ‘duncan/org-html-publish-post-to-html’
+Publishing file /space/git/dmacvicar.github.com/site.org/posts/2016-05-18-using-salt-like-ansible/index.org using ‘duncan/org-html-publish-post-to-html’
+Publishing file /space/git/dmacvicar.github.com/site.org/posts/posts.org using ‘duncan/org-html-publish-post-to-html’
+Resetting org-publish-cache
+Loading /home/duncan/.org-timestamps/archive-rss.cache...
+Generating sitemap for Sitemap for project archive-rss
+Publishing file /space/git/dmacvicar.github.com/site.org/posts/2014-06-11-suse-manager-2-1/index.org using ‘duncan/org-rss-publish-to-rss’
+Publishing file /space/git/dmacvicar.github.com/site.org/posts/2016-03-16-susemanager-3-backstage/index.org using ‘duncan/org-rss-publish-to-rss’
+Publishing file /space/git/dmacvicar.github.com/site.org/posts/2016-05-18-using-salt-like-ansible/index.org using ‘duncan/org-rss-publish-to-rss’
+Publishing file /space/git/dmacvicar.github.com/site.org/posts/archive.org using ‘duncan/org-rss-publish-to-rss’
+Could not read org-id-values from ~/.emacs.d/.org-id-locations.  Setting it to nil.
+ID properties created in file "/space/git/dmacvicar.github.com/site.org/posts/archive.org"
+Property PUBDATE added to top-level entries in /space/git/dmacvicar.github.com/site.org/posts/archive.org
+Using vacuous schema
+Using vacuous schema
+Indenting region...
+Indenting region...done
+Using vacuous schema
+Resetting org-publish-cache
+Loading /home/duncan/.org-timestamps/site.cache...
+Publishing file /space/git/dmacvicar.github.com/site.org/README.org using ‘duncan/org-html-publish-site-to-html’
+Publishing file /space/git/dmacvicar.github.com/site.org/index.org using ‘duncan/org-html-publish-site-to-html’
+/space/git/dmacvicar.github.com/site.org/public/index.org
+Publishing file /space/git/dmacvicar.github.com/site.org/posts/archive.org using ‘duncan/org-html-publish-site-to-html’
+Resetting org-publish-cache
+Loading /home/duncan/.org-timestamps/tutorials.cache...
+Resetting org-publish-cache
+Loading /home/duncan/.org-timestamps/assets.cache...
+Publishing file /space/git/dmacvicar.github.com/site.org/posts/2014-06-11-suse-manager-2-1/images/suse-manager-admin-setup-wizard-mirror-credentials.png using ‘org-publish-attachment’
+Publishing file /space/git/dmacvicar.github.com/site.org/posts/2014-06-11-suse-manager-2-1/images/screenshot-from-2014-06-10-234145.png using ‘org-publish-attachment’
+Publishing file /space/git/dmacvicar.github.com/site.org/posts/2014-06-11-suse-manager-2-1/images/suse-manager-systems-systems-details-overview.png using ‘org-publish-attachment’
+Publishing file /space/git/dmacvicar.github.com/site.org/posts/2014-06-11-suse-manager-2-1/images/cve-audit.png using ‘org-publish-attachment’
+Publishing file /space/git/dmacvicar.github.com/site.org/posts/2016-03-16-susemanager-3-backstage/images/susecon-susemanager-2.png using ‘org-publish-attachment’
+Publishing file /space/git/dmacvicar.github.com/site.org/posts/2016-03-16-susemanager-3-backstage/images/suma-salt-architecture.png using ‘org-publish-attachment’
+Publishing file /space/git/dmacvicar.github.com/site.org/posts/2016-03-16-susemanager-3-backstage/images/minion-custom-states-1.png using ‘org-publish-attachment’
+Publishing file /space/git/dmacvicar.github.com/site.org/posts/2016-03-16-susemanager-3-backstage/images/package-states-1.png using ‘org-publish-attachment’
+Publishing file /space/git/dmacvicar.github.com/site.org/posts/2016-03-16-susemanager-3-backstage/images/states-catalog-1.png using ‘org-publish-attachment’
+Publishing file /space/git/dmacvicar.github.com/site.org/posts/2016-03-16-susemanager-3-backstage/images/minion-onboarding-1.png using ‘org-publish-attachment’
+Publishing file /space/git/dmacvicar.github.com/site.org/posts/2016-03-16-susemanager-3-backstage/images/saltconf-sponsor-1.png using ‘org-publish-attachment’
+Publishing file /space/git/dmacvicar.github.com/site.org/posts/2016-03-16-susemanager-3-backstage/images/pending-minions-1.png using ‘org-publish-attachment’
+Publishing file /space/git/dmacvicar.github.com/site.org/posts/2016-03-16-susemanager-3-backstage/images/minion-clients-2.png using ‘org-publish-attachment’
+Publishing file /space/git/dmacvicar.github.com/site.org/posts/2016-03-16-susemanager-3-backstage/images/remote-commands-1.png using ‘org-publish-attachment’
+Publishing file /space/git/dmacvicar.github.com/site.org/posts/2016-03-16-susemanager-3-backstage/images/minion-overview-1.png using ‘org-publish-attachment’
+Publishing file /space/git/dmacvicar.github.com/site.org/posts/2016-03-16-susemanager-3-backstage/images/susecon-susemanager-1.png using ‘org-publish-attachment’
+Publishing file /space/git/dmacvicar.github.com/site.org/posts/2016-05-18-using-salt-like-ansible/images/salt-syndic.png using ‘org-publish-attachment’
+Publishing file /space/git/dmacvicar.github.com/site.org/posts/2016-05-18-using-salt-like-ansible/images/salt-0mq.png using ‘org-publish-attachment’
+Publishing file /space/git/dmacvicar.github.com/site.org/posts/2016-05-18-using-salt-like-ansible/images/salt-proxy.png using ‘org-publish-attachment’
+Publishing file /space/git/dmacvicar.github.com/site.org/css/site.css using ‘org-publish-attachment’
+Publishing file /space/git/dmacvicar.github.com/site.org/css/index.css using ‘org-publish-attachment’

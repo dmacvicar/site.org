@@ -1,0 +1,213 @@
+/* https://jgthms.com/web-design-in-4-minutes */
+/* @import 'https://fonts.googleapis.com/css?family=Roboto:300,400,500'; */
+@import 'https://fonts.googleapis.com/css?family=Raleway:400,300,600';
+
+body {
+  margin: 0 auto;
+  display: grid;
+  grid-template-areas: 
+    "header"
+    "main"
+    "footer";
+  grid-gap: 1em;
+  align-content: space-evenly;
+  line-height: 1.5;
+  /*color: #566b78;*/
+  color: ##222222;
+  background-color: white;
+  border-top: 7px solid #3498db;
+  width: 80%;
+}
+
+header#preamble, main#content, footer#postamble {
+  padding-left: 2em;
+}
+
+header {
+  grid-area: header;
+  font-family: "open sans", sans-serif;
+}
+
+header a {
+  font-weight: 600;
+}
+
+main {
+  grid-area: main;
+  border-left: 1px solid #ddd;
+  /* font: 400 16px/22px "open sans", sans-serif; */
+}
+
+footer {
+  grid-area: footer;
+
+  font-size: 80%;
+  color: #666;
+  border-top: 4px solid #EEE;
+  overflow: hidden;
+}
+
+@media (min-width: 500px) {
+  body {
+    grid-template-columns: 1fr 3fr;
+    grid-template-areas:
+      "header main"
+      "header footer";
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #181818;
+  font-family: "open sans", sans-serif;
+  font-weight: 600;
+}
+
+.post-list.outline-2 h2 {
+  font-size: 0.9rem;
+}
+
+.post-list ul {
+  padding-left: 0;
+}
+
+h2 {
+  margin-top: 1em;
+}
+
+h1,
+h2,
+strong {
+  color: #333;
+}
+
+h1.title {
+  font-weight: 800;
+}
+
+h1 {
+  font-size: 32px;
+  line-height: 40px;
+}
+
+h2 {
+    font-size: 24px;
+    line-height: 30px;
+}
+
+pre {
+  padding: 1em;
+  border-left: 2px solid #69c;
+}
+
+pre.example, pre.src, code {
+  font-family: monospace, monospace;
+  border: 1px solid #ddd;
+  background-color: #eef;
+  font-size: 85%;
+}
+
+pre.example, pre.src {
+  padding: 0 1em;
+}
+
+a {
+  /* color: #e81c4f; */
+  color: #3498db;
+}
+
+aside h1, aside h2 {
+  text-align: center;
+}
+
+#preamble img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.avatar {
+  -webkit-border-radius: 50%;
+}
+
+.timestamp {
+  font-family: 'Lucida Console', 'Andale Mono', monospace;
+  color: #aaa;
+  padding-right: 5px;
+  font-size: 14px;
+}
+
+section.post-list ul {
+  list-style-type: none;
+}
+
+section.post-list li .timestamp:after {
+  content: " »";
+}
+
+#bio {
+  border-top: 1px dotted #ddd;
+}
+
+#social {
+  font-size: 13px;
+}
+
+hr {
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+  border-width: 0;
+  border-top-width: 0px;
+  border-top: 1px solid #E1E1E1;
+}
+
+blockquote {
+  background: #f9f9f9;
+
+  border-left: 10px solid #ccc;
+  margin: 1.5em 10px;
+  padding: 0.5em 10px;
+  quotes: "\201C""\201D""\2018""\2019";
+}
+
+blockquote p {
+  display: inline;
+}
+
+blockquote::before {
+  color: #ccc;
+  content: open-quote;
+  font-size: 4em;
+  line-height: 0.1em;
+  margin-right: 0.25em;
+  vertical-align: -0.4em;
+}
+
+.subtitle, figcaption {
+  color: #aaa;
+  margin: 0 0 10px 0;
+}
+
+figcaption {
+  font-size: 0.7em;
+}
+
+.figure-number {
+  visibility: hidden;
+}
+
+main img {
+  outline: 0;
+  max-width: 100%;
+  height: auto;
+}
+
+main img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#stalker i {
+  font-size: 28px;
+  margin-right: 5px;
+}
