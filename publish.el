@@ -201,7 +201,7 @@
         (list "tutorials"
               :base-directory "./tutorials"
               :base-extension "org"
-              :recursive nil
+              :recursive t
               :publishing-directory "./public/tutorials"
               :publishing-function 'org-html-publish-to-html
               :section-numbers nil
