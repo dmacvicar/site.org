@@ -6,7 +6,7 @@
 
 This setup based on [[https://orgmode.org][org-mode]] aims to replace my previous [[https://jekyllrb.com][Jekyll]] setup used to publish my site.
 
-My requirements where the following:
+My requirements were the following:
 
 - [X] Use as much standard packages as possible. eg. [[https://orgmode.org/manual/Publishing.html][org-publish]]. Avoid using "frameworks" on top of emacs
 - [X] Backward compatible with my old site, which means implementing at least redirection from the permalink layout
