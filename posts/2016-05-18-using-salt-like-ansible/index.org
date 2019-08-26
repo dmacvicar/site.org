@@ -78,18 +78,18 @@ It is common to put all the project in a single folder. In Ansible you can put t
 - Create a folder for your project, eg: =~/Project=.
 - Create a file named =Saltfile= in your =~/Project=.
 
-#+BEGIN_EXAMPLE
+#+BEGIN_SRC yaml
   salt-ssh:
       config_dir: etc/salt
       max_procs: 30
       wipe_ssh: True
-#+END_EXAMPLE
+#+END_SRC
 
 Here we tell Salt that the configuration directory is now relative to the folder. You can name it as you want, but I prefer myself to stick to the same conventions, so =/etc/salt= becomes =~/Project/etc/salt=.
 
 Then create =~/Project/etc/salt/master=:
 
-#+BEGIN_EXAMPLE
+#+BEGIN_SRC yaml
   root_dir: .
   file_roots:
     base:
@@ -97,7 +97,7 @@ Then create =~/Project/etc/salt/master=:
   pillar_roots:
     base:
       - srv/pillar
-#+END_EXAMPLE
+#+END_SRC
 
 And create both trees:
 
@@ -128,12 +128,12 @@ Salt can also provide the roster with [[https://docs.saltstack.com/en/latest/ref
 
 As I am using a self-contained setup, I create =~/Project/etc/salt/roster=:
 
-#+BEGIN_EXAMPLE
+#+BEGIN_SRC yaml
   node1:
     host: node1.example.com
   node2:
     host: node2.example.com
-#+END_EXAMPLE
+#+END_SRC
 
 ** Basic: Running Commands
    :PROPERTIES:
@@ -240,18 +240,18 @@ The equivalent in Salt is found in [[https://docs.saltstack.com/en/latest/topics
 
 Create =srv/salt/nginx/init.sls=:
 
-#+BEGIN_EXAMPLE
+#+BEGIN_SRC yaml
   nginx:
     pkg.installed
-#+END_EXAMPLE
+#+END_SRC
 
 To apply this state, you can create a [[https://docs.saltstack.com/en/latest/ref/states/top.html][=top.sls=]] and place it in =srv/salt=:
 
-#+BEGIN_EXAMPLE
+#+BEGIN_SRC yaml
   base:
     `*`:
       - nginx
-#+END_EXAMPLE
+#+END_SRC
 
 This means, all hosts should get that state. You can do very [[https://docs.saltstack.com/en/latest/ref/states/top.html#advanced-minion-targeting][advanced targetting of minions]]. When you write a top, you are defining what it will be the =highstate= of a host.
 
@@ -281,29 +281,29 @@ Salt has a similar concept called [[https://docs.saltstack.com/en/latest/topics/
 
 For the example given here, a simple state [[https://docs.saltstack.com/en/latest/ref/states/requisites.html#watch][=watch= ]][[https://docs.saltstack.com/en/latest/ref/states/requisites.html][argument]] will suffice:
 
-#+BEGIN_EXAMPLE
+#+BEGIN_SRC yaml
   nginx:
     pkg.installed: []
     service.running:
       - watch: pkg: nginx
-#+END_EXAMPLE
+#+END_SRC
 
 Note:
 
 The full syntax is:
 
-#+BEGIN_EXAMPLE
+#+BEGIN_SRC yaml
   someid:
     pkg.installed:
       name: foo
-#+END_EXAMPLE
+#+END_SRC
 
 But if =name= is missing, =someid= is used, so you can write:
 
-#+BEGIN_EXAMPLE
+#+BEGIN_SRC yaml
   foo:
     pkg.installed
-#+END_EXAMPLE
+#+END_END
 
 ** More Tasks
    :PROPERTIES:
@@ -313,7 +313,7 @@ But if =name= is missing, =someid= is used, so you can write:
 
 Looking at the given Ansible example:
 
-#+BEGIN_EXAMPLE
+#+BEGIN_SRC yaml
   {% raw %}
   ---
   - hosts: local
@@ -345,25 +345,25 @@ Looking at the given Ansible example:
         service: name=nginx state=reloaded
   {% endraw %}
 
-#+END_EXAMPLE
+#+END_SRC
 
 You can see that Ansible has a way to specify variables. Salt has the concept of [[https://docs.saltstack.com/en/latest/topics/tutorials/pillar.html][pillar]] which allows you to define data and then make that data visible to hosts using a =top.sls= matching just like with the states. Pillar data is data defined on the "server" (there is a equivalent [[https://docs.saltstack.com/en/latest/topics/targeting/grains.html][grains]] for data defined in the client).
 
 Edit =srv/pillar/paths.sls=:
 
-#+BEGIN_EXAMPLE
+#+BEGIN_SRC yaml
   {% raw %}
   docroot: /var/www/serversforhackers.com/public
   {% endraw %}
-#+END_EXAMPLE
+#+END_SRC
 
 Edit =srv/pillar/top.sls= and define who will see this pillar (in this case, all hosts):
 
-#+BEGIN_EXAMPLE
+#+BEGIN_SRC yaml
   base:
     '*':
       - paths
-#+END_EXAMPLE
+#+END_SRC
 
 Then you can see which data every host sees:
 
@@ -381,7 +381,7 @@ Then you can see which data every host sees:
 
 With this you can make sensitive information visible on the hosts that need it. Now that the data is available, you can use it in your sls files, you can add to
 
-#+BEGIN_EXAMPLE
+#+BEGIN_SRC yaml
   {% raw %}
   nginx package:
     pkg.installed
@@ -395,11 +395,11 @@ With this you can make sensitive information visible on the hosts that need it. 
       - name: {{ pillar['docroot'] }}
 
   {% endraw %}
-#+END_EXAMPLE
+#+END_SRC
 
 Which can be abbreviated as:
 
-#+BEGIN_EXAMPLE
+#+BEGIN_SRC yaml
   {% raw %}
   nginx:
     pkg.installed: []
@@ -410,7 +410,7 @@ Which can be abbreviated as:
     file.directory
   {% endraw %}
 
-#+END_EXAMPLE
+#+END_SRC
 
 ** Roles
    :PROPERTIES:
@@ -432,11 +432,11 @@ There is no 1:1 concept in Salt as it already organizes the data around a differ
 
 Every thing you add to the =file_roots= path (defined in =etc/salt/master=) can be accessed using the [[https://docs.saltstack.com/en/develop/ref/file_server/][Salt file server]]. Lets say we need a template configuration file, you can put it in 'srv/salt/nginx/myconfig` (you can use jinja2 templating on it), and then refer to it from the state:
 
-#+BEGIN_EXAMPLE
+#+BEGIN_SRC yaml
   /etc/nginx/myconfig:
     file.managed:
       - source: salt://nginx/myconfig
-#+END_EXAMPLE
+#+END_SRC
 
 *** Template
     :PROPERTIES:
@@ -460,20 +460,20 @@ As mentioned before, you can apply the state by either making it part of the hos
   Let's create a "master" yaml file which defines the Roles to use and what hosts to run them on: File server.yml:
 #+END_QUOTE
 
-#+BEGIN_EXAMPLE
+#+BEGIN_SRC yaml
   ---
   - hosts: all
     roles:
       - nginx
-#+END_EXAMPLE
+#+END_SRC
 
 This is equivalent to the =top.sls= file in =srv/salt= (with a less powerful matching system).
 
-#+BEGIN_EXAMPLE
+#+BEGIN_SRC yaml
   base:
     `*`:
       - nginx
-#+END_EXAMPLE
+#+END_SRC
 
 #+BEGIN_QUOTE
   Then we can run the Role(s):
@@ -499,13 +499,13 @@ These are equivalent to grains, and you can see what grains you have available b
 
 You can use them from Jinja2 as =grains=:
 
-#+BEGIN_EXAMPLE
+#+BEGIN_SRC yaml
   {% raw %}
   {% if grains['os_family'] == 'RedHat' %}
   ...
   {% endif %}
   {% endraw %}
-#+END_EXAMPLE
+#+END_SRC
 
 If you need a custom grain definition, you can [[https://docs.saltstack.com/en/latest/topics/targeting/grains.html#writing-grains][write your own]] and distribute them from the server.
 
@@ -528,15 +528,15 @@ The equivalent in Salt would be to use the Pillar. If you need encryption suppor
 
 You will need a pillar:
 
-#+BEGIN_EXAMPLE
+#+BEGIN_SRC yaml
   admin_password: $6$lpQ1DqjZQ25gq9YW$mHZAmGhFpPVVv0JCYUFaDovu8u5EqvQi.Ih
   deploy_password: $6$edOqVumZrYW9$d5zj1Ok/G80DrnckixhkQDpXl0fACDfNx2EHnC
   common_public_key: ssh-rsa ALongSSHPublicKeyHere
-#+END_EXAMPLE
+#+END_SRC
 
 And then refer to it from the [[https://docs.saltstack.com/en/latest/ref/states/all/salt.states.user.html][user state]]:
 
-#+BEGIN_EXAMPLE
+#+BEGIN_SRC yaml
   {% raw %}
   admin:
     user.present:
@@ -548,7 +548,7 @@ And then refer to it from the [[https://docs.saltstack.com/en/latest/ref/states/
       - user: admin
       - name: {{ pillar['common_public_key'] }}
   {% endraw %}
-#+END_EXAMPLE
+#+END_SRC
 
 In order to refresh the pillar data, you can use:
 
