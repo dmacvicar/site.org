@@ -25,7 +25,8 @@ The feature went more or less like expected:
   - Pillars may be templated against grains which come from the
     container.
 
-![Diagram]({{ site.baseurl }}/assets/images/posts/2016-07-11-building-docker-images-with-plain-salt/diagram-short.png)
+#+ATTR_HTML: :alt Diagram
+[[file:images/diagram-short.png]]
 
 After tackling the problems one by one, you can factor some stuff out:
 
@@ -35,9 +36,7 @@ After tackling the problems one by one, you can factor some stuff out:
 
 On Friday I was able to give the following Lightning Talk:
 
-#+BEGIN_HTML
-  <iframe width="560" height="315" src="https://www.youtube.com/embed/2znjgf9Q7J0" frameborder="0" allowfullscreen></iframe>
-#+END_HTML
+@@html:<iframe width="560" height="315" src="https://www.youtube.com/embed/2znjgf9Q7J0" frameborder="0" allowfullscreen></iframe>@@
 
 The result is:
 
@@ -46,6 +45,7 @@ The result is:
 
 I prepared a [[https://github.com/saltstack/salt/pull/34484][pull request]], which had the best reception I ever got on a pull request:
 
-![Awesome]({{ site.baseurl }}/assets/images/posts/2016-07-11-building-docker-images-with-plain-salt/awesome.png)
+#+ATTR_HTML: :alt Awesome
+[[file:images/awesome.png]]
 
 There are some details to polish and I hope it can be merged soon.
