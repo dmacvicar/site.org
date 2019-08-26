@@ -11,8 +11,9 @@ jobs:
     - uses: actions/checkout@master
       with:
         fetch-depth: 1
-    - name: Run build function
+    - name: build
       uses: docker://iquiw/alpine-emacs
+      if: github.event.deleted == false
       with:
         args: ./build.sh
     - name: deploy
