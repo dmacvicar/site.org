@@ -21,7 +21,7 @@ Full list at my [[file:./posts/archive.org][my Blog.]]
 - <2016-01-08 Fri> As part of my work, I had the chance to start contributing to [[https://github.com/saltstack/salt][Salt]].
 - <2015-05-21 Thu> I wrote a [[https://github.com/dmacvicar/gorgojo][library to access bugzilla]] in Go
 - <2015-04-24 Fri> For learning purposes, I wrote a [[https://github.com/dmacvicar/garita][simple Docker v2 registry auth server in Go]]
-- <2015-04-24 Fri> I wrote a kind-of-working [[https://github.com/dmacvicar/qemacs%0A][Qt backend]] for the qemacs editor.
+- <2015-04-24 Fri> I wrote a kind-of-working [[https://github.com/dmacvicar/qemacs][Qt backend]] for the qemacs editor.
 - <2014-02-28> As part of my work at SUSE, I had the chance to send my first contributions to [[https://github.com/spacewalkproject/spacewalk][Spacewalk]].
 - <2013-12-06 Fri> I use a emacs/tmux setup. Here are my [[https://github.com/dmacvicar/dotfiles][dotfiles]].
 - <2011-10-15 Sat> I implemented a pure FFI [[https://github.com/dmacvicar/ruby-rpm-ffi][version of Ruby bindings for rpm.]]
