@@ -13,10 +13,10 @@
 (require 'ox-publish)
 (require 'projectile)
 
-(defun duncan--layout-format (name)
-  "Formats the layout named NAME by reading a file from a directory."
+(defun duncan--pre/postamble-format (name)
+  "Formats the pre/postamble named NAME by reading a file from the snippets directory."
   `(("en" ,(with-temp-buffer
-             (insert-file-contents (expand-file-name (format "%s.html" name) "./layouts"))
+             (insert-file-contents (expand-file-name (format "%s.html" name) "./snippets"))
              (buffer-string)))))
 
 (defun duncan/org-publish-sitemap-latest-posts (title list)
@@ -155,9 +155,9 @@
              :section-numbers nil
              :with-toc nil
              :html-preamble t
-             :html-preamble-format (duncan--layout-format 'preamble)
+             :html-preamble-format (duncan--pre/postamble-format 'preamble)
              :html-postamble t
-             :html-postamble-format (duncan--layout-format 'postamble)
+             :html-postamble-format (duncan--pre/postamble-format 'postamble)
              :html-head-include-scripts nil
              :html-head-include-default-style nil
              :auto-sitemap t
@@ -192,9 +192,9 @@
               :publishing-function 'duncan/org-html-publish-site-to-html
               :section-numbers nil
               :html-preamble t
-              :html-preamble-format (duncan--layout-format 'preamble)
+              :html-preamble-format (duncan--pre/postamble-format 'preamble)
               :html-postamble t
-              :html-postamble-format (duncan--layout-format 'postamble)
+              :html-postamble-format (duncan--pre/postamble-format 'postamble)
               :html-validation-link nil
               :html-head-include-scripts nil
               :html-head-include-default-style nil)
