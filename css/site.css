@@ -107,6 +107,8 @@ pre.example, pre.src, code {
 }
 
 pre.example, pre.src {
+  overflow-x: scroll;
+  width: 80ch;
   padding: 0 1em;
 }
 
