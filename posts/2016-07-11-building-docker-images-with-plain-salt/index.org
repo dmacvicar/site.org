@@ -1,6 +1,6 @@
 #+TITLE: Building Docker images with plain Salt
 #+DATE: <2016-07-11 Mon>
-#+REDIRECT_FROM: /2016/07/11/building-docker-images-with-plain-salt.html 
+#+REDIRECT_FROM: /2016/07/11/building-docker-images-with-plain-salt.html
 
 So [[https://hackweek.suse.com/][Hackweek 14]] is over. It started during the [[https://events.opensuse.org/conference/oSC16][openSUSE Conference 2016]] on Friday June 24 and continued all over the following week.
 

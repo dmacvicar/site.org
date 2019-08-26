@@ -1,5 +1,6 @@
 #+TITLE: SUSE Manager 2.1
 #+DATE: <2014-06-11 Wed>
+#+REDIRECT_FROM: /2014/06/11/suse-manager-2-1.html
 
 Back in March, Christian Stankowic [[http://blog.christian-stankowic.de/?p=5862&lang=en][analysed Spacewalk 2.1 and its new user interface]] look and feel. He asked himself how
 SUSE Manager would look like:
