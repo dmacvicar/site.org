@@ -1,0 +1,240 @@
+#+TITLE: Managing configuration drift with Salt and Snapper
+#+DATE: <2016-06-09 Thu>
+#+REDIRECT_FROM: /2016/06/09/config-drift-salt-snapper.html
+
+** Introduction
+   :PROPERTIES:
+   :CUSTOM_ID: introduction
+   :END:
+
+Many configuration management tools originate in the DevOps space and become immensely popular and while they do manage configuration, they are tailored towards deployment of new servers using this configuration and not towards auditing of existing servers.
+
+For example, lets imagine a server with the following state:
+
+#+BEGIN_EXAMPLE
+  /etc/motd:
+    file.managed:
+      - source: salt://common/motd
+#+END_EXAMPLE
+
+If we apply this state (in =test= mode) on a non-compliant server:
+
+#+BEGIN_EXAMPLE
+  $ salt minion1 state.apply test=True
+  minion1:
+  ----------
+            ID: /etc/motd
+      Function: file.managed
+        Result: None
+       Comment: The file /etc/motd is set to be changed
+       Started: 10:06:05.021643
+      Duration: 30.339 ms
+       Changes:
+                ----------
+                diff:
+                    ---
+                    +++
+                    @@ -1 +1 @@
+                    -Have a lot of fun...
+                    +This is my managed motd
+
+  Summary for minion1
+  ------------
+  Succeeded: 1 (unchanged=1, changed=1)
+  Failed:    0
+  ------------
+  Total states run:     1
+#+END_EXAMPLE
+
+Salt is able to tell us that there is a file that deviates from the configuration. And we can easily fix it by just removing =test=True=.
+
+Now, lets say an intruder adds a malicious entry to =/etc/hosts=:
+
+#+BEGIN_EXAMPLE
+  192.168.1.34    www.google.com
+#+END_EXAMPLE
+
+If we re run our state in test mode:
+
+#+BEGIN_EXAMPLE
+  $ salt minion1 state.apply test=True
+  minion1:
+  ----------
+            ID: /etc/motd
+      Function: file.managed
+        Result: None
+       Comment: The file /etc/motd is set to be changed
+       Started: 10:12:11.518105
+      Duration: 29.479 ms
+       Changes:
+                ----------
+                diff:
+                    ---
+                    +++
+                    @@ -1 +1 @@
+                    -Have a lot of fun...
+                    +This is my managed motd
+
+  Summary for minion1
+  ------------
+  Succeeded: 1 (unchanged=1, changed=1)
+  Failed:    0
+  ------------
+  Total states run:     1
+#+END_EXAMPLE
+
+As expected, it did not find anything, because this rule is not in the configuration.
+
+** Creating new systems vs auditing existing systems
+   :PROPERTIES:
+   :CUSTOM_ID: creating-new-systems-vs-auditing-existing-systems
+   :END:
+
+This model works fine in the DevOps world where the culture is to take a random Linux image from the internet and use it as a base to deploy systems from scratch. As long as all tests pass, replacing the underlying image is not a problem. Only what is explicitly defined is evaluated against the configuration and defined as a drift.
+
+When meeting enterprise customers who are starting to use configuration management to improve the control on their infrastructure, it turns out their expectations where different. "If I use Salt, will it tell me when somebody makes a change to the system?". "Ugh.. no... well depends...".
+
+** Baselines
+   :PROPERTIES:
+   :CUSTOM_ID: baselines
+   :END:
+
+That was the point that I started to think about - how could we use the state system to do more generic auditing and how do you do it without ruining the experience of working with states? Then it all clicked -- implicit state can be done explicitly by using another state. When the customer said “any change”, they were in reality saying "any change against my defined configuration" plus "any change since my last working configuration".
+
+So, we needed a way to manage "last working configuration" and turns out SUSE is where [[http://snapper.io][Snapper]] originated and Snapper is nowadays available with most Linux distributions.
+
+Snapper is a set of tools over snapshots (mostly btrfs, but also works on others like ext4 if you have the required kernel/tool patches). Think of it of what docker did to containers, snapper does to snapshots. It adds the required workflows, terminology and tools to make them usable.
+
+It also turns out that my system already has some snapshots, because just like I can manually take one, tools like YaST and zypper take snapshots before and after doing operations. You can even select previous snapshots from the bootloader and boot into the previous working system.
+
+What if I could describe a state in Salt that said: "Nothing deviates from this snapshots, except....".
+
+** Let's do it
+   :PROPERTIES:
+   :CUSTOM_ID: lets-do-it
+   :END:
+
+So during this year Department workshop I paired with [[https://github.com/meaksh][Pablo]] and our project had the following steps:
+
+- Complete the Salt execution module to expose the basic snapper operations you can do from the command line. Example:
+
+#+BEGIN_EXAMPLE
+  salt minion1 snapper.create_snapshot
+#+END_EXAMPLE
+
+- Create a generic way for sysadmins to do Salt operations which can be reverted. We implemented this as a meta-call (a call taking another call as a parameter) =snapper.run=. So you can do something like:
+
+#+BEGIN_EXAMPLE
+  $ salt minion2 snapper.run function=file.append args='["/etc/motd", "some text"]'
+  minion2:
+      Wrote 1 lines to "/etc/motd"
+#+END_EXAMPLE
+
+This will generate a snapshot before running the command, run the command and then take a snapshot afterwards, also adding metadata about the Salt job that did the change:
+
+#+BEGIN_EXAMPLE
+  ...
+  pre    | 21 |       | Thu Jun  9 10:34:36 2016 | root | number  | salt job 20160609103437556668 | salt_jid=20160609103437556668
+  post   | 22 | 21    | Thu Jun  9 10:34:37 2016 | root | number  | salt job 20160609103437556668 | salt_jid=20160609103437556668
+#+END_EXAMPLE
+
+Because in Salt, state is implemented as a method =state.apply= or =state.highstate=, calling =snapper.run function=state.apply= means you can rollback a failed =state.apply=.
+
+And of course we not only exposed =snapper.diff= which takes the snapshot number but also a =snapper.diff_jid= which tells you what a Salt job changed:
+
+#+BEGIN_EXAMPLE
+  $ salt minion2 snapper.diff_jid 20160609103437556668
+  minion2:
+      ----------
+      /etc/motd:
+          --- /.snapshots/21/snapshot/etc/motd
+          +++ /.snapshots/22/snapshot/etc/motd
+          @@ -1 +1,2 @@
+           Have a lot of fun...
+          +some text
+#+END_EXAMPLE
+
+Additionally, you get =snapper.undo_jid= which you can guess what it does: it undoes the changes done by a specific salt job (which of course could be a =state.apply= run).
+
+- And finally, allowing a system administrator to use snapshots as a baseline to apply state. Lets take the original example with the malicious user modifying `/etc/hosts', we will add a snapper state rule:
+
+#+BEGIN_EXAMPLE
+  my_baseline:
+    snapper.baseline_snapshot:
+      - number: 20
+      - ignore:
+        - /var/log
+        - /var/cache
+
+  /etc/motd:
+    file.managed:
+        - source: salt://common/motd
+#+END_EXAMPLE
+
+Now we apply the state in test mode again:
+
+#+BEGIN_EXAMPLE
+  $ salt minion1 state.apply test=True
+  minion1:
+  ----------
+            ID: my_baseline
+      Function: snapper.baseline_snapshot
+        Result: None
+       Comment: 1 files changes are set to be undone
+       Started: 12:20:24.899848
+      Duration: 1051.996 ms
+       Changes:
+                ----------
+                files:
+                    ----------
+                    /etc/hosts:
+                        ----------
+                        actions:
+                            - modified
+                        comment:
+                            text file
+                        diff:
+                            --- /etc/hosts
+                            +++ /.snapshots/21/snapshot/etc/hosts
+                            @@ -22,5 +22,3 @@
+                             ff02::3         ipv6-allhosts
+
+
+                            -192.168.1.34    www.google.com
+                            -
+  ----------
+            ID: /etc/motd
+      Function: file.managed
+        Result: None
+       Comment: The file /etc/motd is set to be changed
+       Started: 12:20:25.953348
+      Duration: 20.425 ms
+       Changes:
+                ----------
+                diff:
+                    ---
+                    +++
+                    @@ -1 +1 @@
+                    -Have a lot of fun...
+                    +This is my managed motd
+
+  Summary for minion1
+  ------------
+  Succeeded: 2 (unchanged=2, changed=2)
+  Failed:    0
+  ------------
+  Total states run:     2
+#+END_EXAMPLE
+
+Exactly what we expect!.
+
+* Conclusions
+  :PROPERTIES:
+  :CUSTOM_ID: conclusions
+  :END:
+
+So with this you can use your configuration management to manage your state against a defined state and on top of that we give you the tooling to inspect and rollback configuration changes.
+
+We will continue adding the missing pieces to give the administrators full overview and control over their running systems.
+
+You can find our current work [[https://github.com/SUSE/salt-snapper-module][in this github repository]]. We plan of course to send it upstream once the design and implementation settles down.
