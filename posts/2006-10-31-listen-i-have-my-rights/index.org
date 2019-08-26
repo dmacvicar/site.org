@@ -142,18 +142,11 @@ The following takes place between 5 am and 6 am... Events ocur in real time.
 I never knew what happened with Sean's wallet. So today I emailed him and asked. This is the happy end of the story:
 
 #+BEGIN_QUOTE
-  Ha! I didn't think anyone remembered that! That guy was nuts. I was\\
-  able to reason with him, though. It turned out I was able to promise\\
-  him a feature request in Gaim and that sufficed for him. He sent the\\
-  wallet back, and I never found any weird fraudulent charges on any
-  of\\
-  my cards ;)
+  Ha! I didn't think anyone remembered that! That guy was nuts. I was able to reason with him, though. It turned out I was able to promise him a feature request in Gaim and that sufficed for him. He sent the wallet back, and I never found any weird fraudulent charges on any of my cards ;)
 
   My guess is that he wasn't any older than 16.
 
-  Just remember, every time a Gaim user sends someone a file by
-  dragging\\
-  it into a conversation window, it's because I lost my wallet.
+  Just remember, every time a Gaim user sends someone a file by dragging it into a conversation window, it's because I lost my wallet.
 
   -s.
 #+END_QUOTE
