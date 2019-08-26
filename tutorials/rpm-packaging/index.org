@@ -1,6 +1,7 @@
 #+SETUPFILE: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
 #+TITLE: RPM Packaging Tutorial
 #+DATE: 2017-03-08
+#+AUTHOR: Duncan Mac-Vicar P.
 #+FILETAGS: rpm linux
 
 * Authors
@@ -8,7 +9,7 @@
   :CUSTOM_ID: authors
   :END:
 
-- Duncan Mac-Vicar P.
+- {{{author}}}
 
 Thanks:
 
