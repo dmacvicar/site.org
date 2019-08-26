@@ -47,7 +47,7 @@ In order to generate a redirect page, use the following keyword to generate a re
 
 * Implementation
 
-- file:publish.el is a standard =org-publish= project, separated in a few components:
+- [[publish-el][publish.el]] is a standard =org-publish= project, separated in a few components:
 
   - The site and general content
   - Posts
@@ -64,6 +64,9 @@ In order to generate a redirect page, use the following keyword to generate a re
 - The list of latest posts is generated using the sitemap functionality in the =blog= component, using a custom sitemap function (see =duncan/org-publish-sitemap-latest-posts=) which limits the number of posts. This sitemap org file is then included in file:index.org.
 
 - The archive is generated also using the sitemap functionality in the =archive-rss= component, with a custom sitemap function (=duncan/org-publish-sitemap-archive=) and also a custom function to format each entry (=duncan/org-publish-sitemap-entry=). The component uses the =duncan/org-rss-publish-to-rss= wrapper over =org-rss-publish-to-rss= to only generate RSS for the archive, skipping everything else. I took this idea from [[https://gitlab.com/to1ne/blog][Toon Clae's blog]].
+
+<<publish-el>>
+#+INCLUDE: "publish.el" src emacs-lisp
 
 * License
 
