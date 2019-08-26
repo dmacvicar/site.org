@@ -1,5 +1,6 @@
 #+TITLE: Using Salt like Ansible
 #+DATE: <2016-05-18 Wed>
+#+REDIRECT_FROM: /2016/05/18/using-salt-like-ansible.html
 
 ** Introduction
    :PROPERTIES:
