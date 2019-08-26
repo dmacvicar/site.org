@@ -19,6 +19,12 @@
              (insert-file-contents (expand-file-name (format "%s.html" name) "./snippets"))
              (buffer-string)))))
 
+(defun duncan--insert-snippet (filename)
+  "Format the snippet named FILENAME by reading a file from the snippets directory."
+  (with-temp-buffer
+    (insert-file-contents (expand-file-name filename "./snippets"))
+    (buffer-string)))
+
 (defun duncan/org-publish-sitemap-latest-posts (title list)
   "Wrapper to skip TITLE and just use LIST (https://orgmode.org/manual/Sitemap.html)."
   (org-list-to-org list))
@@ -88,9 +94,11 @@
 (defun duncan/org-html-publish-to-html (plist filename pub-dir)
   "Analog to org-html-publish-to-html using duncan/html backend.  PLIST, FILENAME and PUB-DIR are passed as is."
   (plist-put plist :html-head
-             (duncan/org-html-head
-              (append (duncan/head-common-list plist)
-                      (plist-get plist :html-head-list)) plist))
+             (concat
+               (duncan--insert-snippet "analytics.js")
+               (duncan/org-html-head
+                (append (duncan/head-common-list plist)
+                        (plist-get plist :html-head-list)) plist)))
   (plist-put plist :html-htmlized-css-url
              (file-relative-name (concat pub-dir "css/site.css") (file-name-directory (concat pub-dir (file-relative-name filename (projectile-project-root))))))
   (duncan/org-html-publish-generate-redirect plist filename pub-dir)
