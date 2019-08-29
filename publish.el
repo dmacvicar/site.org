@@ -4,10 +4,11 @@
   (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
   (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
   (package-refresh-contents))
-(dolist (pkg '(projectile org-plus-contrib htmlize))
+(dolist (pkg '(dash projectile org-plus-contrib htmlize))
   (unless (package-installed-p pkg)
     (package-install pkg)))
 
+(require 'dash)
 (require 'org)
 (require 'ox-rss)
 (require 'ox-publish)
@@ -25,25 +26,35 @@
     (insert-file-contents (expand-file-name filename "./snippets"))
     (buffer-string)))
 
+(defun duncan/org-publish-sitemap--valid-entries (entries)
+  "Filter ENTRIES that are not valid or skipped by the sitemap entry function."
+  (-filter (lambda (x) (car x)) entries))
+
 (defun duncan/org-publish-sitemap-latest-posts (title sitemap)
   "Only publish the latest 5 posts from SITEMAP (https://orgmode.org/manual/Sitemap.html).  Skips TITLE."
   (let* ((posts (cdr sitemap))
+         (posts (duncan/org-publish-sitemap--valid-entries posts))
          (last-five (seq-subseq posts 0 (min (length posts) 5))))
     (org-list-to-org (cons (car sitemap) last-five))))
 
-(defun duncan/org-publish-sitemap-archive (title list)
+(defun duncan/org-publish-sitemap-archive (title sitemap)
   "Wrapper to skip TITLE and just use LIST (https://orgmode.org/manual/Sitemap.html)."
-  (let ((title "Blog") (subtitle "Archive"))
+  (let* ((title "Blog") (subtitle "Archive")
+         (posts (cdr sitemap))
+         (posts (duncan/org-publish-sitemap--valid-entries posts)))
     (concat (format "#+TITLE: %s\n\n* %s\n" title subtitle)
-            (org-list-to-org list) "\n#+BEGIN_EXPORT html\n<a href='../archive.xml'><i class='fa fa-rss'></i></a>\n#+END_EXPORT\n")))
+            (org-list-to-org (cons (car sitemap) posts)) "\n#+BEGIN_EXPORT html\n<a href='../archive.xml'><i class='fa fa-rss'></i></a>\n#+END_EXPORT\n")))
 
 (defun duncan/org-publish-sitemap-entry (entry style project)
   "Format sitemap ENTRY for PROJECT with the post date before the link, to generate a posts list.  STYLE is not used."
-  (unless (equal entry "404.org")
-    (format "%s [[file:%s][%s]]"
-            (format-time-string "<%Y-%m-%d>" (org-publish-find-date entry project))
-            entry
-            (org-publish-find-title entry project))))
+  (let* ((base-directory (plist-get (cdr project) :base-directory))
+         (filename (expand-file-name entry (expand-file-name base-directory (duncan/project-root))))
+         (draft? (duncan/post-get-metadata-from-frontmatter filename "DRAFT")))
+    (unless (or (equal entry "404.org") draft?)
+      (format "%s [[file:%s][%s]]"
+              (format-time-string "<%Y-%m-%d>" (org-publish-find-date entry project))
+              entry
+              (org-publish-find-title entry project)))))
 
 (defun duncan/org-html-timestamp (timestamp contents info)
   "We are not going to leak org mode silly <date> format when rendering TIMESTAMP to the world, aren't we?.  CONTENTS and INFO are passed down to org-html-timestamp."
@@ -63,8 +74,10 @@
     (with-temp-buffer
       (insert-file-contents post-filename)
       (goto-char (point-min))
-      (ignore-errors (search-forward-regexp (format "^\\#\\+%s\\:\s+\\(.+\\)$" key)))
-      (match-string 1))))
+      (ignore-errors
+        (progn
+          (search-forward-regexp (format "^\\#\\+%s\\:\s+\\(.+\\)$" key))
+          (match-string 1))))))
 
 (defun duncan/org-html-publish-generate-redirect (plist filename pub-dir)
   "Generate redirect files in PUB-DIR from the #+REDIRECT_FROM header in FILENAME, using PLIST."
