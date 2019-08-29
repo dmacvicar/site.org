@@ -25,9 +25,11 @@
     (insert-file-contents (expand-file-name filename "./snippets"))
     (buffer-string)))
 
-(defun duncan/org-publish-sitemap-latest-posts (title list)
-  "Wrapper to skip TITLE and just use LIST (https://orgmode.org/manual/Sitemap.html)."
-  (org-list-to-org list))
+(defun duncan/org-publish-sitemap-latest-posts (title sitemap)
+  "Only publish the latest 5 posts from SITEMAP (https://orgmode.org/manual/Sitemap.html).  Skips TITLE."
+  (let* ((posts (cdr sitemap))
+         (last-five (seq-subseq posts 0 (min (length posts) 5))))
+    (org-list-to-org (cons (car sitemap) last-five))))
 
 (defun duncan/org-publish-sitemap-archive (title list)
   "Wrapper to skip TITLE and just use LIST (https://orgmode.org/manual/Sitemap.html)."
