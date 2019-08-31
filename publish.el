@@ -242,6 +242,9 @@
 (defun duncan-publish-all ()
   "Publish the blog to HTML."
   (interactive)
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((dot . t)))
   (let ((make-backup-files nil)
         (org-publish-project-alist       duncan--publish-project-alist)
         ;; deactivate cache as it does not take the publish.el file into account
