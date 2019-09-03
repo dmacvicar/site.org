@@ -949,7 +949,7 @@ Every time the sources changes, the package will be rebuilt, and if you
 have more packages in the same project, they will be rebuilt in the
 right order and re-published.
 
-[[../../assets/images/tutorials/rpm-packaging-tutorial/gqlplus-obs.png]]
+[[file:images/gqlplus-obs.png]]
 
 Open Build Service can not only build packages, but also images from
 those packages. All SUSE products and the openSUSE distributions are
