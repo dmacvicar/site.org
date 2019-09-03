@@ -244,7 +244,7 @@
   (interactive)
   (org-babel-do-load-languages
    'org-babel-load-languages
-   '((dot . t)))
+   '((dot . t) (plantuml . t)))
   (let ((make-backup-files nil)
         (org-publish-project-alist       duncan--publish-project-alist)
         ;; deactivate cache as it does not take the publish.el file into account
@@ -269,8 +269,17 @@
            ("faRss" "\\faRss" nil "<i aria-hidden='true' class='fa fa-rss'></i>" "" "" "")
            ("faBookmark" "\\faBookmark" nil "<i aria-hidden='true' class='fa fa-bookmark'></i>" "" "" "")
            ("faCode" "\\faCode" nil "<i aria-hidden='true' class='fa fa-code'></i>" "" "" "")
-           ("faGraduationCap" "\\faGraduationCap" nil "<i aria-hidden='true' class='fa fa-graduation-cap'></i>" "" "" ""))))
-        (org-html-htmlize-output-type       'css))
+           ("faGithub" "\\faGithub" nil "<i aria-hidden='true' class='fa fa-github'></i>" "" "" "")
+           ("faGraduationCap" "\\faGraduationCap" nil "<i aria-hidden='true' class='fa fa-graduation-cap'></i>" "" "" "")
+           ("faImage" "\\faImage" nil "<i aria-hidden='true' class='fa fa-image'></i>" "" "" ""))))
+        (org-html-htmlize-output-type       'css)
+        (org-plantuml-jar-path (-first 'file-exists-p
+                                       ; openSUSE, Ubuntu
+                                       '("/usr/share/java/plantuml.jar" "/usr/share/plantuml/plantuml.jar")))
+        (org-confirm-babel-evaluate
+         (lambda (lang body)
+           (message (format "in lambda %s" lang))
+           (not (member lang '("dot" "plantuml"))))))
     (org-publish-all)))
 
 (provide 'publish)
