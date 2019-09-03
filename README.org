@@ -6,6 +6,10 @@
 
 This setup based on [[https://orgmode.org][org-mode]] aims to replace my previous [[https://jekyllrb.com][Jekyll]] setup used to publish my site.
 
+* Implementation
+
+For details about the implementation see [[file:posts/2019-09-03-migrating-from-jekyll-to-org/index.org][the introductory post]] and the [[https://github.com/dmacvicar/site.org][\faGithub Source]].
+
 * Usage
 
 - Posts go into =posts/=
@@ -40,11 +44,6 @@ The output site will be rendered in =public/=.
   #+END_SRC
  
   Note that the post will still be published, but you will need to access it by its URL directly.
-
-* Implementation
-
-<<publish-el>>
-#+INCLUDE: "publish.el" src emacs-lisp
 
 * License
 
