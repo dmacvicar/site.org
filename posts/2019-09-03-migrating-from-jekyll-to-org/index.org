@@ -1,0 +1,296 @@
+#+TITLE: Migrating from Jekyll to org-mode and Github Actions
+#+DATE: <2019-09-03 Tue>
+
+* Introduction
+
+My [[http://duncan.codes][website]] has been generated until know by [[https://pages.github.com/][Github pages]] using a static site generator tool called [[https://jekyllrb.com/][Jekyll]] and the [[http://jekyllthemes.org/themes/lagom/][Lagom]] theme.
+
+** Github Pages
+
+Github Pages allows to host static sites in Github repositories for free. It is very simple, you would just put the website in a branch (eg. =gh-pages=) and Github will serve it as /username.github.io/repo/, or via a custom domain by adding a simple /CNAME/ text file to the repository.
+
+** Static Site Generators
+
+If you did not want to write /HTML/ directly, you could use a [[https://en.wikipedia.org/wiki/Web_template_system#Static_site_generators][static site generator]] to keep a set of templates and content in the git repository and putting the output of the generator (the /HTML/ files) into the =gh-pages= branch to be served by Github.
+
+In addition to be able to write the content in [[https://github.github.com/gfm/][Markdown]], site generators made much easier to maintain content like a blog, with features like different templates for posts, code syntax highlighting, drafts and support for themes, which allowed to change the look and feel of the site by just changing one configuration option and just re-generating it.
+
+If you wanted this process to be automatic, you could run the generation as part of some CI job (eg. with [[https://travis-ci.org/][TravisCI]]), so that the site is re-generated when its sources are updated.
+
+** Jekyll support in Github Pages
+
+Jekyll is one of these site generators and it was the most popular for a while. The nice part was that if you used Jekyll, Github Pages will generate your website automatically, without having to setup CI. Just push your changes and a minute later your site was published.
+
+On the other hand, you were limited by using the Jekyll version that was installed at Github, and you could not just install any add-on that you wanted. You did not control the environment to the level you did in a typical CI.
+
+* Moving away from Jekyll
+
+Jekyll just worked. I can't complain about it. However, I feel too tied to the Github Pages environment. You had to use a Jekyll version that was close to a year behind and live with the plugins that the environment supported, and nothing more.
+
+If I was to setup my own CI workflow to overcome this limitation, why keep using Jekyll?. [[https://gohugo.io/][Hugo]] started to feel faster, easier to deploy locally and mostly compatible.
+
+I have been using Emacs for more than 10 years. 3 years ago, I switched mail clients from Thunderbird to [[https://www.djcbsoftware.nl/code/mu/mu4e.html][mu4e]] on top of [[https://www.gnu.org/software/emacs/][Emacs]]. Then I discovered [[https://orgmode.org/][org-mode]] as a plain-text personal organization system and gradually started to live more time inside emacs. Microsoft did a so good job with [[https://code.visualstudio.com/][Visual Studio Code]] that for a moment I thought I would not resist. However, Microsoft created an ecosystem by making the interaction with programming languages a standard, via the [[https://microsoft.github.io/language-server-protocol/][Language Server Protocol]], and [[https://github.com/emacs-lsp/lsp-mode][emacs-lsp]] made my programming experience with emacs just better.
+
+I knew that =org-mode= was quite good at exporting. After I saw a couple of websites generated from org, I started to toy with the idea of using org too. It could also be a good chance to learn [[https://www.gnu.org/software/emacs/manual/eintr.html][Emacs Lisp]] for real. So I started learning about org and websites.
+
+* Inspiration
+
+As I did not know where to start, I started by reading a lot of solutions by other people, documentation, posts, etc.
+
+Most of the structure of the final solution, its ideas, conventions, configuration and some snippets were taken from the following projects:
+
+- [[https://gitlab.com/to1ne/blog][Toon Clae's blog]]
+- Example [[http://orgmode.org][org-mode]] website using [[http://pages.gitlab.io/][GitLab Pages]] by Rasmus
+- https://github.com/bastibe/org-static-blog
+- The theme is a port of the original [[https://github.com/swanson/lagom][Lagom]] theme I was using with Jekyll
+
+* Implementation
+
+** Principles
+
+Once I had a clear picture of the domain, I made up my mind of how I wanted it and my own requirements:
+
+- Use as much standard packages as possible. eg. [[https://orgmode.org/manual/Publishing.html][org-publish]]. Avoid using [[https://melpa.org/#/?q=blog]["frameworks"]] on top of emacs/org
+- Links to old posts should still work (I had configured Jekyll to use =/year/month/day/post-name.html= )
+- Initially, I thought about the ability to migrate content gradually, eg. supporting Markdown posts for a while
+- Self contained. Everything should be in a single git repo, not interfering with my =emacs.d=.
+- Ability to run it from the command line, so that /CI/ could be used to automatically generate the site from /git/
+
+** Emacs concepts to be used
+
+There are a bunch of emacs concepts that help putting all the pieces together:
+
+*** Emacs batch mode
+
+While I could have most of the configuration in my =~/.emacs.d/init.el=, I wanted a self-contained solution, not depending on my personal emacs configuration being available.
+
+There are a bunch of /emacs/ options that help achieving this:
+
+#+BEGIN_EXAMPLE
+$ emacs --help
+...
+--batch                     do not do interactive display; implies -q
+...
+--no-init-file, -q          load neither ~/.emacs nor default.el
+...
+--load, -l FILE         load Emacs Lisp FILE using the load function
+...
+--funcall, -f FUNC      call Emacs Lisp function FUNC with no arguments
+...
+#+END_EXAMPLE
+
+With these options, we can put all our configuration and helper functions in a /lisp/ file, call emacs as a script engine, skip our personal configuration, have emacs load the file with the configuration, and call a function to run everything.
+
+*** org-mode Export (ox)
+
+/org-mode/ includes an [[https://orgmode.org/manual/Exporting.html][Export subsystem]] with several target formats (/ASCII/, [[https://en.wikipedia.org/wiki/Beamer_(LaTeX)][/beamer/]], /HTML/, etc). Every backend/converter is a set of functions that take already parsed /org-mode/ structures (eg. a list, a timestamp, a paragraph) and converts it to the target format. [[https://orgmode.org/worg/][Worg]], a section of the Org-mode web site that is written by a volunteer community of Org-mode fans, provide [[https://orgmode.org/worg/dev/org-export-reference.html][documentation on how to define an export backend]] (/org-export-define-backend/). From here is important to understand [[https://orgmode.org/worg/dev/org-export-reference.html#filter-system][the filter system]] and /org-export-define-derived-backend/, which allows to define a backend by overriding an existing one. This is what I will end using to tweak, for example, how timestamps are exported.
+
+*** org-publish
+
+/org-mode/ includes a [[https://orgmode.org/manual/Publishing.html][publishing management system]] that helps exporting a interlinked set of org files. There is a [[https://orgmode.org/worg/org-tutorials/org-publish-html-tutorial.html][nice tutorial]] also available.
+
+Using /org-publish/ boils down to defining a list of components (blog posts, assets, /RSS/), their options (base directory, target directory, includes/excludes, publishing function) being the /publishing function/ one of the most interesting ones, as /org/ comes with a few predefined ones eg. /org-html-publish-to-html/ to publish /HTML/ files and /org-publish-attachment/ to publish static assets. The most important thing to learn here is that you can wrap those in your own to do additional stuff and customize publishing very easily. I use this for example, to skip draft posts or to write redirect files for certain posts in addition to the post itself.
+
+** The solution
+
+*** Directory Structure
+
+#+BEGIN_EXAMPLE
+├── CNAME
+├── css
+│   ├── index.css
+│   └── site.css
+├── index.org
+├── Makefile
+├── posts
+│   ├── 2019-10-31-some-post
+│   │   └── index.org
+│   ├── 2014-06-11-other-post
+│   │   ├── images
+│   │   │   ├── someimage.png
+│   │   │   └── another-image.png
+│   │   └── index.org
+│   ├── archive.org
+│   └── posts.org
+├── public
+├── publish.el
+├── README.org
+├── snippets
+│   ├── analytics.js
+│   ├── postamble.html
+│   └── preamble.html
+└── tutorials
+    └── how-to-something
+        └── index.org
+#+END_EXAMPLE
+
+Inside the directory tree, you can find:
+
+- a /publish.el/ file with the /org-publish/ project description and all the support code and helper functions
+- a /CNAME/ file for telling [[https://help.github.com/en/articles/using-a-custom-domain-with-github-pages][Github Pages my domain name]]
+- a folder with a /CSS/ file for all the site. Another one that is included only on the index page
+- a /Makefile/ that just calls emacs with the parameters we described above and calls the function /duncan-publish-all/
+- a subdirectory for each post, and another one for tutorials
+- a /public/ directory where the output files are generated and the static assets copied
+- a /snippets/ directory with the preamble, postamble and Google analytics snippets
+
+*** publish.el
+
+The main file containing code and configuration includes a few custom publishing functions that are used as hooks for publishing and creating sitemaps.
+
+*** org-publish project
+
+The /org-publish/ project (/org-publish-project-alist/) is defined in the variable /duncan--publish-project-alist/, and defines the following components:
+
+- /blog/
+
+  This components reads all /org/ files in the =./posts/= directory, and exports them to /HTML/ using /duncan/org-html-publish-post-to-html/ as the publishing function.
+
+  This function injects the date as the page subtitle in the property list before delegating to the original function. This is a common pattern that you can use to override the publishing function. Note that /subtitle/ is a recognized configuration property of the /HTML/ export backend.
+
+#+BEGIN_SRC elisp
+(defun duncan/org-html-publish-post-to-html (plist filename pub-dir)
+  "Wraps org-html-publish-to-html.  Append post date as subtitle to PLIST.  FILENAME and PUB-DIR are passed."
+  (let ((project (cons 'blog plist)))
+    (plist-put plist :subtitle
+               (format-time-string "%b %d, %Y" (org-publish-find-date filename project)))
+    (duncan/org-html-publish-to-html plist filename pub-dir)))
+#+END_SRC
+
+  The function also checks the =#+REDIRECT_TO= property, and generates redirect pages accordingly, by spawning another export to a different path in the same =pub_dir=.
+
+  This component is configured with a sitemap function which, even if goes through all posts, it is programmed to take only a few ones and write an /org/ file with links to them. This file (/posts.org/) is then included in /index.org/ and used as the list of recent posts.
+
+- /archive-rss/
+
+  This component also operates on =/.posts/=, but instead of generating HTML, it uses the /RSS/ backend to generate the full site archive as /RSS/.
+
+  The sitemap function is also configured, like in the /blog/ component, but this function generates an org file with all posts, not just the latest ones. The /sitemap-format-entry/ function is shared between the sitemaps functions, as the list of posts looks the same.
+
+#+BEGIN_SRC plantuml :file images/sitemap-function.png :exports none
+(*) --> "sitemap-function"
+(*) --> "sitemap-format-entry"
+skinparam activity {
+BackgroundColor<< Note >> yellow
+}
+"sitemap-function" -->[blog] "duncan/org-publish-sitemap-latest-posts"
+"duncan/org-publish-sitemap-latest-posts" --> "Take only last 5" << Note >>
+"Take only last 5" --> (*)
+"sitemap-format-entry" --> "duncan/org-publish-sitemap-entry"
+if "#+DRAFT: ?" then
+  -->[present] (*)
+else
+  -->[absent] "Custom post list formatting" << Note >>
+endif
+#+END_SRC
+
+#+RESULTS:
+[[file:images/sitemap-function.png]]
+
+file:images/sitemap-function.png
+
+- /site/
+
+  The rest of the content of the site, including the /index.org/ page and the generated /org/ files for the archive (/archive.org/) and latest posts (/posts.org/).
+
+- /assets/
+
+  All files that are just copied over
+
+- /tutorials/
+
+  It works just like posts, but I setup each (don't expect to have many) to use the [[https://github.com/fniessen/org-html-themes][ReadTheOrg]] theme. It uses the default /HTML/ publishing function.
+
+file:images/readtheorg.png
+
+*** Export workflow
+
+#+BEGIN_SRC plantuml :file images/publishing-function.png :exports none
+(*) --> "org-publish-all"
+skinparam activity {
+BackgroundColor<< Note >> yellow
+}
+"org-publish-all" -->[org-publish-project-alist] "publishing-function"
+"publishing-function" -->[blog] "duncan/org-html-publish-post-to-html"
+if "#+REDIRECT: ?" then
+  -->[present] "duncan/org-html-publish-generate-redirect"
+  "duncan/org-html-publish-generate-redirect" --> "Generate redirect pages" << Note >>
+  "Generate redirect pages" --> "overriden\nduncan/html backend"
+endif
+
+"duncan/org-html-publish-post-to-html" --> "Adds date as subtitle" << Note >>
+"Adds date as subtitle" --> "duncan/org-html-publish-to-html"
+
+"duncan/org-html-publish-to-html" --> "Inject site CSS" << Note >>
+"Inject site CSS" --> "overriden\nduncan/html backend"
+"overriden\nduncan/html backend" --> "Override timestamp translation" << Note >>
+
+"publishing-function" -->[archive-rss] "duncan/org-rss-publish-to-rss"
+if "file name?"
+  -->["archive.org"] "org-rss-publish-to-rss"
+  "org-rss-publish-to-rss" --> "ox-rss\nbackend"
+endif
+
+"publishing-function" -->[site] "duncan/org-html-publish-site-to-html"
+if "file name?"
+  -->["index.org"] "Inject index CSS" << Note >>
+endif
+"Inject index CSS" --> "duncan/org-html-publish-to-html"
+
+"publishing-function" -->[tutorials] "org-html-publish-to-html"
+"publishing-function" -->[assets] "org-publish-attachment"
+
+"overriden\nduncan/html backend" --> "ox-html\nbackend"
+
+"org-html-publish-to-html" --> "ox-html\nbackend"
+
+"ox-html\nbackend" --> (*)
+#+END_SRC
+
+file:images/publishing-function.png
+
+** Look & Feel
+
+I managed to port most of the /Lagom/ look and feel by starting a CSS from scratch (learned [[https://developer.mozilla.org/en-US/docs/Web/CSS/grid][CSS Grid]] in the process) and manually fixing each difference. I was quite satisfied with the final result. I had to use some extra page-specific CSS to hide the title in the front-page, or to [[https://emacs.stackexchange.com/questions/36898/proper-way-to-add-to-org-entities-user][display]] [[https://fontawesome.com/][FontAwesome]] icons.
+
+*** Before
+
+[[file:images/jekyll.png]]
+
+*** After
+
+file:images/org.png
+
+* Publishing
+
+While locally you can test by running /emacs/ via the /Makefile/, I wanted a new way to run the generation on every git push:
+
+- I started with [[https://travis-ci.com/][Travis]], but I could not find container jobs anymore. When I relalized that Ubuntu had an older Emacs version I just lost interest.
+- Gitlab was easy to get working. Not only because is very simple and elegant, but some of the examples I took inspiration from where already using it, along the [[https://github.com/iquiw/docker-alpine-emacs][Emacs Alpine]] container image. However, I did not want to have everything in Github, except my site
+- Then I realized [[https://github.com/features/actions][Github Actions]] was in beta, but I was not yet in. Until:
+
+#+BEGIN_EXPORT html
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">You’re in 🥰</p>&mdash; Nat Friedman (@natfriedman) <a href="https://twitter.com/natfriedman/status/1165778104280707072?ref_src=twsrc%5Etfw">August 26, 2019</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+#+END_EXPORT
+
+** Setting up a workflow to build the site
+
+While, on Linux, Github actions run on Ubuntu, they allow you to execute an action inside a container.
+
+#+INCLUDE: "../../.github/workflows/build-publish.yml" src yaml
+
+Combining [[https://github.com/actions/checkout][actions/checkout]], our own build script running as a container [[https://github.com/iquiw/docker-alpine-emacs][docker://iquiw/alpine-emacs]] inside the /VM/, and [[https://github.com/peaceiris/actions-gh-pages][peaceiris/actions-gh-pages]] we get the desired results.
+
+As a caveat, you need to setup a /personal access token/ for the action, as the default one will not work and what gets pushed to the /gh-pages/ will not show up in your website.
+
+The experience with Github Actions has been very positive. I will definitely replace most of my TravisCI usage in my repositories. Kudos to the Github team.
+
+* Conclusions
+
+Not only I have a website powered by the tool I use daily, but it is also packed with awesome features. For example, the diagrams in this post are inlined as [[http://plantuml.com/][PlantUML]] code in the /org/ file and exported via [[https://orgmode.org/worg/org-contrib/babel/intro.html][Org Babel]].
+
+It also gave me project to learn /Emacs Lisp/. I do plan to add some minor features, like blog tags or categories and perhaps commenting. The learning will also benefit personalizing my editor and mail client.
+
+The source of this site is available [[https://github.com/dmacvicar/site.org][on \faGithub Github]].
+
