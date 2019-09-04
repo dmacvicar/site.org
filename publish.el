@@ -129,11 +129,7 @@
                (duncan/org-html-head
                 (append (duncan/head-common-list plist)
                         (plist-get plist :html-head-list)) plist)))
-  (let* ((css-path "css/site.css")
-         (css-relative-to-file
-          (file-relative-name (concat pub-dir css-path) (file-name-directory (concat pub-dir (file-relative-name filename (projectile-project-root))))))
-         (css-with-checksum (concat css-relative-to-file "?v=" (duncan/hash-for-filename (concat (projectile-project-root) css-path)))))
-    (plist-put plist :html-htmlized-css-url css-with-checksum))
+  (plist-put plist :html-htmlized-css-url (duncan/asset-relative-link-to "css/site.css" pub-dir t))
   (duncan/org-html-publish-generate-redirect plist filename pub-dir)
   (org-publish-org-to 'duncan/html filename
 		      (concat "." (or (plist-get plist :html-extension)
@@ -175,7 +171,7 @@
     (plist-put plist :html-head-list
                (list
                 (list "link"
-                      (list "rel" "stylesheet" "href" "css/index.css")))))
+                      (list "rel" "stylesheet" "href" (duncan/asset-relative-link-to "css/index.css" pub-dir t))))))
   (duncan/org-html-publish-to-html plist filename pub-dir))
 
 (defun duncan/org-rss-publish-to-rss (plist filename pub-dir)
