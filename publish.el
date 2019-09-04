@@ -112,6 +112,15 @@
     (insert-file-contents filename)
     (secure-hash 'sha256 (current-buffer))))
 
+(defun duncan/asset-relative-link-to (resource pub-dir &optional versioned)
+    (let* ((assets-project (assoc "assets" org-publish-project-alist 'string-equal))
+           (dst-asset (expand-file-name resource (org-publish-property :publishing-directory assets-project)))
+           (asset-relative-to-dst-file (file-relative-name dst-asset pub-dir)))
+      (if versioned
+          (format "%s?v=%s" asset-relative-to-dst-file
+                  (duncan/hash-for-filename (expand-file-name resource (projectile-project-root))))
+        dst-asset asset-relative-to-dst-file)))
+
 (defun duncan/org-html-publish-to-html (plist filename pub-dir)
   "Analog to org-html-publish-to-html using duncan/html backend.  PLIST, FILENAME and PUB-DIR are passed as is."
   (plist-put plist :html-head
