@@ -106,6 +106,12 @@
      (list "meta" (list "description" description))
      (list "link" (list "rel" "alternate" "type" "application+rss/xml" "title" description "href" "/archive.xml")))))
 
+(defun duncan/hash-for-filename (filename)
+  "Returns the sha25 for FILENAME."
+  (with-temp-buffer
+    (insert-file-contents filename)
+    (secure-hash 'sha256 (current-buffer))))
+
 (defun duncan/org-html-publish-to-html (plist filename pub-dir)
   "Analog to org-html-publish-to-html using duncan/html backend.  PLIST, FILENAME and PUB-DIR are passed as is."
   (plist-put plist :html-head
@@ -114,8 +120,11 @@
                (duncan/org-html-head
                 (append (duncan/head-common-list plist)
                         (plist-get plist :html-head-list)) plist)))
-  (plist-put plist :html-htmlized-css-url
-             (file-relative-name (concat pub-dir "css/site.css") (file-name-directory (concat pub-dir (file-relative-name filename (projectile-project-root))))))
+  (let* ((css-path "css/site.css")
+         (css-relative-to-file
+          (file-relative-name (concat pub-dir css-path) (file-name-directory (concat pub-dir (file-relative-name filename (projectile-project-root))))))
+         (css-with-checksum (concat css-relative-to-file "?v=" (duncan/hash-for-filename (concat (projectile-project-root) css-path)))))
+    (plist-put plist :html-htmlized-css-url css-with-checksum))
   (duncan/org-html-publish-generate-redirect plist filename pub-dir)
   (org-publish-org-to 'duncan/html filename
 		      (concat "." (or (plist-get plist :html-extension)
