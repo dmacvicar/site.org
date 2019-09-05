@@ -3,7 +3,7 @@
 
 * Introduction
 
-My [[http://duncan.codes][website]] has been generated until know by [[https://pages.github.com/][Github pages]] using a static site generator tool called [[https://jekyllrb.com/][Jekyll]] and the [[http://jekyllthemes.org/themes/lagom/][Lagom]] theme.
+My [[http://duncan.codes][website]] has been generated until now by [[https://pages.github.com/][Github pages]] using a static site generator tool called [[https://jekyllrb.com/][Jekyll]] and the [[http://jekyllthemes.org/themes/lagom/][Lagom]] theme.
 
 ** Github Pages
 
