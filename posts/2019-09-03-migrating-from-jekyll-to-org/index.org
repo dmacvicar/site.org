@@ -39,7 +39,7 @@ As I did not know where to start, I started by reading a lot of solutions by oth
 
 Most of the structure of the final solution, its ideas, conventions, configuration and some snippets were taken from the following projects:
 
-- [[https://gitlab.com/to1ne/blog][Toon Clae's blog]]
+- [[https://gitlab.com/to1ne/blog][Toon Claes's blog]]
 - Example [[http://orgmode.org][org-mode]] website using [[http://pages.gitlab.io/][GitLab Pages]] by Rasmus
 - https://github.com/bastibe/org-static-blog
 - The theme is a port of the original [[https://github.com/swanson/lagom][Lagom]] theme I was using with Jekyll
