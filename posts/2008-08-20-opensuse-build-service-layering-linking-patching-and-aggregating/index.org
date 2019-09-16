@@ -1,0 +1,64 @@
+#+TITLE: openSUSE Build service: layering, linking, patching and aggregating
+#+DATE: <2008-08-20 Wed>
+#+REDIRECT_FROM: /2008/08/20/opensuse-build-service-layering-linking-patching-and-aggregating.html
+
+Today I used some of the coolest [[http://build.opensuse.org][openSUSE Build Service]] features: project layering, patches against linked packages and aggregates. I want to write about them.
+
+I needed to test a feature in PackageKit. I am using openSUSE 11.0. However upstream PackageKit does not play nice with 11.0. [[http://en.opensuse.org/User:Haass][Stefan Haas]] fixed this, taking our PackageKit sources, adding some patches, and building them in his [[https://build.opensuse.org/package/show?package=PackageKit&project=home%3Ahaass][home project]], which results in a repository [[http://download.opensuse.org/repositories/home:/haass/openSUSE_11.0/][here]].
+
+My feature involved a patch against PackageKit and then testing it from a client application (to adapt it), so what I wanted to achieve was to use Stefan's PackageKit plus my patch, packaged in a rpm.
+
+I could just copy Stefan's sources and patches to my home project, and add my patch, but that would be duplication. Any change Stefan does later would require to copy it again.
+
+Luckily the build service has a feature call linking, so I can link Stefan's package to my home project. You can do that from osc or from the web user interface (Link package from another project), and that would result in a new package called PackageKit in my project (I created a subproject home:dmacvicar:packagekit for this purpose) with a single file called /_link/.
+
+This version of PackageKit only builds with Factory's libzypp, so here we have various options:
+
+- build on top of zypp:svn/openSUSE_11.0 which is ZYpp svn built on openSUSE_11.0
+- link all [[https://build.opensuse.org/project/show?project=zypp%3Asvn][zypp:svn]] packages to my project (too inefficient, Adrian would kill me if I start to rebuild ZYpp in every project :-) )
+- aggregate all ZYpp openSUSE_11.0 packages from [[https://build.opensuse.org/project/show?project=zypp%3Asvn][zypp:svn]] in my project (aggregate explained later)
+
+Because I already have the [[http://download.opensuse.org/repositories/zypp:/svn/openSUSE_11.0/][repo zypp:svn]] in my repo list, I chose building on top of [[https://build.opensuse.org/project/show?project=zypp%3Asvn][zypp:svn]]. (This will mean that in order to use this modified PackageKit repo, you need to add [[https://build.opensuse.org/project/show?project=zypp%3Asvn][zypp:svn]] as well).
+
+So now, I can add my patch next to the _link file. However, How to make this patch appear in Stefan's specfile? Do we need to patch the spec file too? No. The build service does it for you. Just edit the _link file which looks like this:
+
+So it looks like:
+
+#+BEGIN_SRC xml
+<link project='zypp:svn' package='PackageKit'>
+  <patches>
+    <apply name="patch" />
+  </patches>
+</link>
+#+END_SRC
+
+This will insert the patch in the spec file when building. That is real magic.
+
+Sadly, this bleeding edge PackageKit version requires some libtar-devel not available in 11.0. Stefan had a [[https://build.opensuse.org/package/show?package=libtar&project=home%3Ahaass][backport to 11.0 in his home project]] too. Do we need to link the package to our project too? No. Linking here is unnecessary because we don't really need to rebuild a copy of this package, we only need to make it available in our repository for people installing PackageKit from our project, who don't have Stefan's project added in their repository list, that will get libtar grabbed via dependencies, but we don't care if the metadata grabs the final rpm from Stefan's project.
+
+That is called "aggregate". To aggregate a package from another project, we create a new package (called libtar) and add to it a file called /_aggregate/ (the web interface does not help you here). Edit that file so it looks like:
+
+#+BEGIN_SRC xml
+<aggregatelist>
+  <aggregate project="home:haas">
+    <package>libtar</package>
+    <package>libtar-devel</package>
+  </aggregate>
+</aggregatelist>
+#+END_SRC
+
+This will map /home:haass/ repositories 1:1 to our repositories. So if we build our project against /openSUSE_11.0/, it will aggregate our package with home:haass/openSUSE_11.0 too. If you don't have a 1:1 mapping, look the [[http://en.opensuse.org/Build_Service/Tips_and_Tricks#Example_of_an__aggregate][Build Service Tips and Tricks]] to do more complex aggregates.
+
+Then I am ready to install my new PackageKit:
+
+#+BEGIN_EXAMPLE
+$ sudo zypper in -r home_dmacvicar_packagekit PackageKit PackageKit-devel
+Reading installed packages...
+
+The following NEW packages are going to be installed:
+PackageKit-devel PackageKit
+
+Overall download size: 1.1 M. After the operation, additional 5.1 M will
+be used.
+Continue? [YES/no]: y
+#+END_EXAMPLE
