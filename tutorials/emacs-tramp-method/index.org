@@ -1,0 +1,124 @@
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
+#+TITLE: Writing a new method for TRAMP
+#+DATE: <2019-09-16 Mon>
+#+AUTHOR: Duncan Mac-Vicar P.
+#+FILETAGS: emacs tramp
+
+* Authors
+  :PROPERTIES:
+  :CUSTOM_ID: authors
+  :END:
+
+- {{{author}}}
+
+* What is TRAMP?
+
+[[https://www.gnu.org/software/tramp/][TRAMP]] allows you transparently access remote files within Emacs.
+
+You may have heard that people like text mode editors because they can /ssh/ into a box and run the editor on the remote machine. With /TRAMP/ this becomes unnecessary. You can open a file in a remote machine right from yours. Your editor will be running your local configuration and all the file access will be transparent.
+
+You may be alrady familiar with this technology. [[https://www.kde.org][KDE]] has provided [[https://community.kde.org/KIO][KIO]] since ages, allowing you transparently access and modify remote files under applications native to this desktop environment. In [[https://www.gnome.org][GNOME]], [[https://wiki.gnome.org/Projects/gvfs][GVFS]] provides similar functionality.
+
+[[https://github.com/libfuse/libfuse][FUSE]] (Filesystem in Userspace) is no different. Allows you to represent almost anything, usually remote resources, as a filesystem you can mount, everything from a user-space program.
+
+If you look at the internals of all these technologies, you will realize that all of them are very similar. The implementation will need to provide a list of operations to deal with opening, writing, deleting, etc files. This list of operations will make those remote resources behave as if they were local files.
+
+/TRAMP/ also works this way. Unlike [[https://libfuse.github.io/doxygen/structfuse__operations.html][FUSE operations]], which are very low level, /TRAMP/ works on a higher level, providing alternative implementations for Emacs common file access methods. =make-directory=, =copy-file=, =directory-files=, etc.
+
+/TRAMP/ functionality to access a specific type of resources, for example, files on a remote machine via /ssh/ or /smb/, are called /methods/. /TRAMP/ includes several methods, like /ssh/, files on a Android phone via /adb/, and also those provided by /GVFS/ under a GNOME environment.
+
+I was exploring how to create a /TRAMP/ method to access the proprietary [[https://www.google.com/drive/][Google Drive]] storage service for two reasons:
+
+- The included method uses /GVFS/, did not work on my machine, ended opening read-only files which you could not save back.
+- I imagined that a pure Emacs solution would allow to access /Drive/ on platforms not providing /GVFS/
+
+Unfortunately, /TRAMP/ is not very well documented for a developer looking into writing new methods, therefore, I decided to document this journey. Not focusing much on the challenges of implementing a client for the [[https://developers.google.com/drive/api/v3/reference/][Drive API]] in lisp, but focusing on the /TRAMP/ API instead.
+
+You will need to decide where to start. You can start by understanding the target API you are dealing with, and prototype some code to access it. Once you are confident you can for example, list and get content, you can start gluing it together with /TRAMP/.
+
+For this case, I started familiarizing myself with the /Drive/ API and [[https://elpa.gnu.org/packages/oauth2.html][the oauth2 library]], and the /json.el/ built-in library (eg. =(json-read)=). Once I was able to authenticate and retrieve some content, I started gluing it to /TRAMP/.
+
+As I learned /TRAMP/ by reading other methods (/GVFS/, /HDFS/), you will find boilerplate code that may be unnecessary. Feel free to point it out and I will update the tutorial.
+
+* The structure
+
+The structure we will use for development and testing:
+
+** /tramp-drive.el/
+
+#+BEGIN_SRC elisp
+;; Pacify byte-compiler.
+(eval-when-compile
+  (require 'cl))
+
+; constants, your client id, API end-points, etc
+(defconst tramp-drive-api-base "https://www.googleapis.com/drive/v3")
+; ...
+
+; handler and initialization
+; ...
+
+(add-hook 'tramp-unload-hook
+	  (lambda ()
+	    (unload-feature 'tramp-drive 'force)))
+
+(provide 'tramp-drive)
+#+END_SRC
+
+** /tramp-playground.el/
+#+BEGIN_SRC elisp
+(add-to-list 'load-path "./")
+
+(require 'tramp-drive)
+
+(setq debug-on-error t)
+(directory-files "/drive:user@gmail.com:/org")
+#+END_SRC
+
+Note that the first operation we do in the playground is to read the files from a folder. The idea is to trigger any operation, and see where it ends. Then we can move on by filling the blanks.
+
+** A scaffold method
+
+The first step is to register our method, even if there is no much functionality provided yet:
+
+#+BEGIN_SRC elisp
+;;;###tramp-autoload
+(defun tramp-drive-file-name-handler (operation &rest args)
+  "Invoke the drive related OPERATION.
+First arg specifies the OPERATION, second arg is a list of arguments to
+pass to the OPERATION."
+  (tramp-user-error nil (format "Drive operation %s not supported" operation)))
+
+;;;###tramp-autoload
+(tramp-register-foreign-file-name-handler
+ 'tramp-drive-file-name-p 'tramp-drive-file-name-handler)
+
+;; ... and add it to the method list.
+;;;###tramp-autoload
+(add-to-list 'tramp-methods "drive")
+#+END_SRC
+
+The code above does three things:
+
+*** Register the new method
+
+Note that your code could handle more than one method. If you look at [[http://git.savannah.gnu.org/cgit/emacs.git/tree/lisp/net/tramp-gvfs.el][the GVFS implementation]] they declare a list of the methods they support, and them register them all in a loop. as /GVFS/ provides access to many protocols, they handle them all with the same code.
+
+Because of the same, your code could register methods conditionally. Or ven, not support any method if some basic pre-condition is not met. In the case of /GVFS/, that would be no /D-BUS/ available.
+
+Registering a new method is done by appending to ='tramp-methods=.
+
+*** Registering a file name handler
+
+Here we provide a predicate and a handler. Given a /TRAMP/-like filename, /TRAMP/ would call our predicate to ask if we can handle that type of paths (eg. =/drive:user@gmail.com:/path/=), and if the predicate says yes, we tell /TRAMP/ knows the handler that will be used to work with the filename.
+
+*** Provide a file name handler
+
+A filename handler receives an operation, and its arguments. You can look at it like an interceptor. We intercept "Emacs system calls" related to file operations. In this interceptor, we have the opportunity to:
+
+- Error if we can't work with our method (like the /DBUS/ not running example for /GVFS/).
+- See if it is an operation that requires handling support, by looking at an association list, and calling the respective method specific function.
+- Delegate the operation back to the original /Emacs/ or /TRAMP/ function, assuming no special handling is required.
+
+At this point, we will just error the operation and log it, so that we can see which operations get called eg. when using /[[https://www.gnu.org/software/emacs/manual/html_node/emacs/Dired.html][dired]]/, and start filling the blanks.
+
