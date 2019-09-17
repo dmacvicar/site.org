@@ -77,7 +77,7 @@ The structure we will use for development and testing:
 
 Note that the first operation we do in the playground is to read the files from a folder. The idea is to trigger any operation, and see where it ends. Then we can move on by filling the blanks.
 
-** A scaffold method
+** The skeleton
 
 The first step is to register our method, even if there is no much functionality provided yet:
 
@@ -122,3 +122,176 @@ A filename handler receives an operation, and its arguments. You can look at it 
 
 At this point, we will just error the operation and log it, so that we can see which operations get called eg. when using /[[https://www.gnu.org/software/emacs/manual/html_node/emacs/Dired.html][dired]]/, and start filling the blanks.
 
+** Filling the blanks
+
+Now we are at a point where we can do =M-X eval-buffer= in our playground file in order to call:
+
+#+BEGIN_SRC elisp
+(directory-files "/drive:user@gmail.com:/org")
+#+END_SRC
+
+That line, once our method is fully implemented, should[[https://www.gnu.org/software/emacs/manual/html_node/elisp/Contents-of-Directories.html][ –according to the documentation]]– return the list of files in a directory:
+
+#+BEGIN_QUOTE
+Function: directory-files directory &optional full-name match-regexp nosort
+
+    This function returns a list of the names of the files in the directory directory. By default, the list is in alphabetical order.
+
+    If full-name is non-nil, the function returns the files' absolute file names. Otherwise, it returns the names relative to the specified directory. 
+#+END_QUOTE
+
+Interestingly, the error message I get is:
+
+#+BEGIN_EXAMPLE
+Drive operation expand-file-name not supported
+#+END_EXAMPLE
+
+If you remember correctly, this comes from the /TRAMP/ interceptor that acts as a router for operations:
+
+#+BEGIN_SRC elisp
+;;;###tramp-autoload
+(defun tramp-drive-file-name-handler (operation &rest args)
+  "Invoke the drive related OPERATION.
+First arg specifies the OPERATION, second arg is a list of arguments to
+pass to the OPERATION."
+  (tramp-user-error nil (format "Drive operation %s not supported" operation)))
+#+END_SRC
+
+I was also surprised to see that we need to start with =expand-filename= by using =directory-files=. Changing =tramp-user-error= to =error= and setting the variable =debug-on-error= shows a backtrace:
+
+#+BEGIN_EXAMPLE
+  error("Drive operation expand-file-name not supported")
+  tramp-drive-file-name-handler(expand-file-name "/drive:username@gmail.com:/org" nil)
+  ..
+  tramp-file-name-handler(expand-file-name "/drive:username@gmail.com:/org" nil)
+  ..
+  directory-files("/drive:username@gmail.com:/org")
+#+END_EXAMPLE
+
+If we look at [[http://git.savannah.gnu.org/cgit/emacs.git/tree/src/dired.c#n291][the implementation of =directory-files=]] (which is part of the Emacs /C/ core), it could very well be:
+
+#+BEGIN_SRC C
+DEFUN ("directory-files", Fdirectory_files, Sdirectory_files, 1, 4, 0,
+       doc: /* Return a list of names of files in DIRECTORY.
+There are three optional arguments:
+If FULL is non-nil, return absolute file names.  Otherwise return names
+ that are relative to the specified directory.
+If MATCH is non-nil, mention only file names that match the regexp MATCH.
+If NOSORT is non-nil, the list is not sorted--its order is unpredictable.
+ Otherwise, the list returned is sorted with `string-lessp'.
+ NOSORT is useful if you plan to sort the result yourself.  */)
+  (Lisp_Object directory, Lisp_Object full, Lisp_Object match, Lisp_Object nosort)
+{
+  Lisp_Object handler;
+  directory = Fexpand_file_name (directory, Qnil);
+
+  /* If the file name has special constructs in it,
+     call the corresponding file handler.  */
+  handler = Ffind_file_name_handler (directory, Qdirectory_files);
+  if (!NILP (handler))
+    return call5 (handler, Qdirectory_files, directory,
+                  full, match, nosort);
+
+  return directory_files_internal (directory, full, match, nosort, false, Qnil);
+}
+#+END_SRC
+
+So what is happening here is that =directory-files= in Emacs calls =expand-file-name= internally. This function is intercepted by /TRAMP/, who due to the setup we did with =tramp-register-foreign-file-name-handler=, calls
+ =tramp-drive-file-name-p= to ask if our method wants to handle that filename. Our predicate tests that the filename is of the form =/drive:..= it answers /true/ and that makes /TRAMP/ call our =tramp-drive-file-name-handler=, which is called with the operation =expand-file-name=, which is simple displayed back as an error message.
+
+At this point I don't yet understand why =directory-files= itself wasn't intercepted by /TRAMP/ first.
+
+What is =expand-file-name=? The important bit of [[https://www.gnu.org/software/emacs/manual/html_node/elisp/File-Name-Expansion.html][the documentation]]:
+
+#+BEGIN_QUOTE
+Expanding a file name means converting a relative file name to an absolute one
+#+END_QUOTE
+
+Before we can decide how to implement this handler, lets understand a bit what infrastructure is at our disposal, and how we could route those calls.
+
+* Handler dispatching
+
+After studying the code of /tramp-gvfs/ and /tramp-hdfs/, I noticed very similar code. It smelled a bit like copy paste. So I arrived to =tramp-handle-expand-file-name= which looks like a default handler doing the same. I could not understand why so much repetition. Because I will test only with absolute filenames at the beginning, I should move on.
+
+Perhaps at this point we may think how will we route the oprations from =tramp-drive-file-name-handler=. I liked the approach /tramp-hdfs/ uses. It would result in an association table like this:
+
+#+BEGIN_SRC elisp
+  (defconst tramp-drive-file-name-handler-alist
+    (;; `access-file' performed by default handler.
+    (add-name-to-file . ignore)
+    ;; `byte-compiler-base-file-name' performed by default handler.
+    (copy-directory . ignore)
+    (copy-file . tramp-sh-handle-copy-file)
+    (delete-directory . tramp-drive-handle-delete-directory)
+    (delete-file . tramp-hdfs-handle-delete-file)
+    ;; `diff-latest-backup-file' performed by default handler.
+    ;; ...
+    (dired-uncache . tramp-handle-dired-uncache)
+    ;; ...
+    ))
+#+END_SRC
+
+Each operation is mapped either to be ignored, delegated to another method's handler that we reuse, the default included /TRAMP/ handler, or the Emacs built-in handler for local files.
+
+Lets start with something simple and delegate this call to /TRAMP/ for now:
+
+#+BEGIN_SRC elisp
+(defconst tramp-drive-file-name-handler-alist
+  '((expand-file-name . tramp-handle-expand-file-name)))
+#+END_SRC
+
+For the router, we will call the handler if exists:
+
+#+BEGIN_SRC elisp
+;;;###tramp-autoload
+(defun tramp-drive-file-name-handler (operation &rest args)
+  "Invoke the drive related OPERATION.
+First arg specifies the OPERATION, second arg is a list of arguments to
+pass to the OPERATION."
+  (let ((fn (assoc operation tramp-drive-file-name-handler-alist)))
+    (if fn
+        (apply (cdr fn) args)
+      ;;(tramp-run-real-handler operation args)
+      (tramp-user-error nil (format "Drive operation %s not supported" operation)))))
+#+END_SRC
+
+As you see, instead of delegating the handler if our table does not contain a function for that operation, I am still logging it as an error, in order to understand what function is called next.
+
+If I now run it, I get the error:
+
+#+BEGIN_EXAMPLE
+Drive operation directory-files not supported
+#+END_EXAMPLE
+
+Interestingly, the backtrace now shows how =directory-files= call =tramp-file-name-handler= with /directory-files/ as the operation, which ends in =tramp-drive-file-name-handler= as expected.
+
+Why it triggered after =expand-file-name= is still a mistery at this point.
+
+However, at this point, we need to provide a function that goes to the network, talks to the API and returns the list of files following the API of =directory-files=.
+
+* Implementing our first real handler
+
+I already had built before a method =tramp-drive-request= which allows me to call the Drive API, handling /oauth/ and parsing /JSON/ transparently.
+
+Listing files of a directory has lot of quirks, but it would be something like calling the =/files= end-point, with a =q= parameter including:
+
+- =mimeType != 'application/vnd.google-apps.folder'= (only files)
+- ='1234567' in parents= where /123456/ is the /ID/ of the folder (which I don't know at this point, but /root/ can be used as an alias for '/')
+
+All the above is very service-dependent. Other services will have a different API and you will need to figure out how to get a list of files from there. This tutorial focuses in how to glue that back into /TRAMP/.
+
+At this point I am already getting excited for the posibilities of implementing search directly from /ivy/.
+
+After I noticed there is also an operation =directory-files-and-attributes=, I stopped and thought. Perhaps =directory-files= is just a transformation over ==directory-files-and-attributes= and /TRAMP/ perhaps provides a default implementation for =directory-files=, which means I could focus on implementing =directory-files-and-attributes=. Perhaps even =directory-files-and-attributes= is implemented trivially using more base primitives and the only reason /TRAMP/ allows you to override all of them to avoid doing assuptions on the method itself.
+
+Lets start replacing handlers with default implementations and see how lower level primitives get called.
+
+After I replaced =directory-files=, I noticed =file-directory-p= is called. That one looks tricky to replace with a builtin default. It should be trivial to ask the API if something is a directory or not, but because of how the API works, I will need the /ID/ of the resource. I am not sure at this point, where the mapping between paths and /IDs/ will be done and how it will be maintained.
+
+Delegating to the default implementation throws me to =file-truename=.
+
+#+BEGIN_QUOTE
+The truename of a file is the name that you get by following symbolic links at all levels until none remain, then simplifying away ‘.’ and ‘..’ appearing as name components. This results in a sort of canonical name for the file. A file does not always have a unique truename; the number of distinct truenames a file has is equal to the number of hard links to the file. However, truenames are useful because they eliminate symbolic links as a cause of name variation. 
+#+END_QUOTE
+
+Reading this I get the evil idea of using =file-truename= to resolve /IDs/.
