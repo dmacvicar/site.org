@@ -31,22 +31,23 @@
   (-filter (lambda (x) (car x)) entries))
 
 (defun duncan/org-publish-sitemap-latest-posts (title sitemap)
-  "Only publish the latest 5 posts from SITEMAP (https://orgmode.org/manual/Sitemap.html).  Skips TITLE."
+  "posts.org generation. Only publish the latest 5 posts from SITEMAP (https://orgmode.org/manual/Sitemap.html).  Skips TITLE."
   (let* ((posts (cdr sitemap))
          (posts (duncan/org-publish-sitemap--valid-entries posts))
          (last-five (seq-subseq posts 0 (min (length posts) 5))))
     (org-list-to-org (cons (car sitemap) last-five))))
 
 (defun duncan/org-publish-sitemap-archive (title sitemap)
-  "Wrapper to skip TITLE and just use LIST (https://orgmode.org/manual/Sitemap.html)."
+  "archive.org page (Blog full post list). Wrapper to skip TITLE and just use LIST (https://orgmode.org/manual/Sitemap.html)."
   (let* ((title "Blog") (subtitle "Archive")
          (posts (cdr sitemap))
          (posts (duncan/org-publish-sitemap--valid-entries posts)))
     (concat (format "#+TITLE: %s\n\n* %s\n" title subtitle)
-            (org-list-to-org (cons (car sitemap) posts)) "\n#+BEGIN_EXPORT html\n<a href='../archive.xml'><i class='fa fa-rss'></i></a>\n#+END_EXPORT\n")))
+            (org-list-to-org (cons (car sitemap) posts))
+            "\n#+BEGIN_EXPORT html\n<a href='../rss.xml'><i class='fa fa-rss'></i></a>\n#+END_EXPORT\n")))
 
 (defun duncan/org-publish-sitemap-entry (entry style project)
-  "Format sitemap ENTRY for PROJECT with the post date before the link, to generate a posts list.  STYLE is not used."
+  "archive.org and posts.org (latest) entry formatting. Format sitemap ENTRY for PROJECT with the post date before the link, to generate a posts list.  STYLE is not used."
   (let* ((base-directory (plist-get (cdr project) :base-directory))
          (filename (expand-file-name entry (expand-file-name base-directory (duncan/project-root))))
          (draft? (duncan/post-get-metadata-from-frontmatter filename "DRAFT")))
@@ -55,6 +56,26 @@
               (format-time-string "<%Y-%m-%d>" (org-publish-find-date entry project))
               entry
               (org-publish-find-title entry project)))))
+
+(defun duncan/org-publish-rss (title sitemap)
+  "Publish rss.org which needs each entry as a headline."
+  (let* ((title "Blog") (subtitle "Archive")
+         (posts (cdr sitemap))
+         (posts (duncan/org-publish-sitemap--valid-entries posts)))
+    (concat (format "#+TITLE: %s\n\n" title)
+            (org-list-to-subtree posts '(:icount "" :istart "")))))
+
+(defun duncan/org-publish-rss-entry (entry style project)
+  "Format ENTRY for rss.org for excusive use of exporting to RSS/XML. Each entry needs to be a headline. STYLE is not used."
+  (let* ((base-directory (plist-get (cdr project) :base-directory))
+         (filename (expand-file-name entry (expand-file-name base-directory (duncan/project-root))))
+         (draft? (duncan/post-get-metadata-from-frontmatter filename "DRAFT")))
+    (unless (or (equal entry "404.org") draft?)
+      (format "* %s [[file:%s][%s]]"
+              (format-time-string "<%Y-%m-%d>" (org-publish-find-date entry project))
+              entry
+              (org-publish-find-title entry project)))))
+
 
 (defun duncan/org-html-timestamp (timestamp contents info)
   "We are not going to leak org mode silly <date> format when rendering TIMESTAMP to the world, aren't we?.  CONTENTS and INFO are passed down to org-html-timestamp."
@@ -104,7 +125,7 @@
     (list
      (list "link" (list "href" "https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" "rel" "stylesheet" "integrity" "sha256-k2/8zcNbxVIh5mnQ52A0r3a6jAgMGxFJFE2707UxGCk= sha512-ZV9KawG2Legkwp3nAlxLIVFudTauWuBpC10uEafMHYL0Sarrz5A7G79kXh5+5+woxQ5HM559XX2UZjMJ36Wplg==" "crossorigin" "anonymous"))
      (list "meta" (list "description" description))
-     (list "link" (list "rel" "alternate" "type" "application+rss/xml" "title" description "href" "/archive.xml")))))
+     (list "link" (list "rel" "alternate" "type" "application+rss/xml" "title" description "href" "/rss.xml")))))
 
 (defun duncan/hash-for-filename (filename)
   "Returns the sha25 for FILENAME."
@@ -176,7 +197,7 @@
 
 (defun duncan/org-rss-publish-to-rss (plist filename pub-dir)
   "Wrap org-rss-publish-to-rss with PLIST and PUB-DIR, publishing only when FILENAME is 'archive.org'."
-  (if (equal "archive.org" (file-name-nondirectory filename))
+  (if (equal "rss.org" (file-name-nondirectory filename))
       (org-rss-publish-to-rss plist filename pub-dir)))
 
 ; Project definition
@@ -184,7 +205,7 @@
       (list
        (list "blog"
              :base-directory "./posts"
-             :exclude (regexp-opt '("posts.org" "archive.org"))
+             :exclude (regexp-opt '("posts.org" "archive.org" "rss.org"))
              :base-extension "org"
              :recursive t
              :publishing-directory (expand-file-name "public/posts" (projectile-project-root))
@@ -205,10 +226,10 @@
              :sitemap-function 'duncan/org-publish-sitemap-latest-posts
              :sitemap-format-entry 'duncan/org-publish-sitemap-entry)
 
-        (list "archive-rss"
+        (list "archive"
               :base-directory "./posts"
               :recursive t
-              :exclude (regexp-opt '("posts.org" "archive.org"))
+              :exclude (regexp-opt '("posts.org" "archive.org" "rss.org"))
               :base-extension "org"
               :publishing-directory "./public"
               :publishing-function 'duncan/org-rss-publish-to-rss
@@ -220,6 +241,31 @@
               :sitemap-sort-files 'anti-chronologically
               :sitemap-function 'duncan/org-publish-sitemap-archive
               :sitemap-format-entry 'duncan/org-publish-sitemap-entry)
+
+        (list "archive-for-rss"
+              :base-directory "./posts"
+              :recursive t
+              :exclude (regexp-opt '("posts.org" "archive.org" "rss.org"))
+              :base-extension "org"
+              :publishing-directory "./public"
+              :publishing-function 'ignore
+              :auto-sitemap t
+              :sitemap-style 'list
+              :sitemap-filename "rss.org"
+              :sitemap-sort-files 'anti-chronologically
+              :sitemap-function 'duncan/org-publish-rss
+              :sitemap-format-entry 'duncan/org-publish-rss-entry)
+
+        (list "rss"
+              :base-directory "./posts"
+              :recursive t
+              :exclude "."
+              :include '("rss.org")
+              :base-extension "org"
+              :publishing-directory "./public"
+              :publishing-function 'duncan/org-rss-publish-to-rss
+              :html-link-home "http://duncan.codes/"
+              :html-link-use-abs-url t)
 
         (list "site"
               :base-directory "./"
