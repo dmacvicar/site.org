@@ -563,9 +563,9 @@ that pattern. The other way around is true, if you install the package
 representing the pattern, it will make the system look like the pattern
 is installed.
 
-=$ zypper info --provides patterns-openSUSE-laptop= would show you some
+=$ zypper info --provides patterns-desktop-laptop= would show you some
 of the magic behind patterns (equivalent to
-=rpm -q --provides patterns-openSUSE-laptop=).
+=rpm -q --provides patterns-desktop-laptop=).
 
 *** Products
     :PROPERTIES:
