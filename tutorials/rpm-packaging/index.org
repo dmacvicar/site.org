@@ -625,13 +625,13 @@ Then, a package providing a WLAN driver for some cards (e.g.
 Which results in that at solving time, if the hardware is present, the
 driver will be selected automatically.
 
-#+BEGIN_HTML
+#+BEGIN_EXPORT html
   <aside>
   <p><i class="fa fa-sticky-note-o"></i><small>
   This is one of the core features of the <a href="https://drivers.suse.com/doc/SolidDriver/Kernel_Module_Packages.html#automatic-installation-via-modaliases">Kernel Module Packages section of the SUSE SolidDriver Program</a>. For more information about KMPs, check this <a href="https://www.suse.com/communities/blog/using-sles-and-the-sle-sdk-build-kernel-module-package-kmp/">Using SLES and the SLE SDK to Build a Kernel Module Package (KMP)</a> post. For more information about the SUSE SolidDriver Program, check this <a href="https://www.suse.com/communities/blog/suse-soliddriver-program/">blog post</a>.
   </small></p>
   </aside>
-#+END_HTML
+#+END_EXPORT
 
 Something similar is done with translation packages and the current
 configured system locale.
