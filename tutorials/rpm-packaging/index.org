@@ -928,7 +928,7 @@ build requirements?
 
 The [[http://openbuildservice.org/][Open Build Service]] allows to build
 packages for multiple distributions and architectures. Visit the
-[[http://openbuildservice.org/help/materials/][Material]] section of the
+[[https://openbuildservice.org/help/][Help Material]] section of the
 website for a deeper introduction. For the package we are building, you
 can get an account at the [[https://build.opensuse.org][openSUSE Build
 Service]] instance. Go to your "Home Project", "Create New Package" and
