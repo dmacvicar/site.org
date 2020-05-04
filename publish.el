@@ -30,23 +30,23 @@
   "Filter ENTRIES that are not valid or skipped by the sitemap entry function."
   (-filter (lambda (x) (car x)) entries))
 
-(defun duncan/org-publish-sitemap-latest-posts (title sitemap)
+(defun duncan/latest-posts-sitemap-function (title sitemap)
   "posts.org generation. Only publish the latest 5 posts from SITEMAP (https://orgmode.org/manual/Sitemap.html).  Skips TITLE."
   (let* ((posts (cdr sitemap))
          (posts (duncan/org-publish-sitemap--valid-entries posts))
          (last-five (seq-subseq posts 0 (min (length posts) 5))))
     (org-list-to-org (cons (car sitemap) last-five))))
 
-(defun duncan/org-publish-sitemap-archive (title sitemap)
+(defun duncan/archive-sitemap-function (title sitemap)
   "archive.org page (Blog full post list). Wrapper to skip TITLE and just use LIST (https://orgmode.org/manual/Sitemap.html)."
   (let* ((title "Blog") (subtitle "Archive")
          (posts (cdr sitemap))
          (posts (duncan/org-publish-sitemap--valid-entries posts)))
     (concat (format "#+TITLE: %s\n\n* %s\n" title subtitle)
             (org-list-to-org (cons (car sitemap) posts))
-            "\n#+BEGIN_EXPORT html\n<a href='../rss.xml'><i class='fa fa-rss'></i></a>\n#+END_EXPORT\n")))
+            "\n#+BEGIN_EXPORT html\n<a href='rss.xml'><i class='fa fa-rss'></i></a>\n#+END_EXPORT\n")))
 
-(defun duncan/org-publish-sitemap-entry (entry style project)
+(defun duncan/archive-sitemap-format-entry (entry style project)
   "archive.org and posts.org (latest) entry formatting. Format sitemap ENTRY for PROJECT with the post date before the link, to generate a posts list.  STYLE is not used."
   (let* ((base-directory (plist-get (cdr project) :base-directory))
          (filename (expand-file-name entry (expand-file-name base-directory (duncan/project-root))))
@@ -57,25 +57,40 @@
               entry
               (org-publish-find-title entry project)))))
 
-(defun duncan/org-publish-rss (title sitemap)
+(defun duncan/sitemap-for-rss-sitemap-function (title sitemap)
   "Publish rss.org which needs each entry as a headline."
   (let* ((title "Blog") (subtitle "Archive")
          (posts (cdr sitemap))
          (posts (duncan/org-publish-sitemap--valid-entries posts)))
     (concat (format "#+TITLE: %s\n\n" title)
-            (org-list-to-subtree posts '(:icount "" :istart "")))))
+            (org-list-to-generic
+             posts
+             (org-combine-plists
+              (list :splice t
+                    :istart nil
+                    :icount nil
+                    :dtstart " " :dtend " "))))))
 
-(defun duncan/org-publish-rss-entry (entry style project)
+(defun duncan/sitemap-for-rss-sitemap-format-entry (entry style project)
   "Format ENTRY for rss.org for excusive use of exporting to RSS/XML. Each entry needs to be a headline. STYLE is not used."
   (let* ((base-directory (plist-get (cdr project) :base-directory))
          (filename (expand-file-name entry (expand-file-name base-directory (duncan/project-root))))
+         
+         (title (duncan/post-get-metadata-from-frontmatter filename "TITLE"))
+         ;;(title (org-publish-format-file-entry "%t" filename project))
+         ;;(title (org-publish-find-title filename project))
+         (date (format-time-string "<%Y-%m-%d>" (org-publish-find-date entry project)))
          (draft? (duncan/post-get-metadata-from-frontmatter filename "DRAFT")))
     (unless (or (equal entry "404.org") draft?)
-      (format "* %s [[file:%s][%s]]"
-              (format-time-string "<%Y-%m-%d>" (org-publish-find-date entry project))
-              entry
-              (org-publish-find-title entry project)))))
-
+      (with-temp-buffer
+             (insert (format "* [[file:%s][%s]]\n" entry title))
+             (org-set-property "RSS_PERMALINK" (concat "posts/" (file-name-sans-extension entry) ".html"))
+             (org-set-property "RSS_TITLE" title)
+             (org-set-property "PUBDATE" date)
+             ;; to avoid second update to rss.org by org-icalendar-create-uid
+             ;;(insert-file-contents entry)
+             (buffer-string))))
+              )
 
 (defun duncan/org-html-timestamp (timestamp contents info)
   "We are not going to leak org mode silly <date> format when rendering TIMESTAMP to the world, aren't we?.  CONTENTS and INFO are passed down to org-html-timestamp."
@@ -84,7 +99,7 @@
         (org-display-custom-times 't))
     (org-html-timestamp timestamp contents info)))
 
-; We derive our own backend in order to override the timestamp format of the html backend
+                                        ; We derive our own backend in order to override the timestamp format of the html backend
 (org-export-define-derived-backend 'duncan/html 'html
   :translate-alist
   '((timestamp . duncan/org-html-timestamp)))
@@ -125,7 +140,7 @@
     (list
      (list "link" (list "href" "https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" "rel" "stylesheet" "integrity" "sha256-k2/8zcNbxVIh5mnQ52A0r3a6jAgMGxFJFE2707UxGCk= sha512-ZV9KawG2Legkwp3nAlxLIVFudTauWuBpC10uEafMHYL0Sarrz5A7G79kXh5+5+woxQ5HM559XX2UZjMJ36Wplg==" "crossorigin" "anonymous"))
      (list "meta" (list "description" description))
-     (list "link" (list "rel" "alternate" "type" "application+rss/xml" "title" description "href" "/rss.xml")))))
+     (list "link" (list "rel" "alternate" "type" "application+rss/xml" "title" description "href" "posts/rss.xml")))))
 
 (defun duncan/hash-for-filename (filename)
   "Returns the sha25 for FILENAME."
@@ -202,103 +217,103 @@
 
 ; Project definition
 (defvar duncan--publish-project-alist
-      (list
-       (list "blog"
-             :base-directory "./posts"
-             :exclude (regexp-opt '("posts.org" "archive.org" "rss.org"))
-             :base-extension "org"
-             :recursive t
-             :publishing-directory (expand-file-name "public/posts" (projectile-project-root))
-             :publishing-function 'duncan/org-html-publish-post-to-html
-             :section-numbers nil
-             :with-toc nil
-             :html-preamble t
-             :html-preamble-format (duncan--pre/postamble-format 'preamble)
-             :html-postamble t
-             :html-postamble-format (duncan--pre/postamble-format 'postamble)
-             :html-head-include-scripts nil
-             :html-head-include-default-style nil
-             :auto-sitemap t
-             :sitemap-filename "posts.org"
-             :sitemap-style 'list
-             :sitemap-title nil
-             :sitemap-sort-files 'anti-chronologically
-             :sitemap-function 'duncan/org-publish-sitemap-latest-posts
-             :sitemap-format-entry 'duncan/org-publish-sitemap-entry)
+  (list
+   ;; generates the main site, and as side-effect, the sitemap for the latest 5 posts
+   (list "blog"
+         :base-directory "./posts"
+         :exclude (regexp-opt '("posts.org" "archive.org" "rss.org"))
+         :base-extension "org"
+         :recursive t
+         :publishing-directory (expand-file-name "public/posts" (projectile-project-root))
+         :publishing-function 'duncan/org-html-publish-post-to-html
+         :section-numbers nil
+         :with-toc nil
+         :html-preamble t
+         :html-preamble-format (duncan--pre/postamble-format 'preamble)
+         :html-postamble t
+         :html-postamble-format (duncan--pre/postamble-format 'postamble)
+         :html-head-include-scripts nil
+         :html-head-include-default-style nil
+         :auto-sitemap t
+         :sitemap-filename "posts.org"
+         :sitemap-style 'list
+         :sitemap-title nil
+         :sitemap-sort-files 'anti-chronologically
+         :sitemap-function 'duncan/latest-posts-sitemap-function
+         :sitemap-format-entry 'duncan/archive-sitemap-format-entry)
+   (list "archive"
+         :base-directory "./posts"
+         :recursive t
+         :exclude (regexp-opt '("posts.org" "archive.org" "rss.org"))
+         :base-extension "org"
+         :publishing-directory "./public"
+         :publishing-function 'ignore
+         ;;:publishing-function 'duncan/org-rss-publish-to-rss
+         :html-link-home "http://duncan.codes/"
+         :html-link-use-abs-url t
+         :auto-sitemap t
+         :sitemap-style 'list
+         :sitemap-filename "archive.org"
+         :sitemap-sort-files 'anti-chronologically
+         :sitemap-function 'duncan/archive-sitemap-function
+         :sitemap-format-entry 'duncan/archive-sitemap-format-entry)
+   ;; Generate a org sitemap to use later for rss, ignoring publishing the site again
+   (list "sitemap-for-rss"
+         :base-directory "./posts"
+         :recursive t
+         :exclude (regexp-opt '("posts.org" "archive.org" "rss.org"))
+         :base-extension "org"
+         :publishing-directory "./public"
+         :publishing-function 'ignore
+         :auto-sitemap t
+         :sitemap-style 'list
+         :sitemap-filename "rss.org"
+         :sitemap-function 'duncan/sitemap-for-rss-sitemap-function
+         :sitemap-format-entry 'duncan/sitemap-for-rss-sitemap-format-entry)
+   ;; generates the rss.xml file from the rss sitemap
+   (list "rss"
+         :base-directory "./"
+         :recursive t
+         :exclude "."
+         :include '("posts/rss.org")
+         :exclude (regexp-opt '("posts.org" "archive.org" "rss.org"))
+         :base-extension "org"
+         :publishing-directory "./public"
+         :publishing-function 'duncan/org-rss-publish-to-rss
+         :html-link-home "http://duncan.codes/"
+         :html-link-use-abs-url t)
+   (list "site"
+         :base-directory "./"
+         :include '("posts/archive.org" "README.org")
+         :base-extension "org"
+         :publishing-directory (expand-file-name "public" (projectile-project-root))
+         :publishing-function 'duncan/org-html-publish-site-to-html
+         :section-numbers nil
+         :html-preamble t
+         :html-preamble-format (duncan--pre/postamble-format 'preamble)
+         :html-postamble t
+         :html-postamble-format (duncan--pre/postamble-format 'postamble)
+         :html-validation-link nil
+         :html-head-include-scripts nil
+         :html-head-include-default-style nil)
+   (list "tutorials"
+         :base-directory "./tutorials"
+         :base-extension "org"
+         :recursive t
+         :publishing-directory "./public/tutorials"
+         :publishing-function 'org-html-publish-to-html
+         :section-numbers nil
+         :with-toc t)
+   (list "assets"
+         :base-directory "./"
+         :exclude (regexp-opt '("assets" "public"))
+         :include '("CNAME" "keybase.txt" "LICENSE" ".nojekyll" "publish.el")
+         :recursive t
+         :base-extension (regexp-opt '("jpg" "gif" "png" "js" "svg" "css"))
+         :publishing-directory "./public"
+         :publishing-function 'org-publish-attachment)))
 
-        (list "archive"
-              :base-directory "./posts"
-              :recursive t
-              :exclude (regexp-opt '("posts.org" "archive.org" "rss.org"))
-              :base-extension "org"
-              :publishing-directory "./public"
-              :publishing-function 'duncan/org-rss-publish-to-rss
-              :html-link-home "http://duncan.codes/"
-              :html-link-use-abs-url t
-              :auto-sitemap t
-              :sitemap-style 'list
-              :sitemap-filename "archive.org"
-              :sitemap-sort-files 'anti-chronologically
-              :sitemap-function 'duncan/org-publish-sitemap-archive
-              :sitemap-format-entry 'duncan/org-publish-sitemap-entry)
-
-        (list "archive-for-rss"
-              :base-directory "./posts"
-              :recursive t
-              :exclude (regexp-opt '("posts.org" "archive.org" "rss.org"))
-              :base-extension "org"
-              :publishing-directory "./public"
-              :publishing-function 'ignore
-              :auto-sitemap t
-              :sitemap-style 'list
-              :sitemap-filename "rss.org"
-              :sitemap-sort-files 'anti-chronologically
-              :sitemap-function 'duncan/org-publish-rss
-              :sitemap-format-entry 'duncan/org-publish-rss-entry)
-
-        (list "rss"
-              :base-directory "./posts"
-              :recursive t
-              :exclude "."
-              :include '("rss.org")
-              :base-extension "org"
-              :publishing-directory "./public"
-              :publishing-function 'duncan/org-rss-publish-to-rss
-              :html-link-home "http://duncan.codes/"
-              :html-link-use-abs-url t)
-
-        (list "site"
-              :base-directory "./"
-              :include '("posts/archive.org" "README.org")
-              :base-extension "org"
-              :publishing-directory (expand-file-name "public" (projectile-project-root))
-              :publishing-function 'duncan/org-html-publish-site-to-html
-              :section-numbers nil
-              :html-preamble t
-              :html-preamble-format (duncan--pre/postamble-format 'preamble)
-              :html-postamble t
-              :html-postamble-format (duncan--pre/postamble-format 'postamble)
-              :html-validation-link nil
-              :html-head-include-scripts nil
-              :html-head-include-default-style nil)
-        (list "tutorials"
-              :base-directory "./tutorials"
-              :base-extension "org"
-              :recursive t
-              :publishing-directory "./public/tutorials"
-              :publishing-function 'org-html-publish-to-html
-              :section-numbers nil
-              :with-toc t)
-        (list "assets"
-              :base-directory "./"
-              :exclude (regexp-opt '("assets" "public"))
-              :include '("CNAME" "keybase.txt" "LICENSE" ".nojekyll" "publish.el")
-              :recursive t
-              :base-extension (regexp-opt '("jpg" "gif" "png" "js" "svg" "css"))
-              :publishing-directory "./public"
-              :publishing-function 'org-publish-attachment)))
-
-; Our publishing definition
+                                        ; Our publishing definition
 (defun duncan-publish-all ()
   "Publish the blog to HTML."
   (interactive)
@@ -308,6 +323,8 @@
   (let ((make-backup-files nil)
         (org-publish-project-alist       duncan--publish-project-alist)
         ;; deactivate cache as it does not take the publish.el file into account
+        (user-full-name "Duncan Mac-Vicar P.")
+        (user-mail-address "duncan@gmail.com")
         (org-publish-cache nil)
         (org-publish-use-timestamps-flag nil)
         (org-export-with-section-numbers nil)
