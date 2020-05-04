@@ -2,7 +2,7 @@
 #+author: Duncan Mac-Vicar P.
 #+date: <2019-08-15 Thu>
 
-![Build and publish to pages](https://github.com/dmacvicar/site.org/workflows/Build%20and%20publish%20to%20pages/badge.svg)
+[[https://github.com/dmacvicar/site.org/actions?query=workflow%3A%22Build+and+publish+to+pages%22][file:https://github.com/dmacvicar/site.org/workflows/Build%20and%20publish%20to%20pages/badge.svg]]
 
 * Introduction
 
