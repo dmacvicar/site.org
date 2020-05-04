@@ -2,6 +2,8 @@
 #+author: Duncan Mac-Vicar P.
 #+date: <2019-08-15 Thu>
 
+![Build and publish to pages](https://github.com/dmacvicar/site.org/workflows/Build%20and%20publish%20to%20pages/badge.svg)
+
 * Introduction
 
 This setup based on [[https://orgmode.org][org-mode]] aims to replace my previous [[https://jekyllrb.com][Jekyll]] setup used to publish my site.
