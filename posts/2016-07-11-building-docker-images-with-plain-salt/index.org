@@ -10,7 +10,7 @@ A few days before the Conference Redhat [[https://www.redhat.com/en/about/press-
 
 On one hand, it was not what I was expecting (well, at least, for a Press Release or Tech Preview). It still "generated" Dockerfiles, relied on Ansible to be installed in some way, wich was "templated" into Dockerfiles, and it was of course a new tool.
 
-On the other hand, it was pure inspiration: I remembered why I like Salt so much. I knew that with Salt [I wouldn't need to build a "new tool"]({% post_url 2016-05-18-using-salt-like-ansible %}). I'd only need to write a module and connect some pieces, and that makes my feature distributed, accessible, deployable, etc. I'd not need to interact with Docker directly, but only with the [[https://docs.saltstack.com/en/latest/ref/modules/all/salt.modules.dockerng.html][Salt execution module]] for it. The best part: I had a Hackweek project!.
+On the other hand, it was pure inspiration: I remembered why I like Salt so much. I knew that with Salt [[file:/space/git/dmacvicar.github.com/site.org/posts/2016-05-18-using-salt-like-ansible/index.org][I wouldn't need to build a "new tool"]]. I'd only need to write a module and connect some pieces, and that makes my feature distributed, accessible, deployable, etc. I'd not need to interact with Docker directly, but only with the [[https://docs.saltstack.com/en/latest/ref/modules/all/salt.modules.dockerng.html][Salt execution module]] for it. The best part: I had a Hackweek project!.
 
 I used the chance that [[https://twitter.com/thatch45][Thomas]] was at the openSUSE Conference to ask him some details about =salt-thin= and explain him rough ideas.
 
