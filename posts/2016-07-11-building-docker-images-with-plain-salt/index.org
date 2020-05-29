@@ -4,13 +4,13 @@
 
 So [[https://hackweek.suse.com/][Hackweek 14]] is over. It started during the [[https://events.opensuse.org/conference/oSC16][openSUSE Conference 2016]] on Friday June 24 and continued all over the following week.
 
-I had worked on [[file:/space/git/dmacvicar.github.com/site.org/posts/2016-06-09-config-drift-salt-snapper/index.org][integrating snapshots with Salt]] with [[https://github.com/meaksh][Pablo]] just some weeks before that and I was waiting for the openSUSE Conference to get the chance to show [[https://twitter.com/thatch45][Thomas]] what we had done in order to get feedback and figure out next steps.
+I had worked on [[file:../2016-06-09-config-drift-salt-snapper/index.org][integrating snapshots with Salt]] with [[https://github.com/meaksh][Pablo]] just some weeks before that and I was waiting for the openSUSE Conference to get the chance to show [[https://twitter.com/thatch45][Thomas]] what we had done in order to get feedback and figure out next steps.
 
 A few days before the Conference Redhat [[https://www.redhat.com/en/about/press-releases/red-hat-launches-ansible-native-container-workflow-project][did a press release]] that caught my attention: a framework to build container images with [[https://www.ansible.com][Ansible]]. Yes, that makes a lot of sense. My head started immediately to think all day long about the challenges to build something like that: Installing the configuration management tool without leaving it there, etc. I got curious and started poking at the README.
 
 On one hand, it was not what I was expecting (well, at least, for a Press Release or Tech Preview). It still "generated" Dockerfiles, relied on Ansible to be installed in some way, wich was "templated" into Dockerfiles, and it was of course a new tool.
 
-On the other hand, it was pure inspiration: I remembered why I like Salt so much. I knew that with Salt [[file:/space/git/dmacvicar.github.com/site.org/posts/2016-05-18-using-salt-like-ansible/index.org][I wouldn't need to build a "new tool"]]. I'd only need to write a module and connect some pieces, and that makes my feature distributed, accessible, deployable, etc. I'd not need to interact with Docker directly, but only with the [[https://docs.saltstack.com/en/latest/ref/modules/all/salt.modules.dockerng.html][Salt execution module]] for it. The best part: I had a Hackweek project!.
+On the other hand, it was pure inspiration: I remembered why I like Salt so much. I knew that with Salt [[file:../2016-05-18-using-salt-like-ansible/index.org][I wouldn't need to build a "new tool"]]. I'd only need to write a module and connect some pieces, and that makes my feature distributed, accessible, deployable, etc. I'd not need to interact with Docker directly, but only with the [[https://docs.saltstack.com/en/latest/ref/modules/all/salt.modules.dockerng.html][Salt execution module]] for it. The best part: I had a Hackweek project!.
 
 I used the chance that [[https://twitter.com/thatch45][Thomas]] was at the openSUSE Conference to ask him some details about =salt-thin= and explain him rough ideas.
 
