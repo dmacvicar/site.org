@@ -7,16 +7,18 @@ Most of my hobby music activities are done on a iPad Pro with a [[https://line6.
   - My band mates use [[https://www.audacityteam.org][Audacity]] to record their own tracks
 - [[https://www.positivegrid.com/finaltouch][FinalTouch]] for final audio production
 - [[https://luma-touch.com/lumafusion-for-ios-2][LumaFusion]] for editing videos
-  - [[https://creaceed.com/emulsio][Emulsio]] to stabilize them
+  - [[https://creaceed.com/emulsio][Emulsio]] to stabilize videos
 - [[https://www.positivegrid.com/bias-fx-mobile][BIAS FX]] as portable amp modeler and effects
 - [[https://usa.yamaha.com/products/musical_instruments/guitars_basses/amps_accessories/thr/index.html][Yamaha THR10]] as "third amp" for home practice
+  - I run the [[https://usa.yamaha.com/support/updates/57648_en.html][THR Editor]] on Linux using [[https://www.winehq.org][WINE]]
 - [[https://www.akg.com/support/K141+Studio_.html][AKG K131Studio]] headphones as monitors
 
 My live setup is:
 
-- [[https://www.fractalaudio.com/ax8-amp-modeler-multi-effects][Fractal Audio AX8]] as amp modeler and effects
-- [[https://missionengineering.com/shop-2/products/expression/multi-use-exp/sp-1/][Mission Engineering SP-1]] expression pedal
 - [[https://www.gibson.com/Guitar/USAYNB363/Les-Paul-Studio][2014 LP Studio guitar]]
+- [[https://www.fractalaudio.com/ax8-amp-modeler-multi-effects][Fractal Audio AX8]] as amp modeler and effects
+  - I run [[https://www.fractalaudio.com/ax8-edit][AX-8 Edit]] on Linux using [[https://www.winehq.org][WINE]]
+- [[https://missionengineering.com/shop-2/products/expression/multi-use-exp/sp-1/][Mission Engineering SP-1]] expression pedal
 - [[http://www.xviveaudio.com/u2-p0056.html][Xvive]] guitar wireless system
 - [[https://www.shure.com/products/earphones/se215cl][Shure SE-215CL]] in-ear monitors
 - [[https://www.thomann.de/de/the_t.bone_iem_75.htm][t.bone IEM 75]] wireless solution
