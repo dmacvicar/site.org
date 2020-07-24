@@ -11,6 +11,7 @@ Most of my hobby music activities are done on a iPad Pro with a [[https://line6.
 - [[https://usa.yamaha.com/products/musical_instruments/guitars_basses/amps_accessories/thr/index.html][Yamaha THR10]] as "third amp" for home practice
   - I run the [[https://usa.yamaha.com/support/updates/57648_en.html][THR Editor]] on Linux using [[https://www.winehq.org][WINE]]
 - [[https://www.akg.com/support/K141+Studio_.html][AKG K131Studio]] headphones as monitors
+- [[https://irealpro.com][iReal Pro]] to document songs and generate skeleton backing tracks
 
 My live setup is:
 
