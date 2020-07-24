@@ -1,0 +1,67 @@
+
+* My personal setup
+
+** General setup
+
+Most of my personal computing is done on a [[https://www.lenovo.com/us/en/laptops/thinkpad/x-series/x230][Thinkpad X230]] from 2012.
+
+- A quite fresh [[https://software.opensuse.org/distributions/tumbleweed][openSUSE Tumbleweed]] as operating system/distro
+- [[https://www.gnome.org][GNOME]] as desktop environment, no customizations
+- [[https://github.com/dmacvicar/dotfiles][dotfiles]] managed with git and [[https://www.gnu.org/software/stow][GNU Stow]]
+- [[https://syncthing.net][Syncthing]] to Peer-to-Peer sync some files across different devices
+- Passwords managed with [[https://keepassxc.org][KeePassXC]] (synced with Syncthing)
+- [[https://www.yubico.com/products][Yubikey]] device and [[https://developers.yubico.com/OATH][yubikey-oath]] for 2FA on Desktop and mobile
+- [[https://www.mozilla.org/exp/firefox/new][Firefox]] as Web browser, with some extensions
+  - [[https://addons.mozilla.org/firefox/addon/multi-account-containers][Multi-Account Containers]] to isolate websites
+  - [[https://addons.mozilla.org/firefox/addon/facebook-container][Facebook Container]] to isolate this particular website
+  - [[https://addons.mozilla.org/firefox/addon/keepassxc-browser][KeePassXC extension]] (to integrate with password manager)
+  - [[https://addons.mozilla.org/firefox/addon/ublock-origin][uBlock Origin]] (Ad blocker)
+- [[https://nextcloud.com][NextCloud]] to host shared files
+- [[https://nextcloud.com/clients][NextCloud clients]] to sync files with NextCloud on desktop and mobile
+- [[https://orgmode.org][Org-mode]] ("Your life in text mode") on top of [[https://www.gnu.org/software/emacs][Emacs]] to organize notes, journals and information. It also powers this website.
+  - Synced with Syncthing
+  - [[https://play.google.com/store/apps/details?id=com.orgzly][Orgzly]] as TODO widget on Android
+  - [[https://play.google.com/store/apps/details?id=com.madlonkay.orgro][Orgro]] as Org file viewer on Android
+- [[http://www.tarsnap.com][tarsnap]] for backups
+
+You can also read some details about the setup for my [[file:music.org][music hobby activities]].
+
+** Work
+
+Most of my work happens on a [[https://www.lenovo.com/us/en/laptops/thinkpad/x-series/x220][Thinkpad X220]] from 2011, except for video-conferencing, for which I use my iPad, as the laptop is not powerful enough.
+
+*** Work mail setup
+
+- [[http://isync.sourceforge.net][mbsync]] to synchronize IMAP locally
+- [[https://marlam.de/msmtp][msmtp]] to send email
+- [[https://www.djcbsoftware.nl/code/mu][mu (maildir-utils)]] as mail indexer/search
+- [[https://www.djcbsoftware.nl/code/mu/mu4e.html][mu4e]] on top of [[https://www.gnu.org/software/emacs][Emacs]] as mail front-end/composer
+- plugins/utilities
+  - [[https://melpa.org/#/outlook][outlook package]] to reply HTML email
+
+You can find this setup in my [[https://gitlab.suse.de/dmacvicar/dotfiles.suse][internal dotfiles]] repository.
+
+*** Other
+- [[https://github.com/abraunegg/onedrive][unofficial onedrive client]] to sync files to OneDrive
+- [[https://restic.net/][restic]] for backups
+- [[https://www.bose.com/products/headphones/noise_cancelling_headphones/noise-cancelling-headphones-700.html][Bose 700]] noise cancelling headphones for a great confcall experience
+- [[https://www.jabra.com.de/business/speakerphones/jabra-speak-series/jabra-speak-510][Jabra Speaker]] for mobile conferences involving more than one person in the room
+
+** Development environment
+
+[[https://www.gnu.org/software/emacs][- Emacs]] as editor for most languages, with [[https://raw.githubusercontent.com/dmacvicar/dotfiles/master/emacs/.emacs.d/init.el][many]] extensions. Some highlights:
+  - [[https://melpa.org/#/lsp-mode][LSP mode]] to take advantage of all [[https://en.wikipedia.org/wiki/Language_Server_Protocol][LSP]] servers out there
+  - [[https://magit.vc][Magit]] as a git front-end
+- [[https://github.com/tmux/tmux/wiki][tmux]] to manage my consoles and to split the screen in my favourite layout (editor left side, two command lines right side)
+- Given my open-source background, I have to dig in code writen in many languages. My go-to languages are C++, Golang and Ruby depending on the task.
+
+*** C++
+- [[https://cmake.org][CMake]] as build system and to fetch dependencies
+- [[https://clang.llvm.org/][clang]] provides most of the features to lsp-mode in Emacs
+*** Ruby
+- I use the distribution interpreter and [[https://bundler.io][bundler]] to vendor dependencies inside the project
+- I use the [[https://solargraph.org][Solargraph]] gem to power lsp-mode in emacs
+*** Golang
+- I just use the standard Go modules
+- [[https://github.com/golang/tools/tree/master/gopls][gopls]] to power lsp-mode in emacs
+
