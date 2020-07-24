@@ -27,6 +27,12 @@ Most of my personal computing is done on a [[https://www.lenovo.com/us/en/laptop
 
 You can also read some details about the setup for my [[file:music.org][music hobby activities]].
 
+I also have a small Home "Lab"
+  - 2 Raspberry Pi 3 running openSUSE Leap 15.1
+  - 1 [[https://linux-sunxi.org/Pine64][Pine64]] running OpenBSD 6.7
+  - [[https://www.home-assistant.io/][HomeAssistant]]
+  - Managed by [[https://docs.saltstack.com/en/latest/topics/ssh][salt-ssh]]
+
 ** Work
 
 Most of my work happens on a [[https://www.lenovo.com/us/en/laptops/thinkpad/x-series/x220][Thinkpad X220]] from 2011, except for video-conferencing, for which I use my iPad, as the laptop is not powerful enough.
@@ -48,7 +54,8 @@ You can find this setup in my [[https://gitlab.suse.de/dmacvicar/dotfiles.suse][
 - [[https://www.bose.com/products/headphones/noise_cancelling_headphones/noise-cancelling-headphones-700.html][Bose 700]] noise cancelling headphones for a great confcall experience
 - [[https://www.jabra.com.de/business/speakerphones/jabra-speak-series/jabra-speak-510][Jabra Speaker]] for mobile conferences involving more than one person in the room
 
-** Development environment
+* Development environment
+
 - [[https://www.gnu.org/software/emacs][Emacs]] as editor for most languages, with [[https://raw.githubusercontent.com/dmacvicar/dotfiles/master/emacs/.emacs.d/init.el][many]] extensions. Some highlights:
   - [[https://melpa.org/#/lsp-mode][LSP mode]] to take advantage of all [[https://en.wikipedia.org/wiki/Language_Server_Protocol][LSP]] servers out there
   - [[https://magit.vc][Magit]] as a git front-end
