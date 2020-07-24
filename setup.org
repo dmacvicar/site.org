@@ -1,3 +1,4 @@
+#+TITLE: My personal setup
 
 * My personal setup
 
