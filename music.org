@@ -1,7 +1,5 @@
 #+TITLE: My music setup
 
-* Music Setup
-
 Most of my hobby music activities are done on a iPad Pro with a [[https://line6.com/sonicport-audio-interface/][SonicPort]] interface.
 
 - [[https://www.apple.com/ios/garageband][Garageband]] for recording and multi-tracking

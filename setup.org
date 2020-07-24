@@ -1,8 +1,6 @@
 #+TITLE: My personal setup
 
-* My personal setup
-
-** General setup
+* General setup
 
 Most of my personal computing is done on a [[https://www.lenovo.com/us/en/laptops/thinkpad/x-series/x230][Thinkpad X230]] from 2012.
 
@@ -33,7 +31,7 @@ I also have a small Home "Lab"
   - [[https://www.home-assistant.io/][HomeAssistant]]
   - Managed by [[https://docs.saltstack.com/en/latest/topics/ssh][salt-ssh]]
 
-** Work
+* Work
 
 Most of my work happens on a [[https://www.lenovo.com/us/en/laptops/thinkpad/x-series/x220][Thinkpad X220]] from 2011, except for video-conferencing, for which I use my iPad, as the laptop is not powerful enough.
 
