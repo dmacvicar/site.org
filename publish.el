@@ -5,7 +5,7 @@
   (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/") t)
   (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
   (package-refresh-contents))
-(dolist (pkg '(dash projectile org-plus-contrib htmlize))
+(dolist (pkg '(dash projectile org-plus-contrib yaml-mode htmlize))
   (unless (package-installed-p pkg)
     (package-install pkg)))
 
