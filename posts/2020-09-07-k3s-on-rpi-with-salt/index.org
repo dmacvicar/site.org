@@ -154,7 +154,7 @@ k3s.{{ k3s_role }}.install:
     - name: curl -sfL https://get.k3s.io | sh -s -
     - env:
         - INSTALL_K3S_TYPE: {{ k3s_role }}
-{%- if k3s_role == 'server' %}
+{%- if k3s_role == 'agent' %}
         - K3S_URL: "https://{{ k3s_server }}:6443"
 {%- endif %}
         - INSTALL_K3S_SKIP_ENABLE: true
