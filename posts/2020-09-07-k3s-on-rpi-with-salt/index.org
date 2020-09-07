@@ -84,7 +84,7 @@ k3s.boot.cmdline:
 k3s.disable.swap:
   cmd.run:
     - name: swapoff -a
-    - unless: swapon --noheadings --show=name,type | grep -v .
+    - onlyif:  swapon --noheadings --show=name,type | grep .
 #+END_SRC
 
 As the goal was to avoid using the SD card, the next state makes sure =/var/lib/rancher/k3s= is a mount. I have to admit I wasted quite some time getting right the state for the storage mount. Using [[https://docs.saltstack.com/en/latest/ref/states/all/salt.states.mount.html#salt.states.mount.mounted][=mount.mounted=]] did not work because it is buggy and took different =btrfs= subvolume mounts from the same device as the same mount.
