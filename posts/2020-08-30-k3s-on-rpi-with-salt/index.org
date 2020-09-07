@@ -1,0 +1,361 @@
+#+TITLE: Raspberry Pi cluster with k3s & Salt (Part 1)
+#+DATE: <2020-08-30 Sun>
+
+I have been running some workloads on Raspberry Pi's / [[https://software.opensuse.org/distributions/leap][Leap]] for some time. I manage them using [[https://docs.saltstack.com/en/latest/topics/ssh][salt-ssh]] along with a [[https://www.kickstarter.com/projects/pine64/pine-a64-first-15-64-bit-single-board-super-comput/][Pine64]] running [[https://www.openbsd.org][OpenBSD]]. You can read more about using Salt this way in my [[file:/space/git/dmacvicar.github.com/site.org/posts/2016-05-18-using-salt-like-ansible/index.org][Using Salt like Ansible]] post.
+
+[[file:images/rpi-cluster-small.jpg]]
+
+The workloads ran on containers, which were managed with [[https://systemd.io/][systemd]] and [[https://podman.io][podman]]. Salt managed the systemd service files on =/etc/systemd=, which start, monitor and stops the containers. For example, the =homeassistant.sls= state, managed the service file for [[https://mosquitto.org][mosquitto]]:
+
+#+BEGIN_SRC yaml
+homeassistant.mosquito.deploy:
+  file.managed:
+    - name: /root/config/eclipse-mosquitto/mosquitto.conf
+    - source: salt://homeassistant/files/mosquitto/mosquitto.conf
+
+homeassistant.eclipse-mosquitto.container.service:
+  file.managed:
+    - name: /etc/systemd/system/eclipse-mosquitto.service
+    - contents: |
+        [Unit]
+        Description=%N Podman Container
+        After=network.target
+
+        [Service]
+        Type=simple
+        TimeoutStartSec=5m
+        ExecStartPre=-/usr/bin/podman rm -f "%N"
+        ExecStart=/usr/bin/podman run -ti --rm --name="%N" -p 1883:1883 -p 9001:9001 -v /root/config/eclipse-mosquitto:/mosquitto/config -v /etc/localtime:/etc/localtime:ro --net=host docker.io/library/eclipse-mosquitto
+        ExecReload=-/usr/bin/podman stop "%N"
+        ExecReload=-/usr/bin/podman rm "%N"
+        ExecStop=-/usr/bin/podman stop "%N"
+        Restart=on-failure
+        RestartSec=30
+
+        [Install]
+        WantedBy=multi-user.target
+  service.running:
+    - name: eclipse-mosquitto
+    - enable: True
+    - require:
+      - pkg: homeassistant.podman.pkgs
+      - file: /etc/systemd/system/eclipse-mosquitto.service
+      - file: /root/config/eclipse-mosquitto/mosquitto.conf
+    - watch:
+      - file: /root/config/eclipse-mosquitto/mosquitto.conf
+#+END_SRC
+
+The Salt state also made sure the right packages and other details where ready before the service was started.
+
+This was very simple and worked well so far. One disadvantage is that the workloads are tied to a particular Pi. I was not going to make the setup more complex by building my own orchestrator.
+
+Another disadvantage is that I was pulling the containers into the SD card. I was not hoping for a long life of these. After it died, I took it as a good opportunity to re-do this setup.
+
+My long term goal would be to netboot the Pi's, and have the storage mounted. I am not very familiar with all the procedure, so I will go step by step.
+
+I decided for the the initial iteration:
+
+- [[https://k3s.io/][k3s (Lightweight Kubernetes)]] on the Pi's
+- The k3s server to use a USB disks/SSDs with [[https://btrfs.wiki.kernel.org/index.php/Main_Page][btrfs]] as storage
+- The worker nodes to /var/lib/rancher/k3s from USB storage
+- Applying the states over almost stock [[http://download.opensuse.org/ports/aarch64/distribution/leap/15.2/appliances/][Leap 15.2]] images should result in a working cluster
+
+All the above managed with _salt-ssh_ tree on a git repository just like I was used to
+
+* k3s installation
+
+We start by creating =k3s/init.sls=. For the k3s state I defined a minimal pillar defining the server and the shared token:
+
+#+BEGIN_SRC yaml
+k3s:
+  token: xxxxxxxxx
+  server: rpi03
+#+END_SRC
+
+The first part of the k3s state ensures cgroups are configured correctly and disables swap:
+
+#+BEGIN_SRC yaml
+k3s.boot.cmdline:
+  file.managed:
+    - name: /boot/cmdline.txt
+    - contents: |
+        cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory
+
+k3s.disable.swap:
+  cmd.run:
+    - name: swapoff -a
+    - unless: swapon --noheadings --show=name,type | grep -v .
+#+END_SRC
+
+As the goal was to avoid using the SD card, the next state makes sure =/var/lib/rancher/k3s= is a mount. I have to admit I wasted quite some time getting right the state for the storage mount. Using [[https://docs.saltstack.com/en/latest/ref/states/all/salt.states.mount.html#salt.states.mount.mounted][=mount.mounted=]] did not work because it is buggy and took different =btrfs= subvolume mounts from the same device as the same mount.
+
+#+BEGIN_SRC yaml
+k3s.volume.mount:
+  mount.mounted:
+    - name: /var/lib/rancher/k3s
+    - device: /dev/sda1
+    - mkmnt: True
+    - fstype: btrfs
+    - persist: False
+    - opts: "subvol=/@k3s"
+#+END_SRC
+
+I resorted then to write my own state. I discovered the awesome [[https://www.man7.org/linux/man-pages/man8/findmnt.8.html][findmnt]] command, and my workaround looked like:
+
+#+BEGIN_SRC yaml
+k3s.volume.mount:
+  cmd.run:
+    - name: mount -t btrfs -o subvol=/@{{ grains['id'] }}-data /dev/sda1 /data
+    - unless: findmnt --mountpoint /data --noheadings | grep '/dev/sda1[/@k3s]'
+    - require:
+        - file: k3s.volume.mntpoint
+#+END_SRC
+
+This turned later to be a pain, as the k3s installer started k3s without caring much if this volume was mounted or not. Then I remembered: systemd does exactly that. It manages mount and dependencies. This simplified the mount state to:
+
+#+BEGIN_SRC yaml
+k3s.volume.mount:
+  file.managed:
+    - name: /etc/systemd/system/var-lib-rancher-k3s.mount
+    - contents : |
+        [Unit]
+
+        [Install]
+        RequiredBy=k3s
+        RequiredBy=k3s-agent
+
+        [Mount]
+        What=/dev/sda1
+        Where=/var/lib/rancher/k3s
+        Options=subvol=/@k3s
+        Type=btrfs
+  cmd.run:
+    - name: systemctl daemon-reload
+    - onchanges:
+        - file: k3s.volume.mount
+  service.running:
+    - name: var-lib-rancher-k3s.mount
+#+END_SRC
+
+The k3s state works as follows: it runs the installation script in server or agent mode depending if the pillar =k3s:server= entry matches with the node where the state is applied.
+
+#+BEGIN_SRC yaml
+{%- set k3s_server = salt['pillar.get']('k3s:server') -%}
+{%- if grains['id'] == k3s_server %}
+{%- set k3s_role = 'server' -%}
+{%- set k3s_suffix = "" -%}
+{%- else %}
+{%- set k3s_role = 'agent' -%}
+{%- set k3s_suffix = '-agent' -%}
+{%- endif %}
+
+k3s.{{ k3s_role }}.install:
+  cmd.run:
+    - name: curl -sfL https://get.k3s.io | sh -s -
+    - env:
+        - INSTALL_K3S_TYPE: {{ k3s_role }}
+{%- if k3s_role == 'server' %}
+        - K3S_URL: "https://{{ k3s_server }}:6443"
+{%- endif %}
+        - INSTALL_K3S_SKIP_ENABLE: true
+        - K3S_TOKEN: {{ salt['pillar.get']('k3s:token', {}) }}
+    - creates:
+        - /usr/local/bin/k3s
+        - /etc/systemd/system/k3s{{ k3s_suffix }}.service
+        - /etc/systemd/system/k3s{{ k3s_suffix }}.env
+    - require:
+        - service: k3s.volume.mount
+
+k3s.{{ k3s_role }}.running:
+  service.running:
+    - name: k3s{{ k3s_suffix }}
+    - enable: True
+    - require:
+      - cmd: k3s.{{ k3s_role }}.install
+#+END_SRC
+
+* Workloads
+
+The next step is to move workloads like [[https://www.home-assistant.io][homeassistant]] into this setup.
+
+k3s allows to automatically deploy manifests located in =/var/lib/rancher/server/manifests=. We can deploy eg. mosquitto like the following:
+
+#+BEGIN_SRC yaml
+homeassistant.mosquitto:
+  file.managed:
+    - name: /var/lib/rancher/k3s/server/manifests/mosquitto.yml
+    - source: salt://homeassistant/files/mosquitto.yml
+    - require:
+      - k3s.volume.mount
+#+END_SRC
+
+With =mosquito.yml= being:
+
+#+BEGIN_SRC yaml
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: homeassistant
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mosquitto
+  namespace: homeassistant
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mosquitto
+  template:
+    metadata:
+      labels:
+        app: mosquitto
+    spec:
+      containers:
+        - name: mosquitto
+          image: docker.io/library/eclipse-mosquitto
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "100m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+          - containerPort: 1883
+          imagePullPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mosquitto
+  namespace: homeassistant
+spec:
+  ports:
+  - name: mqtt
+    port: 1883
+    targetPort: 1883
+    protocol: TCP
+  selector:
+    app: mosquitto
+#+END_SRC
+
+Homeassistant is no different, except that we use a [[https://kubernetes.io/docs/concepts/configuration/configmap/][ConfigMap]] resource to store the configuration and define an [[https://docs.traefik.io/providers/kubernetes-ingress/][Ingress]] resource to access it from the LAN:
+
+#+BEGIN_SRC yaml
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: homeassistant
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: homeassistant-config
+  namespace: homeassistant
+data:
+  configuration.yaml: |
+    homeassistant:
+      auth_providers:
+        - type: homeassistant
+        - type: trusted_networks
+          trusted_networks:
+            - 192.168.178.0/24
+            - 10.0.0.0/8
+            - fd00::/8
+          allow_bypass_login: true
+      name: Home
+      latitude: xx.xxxx
+      longitude: xx.xxxx
+      elevation: xxx
+      unit_system: metric
+      time_zone: Europe/Berlin
+    frontend:
+    config:
+    http:
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: homeassistant
+  namespace: homeassistant
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: homeassistant
+  template:
+    metadata:
+      labels:
+        app: homeassistant
+    spec:
+      containers:
+        - name: homeassistant
+          image: homeassistant/raspberrypi3-64-homeassistant:stable
+          volumeMounts:
+            - name: config-volume-configuration
+              mountPath: /config/configuration.yaml
+              subPath: configuration.yaml
+          livenessProbe:
+            httpGet:
+              scheme: HTTP
+              path: /
+              port: 8123
+            initialDelaySeconds: 30
+            timeoutSeconds: 30
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "100m"
+            limits:
+              memory: "1024Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 8123
+              protocol: TCP
+          imagePullPolicy: Always
+      volumes:
+        - name: config-volume-configuration
+          configMap:
+            name: homeassistant-config
+            items:
+            - key: configuration.yaml
+              path: configuration.yaml
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: homeassistant
+  namespace: homeassistant
+spec:
+  selector:
+    app: homeassistant
+  ports:
+    - port: 8123
+      targetPort: 8123
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: homeassistant
+  namespace: homeassistant
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    traefik.frontend.rule.type: PathPrefixStrip
+spec:
+  rules:
+  - host: homeassistant.int.mydomain.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: homeassistant
+          servicePort: 8123
+#+END_SRC
+
+Setting up Ingress was the most time consuming part. It took me a while to figure out how it was supposed to work, and customizing the [[https://docs.traefik.io/][Treafik]] Helm chart is not intuitive to me. While homeassistant was more straightforward as it is a simple HTTP behind SSL proxy service, the Kubernetes dashboard is already deployed with SSL inside the cluster. I am still figuring out how =ingress.kubernetes.io/protocol: https=, =traefik.ingress.kubernetes.io/pass-tls-cert: "true"= (oh, don't forget the quotes!) or =insecureSkipVerify= work toghether and what is the best way to expose it to the LAN.
+
+In a future post, I will describe the dashboards setup, and other improvements.
