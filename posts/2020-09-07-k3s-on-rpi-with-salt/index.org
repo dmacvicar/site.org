@@ -1,5 +1,5 @@
 #+TITLE: Raspberry Pi cluster with k3s & Salt (Part 1)
-#+DATE: <2020-08-30 Sun>
+#+DATE: <2020-09-07 Mon>
 
 I have been running some workloads on Raspberry Pi's / [[https://software.opensuse.org/distributions/leap][Leap]] for some time. I manage them using [[https://docs.saltstack.com/en/latest/topics/ssh][salt-ssh]] along with a [[https://www.kickstarter.com/projects/pine64/pine-a64-first-15-64-bit-single-board-super-comput/][Pine64]] running [[https://www.openbsd.org][OpenBSD]]. You can read more about using Salt this way in my [[file:/space/git/dmacvicar.github.com/site.org/posts/2016-05-18-using-salt-like-ansible/index.org][Using Salt like Ansible]] post.
 
