@@ -157,14 +157,22 @@ k3s.{{ k3s_role }}.install:
 {%- if k3s_role == 'agent' %}
         - K3S_URL: "https://{{ k3s_server }}:6443"
 {%- endif %}
-        - INSTALL_K3S_SKIP_ENABLE: true
+        - INSTALL_K3S_SKIP_ENABLE: "true"
+        - INSTALL_K3S_SKIP_START: "true"
         - K3S_TOKEN: {{ salt['pillar.get']('k3s:token', {}) }}
-    - creates:
-        - /usr/local/bin/k3s
-        - /etc/systemd/system/k3s{{ k3s_suffix }}.service
-        - /etc/systemd/system/k3s{{ k3s_suffix }}.env
+    - unless:
+        # Run install on these failed conditions
+        # No binary
+        - ls /usr/local/bin/k3s
+        # Token changed/missing
+        - grep '{{ salt['pillar.get']('k3s:token', {}) }}' /etc/systemd/system/k3s{{ k3s_suffix }}.service.env
+        # Changed/missing server
+{%- if k3s_role == 'agent' %}
+        - grep 'K3S_URL=https://{{ k3s_server }}:6443' /etc/systemd/system/k3s{{ k3s_suffix }}.service.env
+{%- endif %}
     - require:
         - service: k3s.volume.mount
+        - service: k3s.kubelet.volume.mount
 
 k3s.{{ k3s_role }}.running:
   service.running:
