@@ -2,6 +2,7 @@
 (package-initialize)
 (unless package-archive-contents
   (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
+  (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/") t)
   (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
   (package-refresh-contents))
 (dolist (pkg '(dash projectile org-plus-contrib htmlize))
@@ -325,6 +326,7 @@
         ;; deactivate cache as it does not take the publish.el file into account
         (user-full-name "Duncan Mac-Vicar P.")
         (user-mail-address "duncan@gmail.com")
+        (org-src-fontify-natively t)
         (org-publish-cache nil)
         (org-publish-use-timestamps-flag nil)
         (org-export-with-section-numbers nil)
