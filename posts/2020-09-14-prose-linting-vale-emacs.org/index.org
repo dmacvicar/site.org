@@ -1,0 +1,90 @@
+#+TITLE: Prose linting with Vale and Emacs
+#+DATE: <2020-09-14 Mon>
+
+I have set myself the goal to improve my writing. I read some books and articles on the topic, but I am also looking for real-time feedback. I am not a native english speaker.
+
+ I found about [[https://www.grammarly.com/][Grammarly]] on twitter, but there is no way I will send my emails and documents to their server as I type. That is how I started to look for an offline solution.
+
+I found [[https://github.com/amperser/proselint][proselint]] but it seems inactive since 2018. As I tried to integrate it with Emacs, I learned about [[https://github.com/bnbeckwith/writegood-mode][write-good mode]]. This Emacs mode has two flaws:
+
+- The implementation is too "simple" (regexps)
+- The integration works like a full Emacs mode. Mixing the linting with presentation.
+
+Through those projects, I learned about the original article [[http://matt.might.net/articles/shell-scripts-for-passive-voice-weasel-words-duplicates/][3 shell scripts to improve your writing, or "My Ph.D. advisor rewrote himself in bash."]].
+
+I found a more sophisticated and extensible tool called [[https://github.com/btford/write-good][write-good]], implemented in Javascript/node, which means I will not be able to package it.
+
+I decided to try to write one. I found the Go library [[https://github.com/jdkato/prose][prose]]. It allows to iterate over tokens, entities and sentences. Iterating over the tokens gives access to tags:
+
+#+BEGIN_SRC go
+for _, tok := range doc.Tokens() {
+        fmt.Println(tok.Text, tok.Tag, tok.Label)
+        // Go NNP B-GPE
+        // is VBZ O
+        // an DT O
+        // ...
+}
+#+END_SRC
+
+For example, the text "At dinner, six shrimp were eaten by Harry" produces the following tags:
+
+#+BEGIN_SRC
+Harry PERSON
+At IN
+dinner NN
+, ,
+six CD
+shrimp NN
+were VBD
+eaten VBN
+by IN
+Harry NNP
+#+END_SRC
+
+The combination =VBD= (verb, past tense )and =VBN= (verb, past participle) can be used to detect passive voice, one of the guidelines of "good-write".
+
+Soon I figured out that the tokens do not give access to the locations. I started to see who is using the code, looking for examples.
+
+I realized the author of the library uses the library to power [[https://github.com/errata-ai/vale][vale]], a prose linter implemented in go. What I was trying to write.
+
+The [[https://docs.errata.ai/vale/about][vale documentation]] revealed the tool is more than I was looking for. It includes [[https://github.com/errata-ai/vale/tree/master/styles/write-good][write-good]] definitions as part of its example styles. There are examples for Documentation CI which include how [[https://docs.errata.ai/vale/config][Gitlab, Linode and Homebrew]] use it to lint their documentation. It even has a [[https://github.com/errata-ai/vale-action][Github action]].
+
+Nothing left other than to integrate with Emacs. There is no need to write a full mode for that. A simple [[https://www.flycheck.org][Flycheck]] checker should do. Turns out, it already [[https://melpa.org/#/flycheck-vale][exists]], but I could not make it work.
+
+The existing Emacs checker uses /vale/ JSON output (=--output JSON=), which gives access to all details of the result. We can write the simplest checker from scratch, by recognizing patterns with =--output line=:
+
+#+BEGIN_SRC elisp
+(flycheck-define-checker vale
+  "A checker for prose"
+  :command ("vale" "--output" "line"
+            source)
+  :standard-input nil
+  :error-patterns
+  ((error line-start (file-name) ":" line ":" column ":" (id (one-or-more (not (any ":")))) ":" (message) line-end))
+  :modes (markdown-mode org-mode text-mode)
+  )
+(add-to-list 'flycheck-checkers 'vale 'append)
+#+END_SRC
+
+Note that for this to work, you need /vale/ in your =PATH=. I packaged it in [[https://build.opensuse.org/package/show/home:dmacvicar/vale][the Open Build Service.]] You need also a =$HOME/.vale.ini= or in the root of your project:
+
+#+BEGIN_SRC
+StylesPath = /usr/share/vale/styles
+Vocab = Blog
+[*.txt]
+BasedOnStyles = Vale, write-good
+[*.md]
+BasedOnStyles = Vale, write-good
+[*.org]
+BasedOnStyles = Vale, write-good
+#+END_SRC
+
+And with this Emacs works:
+
+[[file:images/emacs.png]]
+
+Due to =--output line= not providing severity, every message shows as error.
+
+I am looking forward to integrate /vale/ in some documentation, develop custom styles and why not, investigate and fix the original /flycheck-vale/ project.
+
+While writing this post, I had to fix the unintended use of passive voice tens of times. Valuable feedback.
