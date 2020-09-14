@@ -87,4 +87,6 @@ Due to =--output line= not providing severity, every message shows as error.
 
 I am looking forward to integrate /vale/ in some documentation, develop custom styles and why not, investigate and fix the original /flycheck-vale/ project.
 
+Also pending is to expand the configuration to work with my [[https://www.djcbsoftware.nl/code/mu/mu4e.html][Emacs based mail client]], which should be a matter of hooking into /mu4e/ compose mode.
+
 While writing this post, I had to fix the unintended use of passive voice tens of times. Valuable feedback.
