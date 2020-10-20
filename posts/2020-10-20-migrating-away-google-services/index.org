@@ -1,0 +1,187 @@
+#+TITLE: Migrating away from Google services
+#+DATE: <2020-10-20 Tue>
+
+My inbox tells me I started using GMail around 2004. The oldest mail I can find in my archive is from 16 years ago. After Gmail, Google Photos, Keep, Docs, Drive and Fit followed.
+
+I have reasons to stop. Whether your reasons are privacy, the U.S. as a data harbor, GMail becoming sluggish, karma for killing Inbox, fear about getting [[https://twitter.com/miguelytob/status/1315749803041619981][your account locked]], or you found a better email provider, the objective of this post is not to convince you about my reasons but to help you with a migration plan and showing you alternatives.
+
+Breaking the dependency on Google services is really hard. This dependency was a showstopper and motivator at the same time. If you are locked-in at this level, something is wrong.
+
+After 16 years, I was not planning to stop in a single day, but step by step. This post highlights the first steps into that direction.
+
+My new requirements are:
+
+- My data stored in a privacy compatible jurisdiction: European Union, Nordic countries, Switzerland.
+- Managed/hosted services are OK, as long they are in a privacy respecting jurisdiction and I pay for the product (I am not the product).
+- Services should use open-source software where possible.
+
+* Migrating away from GMail
+
+After evaluating several mail providers including Tutanota, ProtonMail, Mailfence, Soverin, Runbox, I decided for https://mailbox.org:
+
+- Provides IMAP and can be used with generic existing open-source clients
+- Company has a focus on privacy
+- Attractive price
+- Located in Germany
+- Based on Open-Xchange, which is Open-Source
+- Provides a Calendar feature based on open standards (CalDAV)
+- Provides [[https://mailbox.org/en/security][encryption in several forms]]
+- [[https://mailbox.org/en/company#our-responsibility][Company values]]: privacy, eco-friendly, and work-life balance for their employees align with my own
+
+[[file:images/mailbox.png]]
+
+Mailbox.org is not perfect. 2FA is bolted-on like many other parts of the application. I don't think you can beat Google when it comes to security, but the risk of getting your account locked at Google and no escalation path or human to talk to makes all the technicallities irrelevant.
+
+To migrate, I planned to use [[https://isync.sourceforge.io/][mbsync]], which I already use to download my work email in my  [[https://www.djcbsoftware.nl/code/mu/mu4e.html][mu4e]]/Emacs setup. The idea is to create two channels, one for GMail, one for the new provider, download the whole GMail archive (forcing pull in a sync), and then force a push on the new provider.
+
+Downloading all my mail with mbsync did not work. GMail has [[https://support.google.com/a/answer/1071518?hl=en][download limits for IMAP]]. The next thing to try was [[https://takeout.google.com/][Google Takeout]], a service that allows you to dowload your Google data. This gave me an [[https://en.wikipedia.org/wiki/Mbox][mbox]] with all my GMail messages. mbsync only works with [[https://en.wikipedia.org/wiki/Maildir][Maildir]], so I tried to upload the mbox messages with Thunderbird, but did not get far. At the end, I used [[http://batleth.sapienti-sat.org/projects/mb2md/][mb2md]] to convert the mbox to Maildir format, and then used mbsync to upload the messages to the new provider. This worked.
+
+In order to prevent lock-in in the future, I used a custom domain. My go-to registrar is [[https://www.namecheap.com/][Namecheap]] and I have no complaints. I went with [[https://www.gandi.net/][Gandi]], as they are based in France and I read good things about them.
+
+To be able to migrate at my own pace, I setup a forward and delete filter rule in Gmail. I had hundred of accounts using my email address as username. Thankfully, my password manager knows about those and I changed the ones I use more often. Every time I get a newsletter or notification, I take the chance to unsubscribe, and check the =To:= field and update my profile, or delete that account.
+
+I replaced the GMail mobile application with [[https://email.faircode.eu/][FairMail]]. The build is not free as in beer ($), but it is Open-Source (GPL). Paying to get a working binary and some support is worth it.
+
+* Google Search
+
+I switched to [[https://duckduckgo.com/][DuckDuckGo]] a long time ago already. I tried [[https://www.qwant.com/][Quant]] (based in France) but for some reason it takes seconds to connect. I can't believe they fail in this obvious detail.
+
+* Migrating Google Photos & Google Drive
+
+My usual workflow has been to download photos locally and upload to Google Photos. The lack of a good sync mechanism resulted in glitches over time. Some albums were present locally and some existed only in Google Photos.
+
+I used both [[https://pypi.org/project/gphotos-sync/][gohotos-sync]] and Google Takeout to get two full copies of albums and the photo stream. gphotos-sync has a useful flag =--compare-folder= which hels comparing albums in Google Photos with the local version of those, creating symlinks for local and remote missing files.
+
+I then used [[https://exiftool.org/][exiftool]] to sort pictures further. If you don't know this tool, I highly recommned you learn it.
+
+I selected [[https://www.hetzner.com/storage/storage-share][Hetzner Storage Share]], an affordable [[https://nextcloud.com/][Nextcloud]] based service hosted in Germany. Nextcloud is intended to replace Google Drive, which means it allows to share files via eg. public links. You can, however, install many applications in it, including a very simple photo gallery.
+
+[[file:images/nextcloud.png]]
+
+The feature I will miss the most is to be able to do AI based search on my photos. I search often by keywords and concepts.
+
+I setup the [[https://nextcloud.com/install/#install-clients][Linux and mobile clients]]. The Linux client syncs a part of my Pictures folder that is ready and organized. I configured Instant-Upload on my phone which auto-uploads photos I take with the camera. The upload is unidirectional, but as they land on a folder I have configured to be synced with my computer, they reach my laptop to be further organized. I can delete the camera files without risk of losing what has been uploaded.
+
+I still depend on Drive for sharing files with my band. I relegated Drive to its own Firefox [[https://addons.mozilla.org/en-US/firefox/addon/multi-account-containers/][Container]], this way I am not permanently logged into the Google Account as I browse the Web, but do not need to log-in again to use Drive.
+
+* Google Keep
+
+For personal notes, I use [[https://orgmode.org/][org-mode]] on a synced folder. I sync the folder to my Nextcloud instance. [[https://play.google.com/store/apps/details?id=com.orgzly][Orgzly]] provides a TODO widget and access the files via WebDAV. [[https://play.google.com/store/apps/details?id=com.madlonkay.orgro][Orgro]] gives you a more sophisticated viewer.
+
+I do share a shopping list with my family in Keep and I haven't yet solved that problem. I have thought about a Keep-like view for Orgzly -it is [[https://github.com/orgzly][open-source]]-, by transforming each headline into a card.
+
+* Google Fit
+
+I track my runs in Fit. My ideal solution would be to store tracks directly as a file in a NextCloud folder. An alternative is to store them in a internal database and do an Export from time to time.
+
+Google Takeout allows you to export tracks in TCX format, with summaries as CSV files. I ended with 300+ TCX files.
+
+I evaluated many apps that required no Cloud service. [[https://play.google.com/store/apps/details?id=org.runnerup][RunnerUp]], [[https://gitlab.com/brvier/ForRunners][ForRunners]] and  [[https://play.google.com/store/apps/details?id=de.tadris.fitness][FitoTrack]] are also Open-Source, where [[https://play.google.com/store/apps/details?id=com.sportractive][Sportractive]] is not.
+
+FitoTrack and Sportractive where the most promissing ones. In both apps I could not import more than one file at a time so I contacted the authors asking for tips how to import my data. Sportractive author mentioned this was not possible. FitoTrack author found this a simple addition, implemented it and pointed me to the next release. Due to a glitch, took longer to show up in the Play Store, but I built the app from source and started experimenting with this feature.
+
+[[file:images/fitotrack.png]]
+
+To convert the TCX files to GPX I used [[http://www.gpsbabel.org/][gpsbabel]]. FitoTrack has trouble with Fit multiple laps/tracks. The =pack= option in gpsbabel merges them.
+
+#+BEGIN_SRC
+for fn in ../*.tcx; do gpsbabel -i gtrnctr -f "$fn" -x track,pack -o gpx -F $(basename $fn .tcx).gpx; done
+#+END_SRC
+
+I had now 300+ files with names like =2018-04-15T00_44_22+02_00_PT38M17.962S_Running.gpx=, no description and no metadata specifying it was "Running".
+
+I hacked this script which finds the starting point, does reverse geolocation to find the place name, cleans it up and then renames the file. It also sets the description to something like "Run in Madrid, Spain".
+
+#+BEGIN_SRC python
+import os
+import time
+import unidecode
+
+import gpxpy
+import gpxpy.gpx
+from geopy.geocoders import Nominatim
+
+geolocator = Nominatim(user_agent="JustATestScript")
+
+for filename in os.listdir("."):
+    if not filename.endswith(".gpx"):
+        continue
+
+    print("Current: {}".format(filename))
+    gpx_file = open(filename, "r")
+    gpx = gpxpy.parse(gpx_file)
+
+    # get first point
+    point = None
+    try:
+        point = gpx.tracks[0].segments[0].points[0]
+    except Exception:
+        print(" `-> No point 0")
+        continue
+
+    location = geolocator.reverse(
+        (point.latitude, point.longitude),
+        language="en",
+        addressdetails=True,
+    )
+    country = unidecode.unidecode(location.raw["address"]["country"])
+    # City is not so easy. Fallback until we get something
+    city = None
+    for place in ["city", "village", "suburb", "town"]:
+        if place not in location.raw["address"]:
+            continue
+        import re
+        city = re.sub(r".+/\s+", "", location.raw["address"][place])
+        city = unidecode.unidecode(city)
+        break
+    if not city:
+        raise Exception("No place in address: {}".format(location.raw))
+    newname = "{}-Running-{}_{}.gpx".format(
+        point.time.strftime("%Y-%m-%d_T%H_%m"),
+        city.replace(" ", "_"),
+        country.replace(" ", "_"),
+    )
+    print(" `-> new name: {}".format(newname))
+    gpx.tracks[0].name = "Run in {}, {}".format(city, country)
+    gpx.tracks[0].description = None
+    # FIXME: does not serialize. Fix with xmlstarlet
+    gpx.tracks[0].type = "running"
+    with open(filename, "w") as out:
+        out.write(gpx.to_xml())
+    try:
+        os.rename(filename, newname)
+    except Exception as e:
+        print(location.raw)
+        raise e
+    # do not call the API too fast
+    time.sleep(1)
+#+END_SRC
+
+The result was:
+
+#+BEGIN_SRC
+2018-07-29_T08_07-Munich_Germany.gpx
+2019-08-10_T14_08-Barcelone_Spain.gpx
+2020-08-22_T07_08-Warsaw_Poland.gpx
+2020-07-11_T15_07-Nuremberg_Germany.gpx
+2020-08-20_T06_08-Valencia_Spain.gpx
+2018-06-03_T10_06-Stuttgart_Germany.gpx
+...
+#+END_SRC
+
+(city names and dates are not the real ones)
+
+Setting the sport type in the metadata did not get serialized back, so I fix it with xmlstarlet:
+
+#+BEGIN_SRC
+xmlstarlet ed --inplace -N x="http://www.topografix.com/GPX/1/0" -s /x:gpx/x:trk -t elem -n type -v "running" *.gpx
+#+END_SRC
+
+Then, mass import into FitoTrack and I got all my activities with nice descriptions and the right "Running" icon.
+
+* Conclusions
+
+My new mail setup is working for some weeks already without problems. I miss some Photos features, but that's it.
+I was not expecting Fit to take that much effort.
+
+In general, I am happy with the results. I regained control of my data and I got to use more open-source.
