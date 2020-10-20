@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 20 Oct. 2020 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Migrating away from Google services</title>
+<meta name="generator" content="Org mode">
+<meta name="author" content="Duncan Mac-Vicar P.">
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-1687066-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-1687066-2');
+</script>
+<link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css' rel='stylesheet' integrity='sha256-k2/8zcNbxVIh5mnQ52A0r3a6jAgMGxFJFE2707UxGCk= sha512-ZV9KawG2Legkwp3nAlxLIVFudTauWuBpC10uEafMHYL0Sarrz5A7G79kXh5+5+woxQ5HM559XX2UZjMJ36Wplg==' crossorigin='anonymous'/>
+<meta description='The blog of Duncan Mac-Vicar P.'/>
+<link rel='alternate' type='application+rss/xml' title='The blog of Duncan Mac-Vicar P.' href='posts/rss.xml'/>
+<link rel="stylesheet" href="../../css/site.css?v=e21a1eb21340254d7e0023bf45ef785954bb24f4151e4abcd60e4c86799b8d8b" type="text/css">
+</head>
+<body>
+<header id="preamble" class="status">
+<aside>
+  <h1>Hi.</h1>
+  <a href="/">
+    <img src="https://www.gravatar.com/avatar/3b67365812827fa25df5093b38934a8f?s=80" class="avatar" alt="My photo"/>
+  </a>
+  <h2>I'm <a href="/">Duncan Mac-Vicar P.</a></h2>
+  <div id="bio">
+    <small><p>I am inspired by creating software. I do that mostly at <a href="https://www.suse.com"><!--img src="https://www.suse.com/common/img/suse_54x33.png" height="33" width="54" style="float: left;"-->SUSE</a>.
+      <p>When things break, I fix them or go play guitar...</p></small>
+  </div>
+  <div id="social">
+    Follow me:
+    <div id="stalker">
+      <a title="dmacvicar on Github" href="https://github.com/dmacvicar">
+        <i class="fa fa-github-square"></i>
+      </a>
+      <a title="dmacvicar on Hacker News" href="https://news.ycombinator.com/user?id=dmacvicar">
+        <i class="fa fa-hacker-news"></i>
+      </a>
+      <a title="dmacvicar on Twitter" href="https://twitter.com/dmacvicar">
+        <i class="fa fa-twitter-square"></i>
+      </a>
+      <a title="RSS feed" id="atom" href="posts/rss.xml">
+        <i class="fa fa-rss-square"></i>
+      </a>
+    </div>
+  </div>
+</aside>
+</header>
+<main id="content">
+<header>
+<h1 class="title">Migrating away from Google services</h1>
+<p class="subtitle">Oct 20, 2020</p>
+</header><p>
+My inbox tells me I started using GMail around 2004. The oldest mail I can find in my archive is from 16 years ago. After Gmail, Google Photos, Keep, Docs, Drive and Fit followed.
+</p>
+
+<p>
+I have reasons to stop. Whether your reasons are privacy, the U.S. as a data harbor, GMail becoming sluggish, karma for killing Inbox, fear about getting <a href="https://twitter.com/miguelytob/status/1315749803041619981">your account locked</a>, or you found a better email provider, the objective of this post is not to convince you about my reasons but to help you with a migration plan and showing you alternatives.
+</p>
+
+<p>
+Breaking the dependency on Google services is really hard. This dependency was a showstopper and motivator at the same time. If you are locked-in at this level, something is wrong.
+</p>
+
+<p>
+After 16 years, I was not planning to stop in a single day, but step by step. This post highlights the first steps into that direction.
+</p>
+
+<p>
+My new requirements are:
+</p>
+
+<ul class="org-ul">
+<li>My data stored in a privacy compatible jurisdiction: European Union, Nordic countries, Switzerland.</li>
+<li>Managed/hosted services are OK, as long they are in a privacy respecting jurisdiction and I pay for the product (I am not the product).</li>
+<li>Services should use open-source software where possible.</li>
+</ul>
+
+<section id="outline-container-orgd4dffbe" class="outline-2">
+<h2 id="orgd4dffbe">Migrating away from GMail</h2>
+<div class="outline-text-2" id="text-orgd4dffbe">
+<p>
+After evaluating several mail providers including Tutanota, ProtonMail, Mailfence, Soverin, Runbox, I decided for <a href="https://mailbox.org">https://mailbox.org</a>:
+</p>
+
+<ul class="org-ul">
+<li>Provides IMAP and can be used with generic existing open-source clients</li>
+<li>Company has a focus on privacy</li>
+<li>Attractive price</li>
+<li>Located in Germany</li>
+<li>Based on Open-Xchange, which is Open-Source</li>
+<li>Provides a Calendar feature based on open standards (CalDAV)</li>
+<li>Provides <a href="https://mailbox.org/en/security">encryption in several forms</a></li>
+<li><a href="https://mailbox.org/en/company#our-responsibility">Company values</a>: privacy, eco-friendly, and work-life balance for their employees align with my own</li>
+</ul>
+
+
+<figure id="org6dd4edf">
+<img src="images/mailbox.png" alt="mailbox.png">
+
+</figure>
+
+<p>
+Mailbox.org is not perfect. 2FA is bolted-on like many other parts of the application. I don&rsquo;t think you can beat Google when it comes to security, but the risk of getting your account locked at Google and no escalation path or human to talk to makes all the technicallities irrelevant.
+</p>
+
+<p>
+To migrate, I planned to use <a href="https://isync.sourceforge.io/">mbsync</a>, which I already use to download my work email in my  <a href="https://www.djcbsoftware.nl/code/mu/mu4e.html">mu4e</a>/Emacs setup. The idea is to create two channels, one for GMail, one for the new provider, download the whole GMail archive (forcing pull in a sync), and then force a push on the new provider.
+</p>
+
+<p>
+Downloading all my mail with mbsync did not work. GMail has <a href="https://support.google.com/a/answer/1071518?hl=en">download limits for IMAP</a>. The next thing to try was <a href="https://takeout.google.com/">Google Takeout</a>, a service that allows you to dowload your Google data. This gave me an <a href="https://en.wikipedia.org/wiki/Mbox">mbox</a> with all my GMail messages. mbsync only works with <a href="https://en.wikipedia.org/wiki/Maildir">Maildir</a>, so I tried to upload the mbox messages with Thunderbird, but did not get far. At the end, I used <a href="http://batleth.sapienti-sat.org/projects/mb2md/">mb2md</a> to convert the mbox to Maildir format, and then used mbsync to upload the messages to the new provider. This worked.
+</p>
+
+<p>
+In order to prevent lock-in in the future, I used a custom domain. My go-to registrar is <a href="https://www.namecheap.com/">Namecheap</a> and I have no complaints. I went with <a href="https://www.gandi.net/">Gandi</a>, as they are based in France and I read good things about them.
+</p>
+
+<p>
+To be able to migrate at my own pace, I setup a forward and delete filter rule in Gmail. I had hundred of accounts using my email address as username. Thankfully, my password manager knows about those and I changed the ones I use more often. Every time I get a newsletter or notification, I take the chance to unsubscribe, and check the <code>To:</code> field and update my profile, or delete that account.
+</p>
+
+<p>
+I replaced the GMail mobile application with <a href="https://email.faircode.eu/">FairMail</a>. The build is not free as in beer ($), but it is Open-Source (GPL). Paying to get a working binary and some support is worth it.
+</p>
+</div>
+</section>
+
+<section id="outline-container-orgca65106" class="outline-2">
+<h2 id="orgca65106">Google Search</h2>
+<div class="outline-text-2" id="text-orgca65106">
+<p>
+I switched to <a href="https://duckduckgo.com/">DuckDuckGo</a> a long time ago already. I tried <a href="https://www.qwant.com/">Quant</a> (based in France) but for some reason it takes seconds to connect. I can&rsquo;t believe they fail in this obvious detail.
+</p>
+</div>
+</section>
+
+<section id="outline-container-org4845fc8" class="outline-2">
+<h2 id="org4845fc8">Migrating Google Photos &amp; Google Drive</h2>
+<div class="outline-text-2" id="text-org4845fc8">
+<p>
+My usual workflow has been to download photos locally and upload to Google Photos. The lack of a good sync mechanism resulted in glitches over time. Some albums were present locally and some existed only in Google Photos.
+</p>
+
+<p>
+I used both <a href="https://pypi.org/project/gphotos-sync/">gohotos-sync</a> and Google Takeout to get two full copies of albums and the photo stream. gphotos-sync has a useful flag <code>--compare-folder</code> which hels comparing albums in Google Photos with the local version of those, creating symlinks for local and remote missing files.
+</p>
+
+<p>
+I then used <a href="https://exiftool.org/">exiftool</a> to sort pictures further. If you don&rsquo;t know this tool, I highly recommned you learn it.
+</p>
+
+<p>
+I selected <a href="https://www.hetzner.com/storage/storage-share">Hetzner Storage Share</a>, an affordable <a href="https://nextcloud.com/">Nextcloud</a> based service hosted in Germany. Nextcloud is intended to replace Google Drive, which means it allows to share files via eg. public links. You can, however, install many applications in it, including a very simple photo gallery.
+</p>
+
+
+<figure id="org6535295">
+<img src="images/nextcloud.png" alt="nextcloud.png">
+
+</figure>
+
+<p>
+The feature I will miss the most is to be able to do AI based search on my photos. I search often by keywords and concepts.
+</p>
+
+<p>
+I setup the <a href="https://nextcloud.com/install/#install-clients">Linux and mobile clients</a>. The Linux client syncs a part of my Pictures folder that is ready and organized. I configured Instant-Upload on my phone which auto-uploads photos I take with the camera. The upload is unidirectional, but as they land on a folder I have configured to be synced with my computer, they reach my laptop to be further organized. I can delete the camera files without risk of losing what has been uploaded.
+</p>
+
+<p>
+I still depend on Drive for sharing files with my band. I relegated Drive to its own Firefox <a href="https://addons.mozilla.org/en-US/firefox/addon/multi-account-containers/">Container</a>, this way I am not permanently logged into the Google Account as I browse the Web, but do not need to log-in again to use Drive.
+</p>
+</div>
+</section>
+
+<section id="outline-container-org34813f2" class="outline-2">
+<h2 id="org34813f2">Google Keep</h2>
+<div class="outline-text-2" id="text-org34813f2">
+<p>
+For personal notes, I use <a href="https://orgmode.org/">org-mode</a> on a synced folder. I sync the folder to my Nextcloud instance. <a href="https://play.google.com/store/apps/details?id=com.orgzly">Orgzly</a> provides a TODO widget and access the files via WebDAV. <a href="https://play.google.com/store/apps/details?id=com.madlonkay.orgro">Orgro</a> gives you a more sophisticated viewer.
+</p>
+
+<p>
+I do share a shopping list with my family in Keep and I haven&rsquo;t yet solved that problem. I have thought about a Keep-like view for Orgzly -it is <a href="https://github.com/orgzly">open-source</a>-, by transforming each headline into a card.
+</p>
+</div>
+</section>
+
+<section id="outline-container-orgaa4143c" class="outline-2">
+<h2 id="orgaa4143c">Google Fit</h2>
+<div class="outline-text-2" id="text-orgaa4143c">
+<p>
+I track my runs in Fit. My ideal solution would be to store tracks directly as a file in a NextCloud folder. An alternative is to store them in a internal database and do an Export from time to time.
+</p>
+
+<p>
+Google Takeout allows you to export tracks in TCX format, with summaries as CSV files. I ended with 300+ TCX files.
+</p>
+
+<p>
+I evaluated many apps that required no Cloud service. <a href="https://play.google.com/store/apps/details?id=org.runnerup">RunnerUp</a>, <a href="https://gitlab.com/brvier/ForRunners">ForRunners</a> and  <a href="https://play.google.com/store/apps/details?id=de.tadris.fitness">FitoTrack</a> are also Open-Source, where <a href="https://play.google.com/store/apps/details?id=com.sportractive">Sportractive</a> is not.
+</p>
+
+<p>
+FitoTrack and Sportractive where the most promissing ones. In both apps I could not import more than one file at a time so I contacted the authors asking for tips how to import my data. Sportractive author mentioned this was not possible. FitoTrack author found this a simple addition, implemented it and pointed me to the next release. Due to a glitch, took longer to show up in the Play Store, but I built the app from source and started experimenting with this feature.
+</p>
+
+
+<figure id="org80899c2">
+<img src="images/fitotrack.png" alt="fitotrack.png">
+
+</figure>
+
+<p>
+To convert the TCX files to GPX I used <a href="http://www.gpsbabel.org/">gpsbabel</a>. FitoTrack has trouble with Fit multiple laps/tracks. The <code>pack</code> option in gpsbabel merges them.
+</p>
+
+<pre class="example">
+for fn in ../*.tcx; do gpsbabel -i gtrnctr -f "$fn" -x track,pack -o gpx -F $(basename $fn .tcx).gpx; done
+</pre>
+
+<p>
+I had now 300+ files with names like <code>2018-04-15T00_44_22+02_00_PT38M17.962S_Running.gpx</code>, no description and no metadata specifying it was &ldquo;Running&rdquo;.
+</p>
+
+<p>
+I hacked this script which finds the starting point, does reverse geolocation to find the place name, cleans it up and then renames the file. It also sets the description to something like &ldquo;Run in Madrid, Spain&rdquo;.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span class="org-keyword">import</span> os
+<span class="org-keyword">import</span> time
+<span class="org-keyword">import</span> unidecode
+
+<span class="org-keyword">import</span> gpxpy
+<span class="org-keyword">import</span> gpxpy.gpx
+<span class="org-keyword">from</span> geopy.geocoders <span class="org-keyword">import</span> Nominatim
+
+<span class="org-variable-name">geolocator</span> = Nominatim(user_agent=<span class="org-string">"JustATestScript"</span>)
+
+<span class="org-keyword">for</span> filename <span class="org-keyword">in</span> os.listdir(<span class="org-string">"."</span>):
+    <span class="org-keyword">if</span> <span class="org-keyword">not</span> filename.endswith(<span class="org-string">".gpx"</span>):
+        <span class="org-keyword">continue</span>
+
+    <span class="org-keyword">print</span>(<span class="org-string">"Current: {}"</span>.<span class="org-builtin">format</span>(filename))
+    <span class="org-variable-name">gpx_file</span> = <span class="org-builtin">open</span>(filename, <span class="org-string">"r"</span>)
+    <span class="org-variable-name">gpx</span> = gpxpy.parse(gpx_file)
+
+    <span class="org-comment-delimiter"># </span><span class="org-comment">get first point</span>
+    <span class="org-variable-name">point</span> = <span class="org-constant">None</span>
+    <span class="org-keyword">try</span>:
+        <span class="org-variable-name">point</span> = gpx.tracks[0].segments[0].points[0]
+    <span class="org-keyword">except</span> <span class="org-type">Exception</span>:
+        <span class="org-keyword">print</span>(<span class="org-string">" `-&gt; No point 0"</span>)
+        <span class="org-keyword">continue</span>
+
+    <span class="org-variable-name">location</span> = geolocator.reverse(
+        (point.latitude, point.longitude),
+        language=<span class="org-string">"en"</span>,
+        addressdetails=<span class="org-constant">True</span>,
+    )
+    <span class="org-variable-name">country</span> = unidecode.unidecode(location.raw[<span class="org-string">"address"</span>][<span class="org-string">"country"</span>])
+    <span class="org-comment-delimiter"># </span><span class="org-comment">City is not so easy. Fallback until we get something</span>
+    <span class="org-variable-name">city</span> = <span class="org-constant">None</span>
+    <span class="org-keyword">for</span> place <span class="org-keyword">in</span> [<span class="org-string">"city"</span>, <span class="org-string">"village"</span>, <span class="org-string">"suburb"</span>, <span class="org-string">"town"</span>]:
+        <span class="org-keyword">if</span> place <span class="org-keyword">not</span> <span class="org-keyword">in</span> location.raw[<span class="org-string">"address"</span>]:
+            <span class="org-keyword">continue</span>
+        <span class="org-keyword">import</span> re
+        <span class="org-variable-name">city</span> = re.sub(r<span class="org-string">".+/\s+"</span>, <span class="org-string">""</span>, location.raw[<span class="org-string">"address"</span>][place])
+        <span class="org-variable-name">city</span> = unidecode.unidecode(city)
+        <span class="org-keyword">break</span>
+    <span class="org-keyword">if</span> <span class="org-keyword">not</span> city:
+        <span class="org-keyword">raise</span> <span class="org-type">Exception</span>(<span class="org-string">"No place in address: {}"</span>.<span class="org-builtin">format</span>(location.raw))
+    <span class="org-variable-name">newname</span> = <span class="org-string">"{}-Running-{}_{}.gpx"</span>.<span class="org-builtin">format</span>(
+        point.time.strftime(<span class="org-string">"%Y-%m-%d_T%H_%m"</span>),
+        city.replace(<span class="org-string">" "</span>, <span class="org-string">"_"</span>),
+        country.replace(<span class="org-string">" "</span>, <span class="org-string">"_"</span>),
+    )
+    <span class="org-keyword">print</span>(<span class="org-string">" `-&gt; new name: {}"</span>.<span class="org-builtin">format</span>(newname))
+    gpx.tracks[0]<span class="org-variable-name">.name</span> = <span class="org-string">"Run in {}, {}"</span>.<span class="org-builtin">format</span>(city, country)
+    gpx.tracks[0]<span class="org-variable-name">.description</span> = <span class="org-constant">None</span>
+    <span class="org-comment-delimiter"># </span><span class="org-comment">FIXME: does not serialize. Fix with xmlstarlet</span>
+    gpx.tracks[0].<span class="org-builtin">type</span> = <span class="org-string">"running"</span>
+    <span class="org-keyword">with</span> <span class="org-builtin">open</span>(filename, <span class="org-string">"w"</span>) <span class="org-keyword">as</span> out:
+        out.write(gpx.to_xml())
+    <span class="org-keyword">try</span>:
+        os.rename(filename, newname)
+    <span class="org-keyword">except</span> <span class="org-type">Exception</span> <span class="org-keyword">as</span> e:
+        <span class="org-keyword">print</span>(location.raw)
+        <span class="org-keyword">raise</span> e
+    <span class="org-comment-delimiter"># </span><span class="org-comment">do not call the API too fast</span>
+    time.sleep(1)
+</pre>
+</div>
+
+<p>
+The result was:
+</p>
+
+<pre class="example">
+2018-07-29_T08_07-Munich_Germany.gpx
+2019-08-10_T14_08-Barcelone_Spain.gpx
+2020-08-22_T07_08-Warsaw_Poland.gpx
+2020-07-11_T15_07-Nuremberg_Germany.gpx
+2020-08-20_T06_08-Valencia_Spain.gpx
+2018-06-03_T10_06-Stuttgart_Germany.gpx
+...
+</pre>
+
+<p>
+(city names and dates are not the real ones)
+</p>
+
+<p>
+Setting the sport type in the metadata did not get serialized back, so I fix it with xmlstarlet:
+</p>
+
+<pre class="example">
+xmlstarlet ed --inplace -N x="http://www.topografix.com/GPX/1/0" -s /x:gpx/x:trk -t elem -n type -v "running" *.gpx
+</pre>
+
+<p>
+Then, mass import into FitoTrack and I got all my activities with nice descriptions and the right &ldquo;Running&rdquo; icon.
+</p>
+</div>
+</section>
+
+<section id="outline-container-orgafd58b1" class="outline-2">
+<h2 id="orgafd58b1">Conclusions</h2>
+<div class="outline-text-2" id="text-orgafd58b1">
+<p>
+My new mail setup is working for some weeks already without problems. I miss some Photos features, but that&rsquo;s it.
+I was not expecting Fit to take that much effort.
+</p>
+
+<p>
+In general, I am happy with the results. I regained control of my data and I got to use more open-source.
+</p>
+</div>
+</section>
+</main>
+<footer id="postamble" class="status">
+<p class='disclaimer'>The postings on this site are my own and don't necessarily represent my employer’s positions, strategies or opinions.</p>
+
+<p>Last updated 20 Oct. 2020. Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.3 (<a href="https://orgmode.org">Org</a> mode 9.4). <a href="/README.html">Details</a>.</p>
+</footer>
+</body>
+</html>

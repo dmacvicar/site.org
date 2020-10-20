@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 20 Oct. 2020 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SUSE Manager 2.1</title>
+<meta name="generator" content="Org mode">
+<meta name="author" content="Duncan Mac-Vicar P.">
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-1687066-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-1687066-2');
+</script>
+<link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css' rel='stylesheet' integrity='sha256-k2/8zcNbxVIh5mnQ52A0r3a6jAgMGxFJFE2707UxGCk= sha512-ZV9KawG2Legkwp3nAlxLIVFudTauWuBpC10uEafMHYL0Sarrz5A7G79kXh5+5+woxQ5HM559XX2UZjMJ36Wplg==' crossorigin='anonymous'/>
+<meta description='The blog of Duncan Mac-Vicar P.'/>
+<link rel='alternate' type='application+rss/xml' title='The blog of Duncan Mac-Vicar P.' href='posts/rss.xml'/>
+<link rel="stylesheet" href="../../css/site.css?v=e21a1eb21340254d7e0023bf45ef785954bb24f4151e4abcd60e4c86799b8d8b" type="text/css">
+</head>
+<body>
+<header id="preamble" class="status">
+<aside>
+  <h1>Hi.</h1>
+  <a href="/">
+    <img src="https://www.gravatar.com/avatar/3b67365812827fa25df5093b38934a8f?s=80" class="avatar" alt="My photo"/>
+  </a>
+  <h2>I'm <a href="/">Duncan Mac-Vicar P.</a></h2>
+  <div id="bio">
+    <small><p>I am inspired by creating software. I do that mostly at <a href="https://www.suse.com"><!--img src="https://www.suse.com/common/img/suse_54x33.png" height="33" width="54" style="float: left;"-->SUSE</a>.
+      <p>When things break, I fix them or go play guitar...</p></small>
+  </div>
+  <div id="social">
+    Follow me:
+    <div id="stalker">
+      <a title="dmacvicar on Github" href="https://github.com/dmacvicar">
+        <i class="fa fa-github-square"></i>
+      </a>
+      <a title="dmacvicar on Hacker News" href="https://news.ycombinator.com/user?id=dmacvicar">
+        <i class="fa fa-hacker-news"></i>
+      </a>
+      <a title="dmacvicar on Twitter" href="https://twitter.com/dmacvicar">
+        <i class="fa fa-twitter-square"></i>
+      </a>
+      <a title="RSS feed" id="atom" href="posts/rss.xml">
+        <i class="fa fa-rss-square"></i>
+      </a>
+    </div>
+  </div>
+</aside>
+</header>
+<main id="content">
+<header>
+<h1 class="title">SUSE Manager 2.1</h1>
+<p class="subtitle">Jun 11, 2014</p>
+</header><p>
+Back in March, Christian Stankowic <a href="http://blog.christian-stankowic.de/?p=5862&amp;lang=en">analysed Spacewalk 2.1 and its new user interface</a> look and feel. He asked himself how
+SUSE Manager would look like:
+</p>
+
+<blockquote>
+<p>
+I really appreciate this update! The new interface looks more clean
+and well-designed than the elderly look. I&rsquo;m really interested to see
+what the implementation in SUSE Manager will look like and whether Red
+Hat Satellite will also get a new design.
+</p>
+</blockquote>
+
+<p>
+Well, now you can see it yourself, as <a href="https://www.suse.com/company/press/2014/6/new-suse-manager-to-simplify-improve-linux-server-lifecycle-management.html">SUSE Manager 2.1 is out!</a>
+</p>
+
+
+<figure id="orga3733c0">
+<img src="images/suse-manager-systems-systems-details-overview.png" alt="SUSE Manager Systems Systems Details Overview">
+
+</figure>
+
+
+<figure id="org04b81db">
+<img src="images/screenshot-from-2014-06-10-234145.png" alt="screenshot-from-2014-06-10-234145.png">
+
+</figure>
+
+<p>
+New features include, among others:
+</p>
+
+<ul class="org-ul">
+<li><p>
+A slick setup wizard to guide administrators through the basic steps
+needed to configure a fully operational SUSE Manager: Proxy, Novell
+Mirror Credentials, SUSE Products.
+</p></li>
+</ul>
+
+<figure id="org33b87a0">
+<img src="images/suse-manager-admin-setup-wizard-mirror-credentials.png" alt="suse-manager-admin-setup-wizard-mirror-credentials.png">
+
+</figure>
+
+<ul class="org-ul">
+<li>Action chaining that lets administrators bundle and execute related
+management actions in one step</li>
+<li>Unattended bare-metal provisioning that allows customers to power on
+and off and reboot bare-metal systems via the IPMI (Intelligent
+Platform Management Interface) protocol.</li>
+<li>OpenScap (the open source implementation of SCAP &#x2013; Security Content
+Automation Protocol), a standardized approach to maintaining
+enterprise system security.</li>
+<li><p>
+CVE Auditing. This feature goes beyond telling you pending patches but
+instead assisting you to assign the right content to your
+systems: what vulnerabilities affect you where you haven&rsquo;t yet
+assigned the right channels. For example, you may have an affected
+system in production. CVE Auditing may tell you that you can fix the
+security issue by assigning the stage channel to a system.
+</p></li>
+</ul>
+
+<figure id="org1294594">
+<img src="images/cve-audit.png" alt="cve-audit.png">
+
+</figure>
+
+<ul class="org-ul">
+<li>Locks packages on the server which are then enforced on the client
+side (eg. if you login via ssh to the client).</li>
+</ul>
+
+<p>
+And of course, most of the work is <a href="https://github.com/spacewalkproject/spacewalk/pulls">already merged upstream</a>.
+</p>
+</main>
+<footer id="postamble" class="status">
+<p class='disclaimer'>The postings on this site are my own and don't necessarily represent my employer’s positions, strategies or opinions.</p>
+
+<p>Last updated 20 Oct. 2020. Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.3 (<a href="https://orgmode.org">Org</a> mode 9.4). <a href="/README.html">Details</a>.</p>
+</footer>
+</body>
+</html>

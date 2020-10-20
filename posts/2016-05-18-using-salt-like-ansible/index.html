@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 20 Oct. 2020 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Using Salt like Ansible</title>
+<meta name="generator" content="Org mode">
+<meta name="author" content="Duncan Mac-Vicar P.">
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-1687066-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-1687066-2');
+</script>
+<link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css' rel='stylesheet' integrity='sha256-k2/8zcNbxVIh5mnQ52A0r3a6jAgMGxFJFE2707UxGCk= sha512-ZV9KawG2Legkwp3nAlxLIVFudTauWuBpC10uEafMHYL0Sarrz5A7G79kXh5+5+woxQ5HM559XX2UZjMJ36Wplg==' crossorigin='anonymous'/>
+<meta description='The blog of Duncan Mac-Vicar P.'/>
+<link rel='alternate' type='application+rss/xml' title='The blog of Duncan Mac-Vicar P.' href='posts/rss.xml'/>
+<link rel="stylesheet" href="../../css/site.css?v=e21a1eb21340254d7e0023bf45ef785954bb24f4151e4abcd60e4c86799b8d8b" type="text/css">
+</head>
+<body>
+<header id="preamble" class="status">
+<aside>
+  <h1>Hi.</h1>
+  <a href="/">
+    <img src="https://www.gravatar.com/avatar/3b67365812827fa25df5093b38934a8f?s=80" class="avatar" alt="My photo"/>
+  </a>
+  <h2>I'm <a href="/">Duncan Mac-Vicar P.</a></h2>
+  <div id="bio">
+    <small><p>I am inspired by creating software. I do that mostly at <a href="https://www.suse.com"><!--img src="https://www.suse.com/common/img/suse_54x33.png" height="33" width="54" style="float: left;"-->SUSE</a>.
+      <p>When things break, I fix them or go play guitar...</p></small>
+  </div>
+  <div id="social">
+    Follow me:
+    <div id="stalker">
+      <a title="dmacvicar on Github" href="https://github.com/dmacvicar">
+        <i class="fa fa-github-square"></i>
+      </a>
+      <a title="dmacvicar on Hacker News" href="https://news.ycombinator.com/user?id=dmacvicar">
+        <i class="fa fa-hacker-news"></i>
+      </a>
+      <a title="dmacvicar on Twitter" href="https://twitter.com/dmacvicar">
+        <i class="fa fa-twitter-square"></i>
+      </a>
+      <a title="RSS feed" id="atom" href="posts/rss.xml">
+        <i class="fa fa-rss-square"></i>
+      </a>
+    </div>
+  </div>
+</aside>
+</header>
+<main id="content">
+<header>
+<h1 class="title">Using Salt like Ansible</h1>
+<p class="subtitle">May 18, 2016</p>
+</header>
+<section id="outline-container-introduction" class="outline-2">
+<h2 id="introduction">Introduction</h2>
+<div class="outline-text-2" id="text-introduction">
+<p>
+When we were looking for a configuration management engine to integrate with SUSE Manager, we discussed <a href="https://www.ansible.com/">Ansible</a> with some colleagues that were familiar with it.
+</p>
+
+<p>
+At the end, we ended <a href="../2016-03-16-susemanager-3-backstage/index.html">choosing Salt for SUSE Manager 3</a>, but I still often get the question &ldquo;Why not Ansible?&rdquo;.
+</p>
+
+<p>
+The first part of the answer had to do that the master-minion architecture of Salt results in a bunch of interesting features and synergies with the way SUSE Manager operates: real-time management, event-bus, etc. Salt is much more of a framework than a simple &ldquo;command line tool&rdquo;. The minion/master pair is one of the tools built over that framework, but not the only one.
+</p>
+
+
+<figure id="orgc3025d6">
+<img src="images/salt-0mq.png" alt="salt-0mq.png">
+
+</figure>
+
+<p>
+For example, you can create more scalable topoligies using the concept of syndics:
+</p>
+
+
+<figure id="org2f44ba5">
+<img src="images/salt-syndic.png" alt="salt-syndic.png">
+
+</figure>
+
+<p>
+Or manage dumb devices with the concept of Salt proxies:
+</p>
+
+
+<figure id="orgf01c5b5">
+<img src="images/salt-proxy.png" alt="salt-proxy.png">
+
+</figure>
+
+<p>
+It is <a href="https://docs.saltstack.com/en/getstarted/">worth to learn the whole framework</a>.
+</p>
+
+<p>
+However, for a small DevOp team collaborating via git, the model of running Ansible from their workstations to a bunch of nodes defined in a text file is very attractive, and gives you a nice way to learn and experiment with it.
+</p>
+
+<p>
+The second part of the answer is: Salt allows you to do this too. It is called <code>salt-ssh</code>. So lets take <a href="https://serversforhackers.com/an-ansible-tutorial">this Ansible tutorial</a> and show how you would do the same with <code>salt-ssh</code>.
+</p>
+</div>
+</section>
+
+<section id="outline-container-install" class="outline-2">
+<h2 id="install">Install</h2>
+<div class="outline-text-2" id="text-install">
+<blockquote>
+<p>
+This means there&rsquo;s usually a &ldquo;central&rdquo; server running Ansible commands, although there&rsquo;s nothing particularly special about what server Ansible is installed on. Ansible is &ldquo;agentless&rdquo; - there&rsquo;s no central agent(s) running. We can even run Ansible from any server; I often run Tasks from my laptop.
+</p>
+</blockquote>
+
+<p>
+The salt package is made of various components, among others:
+</p>
+
+<ul class="org-ul">
+<li><code>salt</code>: the framework, libraries, modules, etc.</li>
+<li><code>salt-minion</code>: the minion daemon, runs on the managed hosts.</li>
+<li><code>salt-master</code>: the master daemon, runs on the management server.</li>
+<li><code>salt-ssh</code>: a tool to manage servers over ssh.</li>
+</ul>
+
+<p>
+If you want to run Salt like Ansible, you only need to install <code>salt-ssh</code> in your machine (the machine where you want to run tasks from).
+</p>
+
+<p>
+<i>You don&rsquo;t need anything else than Python on the hosts you will manage.</i>
+</p>
+
+<blockquote>
+<p>
+Well, there are a couple of other <a href="https://bugzilla.suse.com/show_bug.cgi?id=1057772">packages required</a>
+</p>
+
+<pre class="example" id="orgc75a818">
+ssh $HOST zypper -n install python-pyOpenSSL python-xml
+</pre>
+</blockquote>
+
+<p>
+Salt is available out of the box on <a href="https://www.opensuse.org/">openSUSE Leap and Tumbleweed</a> so if you are using them just type:
+</p>
+
+<pre class="example" id="org1762bbe">
+zypper in salt-ssh
+</pre>
+
+<p>
+For other platforms, please refer to the <a href="https://docs.saltstack.com/en/latest/topics/installation/">install section of the Salt documentation</a>.
+</p>
+</div>
+
+<div id="outline-container-self-contained-setup" class="outline-3">
+<h3 id="self-contained-setup">Self contained setup</h3>
+<div class="outline-text-3" id="text-self-contained-setup">
+<p>
+It is common to put all the project in a single folder. In Ansible you can put the <code>hosts</code> file in a folder, and the playbooks in a subfolder. To accomplish this with <code>salt-ssh</code>.
+</p>
+
+<ul class="org-ul">
+<li>Create a folder for your project, eg: <code>~/Project</code>.</li>
+<li>Create a file named <code>Saltfile</code> in your <code>~/Project</code>.</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-yaml"><span class="org-variable-name">salt-ssh</span>:
+    <span class="org-variable-name">config_dir</span>: etc/salt
+    <span class="org-variable-name">max_procs</span>: 30
+    <span class="org-variable-name">wipe_ssh</span>: <span class="org-constant">True</span>
+</pre>
+</div>
+
+<p>
+Here we tell Salt that the configuration directory is now relative to the folder. You can name it as you want, but I prefer myself to stick to the same conventions, so <code>/etc/salt</code> becomes <code>~/Project/etc/salt</code>.
+</p>
+
+<p>
+Then create <code>~/Project/etc/salt/master</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml"><span class="org-variable-name">root_dir</span>: .
+<span class="org-variable-name">file_roots</span>:
+  <span class="org-variable-name">base</span>:
+    - srv/salt
+<span class="org-variable-name">pillar_roots</span>:
+  <span class="org-variable-name">base</span>:
+    - srv/pillar
+</pre>
+</div>
+
+<p>
+And create both trees:
+</p>
+
+<pre class="example" id="org26ec982">
+mkdir -p srv/salt
+mkdir -p srv/pillar
+</pre>
+
+<p>
+Salt will also create a <code>var</code> directory for the cache inside the project tree, unless you chose a different path. What I do is to put <code>var</code> inside <code>.gitignore</code>.
+</p>
+</div>
+</div>
+</section>
+
+<section id="outline-container-managing-servers" class="outline-2">
+<h2 id="managing-servers">Managing servers</h2>
+<div class="outline-text-2" id="text-managing-servers">
+<blockquote>
+<p>
+Ansible has a default inventory file used to define which servers it will be managing. After installation, there&rsquo;s an example one you can reference at /etc/ansible/hosts.
+</p>
+</blockquote>
+
+<p>
+The equivalent file in <code>salt-ssh</code> is <a href="https://docs.saltstack.com/en/latest/topics/ssh/roster.html"><code>/etc/salt/roster</code></a>.
+</p>
+
+<blockquote>
+<p>
+That&rsquo;s good enough for now. If needed, we can define ranges of hosts, multiple groups, reusable variables, and use <a href="http://docs.ansible.com/intro_inventory.html">other fancy setups</a>, including <a href="http://docs.ansible.com/intro_dynamic_inventory.html">creating a dynamic inventory</a>.
+</p>
+</blockquote>
+
+<p>
+Salt can also provide the roster with <a href="https://docs.saltstack.com/en/latest/ref/roster/all/index.html#all-salt-roster">custom modules</a>. Funnily enough, <a href="https://docs.saltstack.com/en/latest/ref/roster/all/salt.roster.ansible.html#module-salt.roster.ansible"><code>ansible</code></a> is one of them.
+</p>
+
+<p>
+As I am using a self-contained setup, I create <code>~/Project/etc/salt/roster</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml"><span class="org-variable-name">node1</span>:
+  <span class="org-variable-name">host</span>: node1.example.com
+<span class="org-variable-name">node2</span>:
+  <span class="org-variable-name">host</span>: node2.example.com
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-basic-running-commands" class="outline-2">
+<h2 id="basic-running-commands">Basic: Running Commands</h2>
+<div class="outline-text-2" id="text-basic-running-commands">
+<blockquote>
+<p>
+Ansible will assume you have SSH access available to your servers, usually based on SSH-Key. Because Ansible uses SSH, the server it&rsquo;s on needs to be able to SSH into the inventory servers. It will attempt to connect as the current user it is being run as. If I&rsquo;m running Ansible as user vagrant, it will attempt to connect as user vagrant on the other servers.
+</p>
+</blockquote>
+
+<p>
+<code>salt-ssh</code> is not very different here. Either you already have access to the server, otherwise it will optionally ask you for the password and deploy the generated key-pair <code>etc/salt/pki/master/ssh/salt-ssh.rsa.pub</code> to the host so that you have access to it in the future.
+</p>
+
+<p>
+So, in the Ansible tutorial, you did:
+</p>
+
+<pre class="example" id="orgc6e5989">
+$ ansible all -m ping
+127.0.0.1 | success &gt;&gt; {
+    "changed": false,
+    "ping": "pong"
+}
+</pre>
+
+<p>
+The equivalent in <code>salt-ssh</code> would be:
+</p>
+
+<pre class="example" id="orga38f311">
+salt-ssh '*' test.ping
+node1:
+    True
+node2:
+    True
+</pre>
+
+<p>
+Just like the Ansible tutorial covers, <code>salt-ssh</code> also has options to change the user, output, roster, etc. Refer to <code>man salt-ssh</code> for details.
+</p>
+</div>
+</section>
+
+<section id="outline-container-modules" class="outline-2">
+<h2 id="modules">Modules</h2>
+<div class="outline-text-2" id="text-modules">
+<blockquote>
+<p>
+Ansible uses &ldquo;modules&rdquo; to accomplish most of its Tasks. Modules can do things like install software, copy files, use templates and much more.
+</p>
+
+<p>
+If we didn&rsquo;t have modules, we&rsquo;d be left running arbitrary shell commands like this:
+</p>
+</blockquote>
+
+<pre class="example" id="orgc9da6ec">
+ansible all -s -m shell -a 'apt-get install nginx'
+</pre>
+
+<blockquote>
+<p>
+However this isn&rsquo;t particularly powerful. While it&rsquo;s handy to be able to run these commands on all of our servers at once, we still only accomplish what any bash script might do.
+</p>
+
+<p>
+If we used a more appropriate module instead, we can run commands with an assurance of the result. Ansible modules ensure indempotence - we can run the same Tasks over and over without affecting the final result.
+</p>
+
+<p>
+For installing software on Debian/Ubuntu servers, the &ldquo;apt&rdquo; module will run the same command, but ensure idempotence.
+</p>
+</blockquote>
+
+<pre class="example" id="orgd2b5219">
+ansible all -s -m apt -a 'pkg=nginx state=installed update_cache=true'
+127.0.0.1 | success &gt;&gt; {
+    "changed": false
+}
+</pre>
+
+<p>
+The equivalent in Salt is also called &ldquo;modules&rdquo;. There are two types of modules: <a href="https://docs.saltstack.com/en/latest/ref/modules/">Execution modules</a> and <a href="https://docs.saltstack.com/en/latest/ref/states/writing.html">State modules</a>. Execution modules are <i>imperative actions</i> (think of <i>install!</i>). State modules are used to build idempotent declarative state (think of <i>installed</i>).
+</p>
+
+<p>
+There are two execution modules worth to mention:
+</p>
+
+<ul class="org-ul">
+<li>The <code>cmd</code> module, which you can use to run shell commands when you want to accomplish something that is not provided by a built-in execution module. Taking the example above:</li>
+</ul>
+
+<pre class="example" id="org7014024">
+salt-ssh '*' cmd.run 'apt-get install nginx'
+</pre>
+
+<ul class="org-ul">
+<li>The <code>state</code> module, which is the execution module that allows to apply state modules and more complex composition of states, known as <code>sls</code> files.</li>
+</ul>
+
+<pre class="example" id="orga35f6f3">
+salt-ssh '*' pkg.install nginx
+</pre>
+
+<p>
+You don&rsquo;t need to use the <code>apt</code> module, as it implements the virtual <code>pkg</code> module. So you can use the same module on every platform.
+</p>
+
+<p>
+On Salt you would normally use the non-idempotent execution modules from the command line and use the idempotent state module in <code>sls</code> files (equivalent to Ansible&rsquo;s playbooks).
+</p>
+
+<p>
+If you still want to apply state data like ansible does it:
+</p>
+
+<pre class="example" id="org53034b5">
+salt-ssh '*' state.high '{"nginx": {"pkg": ["installed"]}}'
+</pre>
+</div>
+</section>
+
+<section id="outline-container-basic-playbook" class="outline-2">
+<h2 id="basic-playbook">Basic Playbook</h2>
+<div class="outline-text-2" id="text-basic-playbook">
+<blockquote>
+<p>
+<a href="http://docs.ansible.com/playbooks_intro.html">Playbooks</a> can run multiple Tasks and provide some more advanced functionality that we would miss out on using ad-hoc commands. Let&rsquo;s move the above Task into a playbook.
+</p>
+</blockquote>
+
+<p>
+The equivalent in Salt is found in <a href="https://docs.saltstack.com/en/latest/topics/tutorials/starting_states.html">states</a>.
+</p>
+
+<p>
+Create <code>srv/salt/nginx/init.sls</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml"><span class="org-variable-name">nginx</span>:
+  pkg.installed
+</pre>
+</div>
+
+<p>
+To apply this state, you can create a <a href="https://docs.saltstack.com/en/latest/ref/states/top.html"><code>top.sls</code></a> and place it in <code>srv/salt</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml"><span class="org-variable-name">base</span>:
+  <span class="org-variable-name">`*`</span>:
+    - nginx
+</pre>
+</div>
+
+<p>
+This means, all hosts should get that state. You can do very <a href="https://docs.saltstack.com/en/latest/ref/states/top.html#advanced-minion-targeting">advanced targetting of minions</a>. When you write a top, you are defining what it will be the <code>highstate</code> of a host.
+</p>
+
+<p>
+So when you run:
+</p>
+
+<pre class="example" id="orge8fe59a">
+salt-ssh '*' state.apply
+</pre>
+
+<p>
+You are applying the highstate on all hosts, but the highstate of each host is different for each one of them. With the salt-ssh command you are defining which hosts are getting their configuration applied. <i>Which</i> configuration is applied is defined by the <code>top.sls</code> file.
+</p>
+
+<p>
+You can as well apply a specific state, even if that state does not form part of the host highstate:
+</p>
+
+<pre class="example" id="orge56f49c">
+salt-ssh '*' state.apply nginx
+</pre>
+
+<p>
+Or as we showed above, you can use <code>state.high</code> to apply arbitrary state data.
+</p>
+</div>
+</section>
+
+<section id="outline-container-handlers" class="outline-2">
+<h2 id="handlers">Handlers</h2>
+<div class="outline-text-2" id="text-handlers">
+<p>
+Salt has a similar concept called <a href="https://docs.saltstack.com/en/latest/topics/reactor/">events and reactors</a> which allow you to define a fully reactive infrastructure.
+</p>
+
+<p>
+For the example given here, a simple state <a href="https://docs.saltstack.com/en/latest/ref/states/requisites.html#watch"><code>watch</code> </a><a href="https://docs.saltstack.com/en/latest/ref/states/requisites.html">argument</a> will suffice:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml"><span class="org-variable-name">nginx</span>:
+  <span class="org-variable-name">pkg.installed</span>: []
+  <span class="org-variable-name">service.running</span>:
+    - <span class="org-variable-name">watch</span>: pkg: nginx
+</pre>
+</div>
+
+<p>
+Note:
+</p>
+
+<p>
+The full syntax is:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml"><span class="org-variable-name">someid</span>:
+  <span class="org-variable-name">pkg.installed</span>:
+    <span class="org-variable-name">name</span>: foo
+</pre>
+</div>
+
+<p>
+But if <code>name</code> is missing, <code>someid</code> is used, so you can write:
+</p>
+
+<p>
+#+BEGIN_SRC yaml
+  foo:
+    pkg.installed
+#+END_END
+</p>
+</div>
+</section>
+
+<section id="outline-container-more-tasks" class="outline-2">
+<h2 id="more-tasks">More Tasks</h2>
+<div class="outline-text-2" id="text-more-tasks">
+<p>
+Looking at the given Ansible example:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml">{% raw %}
+<span class="org-comment">---</span>
+- <span class="org-variable-name">hosts</span>: local
+  <span class="org-variable-name">vars</span>:
+   - <span class="org-variable-name">docroot</span>: /var/www/serversforhackers.com/public
+  <span class="org-variable-name">tasks</span>:
+   - <span class="org-variable-name">name</span>: Add Nginx Repository
+     <span class="org-variable-name">apt_repository</span>: repo=<span class="org-string">'ppa:nginx/stable'</span> state=present
+     <span class="org-variable-name">register</span>: ppastable
+
+   - <span class="org-variable-name">name</span>: Install Nginx
+     <span class="org-variable-name">apt</span>: pkg=nginx state=installed update_cache=true
+     <span class="org-variable-name">when</span>: ppastable|success
+     <span class="org-variable-name">register</span>: nginxinstalled
+     <span class="org-variable-name">notify</span>:
+      - Start Nginx
+
+   - <span class="org-variable-name">name</span>: Create Web Root
+     <span class="org-variable-name">when</span>: nginxinstalled|success
+     <span class="org-variable-name">file</span>: dest={{ docroot }} mode=775 state=directory owner=www-data group=www-data
+     <span class="org-variable-name">notify</span>:
+      - Reload Nginx
+
+  <span class="org-variable-name">handlers</span>:
+   - <span class="org-variable-name">name</span>: Start Nginx
+     <span class="org-variable-name">service</span>: name=nginx state=started
+
+    - <span class="org-variable-name">name</span>: Reload Nginx
+      <span class="org-variable-name">service</span>: name=nginx state=reloaded
+{% endraw %}
+
+</pre>
+</div>
+
+<p>
+You can see that Ansible has a way to specify variables. Salt has the concept of <a href="https://docs.saltstack.com/en/latest/topics/tutorials/pillar.html">pillar</a> which allows you to define data and then make that data visible to hosts using a <code>top.sls</code> matching just like with the states. Pillar data is data defined on the &ldquo;server&rdquo; (there is a equivalent <a href="https://docs.saltstack.com/en/latest/topics/targeting/grains.html">grains</a> for data defined in the client).
+</p>
+
+<p>
+Edit <code>srv/pillar/paths.sls</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml">{% raw %}
+<span class="org-variable-name">docroot</span>: /var/www/serversforhackers.com/public
+{% endraw %}
+</pre>
+</div>
+
+<p>
+Edit <code>srv/pillar/top.sls</code> and define who will see this pillar (in this case, all hosts):
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml"><span class="org-variable-name">base</span>:
+  <span class="org-string">'*'</span>:
+    - paths
+</pre>
+</div>
+
+<p>
+Then you can see which data every host sees:
+</p>
+
+<pre class="example" id="org1ec48c4">
+salt-ssh '*' pillar.items
+node1:
+    ----------
+    docroot:
+        /var/www/serversforhackers.com/public
+node2:
+    ----------
+    docroot:
+        /var/www/serversforhackers.com/public
+</pre>
+
+<p>
+With this you can make sensitive information visible on the hosts that need it. Now that the data is available, you can use it in your sls files, you can add to
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml">{% raw %}
+<span class="org-variable-name">nginx package</span>:
+  pkg.installed
+
+<span class="org-variable-name">nginx service</span>:
+  <span class="org-variable-name">service.running</span>:
+    - <span class="org-variable-name">watch</span>: pkg: <span class="org-string">'nginx package'</span>
+
+<span class="org-variable-name">nginx directory</span>:
+  <span class="org-variable-name">file.directory</span>:
+    - <span class="org-variable-name">name</span>: {{ pillar[<span class="org-string">'docroot'</span>] }}
+
+{% endraw %}
+</pre>
+</div>
+
+<p>
+Which can be abbreviated as:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml">{% raw %}
+<span class="org-variable-name">nginx</span>:
+  <span class="org-variable-name">pkg.installed</span>: []
+  <span class="org-variable-name">service.running</span>:
+    - <span class="org-variable-name">watch</span>: pkg: nginx
+
+{{ pillar[<span class="org-string">'docroot'</span>] }}:
+  file.directory
+{% endraw %}
+
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-roles" class="outline-2">
+<h2 id="roles">Roles</h2>
+<div class="outline-text-2" id="text-roles">
+<blockquote>
+<p>
+Roles are good for organizing multiple, related Tasks and encapsulating data needed to accomplish those Tasks. For example, installing Nginx may involve adding a package repository, installing the package and setting up configuration. We&rsquo;ve seen installation in action in a Playbook, but once we start configuring our installations, the Playbooks tend to get a little more busy.
+</p>
+</blockquote>
+
+<p>
+There is no 1:1 concept in Salt as it already organizes the data around a different set of ideas (eg: gains, pillars), but for the utility of the specific Ansible tutorial, lets look at a few examples.
+</p>
+</div>
+
+<div id="outline-container-files" class="outline-3">
+<h3 id="files">Files</h3>
+<div class="outline-text-3" id="text-files">
+<p>
+Every thing you add to the <code>file_roots</code> path (defined in <code>etc/salt/master</code>) can be accessed using the <a href="https://docs.saltstack.com/en/develop/ref/file_server/">Salt file server</a>. Lets say we need a template configuration file, you can put it in &rsquo;srv/salt/nginx/myconfig` (you can use jinja2 templating on it), and then refer to it from the state:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml"><span class="org-variable-name">/etc/nginx/myconfig</span>:
+  <span class="org-variable-name">file.managed</span>:
+    - <span class="org-variable-name">source</span>: salt://nginx/myconfig
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-template" class="outline-3">
+<h3 id="template">Template</h3>
+<div class="outline-text-3" id="text-template">
+<p>
+You can use <a href="https://docs.saltstack.com/en/getstarted/config/jinja.html">Jinja2</a> templating in states and files, and you can refer to grain and pillar data from them. Salt already include a long list of built-in grains you can use (see <code>grains.items</code>) and you can also create your own grain modules to gather other data.
+</p>
+
+<p>
+A common use of pillar data is to distribute passwords to the configuration files. While you can define pillar data in the <code>srv</code> tree, because you can also define <a href="https://docs.saltstack.com/en/latest/topics/development/external_pillars.html">external pillars</a> you can source your data from anywhere.
+</p>
+</div>
+</div>
+
+<div id="outline-container-running-the-role" class="outline-3">
+<h3 id="running-the-role">Running the role</h3>
+<div class="outline-text-3" id="text-running-the-role">
+<p>
+As mentioned before, you can apply the state by either making it part of the host highstate or apply it explicitly.
+</p>
+
+<blockquote>
+<p>
+Let&rsquo;s create a &ldquo;master&rdquo; yaml file which defines the Roles to use and what hosts to run them on: File server.yml:
+</p>
+</blockquote>
+
+<div class="org-src-container">
+<pre class="src src-yaml"><span class="org-comment">---</span>
+- <span class="org-variable-name">hosts</span>: all
+  <span class="org-variable-name">roles</span>:
+    - nginx
+</pre>
+</div>
+
+<p>
+This is equivalent to the <code>top.sls</code> file in <code>srv/salt</code> (with a less powerful matching system).
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml"><span class="org-variable-name">base</span>:
+  <span class="org-variable-name">`*`</span>:
+    - nginx
+</pre>
+</div>
+
+<blockquote>
+<p>
+Then we can run the Role(s):
+</p>
+</blockquote>
+
+<pre class="example" id="org6021c01">
+salt-ssh '*' state.apply
+</pre>
+
+<p>
+Would apply what <code>top.sls</code> defines.
+</p>
+</div>
+</div>
+</section>
+
+<section id="outline-container-facts" class="outline-2">
+<h2 id="facts">Facts</h2>
+<div class="outline-text-2" id="text-facts">
+<p>
+These are equivalent to grains, and you can see what grains you have available by calling:
+</p>
+
+<pre class="example" id="orgdd1724b">
+salt-ssh '*' grains.items
+</pre>
+
+<p>
+You can use them from Jinja2 as <code>grains</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml">{% raw %}
+{% if grains[<span class="org-string">'os_family'</span>] == <span class="org-string">'RedHat'</span> %}
+<span class="org-comment">...</span>
+{% endif %}
+{% endraw %}
+</pre>
+</div>
+
+<p>
+If you need a custom grain definition, you can <a href="https://docs.saltstack.com/en/latest/topics/targeting/grains.html#writing-grains">write your own</a> and distribute them from the server.
+</p>
+</div>
+</section>
+
+<section id="outline-container-vault" class="outline-2">
+<h2 id="vault">Vault</h2>
+<div class="outline-text-2" id="text-vault">
+<p>
+The equivalent in Salt would be to use the Pillar. If you need encryption support you have various options:
+</p>
+
+<ul class="org-ul">
+<li>Use a external pillar which fetches the data from a vault service</li>
+<li>Use the <a href="https://docs.saltstack.com/en/latest/ref/renderers/">renderer system</a> and add the <a href="https://docs.saltstack.com/en/latest/ref/renderers/all/salt.renderers.gpg.html">gpg renderer</a> to the chain. (Disclaimer: I haven&rsquo;t tried this myself).</li>
+</ul>
+</div>
+</section>
+
+<section id="outline-container-example-users" class="outline-2">
+<h2 id="example-users">Example: Users</h2>
+<div class="outline-text-2" id="text-example-users">
+<p>
+You will need a pillar:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml"><span class="org-variable-name">admin_password</span>: $6$lpQ1DqjZQ25gq9YW$mHZAmGhFpPVVv0JCYUFaDovu8u5EqvQi.Ih
+<span class="org-variable-name">deploy_password</span>: $6$edOqVumZrYW9$d5zj1Ok/G80DrnckixhkQDpXl0fACDfNx2EHnC
+<span class="org-variable-name">common_public_key</span>: ssh-rsa ALongSSHPublicKeyHere
+</pre>
+</div>
+
+<p>
+And then refer to it from the <a href="https://docs.saltstack.com/en/latest/ref/states/all/salt.states.user.html">user state</a>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml">{% raw %}
+<span class="org-variable-name">admin</span>:
+  <span class="org-variable-name">user.present</span>:
+    - <span class="org-variable-name">password</span>: {{ pillar[<span class="org-string">'admin_password'</span>] }}
+    - <span class="org-variable-name">shell</span>: /bin/bash
+
+<span class="org-variable-name">sshkeys</span>:
+  <span class="org-variable-name">ssh_auth.present</span>:
+    - <span class="org-variable-name">user</span>: admin
+    - <span class="org-variable-name">name</span>: {{ pillar[<span class="org-string">'common_public_key'</span>] }}
+{% endraw %}
+</pre>
+</div>
+
+<p>
+In order to refresh the pillar data, you can use:
+</p>
+
+<pre class="example" id="org4aff772">
+salt-ssh '*' saltutil.refresh_pillar
+</pre>
+</div>
+</section>
+
+<section id="outline-container-recap" class="outline-2">
+<h2 id="recap">Recap</h2>
+<div class="outline-text-2" id="text-recap">
+<p>
+So, this is how you use Salt in a way similar to Ansible. The best part of this is that you can start learning about Salt without having to deploy a Salt master/minion infrastructure.
+</p>
+
+<p>
+The master/minion infrastructure brings a whole new set of possibilities. The reason we chose Salt is because here is where it starts, and not where it ends.
+</p>
+</div>
+</section>
+
+<section id="outline-container-thanks--acknowledgements" class="outline-2">
+<h2 id="thanks--acknowledgements">Thanks &amp; Acknowledgements</h2>
+<div class="outline-text-2" id="text-thanks--acknowledgements">
+<ul class="org-ul">
+<li><a href="https://serversforhackers.com">Chris Fidao</a> for the original Ansible tutorial.</li>
+<li><a href="https://github.com/kbaikov">Konstantin Baikov</a> for corrections and suggestions.</li>
+</ul>
+</div>
+</section>
+</main>
+<footer id="postamble" class="status">
+<p class='disclaimer'>The postings on this site are my own and don't necessarily represent my employer’s positions, strategies or opinions.</p>
+
+<p>Last updated 20 Oct. 2020. Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.3 (<a href="https://orgmode.org">Org</a> mode 9.4). <a href="/README.html">Details</a>.</p>
+</footer>
+</body>
+</html>

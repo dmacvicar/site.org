@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 20 Oct. 2020 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Not sweet but salty, SUSE Manager 3 Technical Backstage Part I</title>
+<meta name="generator" content="Org mode">
+<meta name="author" content="Duncan Mac-Vicar P.">
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-1687066-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-1687066-2');
+</script>
+<link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css' rel='stylesheet' integrity='sha256-k2/8zcNbxVIh5mnQ52A0r3a6jAgMGxFJFE2707UxGCk= sha512-ZV9KawG2Legkwp3nAlxLIVFudTauWuBpC10uEafMHYL0Sarrz5A7G79kXh5+5+woxQ5HM559XX2UZjMJ36Wplg==' crossorigin='anonymous'/>
+<meta description='The blog of Duncan Mac-Vicar P.'/>
+<link rel='alternate' type='application+rss/xml' title='The blog of Duncan Mac-Vicar P.' href='posts/rss.xml'/>
+<link rel="stylesheet" href="../../css/site.css?v=e21a1eb21340254d7e0023bf45ef785954bb24f4151e4abcd60e4c86799b8d8b" type="text/css">
+</head>
+<body>
+<header id="preamble" class="status">
+<aside>
+  <h1>Hi.</h1>
+  <a href="/">
+    <img src="https://www.gravatar.com/avatar/3b67365812827fa25df5093b38934a8f?s=80" class="avatar" alt="My photo"/>
+  </a>
+  <h2>I'm <a href="/">Duncan Mac-Vicar P.</a></h2>
+  <div id="bio">
+    <small><p>I am inspired by creating software. I do that mostly at <a href="https://www.suse.com"><!--img src="https://www.suse.com/common/img/suse_54x33.png" height="33" width="54" style="float: left;"-->SUSE</a>.
+      <p>When things break, I fix them or go play guitar...</p></small>
+  </div>
+  <div id="social">
+    Follow me:
+    <div id="stalker">
+      <a title="dmacvicar on Github" href="https://github.com/dmacvicar">
+        <i class="fa fa-github-square"></i>
+      </a>
+      <a title="dmacvicar on Hacker News" href="https://news.ycombinator.com/user?id=dmacvicar">
+        <i class="fa fa-hacker-news"></i>
+      </a>
+      <a title="dmacvicar on Twitter" href="https://twitter.com/dmacvicar">
+        <i class="fa fa-twitter-square"></i>
+      </a>
+      <a title="RSS feed" id="atom" href="posts/rss.xml">
+        <i class="fa fa-rss-square"></i>
+      </a>
+    </div>
+  </div>
+</aside>
+</header>
+<main id="content">
+<header>
+<h1 class="title">Not sweet but salty, SUSE Manager 3 Technical Backstage Part I</h1>
+<p class="subtitle">Mar 16, 2016</p>
+</header>
+<section id="outline-container-introduction" class="outline-2">
+<h2 id="introduction">Introduction</h2>
+<div class="outline-text-2" id="text-introduction">
+<p>
+During the last year we have been working on SUSE Manager 3, the next release of <a href="https://www.suse.com/products/suse-manager/">SUSE&rsquo;s Systems Management product</a>, which includes additional capabilities around Configuration Management and Compliance. This article details this journey from the team&rsquo;s perspective that may be of interest to product enthusiasts and developers.
+</p>
+</div>
+</section>
+
+<section id="outline-container-sweet-did-not-last" class="outline-2">
+<h2 id="sweet-did-not-last">Sweet did not last</h2>
+<div class="outline-text-2" id="text-sweet-did-not-last">
+<p>
+In mid-2014 I wrote about <a href="../2014-06-11-suse-manager-2-1/index.html">SUSE Manager 2.1</a>. It was an important release for us because at that point we became very active upstream, to the point that on a typical day, a considerable chunk of the open pull requests came from SUSE, including a refreshed mobile-enabled user interface.
+</p>
+
+<p>
+But the world is changing, and management offerings are taking new innovative directions, especially around Configuration Management and Compliance. This trend was in several dimensions quite radical for our product, based on the <a href="http://spacewalk.redhat.com/">Spacewalk</a> project, which has been managing Linux systems with the same paradigm since 2008.
+</p>
+
+<p>
+Deploying a management solution is a considerable investment for the customer: operation, training, processes, etc. Telling a customer you will be completely replacing their deployed solution because new trends have appeared means you are throwing all their efforts in the trash.
+</p>
+
+<p>
+On the other hand, it is very easy to find excuses to rewrite software from scratch and there are <a href="http://www.joelonsoftware.com/articles/fog0000000069.html">well-known industry voices giving advice</a> on the topic.
+</p>
+
+<p>
+So are we up to the challenge?. Can we evolve SUSE Manager iteratively within this new world without endangering our customer investments?
+</p>
+</div>
+</section>
+
+<section id="outline-container-choosing-a-configuration-management-engine" class="outline-2">
+<h2 id="choosing-a-configuration-management-engine">Choosing a configuration management engine</h2>
+<div class="outline-text-2" id="text-choosing-a-configuration-management-engine">
+<p>
+After we decided that we would bring this new world into the existing SUSE Manager, we clearly didn&rsquo;t want to write a configuration management engine ourselves: there were multiple opensource projects that were up to the task. We also understood that customers could be already invested into one of them, and that is fine: we were looking for the one that could be <i>tightly</i> integrated into SUSE Manager and had a design that matched our vision.
+</p>
+
+<p>
+And here is where things got even less sweet: they got <i>salty!</i>
+</p>
+
+<p>
+We ended up choosing <a href="http://saltstack.com/community/">Salt</a>. The reasons are endless: From its vibrant community to the &ldquo;aha!&rdquo; moment you get when understanding its internals and seeing the vision behind the architecture. It is a complete toolkit to build datacenter automation, wrapped in usable tools with sane defaults that work out-of-the-box.
+</p>
+
+<blockquote>
+<p>
+SaltStack platform or Salt is a Python-based open source configuration
+management software and remote execution engine. Supporting the
+&ldquo;Infrastructure as Code&rdquo; approach to deployment and cloud management,
+it competes primarily with Puppet, Chef, and Ansible. (Source:
+<a href="https://en.wikipedia.org/wiki/Salt_(software)">Wikipedia</a>]
+</p>
+</blockquote>
+
+<blockquote>
+<p>
+SaltStack software orchestrates the build and ongoing management of
+any modern infrastructure. SaltStack is also the most scalable and
+flexible configuration management software for event-driven automation
+of CloudOps, ITOps and DevOps. (Source:
+<a href="http://saltstack.com/">SaltStack</a>)
+</p>
+</blockquote>
+
+<p>
+We did not get the same impression from the other tools we evaluated. It was clear that Salt fit into the SUSE Manager present and future.
+</p>
+
+<p>
+The fact that Salt implements configuration management (states) on top of the <a href="https://docs.saltstack.com/en/latest/ref/modules/all/salt.modules.state.html">execution engine (state.apply)</a>, and that the executions modules are first class, we could offer almost all features we already had in SUSE Manager and naturally extend the Configuration Management part. On top of that, Salt is written in Python, and the current Spacewalk client stack and partly the server stack are also Python components.
+</p>
+
+<p>
+Things only got better from there. During all this time we got really crazy about Salt. Our sysadmins are using it as well, and a community was formed internally that went beyond our product. Not only with sysadmins and engineers, but even our Product Manager writes <a href="https://docs.saltstack.com/en/latest/topics/beacons/">beacons</a>.
+</p>
+</div>
+
+<div id="outline-container-suminator" class="outline-3">
+<h3 id="suminator">Suminator</h3>
+<div class="outline-text-3" id="text-suminator">
+<p>
+The first serious dogfooding of Salt we did was the birth of <i>Suminator</i>. <a href="https://github.com/moio">Silvio</a> combined Vagrant with Salt to build a small tool that allowed us to build release and development versions of SUSE Manager and vanilla Spacewalk servers and clients in all possible code stream and operating system combinations. Very soon it became the tool of choice for developers to work on the codebase.
+</p>
+
+<p>
+This tool is still tied to our internal build service and package repositories, but we hope we find time to make it useful to others as well.
+</p>
+
+<blockquote>
+<p>
+If you want to play with openSUSE and Salt using <a href="https://www.vagrantup.com/">Vagrant</a>, I have published <a href="https://github.com/dmacvicar/salt-opensuse-playground">a repository</a> that will get you started.
+</p>
+</blockquote>
+</div>
+</div>
+
+<div id="outline-container-susecon-2015" class="outline-3">
+<h3 id="susecon-2015">SUSECon 2015</h3>
+<div class="outline-text-3" id="text-susecon-2015">
+<p>
+The awesomeness of Salt started to click at various levels. The idea of orchestration built on the concept of <a href="https://docs.saltstack.com/en/getstarted/event/index.html">Event-Driven Infrastructure</a> plus the support for <a href="https://docs.saltstack.com/en/latest/topics/proxyminion/index.html">dumb devices</a> culminated in the great SUSECon demo.
+</p>
+
+
+<figure id="org213b522">
+<img src="images/susecon-susemanager-1.png" alt="SUSECon I">
+
+<figcaption><span class="figure-number">Figure 1: </span>Weird picture</figcaption>
+</figure>
+
+<p>
+At SUSECon we showed that with the concept of reactive infrastructure; it was trivial to react to changes in configuration drift, in this case, using an inotify beacon that had &ldquo;knowledge&rdquo; about the managed files on that system, and make SUSE Manager react. On top of that we interacted with <a href="http://www2.meethue.com">smart lights</a> via <a href="https://docs.saltstack.com/en/latest/topics/proxyminion/index.html">proxy minions</a>, just like you will have to do once the <a href="https://en.wikipedia.org/wiki/Internet_of_Things">IoT</a> takes over the world.
+</p>
+
+
+<figure id="org7eb8e88">
+<img src="images/susecon-susemanager-2.png" alt="susecon-susemanager-2.png">
+
+</figure>
+
+<p>
+On top of that we showed that we could achieve all using the power of opensource that SUSE has been doing for almost 25 years. Support for <a href="https://docs.saltstack.com/en/develop/ref/proxy/all/salt.proxy.philips_hue.html">Hue lights in Salt</a> was already upstream by the time of that demonstration.
+</p>
+</div>
+</div>
+</section>
+
+<section id="outline-container-refreshing-our-platform" class="outline-2">
+<h2 id="refreshing-our-platform">Refreshing our platform</h2>
+<div class="outline-text-2" id="text-refreshing-our-platform">
+<p>
+Working on a new release means the opportunity to refresh the platforms and technologies you use, and to look for better alternatives for some of them.
+</p>
+
+<ul class="org-ul">
+<li>We keep rebasing and picking up enhancements from Spacewalk <a href="https://github.com/spacewalkproject/spacewalk">upstream</a>.</li>
+<li>A mature codebase does not mean you should not get rid of code. E.g,:
+here is a pull request from the team to <a href="https://github.com/spacewalkproject/spacewalk/pull/280">remove 30k lines</a> of code that did not make much sense nowadays.</li>
+</ul>
+
+<p>
+With the Salt and Compliance work there was going to be new code written, and that is an opportunity for choosing the right platforms and frameworks.
+</p>
+
+<ul class="org-ul">
+<li>From SLES-11-SP3 to SLES-12-SP1</li>
+<li>From Tomcat 6.x to Tomcat 8.x</li>
+<li>From Java 7 to Java 8</li>
+<li>We started to use <a href="http://sparkjava.com/">Spark</a> for server-side
+Java code.</li>
+<li>We started to use <a href="https://facebook.github.io/react/">React</a> on the
+client side.</li>
+</ul>
+</div>
+</section>
+
+<section id="outline-container-integrating-salt-into-suse-manager" class="outline-2">
+<h2 id="integrating-salt-into-suse-manager">Integrating Salt into SUSE Manager</h2>
+<div class="outline-text-2" id="text-integrating-salt-into-suse-manager">
+<p>
+The first attempt was done as part of <a href="https://hackweek.suse.com/11/projects/514">Hackweek 11</a>. A protoype known as <a href="https://github.com/SUSE/spacewalk-saltstack">Saltwalk</a> was born.
+</p>
+
+<p>
+This protoype (a simple python reactor) helped figuring out what the bulk of the work would be, the non-trivial parts and what decisions we needed to take to move forward.
+</p>
+
+<p>
+The basic architecture of a reactor that handles Salt events and interacts with Spacewalk was in place. What we needed now was a way for Spacewalk to interact with Salt.
+</p>
+
+
+<figure id="orge16da3d">
+<img src="images/suma-salt-architecture.png" alt="suma-salt-architecture.png">
+
+</figure>
+</div>
+
+<div id="outline-container-salt-netapi-client" class="outline-3">
+<h3 id="salt-netapi-client">salt-netapi-client</h3>
+<div class="outline-text-3" id="text-salt-netapi-client">
+<p>
+For the interaction of SUSE Manager with Salt, a <a href="https://github.com/SUSE/salt-netapi-client">Salt client library</a> for Java was created, which allows to consume Salt functionality through <a href="https://docs.saltstack.com/en/latest/ref/cli/salt-api.html">salt-api</a>.
+</p>
+
+<p>
+Months after the <a href="https://groups.google.com/forum/#!topic/salt-users/YdMgcUWiWw8">original announcement</a>, <code>salt-netapi-client</code> keeps being the best option available to interact with <a href="http://suse.github.io/salt-netapi-client/docs/master/overview-summary.html">Salt from Java</a>.
+</p>
+
+<blockquote>
+<p>
+We pointed applicants to <a href="https://attachmatehr.silkroad.com/epostings/index.cfm?fuseaction=app.allpositions&amp;company_id=15495&amp;version=6">our open positions</a> to <a href="https://github.com/SUSE/salt-netapi-client">salt-netapi-client</a> as a challenge. Various contributors to the library became SUSE Manager team members!.
+</p>
+</blockquote>
+</div>
+</div>
+
+<div id="outline-container-becoming-a-salt-master" class="outline-3">
+<h3 id="becoming-a-salt-master">Becoming a Salt Master</h3>
+<div class="outline-text-3" id="text-becoming-a-salt-master">
+<p>
+When the decision of using Salt was clear, it was decided that we would do the integration code on the Java side of SUSE Manager, and so Saltwalk stayed as a protoype, and the functionality was implemented in Java.
+</p>
+
+<p>
+At this point, SUSE Manager default installation was at the same time a full fledged <a href="https://docs.saltstack.com/en/latest/ref/configuration/master.html">Salt master</a> server.
+</p>
+
+<blockquote>
+<p>
+A consequence of this is that you can enjoy Salt on openSUSE out of the box. The <a href="https://software.opensuse.org/package/salt">Salt package</a> is kept updated on <a href="https://en.opensuse.org/Portal:Tumbleweed">Tumbleweed</a> and <a href="https://software.opensuse.org/421/en">Leap</a>, which fits very well with the fact that openSUSE is available from various Cloud Providers e.g. <a href="https://cloud.google.com/compute/docs/operating-systems/linux-os#opensuse">#1</a> out of the box.
+</p>
+</blockquote>
+</div>
+</div>
+
+<div id="outline-container-registering-minions" class="outline-3">
+<h3 id="registering-minions">Registering minions</h3>
+<div class="outline-text-3" id="text-registering-minions">
+<p>
+The next step was to make SUSE Manager aware of minions. First by registering them as they appeared (after <code>salt-key --accept</code> was done), so that they show up together with traditional systems:
+</p>
+
+
+<figure id="org0ab58e3">
+<img src="images/minion-clients-2.png" alt="minion-clients-2.png">
+
+</figure>
+
+<p>
+After we had done work in order to retrieve the inventory data using Salt itself, the details page of minions was also available:
+</p>
+
+
+<figure id="org5d8f12b">
+<img src="images/minion-overview-1.png" alt="minion-overview-1.png">
+
+</figure>
+
+<p>
+Once this was working we improved on it, allowing to operate the <code>salt-key</code> functionality directly from the user interface. Once a minion key needs to be accepted you would see it in the overview page:
+</p>
+
+
+<figure id="org6c584d0">
+<img src="images/pending-minions-1.png" alt="pending-minions-1.png">
+
+</figure>
+
+<p>
+And from there you can accept which ones to onboard:
+</p>
+
+
+<figure id="org8a60070">
+<img src="images/minion-onboarding-1.png" alt="minion-onboarding-1.png">
+
+</figure>
+</div>
+</div>
+
+<div id="outline-container-configuration-management-with-suse-manager" class="outline-3">
+<h3 id="configuration-management-with-suse-manager">Configuration Management with SUSE Manager</h3>
+<div class="outline-text-3" id="text-configuration-management-with-suse-manager">
+<p>
+While you can patch, install packages in the same way you did with traditional clients, there are two main differences:
+</p>
+
+<ul class="org-ul">
+<li>What you do is instantaneous (unless you schedule for later)</li>
+<li>Instead of doing imperative actions (eg. install this package), you can also use states to define &ldquo;what should be installed&rdquo; in a declarative way using the <a href="https://docs.saltstack.com/en/latest/topics/tutorials/starting_states.html">power of States</a>.</li>
+<li>You can write plain <code>sls</code> data in custom states</li>
+</ul>
+
+
+<figure id="org2371035">
+<img src="images/states-catalog-1.png" alt="states-catalog-1.png">
+
+</figure>
+
+<p>
+Additionally, SUSE Manager also has a higher level state user interface for packages. With this user interface you can search packages in the assigned channels.
+</p>
+
+
+<figure id="org3c635fd">
+<img src="images/package-states-1.png" alt="package-states-1.png">
+
+</figure>
+</div>
+
+<div id="outline-container-common-states-for-organizations-and-groups" class="outline-4">
+<h4 id="common-states-for-organizations-and-groups">Common states for organizations and groups</h4>
+<div class="outline-text-4" id="text-common-states-for-organizations-and-groups">
+<p>
+SUSE Manager allows to apply states from the State Catalog to Organizations and Groups. Every system belonging to those entities <a href="https://docs.saltstack.com/en/latest/ref/states/top.html">will be subject to those states</a>.
+</p>
+
+
+<figure id="org07195ec">
+<img src="images/minion-custom-states-1.png" alt="minion-custom-states-1.png">
+
+</figure>
+</div>
+</div>
+</div>
+</section>
+
+<section id="outline-container-massive-command-execution" class="outline-2">
+<h2 id="massive-command-execution">Massive command execution</h2>
+<div class="outline-text-2" id="text-massive-command-execution">
+<p>
+The <code>Remote Commands</code> page in the <code>Salt</code> section gives you a web based version of <code>salt '*' cmd.run</code>. You can preview which minions will be affected with the target before sending the commands and then see the results in real time:
+</p>
+
+
+<figure id="orgb281bdf">
+<img src="images/remote-commands-1.png" alt="remote-commands-1.png">
+
+</figure>
+</div>
+</section>
+
+<section id="outline-container-being-part-of-the-ecosystem" class="outline-2">
+<h2 id="being-part-of-the-ecosystem">Being part of the ecosystem</h2>
+<div class="outline-text-2" id="text-being-part-of-the-ecosystem">
+<p>
+Making Salt an important part of SUSE Manager does not end there. In our industry being an Enterprise distributor of open-source software only works if you are part of it.
+</p>
+
+<ul class="org-ul">
+<li>SUSE already has around 600 commits from 5+ developers in Salt upstream</li>
+<li>The SUSE Manager team is hiring so that we can do more work upstream and help shape Salt&rsquo;s future</li>
+<li>SUSE will be gold sponsor at Saltconf 2016</li>
+</ul>
+
+
+<figure id="org6559f50">
+<img src="images/saltconf-sponsor-1.png" alt="saltconf-sponsor-1.png">
+
+</figure>
+</div>
+</section>
+
+<section id="outline-container-the-future" class="outline-2">
+<h2 id="the-future">The future</h2>
+<div class="outline-text-2" id="text-the-future">
+<p>
+As you can see, SUSE Manager with Salt is a powerful duo which allows you to continue managing your infrastructure with the same tool, be 100% backward compatible and start taking advantages of declarative configuration management and the orchestration capabilities of Salt, while keeping everything you have already deployed untouched.
+</p>
+
+<p>
+We are very excited about the possibilities here, which will be guided by feedback from our customers and synergies we have with Salt and other SUSE technologies.
+</p>
+</div>
+</section>
+
+<section id="outline-container-to-be-continued" class="outline-2">
+<h2 id="to-be-continued">To be continued</h2>
+<div class="outline-text-2" id="text-to-be-continued">
+<p>
+Configuration Management is only one of the features that will arrive SUSE Manager 3. Expect to hear from the powerful Subscription Matching and Topology Awareness in future posts.
+</p>
+</div>
+</section>
+</main>
+<footer id="postamble" class="status">
+<p class='disclaimer'>The postings on this site are my own and don't necessarily represent my employer’s positions, strategies or opinions.</p>
+
+<p>Last updated 20 Oct. 2020. Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.3 (<a href="https://orgmode.org">Org</a> mode 9.4). <a href="/README.html">Details</a>.</p>
+</footer>
+</body>
+</html>

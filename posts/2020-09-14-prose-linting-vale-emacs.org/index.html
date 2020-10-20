@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 20 Oct. 2020 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prose linting with Vale and Emacs</title>
+<meta name="generator" content="Org mode">
+<meta name="author" content="Duncan Mac-Vicar P.">
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-1687066-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-1687066-2');
+</script>
+<link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css' rel='stylesheet' integrity='sha256-k2/8zcNbxVIh5mnQ52A0r3a6jAgMGxFJFE2707UxGCk= sha512-ZV9KawG2Legkwp3nAlxLIVFudTauWuBpC10uEafMHYL0Sarrz5A7G79kXh5+5+woxQ5HM559XX2UZjMJ36Wplg==' crossorigin='anonymous'/>
+<meta description='The blog of Duncan Mac-Vicar P.'/>
+<link rel='alternate' type='application+rss/xml' title='The blog of Duncan Mac-Vicar P.' href='posts/rss.xml'/>
+<link rel="stylesheet" href="../../css/site.css?v=e21a1eb21340254d7e0023bf45ef785954bb24f4151e4abcd60e4c86799b8d8b" type="text/css">
+</head>
+<body>
+<header id="preamble" class="status">
+<aside>
+  <h1>Hi.</h1>
+  <a href="/">
+    <img src="https://www.gravatar.com/avatar/3b67365812827fa25df5093b38934a8f?s=80" class="avatar" alt="My photo"/>
+  </a>
+  <h2>I'm <a href="/">Duncan Mac-Vicar P.</a></h2>
+  <div id="bio">
+    <small><p>I am inspired by creating software. I do that mostly at <a href="https://www.suse.com"><!--img src="https://www.suse.com/common/img/suse_54x33.png" height="33" width="54" style="float: left;"-->SUSE</a>.
+      <p>When things break, I fix them or go play guitar...</p></small>
+  </div>
+  <div id="social">
+    Follow me:
+    <div id="stalker">
+      <a title="dmacvicar on Github" href="https://github.com/dmacvicar">
+        <i class="fa fa-github-square"></i>
+      </a>
+      <a title="dmacvicar on Hacker News" href="https://news.ycombinator.com/user?id=dmacvicar">
+        <i class="fa fa-hacker-news"></i>
+      </a>
+      <a title="dmacvicar on Twitter" href="https://twitter.com/dmacvicar">
+        <i class="fa fa-twitter-square"></i>
+      </a>
+      <a title="RSS feed" id="atom" href="posts/rss.xml">
+        <i class="fa fa-rss-square"></i>
+      </a>
+    </div>
+  </div>
+</aside>
+</header>
+<main id="content">
+<header>
+<h1 class="title">Prose linting with Vale and Emacs</h1>
+<p class="subtitle">Sep 14, 2020</p>
+</header><p>
+I have set myself the goal to improve my writing. I read some books and articles on the topic, but I am also looking for real-time feedback. I am not a native english speaker.
+</p>
+
+<p>
+I found about <a href="https://www.grammarly.com/">Grammarly</a> on twitter, but there is no way I will send my emails and documents to their server as I type. That is how I started to look for an offline solution.
+</p>
+
+<p>
+I found <a href="https://github.com/amperser/proselint">proselint</a> but it seems inactive since 2018. As I tried to integrate it with Emacs, I learned about <a href="https://github.com/bnbeckwith/writegood-mode">write-good mode</a>. This Emacs mode has two flaws:
+</p>
+
+<ul class="org-ul">
+<li>The implementation is too &ldquo;simple&rdquo; (regexps)</li>
+<li>The integration works like a full Emacs mode. Mixing the linting with presentation.</li>
+</ul>
+
+<p>
+Through those projects, I learned about the original article <a href="http://matt.might.net/articles/shell-scripts-for-passive-voice-weasel-words-duplicates/">3 shell scripts to improve your writing, or &ldquo;My Ph.D. advisor rewrote himself in bash.&rdquo;</a>.
+</p>
+
+<p>
+I found a more sophisticated and extensible tool called <a href="https://github.com/btford/write-good">write-good</a>, implemented in Javascript/node, which means I will not be able to package it.
+</p>
+
+<p>
+I decided to try to write one. I found the Go library <a href="https://github.com/jdkato/prose">prose</a>. It allows to iterate over tokens, entities and sentences. Iterating over the tokens gives access to tags:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-go">for _, tok := range doc.Tokens() {
+	fmt.Println(tok.Text, tok.Tag, tok.Label)
+	// Go NNP B-GPE
+	// is VBZ O
+	// an DT O
+	// ...
+}
+</pre>
+</div>
+
+<p>
+For example, the text &ldquo;At dinner, six shrimp were eaten by Harry&rdquo; produces the following tags:
+</p>
+
+<pre class="example">
+Harry PERSON
+At IN
+dinner NN
+, ,
+six CD
+shrimp NN
+were VBD
+eaten VBN
+by IN
+Harry NNP
+</pre>
+
+<p>
+The combination <code>VBD</code> (verb, past tense )and <code>VBN</code> (verb, past participle) can be used to detect passive voice, one of the guidelines of &ldquo;good-write&rdquo;.
+</p>
+
+<p>
+Soon I figured out that the tokens do not give access to the locations. I started to see who is using the code, looking for examples.
+</p>
+
+<p>
+I realized the author of the library uses the library to power <a href="https://github.com/errata-ai/vale">vale</a>, a prose linter implemented in go. What I was trying to write.
+</p>
+
+<p>
+The <a href="https://docs.errata.ai/vale/about">vale documentation</a> revealed the tool is more than I was looking for. It includes <a href="https://github.com/errata-ai/vale/tree/master/styles/write-good">write-good</a> definitions as part of its example styles. There are examples for Documentation CI which include how <a href="https://docs.errata.ai/vale/config">Gitlab, Linode and Homebrew</a> use it to lint their documentation. It even has a <a href="https://github.com/errata-ai/vale-action">Github action</a>.
+</p>
+
+<p>
+Nothing left other than to integrate with Emacs. There is no need to write a full mode for that. A simple <a href="https://www.flycheck.org">Flycheck</a> checker should do. Turns out, it already <a href="https://melpa.org/#/flycheck-vale">exists</a>, but I could not make it work.
+</p>
+
+<p>
+The existing Emacs checker uses <i>vale</i> JSON output (<code>--output JSON</code>), which gives access to all details of the result. We can write the simplest checker from scratch, by recognizing patterns with <code>--output line</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(flycheck-define-checker vale
+  <span class="org-string">"A checker for prose"</span>
+  <span class="org-builtin">:command</span> (<span class="org-string">"vale"</span> <span class="org-string">"--output"</span> <span class="org-string">"line"</span>
+            source)
+  <span class="org-builtin">:standard-input</span> nil
+  <span class="org-builtin">:error-patterns</span>
+  ((<span class="org-warning">error</span> line-start (file-name) <span class="org-string">":"</span> line <span class="org-string">":"</span> column <span class="org-string">":"</span> (id (one-or-more (not (any <span class="org-string">":"</span>)))) <span class="org-string">":"</span> (message) line-end))
+  <span class="org-builtin">:modes</span> (markdown-mode org-mode text-mode)
+  )
+(add-to-list 'flycheck-checkers 'vale 'append)
+</pre>
+</div>
+
+<p>
+Note that for this to work, you need <i>vale</i> in your <code>PATH</code>. I packaged it in <a href="https://build.opensuse.org/package/show/home:dmacvicar/vale">the Open Build Service.</a> You need also a <code>$HOME/.vale.ini</code> or in the root of your project:
+</p>
+
+<pre class="example">
+StylesPath = /usr/share/vale/styles
+Vocab = Blog
+[*.txt]
+BasedOnStyles = Vale, write-good
+[*.md]
+BasedOnStyles = Vale, write-good
+[*.org]
+BasedOnStyles = Vale, write-good
+</pre>
+
+<p>
+And with this Emacs works:
+</p>
+
+
+<figure id="orgfcc4312">
+<img src="images/emacs.png" alt="emacs.png">
+
+</figure>
+
+<p>
+Due to <code>--output line</code> not providing severity, every message shows as error.
+</p>
+
+<p>
+I am looking forward to integrate <i>vale</i> in some documentation, develop custom styles and why not, investigate and fix the original <i>flycheck-vale</i> project.
+</p>
+
+<p>
+Also pending is to expand the configuration to work with my <a href="https://www.djcbsoftware.nl/code/mu/mu4e.html">Emacs based mail client</a>, which should be a matter of hooking into <i>mu4e</i> compose mode.
+</p>
+
+<p>
+While writing this post, I had to fix the unintended use of passive voice tens of times. Valuable feedback.
+</p>
+</main>
+<footer id="postamble" class="status">
+<p class='disclaimer'>The postings on this site are my own and don't necessarily represent my employer’s positions, strategies or opinions.</p>
+
+<p>Last updated 20 Oct. 2020. Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.3 (<a href="https://orgmode.org">Org</a> mode 9.4). <a href="/README.html">Details</a>.</p>
+</footer>
+</body>
+</html>

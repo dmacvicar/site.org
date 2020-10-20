@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 20 Oct. 2020 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Raspberry Pi cluster with k3s &amp; Salt (Part 1)</title>
+<meta name="generator" content="Org mode">
+<meta name="author" content="Duncan Mac-Vicar P.">
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-1687066-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-1687066-2');
+</script>
+<link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css' rel='stylesheet' integrity='sha256-k2/8zcNbxVIh5mnQ52A0r3a6jAgMGxFJFE2707UxGCk= sha512-ZV9KawG2Legkwp3nAlxLIVFudTauWuBpC10uEafMHYL0Sarrz5A7G79kXh5+5+woxQ5HM559XX2UZjMJ36Wplg==' crossorigin='anonymous'/>
+<meta description='The blog of Duncan Mac-Vicar P.'/>
+<link rel='alternate' type='application+rss/xml' title='The blog of Duncan Mac-Vicar P.' href='posts/rss.xml'/>
+<link rel="stylesheet" href="../../css/site.css?v=e21a1eb21340254d7e0023bf45ef785954bb24f4151e4abcd60e4c86799b8d8b" type="text/css">
+</head>
+<body>
+<header id="preamble" class="status">
+<aside>
+  <h1>Hi.</h1>
+  <a href="/">
+    <img src="https://www.gravatar.com/avatar/3b67365812827fa25df5093b38934a8f?s=80" class="avatar" alt="My photo"/>
+  </a>
+  <h2>I'm <a href="/">Duncan Mac-Vicar P.</a></h2>
+  <div id="bio">
+    <small><p>I am inspired by creating software. I do that mostly at <a href="https://www.suse.com"><!--img src="https://www.suse.com/common/img/suse_54x33.png" height="33" width="54" style="float: left;"-->SUSE</a>.
+      <p>When things break, I fix them or go play guitar...</p></small>
+  </div>
+  <div id="social">
+    Follow me:
+    <div id="stalker">
+      <a title="dmacvicar on Github" href="https://github.com/dmacvicar">
+        <i class="fa fa-github-square"></i>
+      </a>
+      <a title="dmacvicar on Hacker News" href="https://news.ycombinator.com/user?id=dmacvicar">
+        <i class="fa fa-hacker-news"></i>
+      </a>
+      <a title="dmacvicar on Twitter" href="https://twitter.com/dmacvicar">
+        <i class="fa fa-twitter-square"></i>
+      </a>
+      <a title="RSS feed" id="atom" href="posts/rss.xml">
+        <i class="fa fa-rss-square"></i>
+      </a>
+    </div>
+  </div>
+</aside>
+</header>
+<main id="content">
+<header>
+<h1 class="title">Raspberry Pi cluster with k3s &amp; Salt (Part 1)</h1>
+<p class="subtitle">Sep 07, 2020</p>
+</header><p>
+I have been running some workloads on Raspberry Pi&rsquo;s / <a href="https://software.opensuse.org/distributions/leap">Leap</a> for some time. I manage them using <a href="https://docs.saltstack.com/en/latest/topics/ssh">salt-ssh</a> along with a <a href="https://www.kickstarter.com/projects/pine64/pine-a64-first-15-64-bit-single-board-super-comput/">Pine64</a> running <a href="https://www.openbsd.org">OpenBSD</a>. You can read more about using Salt this way in my <a href="../2016-05-18-using-salt-like-ansible/index.html">Using Salt like Ansible</a> post.
+</p>
+
+
+<figure id="org3b2f436">
+<img src="images/rpi-cluster-small.jpg" alt="rpi-cluster-small.jpg">
+
+</figure>
+
+<p>
+The workloads ran on containers, which were managed with <a href="https://systemd.io/">systemd</a> and <a href="https://podman.io">podman</a>. Salt managed the systemd service files on <code>/etc/systemd</code>, which start, monitor and stops the containers. For example, the <code>homeassistant.sls</code> state, managed the service file for <a href="https://mosquitto.org">mosquitto</a>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml"><span class="org-variable-name">homeassistant.mosquito.deploy</span>:
+  <span class="org-variable-name">file.managed</span>:
+    - <span class="org-variable-name">name</span>: /root/config/eclipse-mosquitto/mosquitto.conf
+    - <span class="org-variable-name">source</span>: salt://homeassistant/files/mosquitto/mosquitto.conf
+
+<span class="org-variable-name">homeassistant.eclipse-mosquitto.container.service</span>:
+  <span class="org-variable-name">file.managed</span>:
+    - <span class="org-variable-name">name</span>: /etc/systemd/system/eclipse-mosquitto.service
+    - <span class="org-variable-name">contents</span>: |
+<span class="org-yaml-tab">        </span><span class="org-string">[Unit]</span>
+<span class="org-yaml-tab">        </span><span class="org-string">Description=%N Podman Container</span>
+<span class="org-yaml-tab">        </span><span class="org-string">After=network.target</span>
+
+<span class="org-yaml-tab">        </span><span class="org-string">[Service]</span>
+<span class="org-yaml-tab">        </span><span class="org-string">Type=simple</span>
+<span class="org-yaml-tab">        </span><span class="org-string">TimeoutStartSec=5m</span>
+<span class="org-yaml-tab">        </span>ExecStartPre=-/usr/bin/podman rm -f <span class="org-string">"%N"</span>
+<span class="org-yaml-tab">        </span>ExecStart=/usr/bin/podman run -ti --rm --name=<span class="org-string">"%N"</span> -p 1883:1883 -p 9001:9001 -v /root/config/eclipse-mosquitto:/mosquitto/config -v /etc/localtime:/etc/localtime:ro --net=host docker.io/library/eclipse-mosquitto
+<span class="org-yaml-tab">        </span>ExecReload=-/usr/bin/podman stop <span class="org-string">"%N"</span>
+<span class="org-yaml-tab">        </span>ExecReload=-/usr/bin/podman rm <span class="org-string">"%N"</span>
+<span class="org-yaml-tab">        </span>ExecStop=-/usr/bin/podman stop <span class="org-string">"%N"</span>
+<span class="org-yaml-tab">        </span><span class="org-string">Restart=on-failure</span>
+<span class="org-yaml-tab">        </span><span class="org-string">RestartSec=30</span>
+
+<span class="org-yaml-tab">        </span><span class="org-string">[Install]</span>
+<span class="org-yaml-tab">        </span><span class="org-string">WantedBy=multi-user.target</span>
+  <span class="org-variable-name">service.running</span>:
+    - <span class="org-variable-name">name</span>: eclipse-mosquitto
+    - <span class="org-variable-name">enable</span>: <span class="org-constant">True</span>
+    - <span class="org-variable-name">require</span>:
+      - <span class="org-variable-name">pkg</span>: homeassistant.podman.pkgs
+      - <span class="org-variable-name">file</span>: /etc/systemd/system/eclipse-mosquitto.service
+      - <span class="org-variable-name">file</span>: /root/config/eclipse-mosquitto/mosquitto.conf
+    - <span class="org-variable-name">watch</span>:
+      - <span class="org-variable-name">file</span>: /root/config/eclipse-mosquitto/mosquitto.conf
+</pre>
+</div>
+
+<p>
+The Salt state also made sure the right packages and other details where ready before the service was started.
+</p>
+
+<p>
+This was very simple and worked well so far. One disadvantage is that the workloads are tied to a particular Pi. I was not going to make the setup more complex by building my own orchestrator.
+</p>
+
+<p>
+Another disadvantage is that I was pulling the containers into the SD card. I was not hoping for a long life of these. After it died, I took it as a good opportunity to re-do this setup.
+</p>
+
+<p>
+My long term goal would be to netboot the Pi&rsquo;s, and have the storage mounted. I am not very familiar with all the procedure, so I will go step by step.
+</p>
+
+<p>
+I decided for the the initial iteration:
+</p>
+
+<ul class="org-ul">
+<li><a href="https://k3s.io/">k3s (Lightweight Kubernetes)</a> on the Pi&rsquo;s</li>
+<li>The k3s server to use a USB disks/SSDs with <a href="https://btrfs.wiki.kernel.org/index.php/Main_Page">btrfs</a> as storage</li>
+<li>The worker nodes to /var/lib/rancher/k3s from USB storage</li>
+<li>Applying the states over almost stock <a href="http://download.opensuse.org/ports/aarch64/distribution/leap/15.2/appliances/">Leap 15.2</a> images should result in a working cluster</li>
+</ul>
+
+<p>
+All the above managed with <span class="underline">salt-ssh</span> tree on a git repository just like I was used to
+</p>
+
+<section id="outline-container-org4be2bc5" class="outline-2">
+<h2 id="org4be2bc5">k3s installation</h2>
+<div class="outline-text-2" id="text-org4be2bc5">
+<p>
+We start by creating <code>k3s/init.sls</code>. For the k3s state I defined a minimal pillar defining the server and the shared token:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml"><span class="org-variable-name">k3s</span>:
+  <span class="org-variable-name">token</span>: xxxxxxxxx
+  <span class="org-variable-name">server</span>: rpi03
+</pre>
+</div>
+
+<p>
+The first part of the k3s state ensures cgroups are configured correctly and disables swap:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml"><span class="org-variable-name">k3s.boot.cmdline</span>:
+  <span class="org-variable-name">file.managed</span>:
+    - <span class="org-variable-name">name</span>: /boot/cmdline.txt
+    - <span class="org-variable-name">contents</span>: |
+<span class="org-yaml-tab">        </span><span class="org-string">cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory</span>
+
+<span class="org-variable-name">k3s.disable.swap</span>:
+  <span class="org-variable-name">cmd.run</span>:
+    - <span class="org-variable-name">name</span>: swapoff -a
+    - <span class="org-variable-name">onlyif</span>:  swapon --noheadings --show=name,type | grep .
+</pre>
+</div>
+
+<p>
+As the goal was to avoid using the SD card, the next state makes sure <code>/var/lib/rancher/k3s</code> is a mount. I have to admit I wasted quite some time getting right the state for the storage mount. Using <a href="https://docs.saltstack.com/en/latest/ref/states/all/salt.states.mount.html#salt.states.mount.mounted"><code>mount.mounted</code></a> did not work because it is buggy and took different <code>btrfs</code> subvolume mounts from the same device as the same mount.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml"><span class="org-variable-name">k3s.volume.mount</span>:
+  <span class="org-variable-name">mount.mounted</span>:
+    - <span class="org-variable-name">name</span>: /var/lib/rancher/k3s
+    - <span class="org-variable-name">device</span>: /dev/sda1
+    - <span class="org-variable-name">mkmnt</span>: <span class="org-constant">True</span>
+    - <span class="org-variable-name">fstype</span>: btrfs
+    - <span class="org-variable-name">persist</span>: <span class="org-constant">False</span>
+    - <span class="org-variable-name">opts</span>: <span class="org-string">"subvol=/@k3s"</span>
+</pre>
+</div>
+
+<p>
+I resorted then to write my own state. I discovered the awesome <a href="https://www.man7.org/linux/man-pages/man8/findmnt.8.html">findmnt</a> command, and my workaround looked like:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml"><span class="org-variable-name">k3s.volume.mount</span>:
+  <span class="org-variable-name">cmd.run</span>:
+    - <span class="org-variable-name">name</span>: mount -t btrfs -o subvol=/@{{ grains[<span class="org-string">'id'</span>] }}-data /dev/sda1 /data
+    - <span class="org-variable-name">unless</span>: findmnt --mountpoint /data --noheadings | grep <span class="org-string">'/dev/sda1[/@k3s]'</span>
+    - <span class="org-variable-name">require</span>:
+<span class="org-yaml-tab">        </span><span class="org-variable-name">- file</span>: k3s.volume.mntpoint
+</pre>
+</div>
+
+<p>
+This turned later to be a pain, as the k3s installer started k3s without caring much if this volume was mounted or not. Then I remembered: systemd does exactly that. It manages mount and dependencies. This simplified the mount state to:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml"><span class="org-variable-name">k3s.volume.mount</span>:
+  <span class="org-variable-name">file.managed</span>:
+    - <span class="org-variable-name">name</span>: /etc/systemd/system/var-lib-rancher-k3s.mount
+    - <span class="org-variable-name">contents</span> : |
+<span class="org-yaml-tab">        </span><span class="org-string">[Unit]</span>
+
+<span class="org-yaml-tab">        </span><span class="org-string">[Install]</span>
+<span class="org-yaml-tab">        </span><span class="org-string">RequiredBy=k3s</span>
+<span class="org-yaml-tab">        </span><span class="org-string">RequiredBy=k3s-agent</span>
+
+<span class="org-yaml-tab">        </span><span class="org-string">[Mount]</span>
+<span class="org-yaml-tab">        </span><span class="org-string">What=/dev/sda1</span>
+<span class="org-yaml-tab">        </span><span class="org-string">Where=/var/lib/rancher/k3s</span>
+<span class="org-yaml-tab">        </span><span class="org-string">Options=subvol=/@k3s</span>
+<span class="org-yaml-tab">        </span><span class="org-string">Type=btrfs</span>
+  <span class="org-variable-name">cmd.run</span>:
+    - <span class="org-variable-name">name</span>: systemctl daemon-reload
+    - <span class="org-variable-name">onchanges</span>:
+<span class="org-yaml-tab">        </span><span class="org-variable-name">- file</span>: k3s.volume.mount
+  <span class="org-variable-name">service.running</span>:
+    - <span class="org-variable-name">name</span>: var-lib-rancher-k3s.mount
+</pre>
+</div>
+
+<p>
+The k3s state works as follows: it runs the installation script in server or agent mode depending if the pillar <code>k3s:server</code> entry matches with the node where the state is applied.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml">{%- set k3s_server = salt[<span class="org-string">'pillar.get'</span>](<span class="org-string">'k3s:server'</span>) -%}
+{%- if grains[<span class="org-string">'id'</span>] == k3s_server %}
+{%- set k3s_role = <span class="org-string">'server'</span> -%}
+{%- set k3s_suffix = <span class="org-string">""</span> -%}
+{%- else %}
+{%- set k3s_role = <span class="org-string">'agent'</span> -%}
+{%- set k3s_suffix = <span class="org-string">'-agent'</span> -%}
+{%- endif %}
+
+<span class="org-variable-name">k3s.{{ k3s_role }}.install</span>:
+  <span class="org-variable-name">cmd.run</span>:
+    - <span class="org-variable-name">name</span>: curl -sfL https://get.k3s.io | sh -s -
+    - <span class="org-variable-name">env</span>:
+<span class="org-yaml-tab">        </span><span class="org-variable-name">- INSTALL_K3S_TYPE</span>: {{ k3s_role }}
+{%- if k3s_role == <span class="org-string">'agent'</span> %}
+<span class="org-yaml-tab">        </span><span class="org-variable-name">- K3S_URL</span>: <span class="org-string">"https://{{ k3s_server }}:6443"</span>
+{%- endif %}
+<span class="org-yaml-tab">        </span><span class="org-variable-name">- INSTALL_K3S_SKIP_ENABLE</span>: <span class="org-string">"true"</span>
+<span class="org-yaml-tab">        </span><span class="org-variable-name">- INSTALL_K3S_SKIP_START</span>: <span class="org-string">"true"</span>
+<span class="org-yaml-tab">        </span><span class="org-variable-name">- K3S_TOKEN</span>: {{ salt[<span class="org-string">'pillar.get'</span>](<span class="org-string">'k3s:token'</span>, {}) }}
+    - <span class="org-variable-name">unless</span>:
+<span class="org-yaml-tab">        </span><span class="org-comment-delimiter"># </span><span class="org-comment">Run install on these failed conditions</span>
+<span class="org-yaml-tab">        </span><span class="org-comment-delimiter"># </span><span class="org-comment">No binary</span>
+<span class="org-yaml-tab">        </span>- ls /usr/local/bin/k3s
+<span class="org-yaml-tab">        </span><span class="org-comment-delimiter"># </span><span class="org-comment">Token changed/missing</span>
+<span class="org-yaml-tab">        </span>- grep <span class="org-string">'{{ salt['</span>pillar.get'](<span class="org-string">'k3s:token'</span>, {}) }}<span class="org-string">' /etc/systemd/system/k3s{{ k3s_suffix }}.service.env</span>
+<span class="org-yaml-tab">        </span><span class="org-string"># Changed/missing server</span>
+<span class="org-string">{%- if k3s_role == '</span>agent' %}
+<span class="org-yaml-tab">        </span>- grep <span class="org-string">'K3S_URL=https://{{ k3s_server }}:6443'</span> /etc/systemd/system/k3s{{ k3s_suffix }}.service.env
+{%- endif %}
+    - <span class="org-variable-name">require</span>:
+<span class="org-yaml-tab">        </span><span class="org-variable-name">- service</span>: k3s.volume.mount
+<span class="org-yaml-tab">        </span><span class="org-variable-name">- service</span>: k3s.kubelet.volume.mount
+
+<span class="org-variable-name">k3s.{{ k3s_role }}.running</span>:
+  <span class="org-variable-name">service.running</span>:
+    - <span class="org-variable-name">name</span>: k3s{{ k3s_suffix }}
+    - <span class="org-variable-name">enable</span>: <span class="org-constant">True</span>
+    - <span class="org-variable-name">require</span>:
+      - <span class="org-variable-name">cmd</span>: k3s.{{ k3s_role }}.install
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-orgadd5533" class="outline-2">
+<h2 id="orgadd5533">Workloads</h2>
+<div class="outline-text-2" id="text-orgadd5533">
+<p>
+The next step is to move workloads like <a href="https://www.home-assistant.io">homeassistant</a> into this setup.
+</p>
+
+<p>
+k3s allows to automatically deploy manifests located in <code>/var/lib/rancher/server/manifests</code>. We can deploy eg. mosquitto like the following:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml"><span class="org-variable-name">homeassistant.mosquitto</span>:
+  <span class="org-variable-name">file.managed</span>:
+    - <span class="org-variable-name">name</span>: /var/lib/rancher/k3s/server/manifests/mosquitto.yml
+    - <span class="org-variable-name">source</span>: salt://homeassistant/files/mosquitto.yml
+    - <span class="org-variable-name">require</span>:
+      - k3s.volume.mount
+</pre>
+</div>
+
+<p>
+With <code>mosquito.yml</code> being:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml"><span class="org-comment">---</span>
+<span class="org-variable-name">apiVersion</span>: v1
+<span class="org-variable-name">kind</span>: Namespace
+<span class="org-variable-name">metadata</span>:
+  <span class="org-variable-name">name</span>: homeassistant
+<span class="org-comment">---</span>
+<span class="org-variable-name">apiVersion</span>: apps/v1
+<span class="org-variable-name">kind</span>: Deployment
+<span class="org-variable-name">metadata</span>:
+  <span class="org-variable-name">name</span>: mosquitto
+  <span class="org-variable-name">namespace</span>: homeassistant
+<span class="org-variable-name">spec</span>:
+  <span class="org-variable-name">replicas</span>: 1
+  <span class="org-variable-name">selector</span>:
+    <span class="org-variable-name">matchLabels</span>:
+      <span class="org-variable-name">app</span>: mosquitto
+  <span class="org-variable-name">template</span>:
+    <span class="org-variable-name">metadata</span>:
+      <span class="org-variable-name">labels</span>:
+<span class="org-yaml-tab">        </span><span class="org-variable-name">app</span>: mosquitto
+    <span class="org-variable-name">spec</span>:
+      <span class="org-variable-name">containers</span>:
+<span class="org-yaml-tab">        </span><span class="org-variable-name">- name</span>: mosquitto
+<span class="org-yaml-tab">        </span><span class="org-variable-name">  image</span>: docker.io/library/eclipse-mosquitto
+<span class="org-yaml-tab">        </span><span class="org-variable-name">  resources</span>:
+<span class="org-yaml-tab">        </span><span class="org-variable-name">    requests</span>:
+<span class="org-yaml-tab">        </span><span class="org-variable-name">      memory</span>: <span class="org-string">"64Mi"</span>
+<span class="org-yaml-tab">        </span><span class="org-variable-name">      cpu</span>: <span class="org-string">"100m"</span>
+<span class="org-yaml-tab">        </span><span class="org-variable-name">    limits</span>:
+<span class="org-yaml-tab">        </span><span class="org-variable-name">      memory</span>: <span class="org-string">"128Mi"</span>
+<span class="org-yaml-tab">        </span><span class="org-variable-name">      cpu</span>: <span class="org-string">"500m"</span>
+<span class="org-yaml-tab">        </span><span class="org-variable-name">  ports</span>:
+<span class="org-yaml-tab">        </span><span class="org-variable-name">  - containerPort</span>: 1883
+<span class="org-yaml-tab">        </span><span class="org-variable-name">  imagePullPolicy</span>: Always
+<span class="org-comment">---</span>
+<span class="org-variable-name">apiVersion</span>: v1
+<span class="org-variable-name">kind</span>: Service
+<span class="org-variable-name">metadata</span>:
+  <span class="org-variable-name">name</span>: mosquitto
+  <span class="org-variable-name">namespace</span>: homeassistant
+<span class="org-variable-name">spec</span>:
+  <span class="org-variable-name">ports</span>:
+  - <span class="org-variable-name">name</span>: mqtt
+    <span class="org-variable-name">port</span>: 1883
+    <span class="org-variable-name">targetPort</span>: 1883
+    <span class="org-variable-name">protocol</span>: TCP
+  <span class="org-variable-name">selector</span>:
+    <span class="org-variable-name">app</span>: mosquitto
+</pre>
+</div>
+
+<p>
+Homeassistant is no different, except that we use a <a href="https://kubernetes.io/docs/concepts/configuration/configmap/">ConfigMap</a> resource to store the configuration and define an <a href="https://docs.traefik.io/providers/kubernetes-ingress/">Ingress</a> resource to access it from the LAN:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml"><span class="org-comment">---</span>
+<span class="org-variable-name">apiVersion</span>: v1
+<span class="org-variable-name">kind</span>: Namespace
+<span class="org-variable-name">metadata</span>:
+  <span class="org-variable-name">name</span>: homeassistant
+<span class="org-comment">---</span>
+<span class="org-variable-name">apiVersion</span>: v1
+<span class="org-variable-name">kind</span>: ConfigMap
+<span class="org-variable-name">metadata</span>:
+  <span class="org-variable-name">name</span>: homeassistant-config
+  <span class="org-variable-name">namespace</span>: homeassistant
+<span class="org-variable-name">data</span>:
+  <span class="org-variable-name">configuration.yaml</span>: |
+    <span class="org-string">homeassistant:</span>
+<span class="org-string">      auth_providers:</span>
+<span class="org-yaml-tab">        </span><span class="org-string">- type: homeassistant</span>
+<span class="org-yaml-tab">        </span><span class="org-string">- type: trusted_networks</span>
+<span class="org-yaml-tab">        </span><span class="org-string">  trusted_networks:</span>
+<span class="org-yaml-tab">        </span><span class="org-string">    - 192.168.178.0/24</span>
+<span class="org-yaml-tab">        </span><span class="org-string">    - 10.0.0.0/8</span>
+<span class="org-yaml-tab">        </span><span class="org-string">    - fd00::/8</span>
+<span class="org-yaml-tab">        </span><span class="org-string">  allow_bypass_login: true</span>
+<span class="org-string">      name: Home</span>
+<span class="org-string">      latitude: xx.xxxx</span>
+<span class="org-string">      longitude: xx.xxxx</span>
+<span class="org-string">      elevation: xxx</span>
+<span class="org-string">      unit_system: metric</span>
+<span class="org-string">      time_zone: Europe/Berlin</span>
+<span class="org-string">    frontend:</span>
+<span class="org-string">    config:</span>
+<span class="org-string">    http:</span>
+<span class="org-comment">---</span>
+<span class="org-variable-name">apiVersion</span>: apps/v1
+<span class="org-variable-name">kind</span>: Deployment
+<span class="org-variable-name">metadata</span>:
+  <span class="org-variable-name">name</span>: homeassistant
+  <span class="org-variable-name">namespace</span>: homeassistant
+<span class="org-variable-name">spec</span>:
+  <span class="org-variable-name">replicas</span>: 1
+  <span class="org-variable-name">selector</span>:
+    <span class="org-variable-name">matchLabels</span>:
+      <span class="org-variable-name">app</span>: homeassistant
+  <span class="org-variable-name">template</span>:
+    <span class="org-variable-name">metadata</span>:
+      <span class="org-variable-name">labels</span>:
+<span class="org-yaml-tab">        </span><span class="org-variable-name">app</span>: homeassistant
+    <span class="org-variable-name">spec</span>:
+      <span class="org-variable-name">containers</span>:
+<span class="org-yaml-tab">        </span><span class="org-variable-name">- name</span>: homeassistant
+<span class="org-yaml-tab">        </span><span class="org-variable-name">  image</span>: homeassistant/raspberrypi3-64-homeassistant:stable
+<span class="org-yaml-tab">        </span><span class="org-variable-name">  volumeMounts</span>:
+<span class="org-yaml-tab">        </span><span class="org-variable-name">    - name</span>: config-volume-configuration
+<span class="org-yaml-tab">        </span><span class="org-variable-name">      mountPath</span>: /config/configuration.yaml
+<span class="org-yaml-tab">        </span><span class="org-variable-name">      subPath</span>: configuration.yaml
+<span class="org-yaml-tab">        </span><span class="org-variable-name">  livenessProbe</span>:
+<span class="org-yaml-tab">        </span><span class="org-variable-name">    httpGet</span>:
+<span class="org-yaml-tab">        </span><span class="org-variable-name">      scheme</span>: HTTP
+<span class="org-yaml-tab">        </span><span class="org-variable-name">      path</span>: /
+<span class="org-yaml-tab">        </span><span class="org-variable-name">      port</span>: 8123
+<span class="org-yaml-tab">        </span><span class="org-variable-name">    initialDelaySeconds</span>: 30
+<span class="org-yaml-tab">        </span><span class="org-variable-name">    timeoutSeconds</span>: 30
+<span class="org-yaml-tab">        </span><span class="org-variable-name">  resources</span>:
+<span class="org-yaml-tab">        </span><span class="org-variable-name">    requests</span>:
+<span class="org-yaml-tab">        </span><span class="org-variable-name">      memory</span>: <span class="org-string">"512Mi"</span>
+<span class="org-yaml-tab">        </span><span class="org-variable-name">      cpu</span>: <span class="org-string">"100m"</span>
+<span class="org-yaml-tab">        </span><span class="org-variable-name">    limits</span>:
+<span class="org-yaml-tab">        </span><span class="org-variable-name">      memory</span>: <span class="org-string">"1024Mi"</span>
+<span class="org-yaml-tab">        </span><span class="org-variable-name">      cpu</span>: <span class="org-string">"500m"</span>
+<span class="org-yaml-tab">        </span><span class="org-variable-name">  ports</span>:
+<span class="org-yaml-tab">        </span><span class="org-variable-name">    - containerPort</span>: 8123
+<span class="org-yaml-tab">        </span><span class="org-variable-name">      protocol</span>: TCP
+<span class="org-yaml-tab">        </span><span class="org-variable-name">  imagePullPolicy</span>: Always
+      <span class="org-variable-name">volumes</span>:
+<span class="org-yaml-tab">        </span><span class="org-variable-name">- name</span>: config-volume-configuration
+<span class="org-yaml-tab">        </span><span class="org-variable-name">  configMap</span>:
+<span class="org-yaml-tab">        </span><span class="org-variable-name">    name</span>: homeassistant-config
+<span class="org-yaml-tab">        </span><span class="org-variable-name">    items</span>:
+<span class="org-yaml-tab">        </span><span class="org-variable-name">    - key</span>: configuration.yaml
+<span class="org-yaml-tab">        </span><span class="org-variable-name">      path</span>: configuration.yaml
+<span class="org-comment">---</span>
+<span class="org-variable-name">apiVersion</span>: v1
+<span class="org-variable-name">kind</span>: Service
+<span class="org-variable-name">metadata</span>:
+  <span class="org-variable-name">name</span>: homeassistant
+  <span class="org-variable-name">namespace</span>: homeassistant
+<span class="org-variable-name">spec</span>:
+  <span class="org-variable-name">selector</span>:
+    <span class="org-variable-name">app</span>: homeassistant
+  <span class="org-variable-name">ports</span>:
+    - <span class="org-variable-name">port</span>: 8123
+      <span class="org-variable-name">targetPort</span>: 8123
+<span class="org-comment">---</span>
+<span class="org-variable-name">apiVersion</span>: extensions/v1beta1
+<span class="org-variable-name">kind</span>: Ingress
+<span class="org-variable-name">metadata</span>:
+  <span class="org-variable-name">name</span>: homeassistant
+  <span class="org-variable-name">namespace</span>: homeassistant
+  <span class="org-variable-name">annotations</span>:
+    <span class="org-variable-name">kubernetes.io/ingress.class</span>: traefik
+    <span class="org-variable-name">traefik.frontend.rule.type</span>: PathPrefixStrip
+<span class="org-variable-name">spec</span>:
+  <span class="org-variable-name">rules</span>:
+  - <span class="org-variable-name">host</span>: homeassistant.int.mydomain.com
+    <span class="org-variable-name">http</span>:
+      <span class="org-variable-name">paths</span>:
+      - <span class="org-variable-name">path</span>: /
+<span class="org-yaml-tab">        </span><span class="org-variable-name">backend</span>:
+<span class="org-yaml-tab">        </span><span class="org-variable-name">  serviceName</span>: homeassistant
+<span class="org-yaml-tab">        </span><span class="org-variable-name">  servicePort</span>: 8123
+</pre>
+</div>
+
+<p>
+Setting up Ingress was the most time consuming part. It took me a while to figure out how it was supposed to work, and customizing the <a href="https://docs.traefik.io/">Treafik</a> Helm chart is not intuitive to me. While homeassistant was more straightforward as it is a simple HTTP behind SSL proxy service, the Kubernetes dashboard is already deployed with SSL inside the cluster. I am still figuring out how <code>ingress.kubernetes.io/protocol: https</code>, <code>traefik.ingress.kubernetes.io/pass-tls-cert: "true"</code> (oh, don&rsquo;t forget the quotes!) or <code>insecureSkipVerify</code> work toghether and what is the best way to expose it to the LAN.
+</p>
+
+<p>
+In a future post, I will describe the dashboards setup, and other improvements.
+</p>
+</div>
+</section>
+</main>
+<footer id="postamble" class="status">
+<p class='disclaimer'>The postings on this site are my own and don't necessarily represent my employer’s positions, strategies or opinions.</p>
+
+<p>Last updated 20 Oct. 2020. Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.3 (<a href="https://orgmode.org">Org</a> mode 9.4). <a href="/README.html">Details</a>.</p>
+</footer>
+</body>
+</html>

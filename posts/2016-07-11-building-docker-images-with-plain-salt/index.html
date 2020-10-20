@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 20 Oct. 2020 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Building Docker images with plain Salt</title>
+<meta name="generator" content="Org mode">
+<meta name="author" content="Duncan Mac-Vicar P.">
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-1687066-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-1687066-2');
+</script>
+<link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css' rel='stylesheet' integrity='sha256-k2/8zcNbxVIh5mnQ52A0r3a6jAgMGxFJFE2707UxGCk= sha512-ZV9KawG2Legkwp3nAlxLIVFudTauWuBpC10uEafMHYL0Sarrz5A7G79kXh5+5+woxQ5HM559XX2UZjMJ36Wplg==' crossorigin='anonymous'/>
+<meta description='The blog of Duncan Mac-Vicar P.'/>
+<link rel='alternate' type='application+rss/xml' title='The blog of Duncan Mac-Vicar P.' href='posts/rss.xml'/>
+<link rel="stylesheet" href="../../css/site.css?v=e21a1eb21340254d7e0023bf45ef785954bb24f4151e4abcd60e4c86799b8d8b" type="text/css">
+</head>
+<body>
+<header id="preamble" class="status">
+<aside>
+  <h1>Hi.</h1>
+  <a href="/">
+    <img src="https://www.gravatar.com/avatar/3b67365812827fa25df5093b38934a8f?s=80" class="avatar" alt="My photo"/>
+  </a>
+  <h2>I'm <a href="/">Duncan Mac-Vicar P.</a></h2>
+  <div id="bio">
+    <small><p>I am inspired by creating software. I do that mostly at <a href="https://www.suse.com"><!--img src="https://www.suse.com/common/img/suse_54x33.png" height="33" width="54" style="float: left;"-->SUSE</a>.
+      <p>When things break, I fix them or go play guitar...</p></small>
+  </div>
+  <div id="social">
+    Follow me:
+    <div id="stalker">
+      <a title="dmacvicar on Github" href="https://github.com/dmacvicar">
+        <i class="fa fa-github-square"></i>
+      </a>
+      <a title="dmacvicar on Hacker News" href="https://news.ycombinator.com/user?id=dmacvicar">
+        <i class="fa fa-hacker-news"></i>
+      </a>
+      <a title="dmacvicar on Twitter" href="https://twitter.com/dmacvicar">
+        <i class="fa fa-twitter-square"></i>
+      </a>
+      <a title="RSS feed" id="atom" href="posts/rss.xml">
+        <i class="fa fa-rss-square"></i>
+      </a>
+    </div>
+  </div>
+</aside>
+</header>
+<main id="content">
+<header>
+<h1 class="title">Building Docker images with plain Salt</h1>
+<p class="subtitle">Jul 11, 2016</p>
+</header><p>
+So <a href="https://hackweek.suse.com/">Hackweek 14</a> is over. It started during the <a href="https://events.opensuse.org/conference/oSC16">openSUSE Conference 2016</a> on Friday June 24 and continued all over the following week.
+</p>
+
+<p>
+I had worked on <a href="../2016-06-09-config-drift-salt-snapper/index.html">integrating snapshots with Salt</a> with <a href="https://github.com/meaksh">Pablo</a> just some weeks before that and I was waiting for the openSUSE Conference to get the chance to show <a href="https://twitter.com/thatch45">Thomas</a> what we had done in order to get feedback and figure out next steps.
+</p>
+
+<p>
+A few days before the Conference Redhat <a href="https://www.redhat.com/en/about/press-releases/red-hat-launches-ansible-native-container-workflow-project">did a press release</a> that caught my attention: a framework to build container images with <a href="https://www.ansible.com">Ansible</a>. Yes, that makes a lot of sense. My head started immediately to think all day long about the challenges to build something like that: Installing the configuration management tool without leaving it there, etc. I got curious and started poking at the README.
+</p>
+
+<p>
+On one hand, it was not what I was expecting (well, at least, for a Press Release or Tech Preview). It still &ldquo;generated&rdquo; Dockerfiles, relied on Ansible to be installed in some way, wich was &ldquo;templated&rdquo; into Dockerfiles, and it was of course a new tool.
+</p>
+
+<p>
+On the other hand, it was pure inspiration: I remembered why I like Salt so much. I knew that with Salt <a href="../2016-05-18-using-salt-like-ansible/index.html">I wouldn&rsquo;t need to build a &ldquo;new tool&rdquo;</a>. I&rsquo;d only need to write a module and connect some pieces, and that makes my feature distributed, accessible, deployable, etc. I&rsquo;d not need to interact with Docker directly, but only with the <a href="https://docs.saltstack.com/en/latest/ref/modules/all/salt.modules.dockerng.html">Salt execution module</a> for it. The best part: I had a Hackweek project!.
+</p>
+
+<p>
+I used the chance that <a href="https://twitter.com/thatch45">Thomas</a> was at the openSUSE Conference to ask him some details about <code>salt-thin</code> and explain him rough ideas.
+</p>
+
+<p>
+The feature went more or less like expected:
+</p>
+
+<ul class="org-ul">
+<li>A Docker image is basically another image, modified.</li>
+<li>The problem can be reduced to run a Salt state run inside of the container, modulo problems.
+
+<ul class="org-ul">
+<li>The image does not have Salt.</li>
+<li>After the State run, we can&rsquo;t leave Salt there.</li>
+<li>The container does not have connectivity with the Salt master.</li>
+<li>Pillars may be templated against grains which come from the
+container.</li>
+</ul></li>
+</ul>
+
+
+<figure id="orgbfe82b1">
+<img src="images/diagram-short.png" alt="Diagram">
+
+</figure>
+
+<p>
+After tackling the problems one by one, you can factor some stuff out:
+</p>
+
+<ul class="org-ul">
+<li>If <code>dockerng.build_sls</code> needs to apply state on a new container and commit it, why not allow to call state on a running container?.
+<code>dockerng.sls</code> was born.</li>
+<li>If we are going to call <code>state.sls</code> and <code>grains.items</code> on the container, why not allow to call <i>any</i> module in a container?. <code>dockerng.call</code> was born.</li>
+</ul>
+
+<p>
+On Friday I was able to give the following Lightning Talk:
+</p>
+
+<p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/2znjgf9Q7J0" frameborder="0" allowfullscreen></iframe>
+</p>
+
+<p>
+The result is:
+</p>
+
+<ul class="org-ul">
+<li>You can build images using your own <code>salt://</code> tree modules only needing Python on the base image. And yes, you can consume pillar data.</li>
+<li>You can execute modules on containers. Which will be interesting to see how it can be used for auditing (eg. <a href="https://github.com/HubbleStack">HubbleStack</a>).</li>
+</ul>
+
+<p>
+I prepared a <a href="https://github.com/saltstack/salt/pull/34484">pull request</a>, which had the best reception I ever got on a pull request:
+</p>
+
+
+<figure id="org2342b83">
+<img src="images/awesome.png" alt="Awesome">
+
+</figure>
+
+<p>
+There are some details to polish and I hope it can be merged soon.
+</p>
+</main>
+<footer id="postamble" class="status">
+<p class='disclaimer'>The postings on this site are my own and don't necessarily represent my employer’s positions, strategies or opinions.</p>
+
+<p>Last updated 20 Oct. 2020. Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.3 (<a href="https://orgmode.org">Org</a> mode 9.4). <a href="/README.html">Details</a>.</p>
+</footer>
+</body>
+</html>

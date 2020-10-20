@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 20 Oct. 2020 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My homepage with org-mode</title>
+<meta name="generator" content="Org mode">
+<meta name="author" content="Duncan Mac-Vicar P.">
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-1687066-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-1687066-2');
+</script>
+<link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css' rel='stylesheet' integrity='sha256-k2/8zcNbxVIh5mnQ52A0r3a6jAgMGxFJFE2707UxGCk= sha512-ZV9KawG2Legkwp3nAlxLIVFudTauWuBpC10uEafMHYL0Sarrz5A7G79kXh5+5+woxQ5HM559XX2UZjMJ36Wplg==' crossorigin='anonymous'/>
+<meta description='The blog of Duncan Mac-Vicar P.'/>
+<link rel='alternate' type='application+rss/xml' title='The blog of Duncan Mac-Vicar P.' href='posts/rss.xml'/>
+<link rel="stylesheet" href="css/site.css?v=e21a1eb21340254d7e0023bf45ef785954bb24f4151e4abcd60e4c86799b8d8b" type="text/css">
+</head>
+<body>
+<header id="preamble" class="status">
+<aside>
+  <h1>Hi.</h1>
+  <a href="/">
+    <img src="https://www.gravatar.com/avatar/3b67365812827fa25df5093b38934a8f?s=80" class="avatar" alt="My photo"/>
+  </a>
+  <h2>I'm <a href="/">Duncan Mac-Vicar P.</a></h2>
+  <div id="bio">
+    <small><p>I am inspired by creating software. I do that mostly at <a href="https://www.suse.com"><!--img src="https://www.suse.com/common/img/suse_54x33.png" height="33" width="54" style="float: left;"-->SUSE</a>.
+      <p>When things break, I fix them or go play guitar...</p></small>
+  </div>
+  <div id="social">
+    Follow me:
+    <div id="stalker">
+      <a title="dmacvicar on Github" href="https://github.com/dmacvicar">
+        <i class="fa fa-github-square"></i>
+      </a>
+      <a title="dmacvicar on Hacker News" href="https://news.ycombinator.com/user?id=dmacvicar">
+        <i class="fa fa-hacker-news"></i>
+      </a>
+      <a title="dmacvicar on Twitter" href="https://twitter.com/dmacvicar">
+        <i class="fa fa-twitter-square"></i>
+      </a>
+      <a title="RSS feed" id="atom" href="posts/rss.xml">
+        <i class="fa fa-rss-square"></i>
+      </a>
+    </div>
+  </div>
+</aside>
+</header>
+<main id="content">
+<header>
+<h1 class="title">My homepage with org-mode</h1>
+</header>
+<figure id="orgee3ece3">
+<a href="https://github.com/dmacvicar/site.org/actions?query=workflow%3A%22Build+and+publish+to+pages%22"><object type="image/svg+xml" data="https://github.com/dmacvicar/site.org/workflows/Build%20and%20publish%20to%20pages/badge.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object></a>
+
+</figure>
+
+<section id="outline-container-orgf3e95ae" class="outline-2">
+<h2 id="orgf3e95ae">Introduction</h2>
+<div class="outline-text-2" id="text-orgf3e95ae">
+<p>
+This setup based on <a href="https://orgmode.org">org-mode</a> aims to replace my previous <a href="https://jekyllrb.com">Jekyll</a> setup used to publish my site.
+</p>
+</div>
+</section>
+
+<section id="outline-container-org211080e" class="outline-2">
+<h2 id="org211080e">Implementation</h2>
+<div class="outline-text-2" id="text-org211080e">
+<p>
+For details about the implementation see <a href="posts/2019-09-03-migrating-from-jekyll-to-org/index.html">the introductory post</a> and the <a href="https://github.com/dmacvicar/site.org"><i aria-hidden='true' class='fa fa-github'></i> Source</a>.
+</p>
+</div>
+</section>
+
+<section id="outline-container-orgeffe2b0" class="outline-2">
+<h2 id="orgeffe2b0">Usage</h2>
+<div class="outline-text-2" id="text-orgeffe2b0">
+<ul class="org-ul">
+<li>Posts go into <code>posts/</code>
+Preferably in their own subdirectory together with all their assets (self-contained)</li>
+<li>Tutorials go in <code>tutorials/</code>, as they are rendered (for now) with the <a href="https://github.com/fniessen/org-html-themes">readtheorg</a> theme</li>
+</ul>
+
+<p>
+To generate:
+</p>
+
+<pre class="example" id="org945f67a">
+$ make
+</pre>
+
+<p>
+The output site will be rendered in <code>public/</code>.
+</p>
+</div>
+
+<div id="outline-container-org5f91e1d" class="outline-3">
+<h3 id="org5f91e1d">RSS Feeds</h3>
+<div class="outline-text-3" id="text-org5f91e1d">
+<p>
+I am documenting this part because it is complicated and I tend to forget how it works everytime something breaks.
+</p>
+
+<ul class="org-ul">
+<li>Each export block in the project translates the full site, file by file, to another format (taking into account excludes, includes)
+As we have very different settings for the posts than we have for tutorials, we have different entries in the project for translating each subset.</li>
+
+<li>Sitemaps allow to generate a map of all converted files in a single org file.
+Eg. a sitemap in posts, will generate an org file with a list of links to all posts. This is particularly useful for the rss exporter.</li>
+
+<li>We have an export entry in the project that goes over <span class="underline">_posts/</span>, takes a dummy export function, but generates a sitemap. This allows us to end with a <span class="underline">rss.org</span> file without really exporting anything.</li>
+
+<li>Then we use another entry in the project, that uses the <span class="underline">RSS</span> exporter, including only <span class="underline">rss.org</span> in order to generate <span class="underline">rss.xml</span></li>
+
+<li><p>
+Now, the default sitemap function generates something like:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-txt">* Entries
+  - [[One entry][http://link]]
+  - [[Second entry][http://link]]
+</pre>
+</div>
+
+<p>
+Those will not be exported correctly to a list of links. Only the headline  will be exported in the RSS file.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-txt">* [[One entry][http://link]]
+* [[Second entry][http://link]]
+</pre>
+</div></li>
+
+<li><p>
+By default, the link will reference the file where the link appears. Something like
+</p>
+<div class="org-src-container">
+<pre class="src src-txt">&lt;link&gt;http://rss.org#section&lt;/link&gt;
+</pre>
+</div>
+
+<p>
+To change this we use <span class="underline">org-rss-use-entry-url-as-guid</span> and set the <span class="underline">RSS_PERMALINK</span> property of the headline when generating the sitemap.
+The <span class="underline">RSS</span> exporter will then use the property for the <span class="underline">&lt;link&gt;</span> tag content.
+</p></li>
+
+<li>The custom entry formatter adds a headline to a temp buffer and then uses <span class="underline">org-set-property</span> to set the custom properties.</li>
+<li>The sitemap function uses <span class="underline">org-list-to-generic</span> to create a list of headlines without adding a star, as it will be added by the entry function.</li>
+</ul>
+</div>
+</div>
+</section>
+
+<section id="outline-container-org05e6434" class="outline-2">
+<h2 id="org05e6434">Features</h2>
+<div class="outline-text-2" id="text-org05e6434">
+</div>
+<div id="outline-container-org4d01fdb" class="outline-4">
+<h4 id="org4d01fdb">Redirection</h4>
+<div class="outline-text-4" id="text-org4d01fdb">
+<p>
+When the site was generated using Jekyll, posts where generated in the <code>/:year/:month/:day/:id.html</code> route.
+In order to generate a redirect page, use the following keyword to generate a redirect page:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-org"><span class="org-org-meta-line">#+REDIRECT_FROM /old/url/index.html</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgb78aceb" class="outline-3">
+<h3 id="orgb78aceb">Drafts</h3>
+<div class="outline-text-3" id="text-orgb78aceb">
+<p>
+To hide a post from the list of recent posts or the full archive, use:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-org"><span class="org-org-meta-line">#+DRAFT t</span>
+</pre>
+</div>
+
+<p>
+Note that the post will still be published, but you will need to access it by its URL directly.
+</p>
+</div>
+</div>
+</section>
+
+<section id="outline-container-orgb1843df" class="outline-2">
+<h2 id="orgb1843df">License</h2>
+<div class="outline-text-2" id="text-orgb1843df">
+<p>
+The code used for generating the site is licensed under the <a href="LICENSE">MIT</a> license.
+</p>
+
+<p>
+The content of the site, Copyright (©) 2014-2019 Duncan Mac-Vicar P..
+</p>
+</div>
+</section>
+</main>
+<footer id="postamble" class="status">
+<p class='disclaimer'>The postings on this site are my own and don't necessarily represent my employer’s positions, strategies or opinions.</p>
+
+<p>Last updated 20 Oct. 2020. Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.3 (<a href="https://orgmode.org">Org</a> mode 9.4). <a href="/README.html">Details</a>.</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 20 Oct. 2020 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Migrating from Jekyll to org-mode and Github Actions</title>
+<meta name="generator" content="Org mode">
+<meta name="author" content="Duncan Mac-Vicar P.">
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-1687066-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-1687066-2');
+</script>
+<link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css' rel='stylesheet' integrity='sha256-k2/8zcNbxVIh5mnQ52A0r3a6jAgMGxFJFE2707UxGCk= sha512-ZV9KawG2Legkwp3nAlxLIVFudTauWuBpC10uEafMHYL0Sarrz5A7G79kXh5+5+woxQ5HM559XX2UZjMJ36Wplg==' crossorigin='anonymous'/>
+<meta description='The blog of Duncan Mac-Vicar P.'/>
+<link rel='alternate' type='application+rss/xml' title='The blog of Duncan Mac-Vicar P.' href='posts/rss.xml'/>
+<link rel="stylesheet" href="../../css/site.css?v=e21a1eb21340254d7e0023bf45ef785954bb24f4151e4abcd60e4c86799b8d8b" type="text/css">
+</head>
+<body>
+<header id="preamble" class="status">
+<aside>
+  <h1>Hi.</h1>
+  <a href="/">
+    <img src="https://www.gravatar.com/avatar/3b67365812827fa25df5093b38934a8f?s=80" class="avatar" alt="My photo"/>
+  </a>
+  <h2>I'm <a href="/">Duncan Mac-Vicar P.</a></h2>
+  <div id="bio">
+    <small><p>I am inspired by creating software. I do that mostly at <a href="https://www.suse.com"><!--img src="https://www.suse.com/common/img/suse_54x33.png" height="33" width="54" style="float: left;"-->SUSE</a>.
+      <p>When things break, I fix them or go play guitar...</p></small>
+  </div>
+  <div id="social">
+    Follow me:
+    <div id="stalker">
+      <a title="dmacvicar on Github" href="https://github.com/dmacvicar">
+        <i class="fa fa-github-square"></i>
+      </a>
+      <a title="dmacvicar on Hacker News" href="https://news.ycombinator.com/user?id=dmacvicar">
+        <i class="fa fa-hacker-news"></i>
+      </a>
+      <a title="dmacvicar on Twitter" href="https://twitter.com/dmacvicar">
+        <i class="fa fa-twitter-square"></i>
+      </a>
+      <a title="RSS feed" id="atom" href="posts/rss.xml">
+        <i class="fa fa-rss-square"></i>
+      </a>
+    </div>
+  </div>
+</aside>
+</header>
+<main id="content">
+<header>
+<h1 class="title">Migrating from Jekyll to org-mode and Github Actions</h1>
+<p class="subtitle">Sep 03, 2019</p>
+</header>
+<section id="outline-container-org1542a7c" class="outline-2">
+<h2 id="org1542a7c">Introduction</h2>
+<div class="outline-text-2" id="text-org1542a7c">
+<p>
+My <a href="http://duncan.codes">website</a> has been generated until now by <a href="https://pages.github.com/">Github pages</a> using a static site generator tool called <a href="https://jekyllrb.com/">Jekyll</a> and the <a href="http://jekyllthemes.org/themes/lagom/">Lagom</a> theme.
+</p>
+</div>
+
+<div id="outline-container-orgd1564a7" class="outline-3">
+<h3 id="orgd1564a7">Github Pages</h3>
+<div class="outline-text-3" id="text-orgd1564a7">
+<p>
+Github Pages allows to host static sites in Github repositories for free. It is very simple, you would just put the website in a branch (eg. <code>gh-pages</code>) and Github will serve it as <i>username.github.io/repo</i>, or via a custom domain by adding a simple <i>CNAME</i> text file to the repository.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org89ad0d3" class="outline-3">
+<h3 id="org89ad0d3">Static Site Generators</h3>
+<div class="outline-text-3" id="text-org89ad0d3">
+<p>
+If you did not want to write <i>HTML</i> directly, you could use a <a href="https://en.wikipedia.org/wiki/Web_template_system#Static_site_generators">static site generator</a> to keep a set of templates and content in the git repository and putting the output of the generator (the <i>HTML</i> files) into the <code>gh-pages</code> branch to be served by Github.
+</p>
+
+<p>
+In addition to be able to write the content in <a href="https://github.github.com/gfm/">Markdown</a>, site generators made much easier to maintain content like a blog, with features like different templates for posts, code syntax highlighting, drafts and support for themes, which allowed to change the look and feel of the site by just changing one configuration option and just re-generating it.
+</p>
+
+<p>
+If you wanted this process to be automatic, you could run the generation as part of some CI job (eg. with <a href="https://travis-ci.org/">TravisCI</a>), so that the site is re-generated when its sources are updated.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org078a541" class="outline-3">
+<h3 id="org078a541">Jekyll support in Github Pages</h3>
+<div class="outline-text-3" id="text-org078a541">
+<p>
+Jekyll is one of these site generators and it was the most popular for a while. The nice part was that if you used Jekyll, Github Pages will generate your website automatically, without having to setup CI. Just push your changes and a minute later your site was published.
+</p>
+
+<p>
+On the other hand, you were limited by using the Jekyll version that was installed at Github, and you could not just install any add-on that you wanted. You did not control the environment to the level you did in a typical CI.
+</p>
+</div>
+</div>
+</section>
+
+<section id="outline-container-orge109914" class="outline-2">
+<h2 id="orge109914">Moving away from Jekyll</h2>
+<div class="outline-text-2" id="text-orge109914">
+<p>
+Jekyll just worked. I can&rsquo;t complain about it. However, I feel too tied to the Github Pages environment. You had to use a Jekyll version that was close to a year behind and live with the plugins that the environment supported, and nothing more.
+</p>
+
+<p>
+If I was to setup my own CI workflow to overcome this limitation, why keep using Jekyll?. <a href="https://gohugo.io/">Hugo</a> started to feel faster, easier to deploy locally and mostly compatible.
+</p>
+
+<p>
+I have been using Emacs for more than 10 years. 3 years ago, I switched mail clients from Thunderbird to <a href="https://www.djcbsoftware.nl/code/mu/mu4e.html">mu4e</a> on top of <a href="https://www.gnu.org/software/emacs/">Emacs</a>. Then I discovered <a href="https://orgmode.org/">org-mode</a> as a plain-text personal organization system and gradually started to live more time inside emacs. Microsoft did a so good job with <a href="https://code.visualstudio.com/">Visual Studio Code</a> that for a moment I thought I would not resist. However, Microsoft created an ecosystem by making the interaction with programming languages a standard, via the <a href="https://microsoft.github.io/language-server-protocol/">Language Server Protocol</a>, and <a href="https://github.com/emacs-lsp/lsp-mode">emacs-lsp</a> made my programming experience with emacs just better.
+</p>
+
+<p>
+I knew that <code>org-mode</code> was quite good at exporting. After I saw a couple of websites generated from org, I started to toy with the idea of using org too. It could also be a good chance to learn <a href="https://www.gnu.org/software/emacs/manual/eintr.html">Emacs Lisp</a> for real. So I started learning about org and websites.
+</p>
+</div>
+</section>
+
+<section id="outline-container-org69d8730" class="outline-2">
+<h2 id="org69d8730">Inspiration</h2>
+<div class="outline-text-2" id="text-org69d8730">
+<p>
+As I did not know where to start, I started by reading a lot of solutions by other people, documentation, posts, etc.
+</p>
+
+<p>
+Most of the structure of the final solution, its ideas, conventions, configuration and some snippets were taken from the following projects:
+</p>
+
+<ul class="org-ul">
+<li><a href="https://gitlab.com/to1ne/blog">Toon Claes&rsquo;s blog</a></li>
+<li>Example <a href="http://orgmode.org">org-mode</a> website using <a href="http://pages.gitlab.io/">GitLab Pages</a> by Rasmus</li>
+<li><a href="https://github.com/bastibe/org-static-blog">https://github.com/bastibe/org-static-blog</a></li>
+<li>The theme is a port of the original <a href="https://github.com/swanson/lagom">Lagom</a> theme I was using with Jekyll</li>
+</ul>
+</div>
+</section>
+
+<section id="outline-container-org4badc43" class="outline-2">
+<h2 id="org4badc43">Implementation</h2>
+<div class="outline-text-2" id="text-org4badc43">
+</div>
+<div id="outline-container-org89ce0a9" class="outline-3">
+<h3 id="org89ce0a9">Principles</h3>
+<div class="outline-text-3" id="text-org89ce0a9">
+<p>
+Once I had a clear picture of the domain, I made up my mind of how I wanted it and my own requirements:
+</p>
+
+<ul class="org-ul">
+<li>Use as much standard packages as possible. eg. <a href="https://orgmode.org/manual/Publishing.html">org-publish</a>. Avoid using <a href="https://melpa.org/#/?q=blog">&ldquo;frameworks&rdquo;</a> on top of emacs/org</li>
+<li>Links to old posts should still work (I had configured Jekyll to use <code>/year/month/day/post-name.html</code> )</li>
+<li>Initially, I thought about the ability to migrate content gradually, eg. supporting Markdown posts for a while</li>
+<li>Self contained. Everything should be in a single git repo, not interfering with my <code>emacs.d</code>.</li>
+<li>Ability to run it from the command line, so that <i>CI</i> could be used to automatically generate the site from <i>git</i></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org3961e89" class="outline-3">
+<h3 id="org3961e89">Emacs concepts to be used</h3>
+<div class="outline-text-3" id="text-org3961e89">
+<p>
+There are a bunch of emacs concepts that help putting all the pieces together:
+</p>
+</div>
+
+<div id="outline-container-org8127f94" class="outline-4">
+<h4 id="org8127f94">Emacs batch mode</h4>
+<div class="outline-text-4" id="text-org8127f94">
+<p>
+While I could have most of the configuration in my <code>~/.emacs.d/init.el</code>, I wanted a self-contained solution, not depending on my personal emacs configuration being available.
+</p>
+
+<p>
+There are a bunch of <i>emacs</i> options that help achieving this:
+</p>
+
+<pre class="example" id="org6501515">
+$ emacs --help
+...
+--batch                     do not do interactive display; implies -q
+...
+--no-init-file, -q          load neither ~/.emacs nor default.el
+...
+--load, -l FILE         load Emacs Lisp FILE using the load function
+...
+--funcall, -f FUNC      call Emacs Lisp function FUNC with no arguments
+...
+</pre>
+
+<p>
+With these options, we can put all our configuration and helper functions in a <i>lisp</i> file, call emacs as a script engine, skip our personal configuration, have emacs load the file with the configuration, and call a function to run everything.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orge93cbc1" class="outline-4">
+<h4 id="orge93cbc1">org-mode Export (ox)</h4>
+<div class="outline-text-4" id="text-orge93cbc1">
+<p>
+<i>org-mode</i> includes an <a href="https://orgmode.org/manual/Exporting.html">Export subsystem</a> with several target formats (<i>ASCII</i>, <a href="https://en.wikipedia.org/wiki/Beamer_(LaTeX)"><i>beamer</i></a>, <i>HTML</i>, etc). Every backend/converter is a set of functions that take already parsed <i>org-mode</i> structures (eg. a list, a timestamp, a paragraph) and converts it to the target format. <a href="https://orgmode.org/worg/">Worg</a>, a section of the Org-mode web site that is written by a volunteer community of Org-mode fans, provide <a href="https://orgmode.org/worg/dev/org-export-reference.html">documentation on how to define an export backend</a> (<i>org-export-define-backend</i>). From here is important to understand <a href="https://orgmode.org/worg/dev/org-export-reference.html#filter-system">the filter system</a> and <i>org-export-define-derived-backend</i>, which allows to define a backend by overriding an existing one. This is what I will end using to tweak, for example, how timestamps are exported.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org11309dc" class="outline-4">
+<h4 id="org11309dc">org-publish</h4>
+<div class="outline-text-4" id="text-org11309dc">
+<p>
+<i>org-mode</i> includes a <a href="https://orgmode.org/manual/Publishing.html">publishing management system</a> that helps exporting a interlinked set of org files. There is a <a href="https://orgmode.org/worg/org-tutorials/org-publish-html-tutorial.html">nice tutorial</a> also available.
+</p>
+
+<p>
+Using <i>org-publish</i> boils down to defining a list of components (blog posts, assets, <i>RSS</i>), their options (base directory, target directory, includes/excludes, publishing function) being the <i>publishing function</i> one of the most interesting ones, as <i>org</i> comes with a few predefined ones eg. <i>org-html-publish-to-html</i> to publish <i>HTML</i> files and <i>org-publish-attachment</i> to publish static assets. The most important thing to learn here is that you can wrap those in your own to do additional stuff and customize publishing very easily. I use this for example, to skip draft posts or to write redirect files for certain posts in addition to the post itself.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgc553ae0" class="outline-3">
+<h3 id="orgc553ae0">The solution</h3>
+<div class="outline-text-3" id="text-orgc553ae0">
+</div>
+<div id="outline-container-org31a31af" class="outline-4">
+<h4 id="org31a31af">Directory Structure</h4>
+<div class="outline-text-4" id="text-org31a31af">
+<pre class="example" id="org7b6bc1f">
+├── CNAME
+├── css
+│   ├── index.css
+│   └── site.css
+├── index.org
+├── Makefile
+├── posts
+│   ├── 2019-10-31-some-post
+│   │   └── index.org
+│   ├── 2014-06-11-other-post
+│   │   ├── images
+│   │   │   ├── someimage.png
+│   │   │   └── another-image.png
+│   │   └── index.org
+│   ├── archive.org
+│   └── posts.org
+├── public
+├── publish.el
+├── README.org
+├── snippets
+│   ├── analytics.js
+│   ├── postamble.html
+│   └── preamble.html
+└── tutorials
+    └── how-to-something
+        └── index.org
+</pre>
+
+<p>
+Inside the directory tree, you can find:
+</p>
+
+<ul class="org-ul">
+<li>a <i>publish.el</i> file with the <i>org-publish</i> project description and all the support code and helper functions</li>
+<li>a <i>CNAME</i> file for telling <a href="https://help.github.com/en/articles/using-a-custom-domain-with-github-pages">Github Pages my domain name</a></li>
+<li>a folder with a <i>CSS</i> file for all the site. Another one that is included only on the index page</li>
+<li>a <i>Makefile</i> that just calls emacs with the parameters we described above and calls the function <i>duncan-publish-all</i></li>
+<li>a subdirectory for each post, and another one for tutorials</li>
+<li>a <i>public</i> directory where the output files are generated and the static assets copied</li>
+<li>a <i>snippets</i> directory with the preamble, postamble and Google analytics snippets</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org8ab233e" class="outline-4">
+<h4 id="org8ab233e">publish.el</h4>
+<div class="outline-text-4" id="text-org8ab233e">
+<p>
+The main file containing code and configuration includes a few custom publishing functions that are used as hooks for publishing and creating sitemaps.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org806e26c" class="outline-4">
+<h4 id="org806e26c">org-publish project</h4>
+<div class="outline-text-4" id="text-org806e26c">
+<p>
+The <i>org-publish</i> project (<i>org-publish-project-alist</i>) is defined in the variable <i>duncan&#x2013;publish-project-alist</i>, and defines the following components:
+</p>
+
+<ul class="org-ul">
+<li><p>
+<i>blog</i>
+</p>
+
+<p>
+This components reads all <i>org</i> files in the <code>./posts/</code> directory, and exports them to <i>HTML</i> using <i>duncan/org-html-publish-post-to-html</i> as the publishing function.
+</p>
+
+<p>
+This function injects the date as the page subtitle in the property list before delegating to the original function. This is a common pattern that you can use to override the publishing function. Note that <i>subtitle</i> is a recognized configuration property of the <i>HTML</i> export backend.
+</p></li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(<span class="org-keyword">defun</span> <span class="org-function-name">duncan/org-html-publish-post-to-html</span> (plist filename pub-dir)
+  <span class="org-doc">"Wraps org-html-publish-to-html.  Append post date as subtitle to PLIST.  FILENAME and PUB-DIR are passed."</span>
+  (<span class="org-keyword">let</span> ((project (cons 'blog plist)))
+    (plist-put plist <span class="org-builtin">:subtitle</span>
+               (format-time-string <span class="org-string">"%b %d, %Y"</span> (org-publish-find-date filename project)))
+    (duncan/org-html-publish-to-html plist filename pub-dir)))
+</pre>
+</div>
+
+<p>
+The function also checks the <code>#+REDIRECT_TO</code> property, and generates redirect pages accordingly, by spawning another export to a different path in the same <code>pub_dir</code>.
+</p>
+
+<p>
+This component is configured with a sitemap function which, even if goes through all posts, it is programmed to take only a few ones and write an <i>org</i> file with links to them. This file (<i>posts.org</i>) is then included in <i>index.org</i> and used as the list of recent posts.
+</p>
+
+<ul class="org-ul">
+<li><p>
+<i>archive-rss</i>
+</p>
+
+<p>
+This component also operates on <code>/.posts/</code>, but instead of generating HTML, it uses the <i>RSS</i> backend to generate the full site archive as <i>RSS</i>.
+</p>
+
+<p>
+The sitemap function is also configured, like in the <i>blog</i> component, but this function generates an org file with all posts, not just the latest ones. The <i>sitemap-format-entry</i> function is shared between the sitemaps functions, as the list of posts looks the same.
+</p></li>
+</ul>
+
+
+<figure id="orgccafcc5">
+<img src="images/sitemap-function.png" alt="sitemap-function.png">
+
+</figure>
+
+<ul class="org-ul">
+<li><p>
+<i>site</i>
+</p>
+
+<p>
+The rest of the content of the site, including the <i>index.org</i> page and the generated <i>org</i> files for the archive (<i>archive.org</i>) and latest posts (<i>posts.org</i>).
+</p></li>
+
+<li><p>
+<i>assets</i>
+</p>
+
+<p>
+All files that are just copied over
+</p></li>
+
+<li><p>
+<i>tutorials</i>
+</p>
+
+<p>
+It works just like posts, but I setup each (don&rsquo;t expect to have many) to use the <a href="https://github.com/fniessen/org-html-themes">ReadTheOrg</a> theme. It uses the default <i>HTML</i> publishing function.
+</p></li>
+</ul>
+
+
+<figure id="orga8a523c">
+<img src="images/readtheorg.png" alt="readtheorg.png">
+
+</figure>
+</div>
+</div>
+
+<div id="outline-container-org728414d" class="outline-4">
+<h4 id="org728414d">Export workflow</h4>
+<div class="outline-text-4" id="text-org728414d">
+
+<figure id="org4228087">
+<img src="images/publishing-function.png" alt="publishing-function.png">
+
+</figure>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org3a01835" class="outline-3">
+<h3 id="org3a01835">Look &amp; Feel</h3>
+<div class="outline-text-3" id="text-org3a01835">
+<p>
+I managed to port most of the <i>Lagom</i> look and feel by starting a CSS from scratch (learned <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/grid">CSS Grid</a> in the process) and manually fixing each difference. I was quite satisfied with the final result. I had to use some extra page-specific CSS to hide the title in the front-page, or to <a href="https://emacs.stackexchange.com/questions/36898/proper-way-to-add-to-org-entities-user">display</a> <a href="https://fontawesome.com/">FontAwesome</a> icons.
+</p>
+</div>
+
+<div id="outline-container-orge4804bb" class="outline-4">
+<h4 id="orge4804bb">Before</h4>
+<div class="outline-text-4" id="text-orge4804bb">
+
+<figure id="org0a3656b">
+<img src="images/jekyll.png" alt="jekyll.png">
+
+</figure>
+</div>
+</div>
+
+<div id="outline-container-org3d14fe8" class="outline-4">
+<h4 id="org3d14fe8">After</h4>
+<div class="outline-text-4" id="text-org3d14fe8">
+
+<figure id="org001d586">
+<img src="images/org.png" alt="org.png">
+
+</figure>
+</div>
+</div>
+</div>
+</section>
+
+<section id="outline-container-org6fcbd0b" class="outline-2">
+<h2 id="org6fcbd0b">Publishing</h2>
+<div class="outline-text-2" id="text-org6fcbd0b">
+<p>
+While locally you can test by running <i>emacs</i> via the <i>Makefile</i>, I wanted a new way to run the generation on every git push:
+</p>
+
+<ul class="org-ul">
+<li>I started with <a href="https://travis-ci.com/">Travis</a>, but I could not find container jobs anymore. When I relalized that Ubuntu had an older Emacs version I just lost interest.</li>
+<li>Gitlab was easy to get working. Not only because is very simple and elegant, but some of the examples I took inspiration from where already using it, along the <a href="https://github.com/iquiw/docker-alpine-emacs">Emacs Alpine</a> container image. However, I did not want to have everything in Github, except my site</li>
+<li>Then I realized <a href="https://github.com/features/actions">Github Actions</a> was in beta, but I was not yet in. Until:</li>
+</ul>
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">You’re in 🥰</p>&mdash; Nat Friedman (@natfriedman) <a href="https://twitter.com/natfriedman/status/1165778104280707072?ref_src=twsrc%5Etfw">August 26, 2019</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div>
+
+<div id="outline-container-org85bee8a" class="outline-3">
+<h3 id="org85bee8a">Setting up a workflow to build the site</h3>
+<div class="outline-text-3" id="text-org85bee8a">
+<p>
+While, on Linux, Github actions run on Ubuntu, they allow you to execute an action inside a container.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml"><span class="org-variable-name">name</span>: Build and publish to pages
+<span class="org-variable-name">on</span>:
+  <span class="org-variable-name">push</span>:
+    <span class="org-variable-name">branches</span>:
+    - master
+
+<span class="org-variable-name">jobs</span>:
+  <span class="org-variable-name">build</span>:
+    <span class="org-variable-name">runs-on</span>: ubuntu-latest
+    <span class="org-variable-name">steps</span>:
+    - <span class="org-variable-name">uses</span>: actions/checkout@master
+      <span class="org-variable-name">with</span>:
+<span class="org-yaml-tab">        </span><span class="org-variable-name">fetch-depth</span>: 1
+    - <span class="org-variable-name">name</span>: build
+      <span class="org-variable-name">uses</span>: docker://iquiw/alpine-emacs
+      <span class="org-variable-name">if</span>: github.event.deleted == false
+      <span class="org-variable-name">with</span>:
+<span class="org-yaml-tab">        </span><span class="org-variable-name">args</span>: ./build.sh
+    - <span class="org-variable-name">name</span>: deploy
+      <span class="org-variable-name">uses</span>: peaceiris/actions-gh-pages@v1.1.0
+      <span class="org-variable-name">if</span>: success()
+      <span class="org-variable-name">env</span>:
+<span class="org-yaml-tab">        </span><span class="org-variable-name">GITHUB_TOKEN</span>: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+<span class="org-yaml-tab">        </span><span class="org-variable-name">PUBLISH_BRANCH</span>: gh-pages
+<span class="org-yaml-tab">        </span><span class="org-variable-name">PUBLISH_DIR</span>: ./public
+</pre>
+</div>
+
+<p>
+Combining <a href="https://github.com/actions/checkout">actions/checkout</a>, our own build script running as a container <a href="https://github.com/iquiw/docker-alpine-emacs">docker://iquiw/alpine-emacs</a> inside the <i>VM</i>, and <a href="https://github.com/peaceiris/actions-gh-pages">peaceiris/actions-gh-pages</a> we get the desired results.
+</p>
+
+<p>
+As a caveat, you need to setup a <i>personal access token</i> for the action, as the default one will not work and what gets pushed to the <i>gh-pages</i> will not show up in your website.
+</p>
+
+<p>
+The experience with Github Actions has been very positive. I will definitely replace most of my TravisCI usage in my repositories. Kudos to the Github team.
+</p>
+</div>
+</div>
+</section>
+
+<section id="outline-container-orgf0a79d8" class="outline-2">
+<h2 id="orgf0a79d8">Conclusions</h2>
+<div class="outline-text-2" id="text-orgf0a79d8">
+<p>
+Not only I have a website powered by the tool I use daily, but it is also packed with awesome features. For example, the diagrams in this post are inlined as <a href="http://plantuml.com/">PlantUML</a> code in the <i>org</i> file and exported via <a href="https://orgmode.org/worg/org-contrib/babel/intro.html">Org Babel</a>.
+</p>
+
+<p>
+It also gave me project to learn <i>Emacs Lisp</i>. I do plan to add some minor features, like blog tags or categories and perhaps commenting. The learning will also benefit personalizing my editor and mail client.
+</p>
+
+<p>
+The source of this site is available <a href="https://github.com/dmacvicar/site.org">on <i aria-hidden='true' class='fa fa-github'></i> Github</a>.
+</p>
+</div>
+</section>
+</main>
+<footer id="postamble" class="status">
+<p class='disclaimer'>The postings on this site are my own and don't necessarily represent my employer’s positions, strategies or opinions.</p>
+
+<p>Last updated 20 Oct. 2020. Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.3 (<a href="https://orgmode.org">Org</a> mode 9.4). <a href="/README.html">Details</a>.</p>
+</footer>
+</body>
+</html>

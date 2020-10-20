@@ -1,0 +1,1674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 20 Oct. 2020 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RPM Packaging Tutorial</title>
+<meta name="generator" content="Org mode">
+<meta name="author" content="Duncan Mac-Vicar P.">
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/styles/readtheorg/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/styles/readtheorg/css/readtheorg.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/styles/lib/js/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/styles/readtheorg/js/readtheorg.js"></script>
+<script type="text/javascript">
+// @license magnet:?xt=urn:btih:e95b018ef3580986a04669f1b5879592219e2a7a&dn=public-domain.txt Public Domain
+<!--/*--><![CDATA[/*><!--*/
+     function CodeHighlightOn(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.add("code-highlighted");
+         target.classList.add("code-highlighted");
+       }
+     }
+     function CodeHighlightOff(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.remove("code-highlighted");
+         target.classList.remove("code-highlighted");
+       }
+     }
+    /*]]>*///-->
+// @license-end
+</script>
+</head>
+<body>
+<main id="content">
+<header>
+<h1 class="title">RPM Packaging Tutorial</h1>
+</header><nav id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#authors">Authors</a></li>
+<li><a href="#document-revisions">Document revisions</a></li>
+<li><a href="#what-is-a-package">What is a package</a>
+<ul>
+<li><a href="#anatomy-of-a-package">Anatomy of a package</a></li>
+<li><a href="#installing-packages">Installing packages</a></li>
+<li><a href="#dependency-matching">Dependency matching</a></li>
+<li><a href="#weak-dependencies">Weak dependencies</a></li>
+</ul>
+</li>
+<li><a href="#working-with-packages">Working with packages</a>
+<ul>
+<li><a href="#repositories">Repositories</a>
+<ul>
+<li><a href="#refreshing-a-repository">Refreshing a repository</a></li>
+<li><a href="#services">Services</a></li>
+<li><a href="#repository-sources">Repository sources</a></li>
+</ul>
+</li>
+<li><a href="#other-package-manager-operations">Other package manager operations</a></li>
+<li><a href="#other-solvable-types-products-patterns-system">Other solvable types (Products, Patterns, System)</a>
+<ul>
+<li><a href="#patterns">Patterns</a></li>
+<li><a href="#products">Products</a></li>
+<li><a href="#patches">Patches</a></li>
+<li><a href="#system">System</a></li>
+<li><a href="#important-notes">Important notes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#creating-packages">Creating packages</a>
+<ul>
+<li><a href="#common-macros">Common macros</a></li>
+<li><a href="#sub-packages">Sub-packages</a></li>
+<li><a href="#building-with-rpmbuild">Building with rpmbuild</a></li>
+<li><a href="#building-in-a-real-build-environment">Building in a real build environment</a>
+<ul>
+<li><a href="#the-open-build-service">The Open Build Service</a></li>
+<li><a href="#using-the-build-service-locally">Using the Build Service locally</a></li>
+</ul>
+</li>
+<li><a href="#improving-the-package">Improving the package</a></li>
+<li><a href="#changelogs">Changelogs</a></li>
+<li><a href="#finding-the-devel-package-on-obs">Finding the devel package on OBS</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</nav>
+
+<section id="outline-container-authors" class="outline-2">
+<h2 id="authors">Authors</h2>
+<div class="outline-text-2" id="text-authors">
+<ul class="org-ul">
+<li>Duncan Mac-Vicar P.</li>
+</ul>
+
+<p>
+Thanks:
+</p>
+
+<ul class="org-ul">
+<li>Kristoffer Grönlund</li>
+<li>Kristyna Streitova</li>
+<li>Bernhard M. Wiedemann</li>
+<li>Konstantin Baikov</li>
+</ul>
+
+<p>
+For corrections.
+</p>
+</div>
+</section>
+
+<section id="outline-container-document-revisions" class="outline-2">
+<h2 id="document-revisions">Document revisions</h2>
+<div class="outline-text-2" id="text-document-revisions">
+<table>
+
+
+<colgroup>
+<col  class="org-right">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-right">Date</th>
+<th scope="col" class="org-left">Changes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-right">09.10.2018</td>
+<td class="org-left">Fixed typos</td>
+</tr>
+
+<tr>
+<td class="org-right">20.02.2018</td>
+<td class="org-left">Merged contributions</td>
+</tr>
+
+<tr>
+<td class="org-right">13.03.2017</td>
+<td class="org-left">Added links about kmp drivers</td>
+</tr>
+
+<tr>
+<td class="org-right">08.03.2017</td>
+<td class="org-left">First release</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section id="outline-container-what-is-a-package" class="outline-2">
+<h2 id="what-is-a-package">What is a package</h2>
+<div class="outline-text-2" id="text-what-is-a-package">
+<p>
+A package is a way of distributing software on Linux systems. A single
+application is distributed as one or more packages, usually the main
+package containing the program, and then some optional or secondary
+packages.
+</p>
+
+<p>
+On some platforms, applications are self-contained into a directory.
+This makes installing an app just adding a folder, and uninstalling the
+app, removing it.
+</p>
+
+<p>
+Linux systems tend to share as much as components as possible. This is
+due partly to some advantages of this philosophy, but it is due mostly
+because in the Linux ecosystem, the whole universe is built by the same
+entity, except for a few 3rd party applications. This makes easy to
+assume that a library is available for all applications to consume. In a
+MacOS system, only the core comes from a single vendor, and all
+applications come from 3rd parties. It is therefore harder to make
+assumptions, and they tend to ship their own version of any depending
+component, with the exception of everything documented as the
+&ldquo;platform&rdquo;.
+</p>
+
+<p>
+For example, if an application requires the SSL library and the Qt
+toolkit. On a Linux system, it will likely use both components from the
+Linux distribution, while the MacOS version will likely use the SSL
+library from the OS, but ship its own version of Qt, as it is not a
+standard MacOS library.
+</p>
+</div>
+
+<div id="outline-container-anatomy-of-a-package" class="outline-3">
+<h3 id="anatomy-of-a-package">Anatomy of a package</h3>
+<div class="outline-text-3" id="text-anatomy-of-a-package">
+<p>
+Lets start with a famous UNIX tool: <code>rsync</code>.
+</p>
+
+<p>
+So a package is an archive file:
+</p>
+
+<pre class="example" id="org40f341e">
+rsync-3.1.2-1.5.x86_64.rpm
+</pre>
+
+<p>
+containing all files related to the application:
+</p>
+
+<pre class="example" id="orgc5ad72d">
+$ rpm -qpl rsync-3.1.2-1.5.x86_64.rpm
+
+/etc/logrotate.d/rsync
+/etc/rsyncd.conf
+/etc/rsyncd.secrets
+/etc/sysconfig/SuSEfirewall2.d/services/rsync-server
+/etc/xinetd.d/rsync
+/usr/bin/rsync
+/usr/bin/rsyncstats
+/usr/lib/systemd/system/rsyncd.service
+/usr/sbin/rcrsyncd
+/usr/sbin/rsyncd
+/usr/share/doc/packages/rsync
+/usr/share/doc/packages/rsync/COPYING
+/usr/share/doc/packages/rsync/NEWS
+/usr/share/doc/packages/rsync/README
+/usr/share/doc/packages/rsync/tech_report.tex
+/usr/share/man/man1/rsync.1.gz
+/usr/share/man/man5/rsyncd.conf.5.gz
+</pre>
+
+<p>
+plus some extra metadata. This metadata includes but it is not limited
+to:
+</p>
+
+<ul class="org-ul">
+<li><code>Name</code>, <code>Summary</code>, <code>Description</code>, <code>License</code>, etc.</li>
+</ul>
+
+<pre class="example" id="org78ea84f">
+$ rpm -qpi rsync-3.1.2-1.5.x86_64.rpm
+
+Name        : rsync
+Version     : 3.1.2
+Release     : 1.5
+Architecture: x86_64
+Install Date: Wed 26 Oct 2016 01:31:12 PM CEST
+Group       : Productivity/Networking/Other
+Size        : 636561
+License     : GPL-3.0+
+Signature   : RSA/SHA256, Mon 17 Oct 2016 02:32:40 AM CEST, Key ID b88b2fd43dbdc284
+Source RPM  : rsync-3.1.2-1.5.src.rpm
+Build Date  : Mon 17 Oct 2016 02:32:26 AM CEST
+Build Host  : lamb18
+Relocations : (not relocatable)
+Packager    : http://bugs.opensuse.org
+Vendor      : openSUSE
+URL         : http://rsync.samba.org/
+Summary     : Versatile tool for fast incremental file transfer
+Description :
+Rsync is a fast and extraordinarily versatile file  copying  tool. It can copy
+locally, to/from another host over any remote shell, or to/from a remote rsync
+daemon. It offers a large number of options that control every aspect of its
+behavior and permit very flexible specification of the set of files to be
+copied. It is famous for its delta-transfer algorithm, which reduces the amount
+of data sent over the network by sending only the differences between the
+source files and the existing files in the destination. Rsync is widely used
+for backups and mirroring and as an improved copy command for everyday use.
+Distribution: openSUSE Tumbleweed
+</pre>
+
+<ul class="org-ul">
+<li>What does the package requires to be also installed in order to work
+(<code>Requires</code>)</li>
+</ul>
+
+<pre class="example" id="orgbfa1a8c">
+$ rpm -qp --requires rsync-3.1.2-1.5.x86_64.rpm
+/bin/sh
+/usr/bin/perl
+config(rsync) = 3.1.2-1.5
+coreutils
+diffutils
+fillup
+grep
+libacl.so.1()(64bit)
+libacl.so.1(ACL_1.0)(64bit)
+libc.so.6()(64bit)
+libc.so.6(GLIBC_2.10)(64bit)
+libc.so.6(GLIBC_2.14)(64bit)
+libc.so.6(GLIBC_2.15)(64bit)
+libc.so.6(GLIBC_2.2.5)(64bit)
+libc.so.6(GLIBC_2.3)(64bit)
+libc.so.6(GLIBC_2.3.4)(64bit)
+libc.so.6(GLIBC_2.4)(64bit)
+libc.so.6(GLIBC_2.6)(64bit)
+libc.so.6(GLIBC_2.7)(64bit)
+libc.so.6(GLIBC_2.8)(64bit)
+libpopt.so.0()(64bit)
+libpopt.so.0(LIBPOPT_0)(64bit)
+libslp.so.1()(64bit)
+rpmlib(CompressedFileNames) &lt;= 3.0.4-1
+rpmlib(PayloadFilesHavePrefix) &lt;= 4.0-1
+rpmlib(PayloadIsLzma) &lt;= 4.4.6-1
+sed
+systemd
+</pre>
+
+<p>
+For example, a package may need a library, or an executable that is
+called during runtime.
+</p>
+
+<ul class="org-ul">
+<li>What does the package provide for other packages to work (<code>Provides</code>)</li>
+</ul>
+
+<pre class="example" id="orgc29fd8f">
+$ rpm -qp --provides rsync-3.1.2-1.5.x86_64.rpm
+config(rsync) = 3.1.2-1.5
+rsync = 3.1.2-1.5
+rsync(x86-64) = 3.1.2-1.5
+</pre>
+</div>
+</div>
+
+<div id="outline-container-installing-packages" class="outline-3">
+<h3 id="installing-packages">Installing packages</h3>
+<div class="outline-text-3" id="text-installing-packages">
+<p>
+When a package is installed, the content (list of files) is placed on
+the system at the location of each file path relative to the root (<code>/</code>)
+folder.
+</p>
+
+<p>
+Additionally, the metadata of the package and the fact that is installed
+is recorded in a system-wide database located in <code>/var/lib/rpm</code>, managed
+by the rpm tool, which is the tool that manages packages at the lowest
+level.
+</p>
+
+<p>
+Packages can be installed with the <code>rpm</code> tools:
+</p>
+
+<pre class="example" id="orgb3aaf04">
+$ rpm -U rsync-3.1.2-1.5.x86_64.rpm
+</pre>
+
+<p>
+Once you do this, you can perform the same queries without specifying
+the <code>-p</code> option and use what is called the NVRA
+(name-version-release-architecture, <code>rsync-3.1.2-1.5.x86_64</code>) or a
+subset of it, e.g. just name (<code>rsync</code>).
+</p>
+
+<pre class="example" id="orgf36068e">
+$ rpm -q --provides rsync
+</pre>
+
+<p>
+The <code>rpm</code> tool will not help you if the dependencies of the package are
+not met at installation time. It will just refuse to install the package
+to avoid having the system in an inconsistent state.
+</p>
+
+<p>
+Features like an automatical finding of the required packages and
+retrieving them are implemented in higher-level tools like <code>zypper</code>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-dependency-matching" class="outline-3">
+<h3 id="dependency-matching">Dependency matching</h3>
+<div class="outline-text-3" id="text-dependency-matching">
+<p>
+You saw above that a package has a list of <code>Requires</code> and <code>Provides</code>.
+Those aren&rsquo;t package names, but arbitrary symbols. A package can require
+any string of text and provide anything.
+</p>
+
+<p>
+The main rule is that each package provides its own name. So the rsync
+package <code>Provides: rsync</code>.
+</p>
+
+<p>
+You saw that rsync requires <code>/bin/sh</code>. While this looks like a file
+name, here it is an arbitrary symbol and the meaning is given by the
+whole distribution. Why it does not require a package named <code>sh</code>
+instead? Well, this is for various reasons:
+</p>
+
+<ul class="org-ul">
+<li>It provides a layer of indirection that makes the system cohesive.</li>
+</ul>
+
+<p>
+<code>/bin/sh</code> is a capability provided by the <code>bash</code> package. This allows
+rsync to depend on any shell implementation as long as it provides that
+symbol.
+</p>
+
+<p>
+The distribution build system will scan all executables a package
+installs in a system and inject automatically those <code>Provides</code>, so that
+the packager does not need to take care of them.
+</p>
+
+<p>
+We will see later that the same is done with libraries. Instead of
+<code>rsync</code> depending on the <code>glibc</code> package, when <code>glibc</code> was built, the
+build system scanned the content, found <code>/lib64/libc.so.6</code> and injected
+a <code>Provides: libc.so.6()(64bit)</code> into the <code>glibc</code> metadata. In the case
+of shared libraries it is not that important where they are located, as
+the linker configuration takes care of that. When the <code>rsync</code> package
+was built (<code>glibc</code> had to be installed at that point to build it), the
+build system scanned the executable <code>/usr/lib/rsync</code> and realized it was
+linked against <code>libc.so.6</code>:
+</p>
+
+<pre class="example" id="org6f744e3">
+$ ldd /usr/bin/rsync
+        linux-vdso.so.1 (0x00007ffccb34a000)
+        libacl.so.1 =&gt; /lib64/libacl.so.1 (0x00007fc406028000)
+        libpopt.so.0 =&gt; /usr/lib64/libpopt.so.0 (0x00007fc405e1b000)
+        libslp.so.1 =&gt; /usr/lib64/libslp.so.1 (0x00007fc405c02000)
+        libc.so.6 =&gt; /lib64/libc.so.6 (0x00007fc405863000)
+        libattr.so.1 =&gt; /lib64/libattr.so.1 (0x00007fc40565e000)
+        libcrypto.so.1.0.0 =&gt; /lib64/libcrypto.so.1.0.0 (0x00007fc4051c4000)
+        libpthread.so.0 =&gt; /lib64/libpthread.so.0 (0x00007fc404fa7000)
+        /lib64/ld-linux-x86-64.so.2 (0x00005653cd048000)
+        libdl.so.2 =&gt; /lib64/libdl.so.2 (0x00007fc404da3000)
+        libz.so.1 =&gt; /lib64/libz.so.1 (0x00007fc404b8d000)
+</pre>
+
+<p>
+Therefore, it injected <code>Requires: libc.so.6()(64bit)</code> to the <code>rsync</code>
+package.
+</p>
+
+<p>
+Compare it to other packaging systems. Package <code>musicplayer</code> requires
+<code>libsound</code>. <code>/usr/bin/musicplayer</code> links to <code>/usr/lib64/libsound.so.5</code>.
+Later, <code>musicplayer</code> is rebuilt against a newer <code>libsound</code>, which is not
+published. The user installs <code>musicplayer</code> with no issues because it
+only <code>Requires: libsound</code> (as in package name). Then when he/she tries
+to run it:
+</p>
+
+<pre class="example" id="org6ee752b">
+$ musicplayer
+error while loading shared libraries: libsound.so.7: cannot open shared object file: No such file or directory
+</pre>
+
+<p>
+The layer of indirection of automatically injected dependencies prevents
+this manual work of keeping dependencies in sync. Package provide what
+they really carry (because provides are injected by advanced scanners),
+and packages require what they really need (because requires are
+injected by scanning executables, scripts for shebangs, etc.
+</p>
+
+<p>
+This makes rpm based distributions using these conventions highly
+cohesive. It makes less problematic to do upgrades without breaking your
+system. At the same time, the conventions and indirections between
+provides and requires, allow for packages to depend on more abstract
+capabilities, instead of specific package names (which sometimes get
+renamed, split, obsoleted, etc). Yes, you can be sure the <code>vim</code> package
+provides <code>vi</code>.
+</p>
+
+<p>
+There are also other dependencies with more advances purposes:
+<code>Conflicts</code>, <code>Obsoletes</code>, etc. You may already guess what purposes they
+have.
+</p>
+</div>
+</div>
+
+<div id="outline-container-weak-dependencies" class="outline-3">
+<h3 id="weak-dependencies">Weak dependencies</h3>
+<div class="outline-text-3" id="text-weak-dependencies">
+<p>
+Not everything is as strict. Sometimes a package works better if another
+package is present. Sometimes a package enhances the functionality of
+another package, however in neither case they are required. For this
+purpose, packages can have:
+</p>
+
+<ul class="org-ul">
+<li><code>Recommends</code>: a soft version of requires. If the recommended packages
+are not installed, the package will be installed anyway. Higher level
+tools, however, may pull automatically recommended packages based on
+user settings. The reverse of this dependency is <code>Supplements</code>. For
+example a <code>spellchecker</code> could <code>Supplements</code> an <code>office-suite</code>
+package.</li>
+<li><code>Suggests</code> and <code>Enhances</code> are the forward and backward version of
+<code>Recommends</code> and <code>Supplements</code> in a weaker version.</li>
+</ul>
+</div>
+</div>
+</section>
+
+<section id="outline-container-working-with-packages" class="outline-2">
+<h2 id="working-with-packages">Working with packages</h2>
+<div class="outline-text-2" id="text-working-with-packages">
+<p>
+For daily system administration and maintenance, the <code>rpm</code> tool is not
+sufficient. You will quickly fall into what is called the &ldquo;dependency
+hell&rdquo;. Downloading packages by hand in order to satisfy a dependency to
+quickly realize this new package also requires something else.
+</p>
+
+<p>
+This problem is solved by a tool that implements a solver. The solver
+takes:
+</p>
+
+<ul class="org-ul">
+<li>The list of installed packages (and therefore all its dependencies)</li>
+<li>The list of available packages</li>
+<li>The user request (&ldquo;install package foo&rdquo;, &ldquo;upgrade system&rdquo;)</li>
+</ul>
+
+<p>
+The solver performs an operation that is finding the best solution to a
+problem that has many solutions. Therefore &ldquo;best&rdquo; is defined by
+policies, user settings, the distribution itself, etc.
+</p>
+
+<p>
+On SUSE systems, the solver is implemented by the
+<a href="https://github.com/openSUSE/libsolv">libsolv</a> project. This engine
+implements both a satisfiability algorithm and an efficient way to
+represent the problem in memory. It was developed originally by Michael
+Schroeder at SUSE, but nowadays it powers even other distribution
+package managers, like Fedora&rsquo;s
+<a href="https://fedoraproject.org/wiki/DNF"><code>dnf</code></a>.
+</p>
+
+<p>
+The rest of the package manager includes:
+</p>
+
+<ul class="org-ul">
+<li>Handling of package repositories</li>
+<li>Checking the integrity of packages</li>
+<li>Fetching remote packages</li>
+<li>Reading and honoring user/system policies</li>
+</ul>
+
+<p>
+This functionality in SUSE systems is implemented by the
+<a href="https://en.opensuse.org/Portal:Libzypp">ZYpp</a> library, which also
+includes a command-line tool called <code>zypper</code>. While tools like
+<a href="https://yast.github.io/">YaST</a> also interact with ZYpp, on the
+console you will likely interact with <code>zypper</code>.
+</p>
+
+<pre class="example" id="org8cb972d">
+$ zypper install rsync-3.1.2-1.5.x86_64.rpm
+</pre>
+
+<p>
+Will, unlike rpm, figure out what else your system is missing, retrieve
+it, and then install all the required packages in the right order. It
+will also warn you if another package conflicts with what you are
+installing, of if the operation has more than one solution, and ask you
+for decisions on what to do.
+</p>
+
+<p>
+Now, when we say &ldquo;retrieve other packages&rdquo;, the question arises. From
+where?
+</p>
+</div>
+
+<div id="outline-container-repositories" class="outline-3">
+<h3 id="repositories">Repositories</h3>
+<div class="outline-text-3" id="text-repositories">
+<p>
+You can see that <code>zypper</code> can install a package directly from an rpm
+file. Now, if there is the need for installing dependencies or
+retrieving packages i.e. when you upgrade a system, you will need a
+&ldquo;library&rdquo; of packages. This is what is called a repository. A repository
+is:
+</p>
+
+<ul class="org-ul">
+<li>A collection of packages</li>
+<li>A set of metadata files</li>
+</ul>
+
+<p>
+The metadata is nothing more than the information present in the rpm
+file (Name, Description, Dependencies). The metadata allows the package
+manager to operate with the repository without having all rpm files
+locally. Every operation is processed used what we know about the
+package, and then rpm files are retrieved on demand at installation
+time.
+</p>
+
+<pre class="example" id="org7b00a83">
+$ zypper lr
+
+# | Alias          | Name           | Enabled | GPG Check | Refresh
+--+----------------+----------------+---------+-----------+--------
+1 | non-oss        | NON-OSS        | Yes     | ( p) Yes  | Yes
+2 | oss            | OSS            | Yes     | ( p) Yes  | Yes
+3 | oss-update     | OSS Update     | Yes     | ( p) Yes  | Yes
+4 | update-non-oss | Update Non-Oss | Yes     | ( p) Yes  | Yes
+</pre>
+
+<p>
+A system normally will have the following repositories:
+</p>
+
+<ul class="org-ul">
+<li>The base repository, which contains all the distribution packages.</li>
+<li>Additional modules, addons products or extensions.</li>
+<li>An update repository for each base product or extension</li>
+</ul>
+
+<p>
+Running list repositories with <code>-u</code> i.e. <code>zypper lr -u</code> will show you
+the URI of the repository. e.g.
+<code>http://download.opensuse.org/update/leap/42.2/oss/</code>. If you visit this
+URI, you will see:
+</p>
+
+<ul class="org-ul">
+<li>a <code>x86_64</code> directory containing all architecture-dependent packages
+(i.e. ones that contain executables, shared libraries, etc)</li>
+<li>a <code>noarch</code> directory containing architecture-independent packages
+(i.e. ones containing data or scripts)</li>
+<li>a <code>repodata</code> directory, containing the metadata for all packages.</li>
+</ul>
+
+<p>
+The metadata for this type of repositories consists in a
+<code>repodata/repomd.xml</code> file index, that is signed (<code>repomd.xml.asc</code>)
+using a key already present in the original system.
+<code>repodata/repomd.xml</code> refers to other metadata file with their
+checksums. The most important is <code>primary.xml</code> which contains all
+package dependencies.
+</p>
+
+<p>
+If you have a directory with rpm packages, you can create the metadata
+for them using the <code>createrepo</code> tool. After that, you can serve that
+repository via HTTP.
+</p>
+
+<p>
+If you have a directory with rpms you want to use as a repository, you
+don&rsquo;t need to add metadata. <code>ZYpp</code> allows to have a plain local
+directory as a repository, and will read the metadata directly from the
+rpm files into its cache.
+</p>
+</div>
+
+<div id="outline-container-refreshing-a-repository" class="outline-4">
+<h4 id="refreshing-a-repository">Refreshing a repository</h4>
+<div class="outline-text-4" id="text-refreshing-a-repository">
+<pre class="example" id="orga56bf19">
+$ zypper ref
+</pre>
+
+<p>
+While the base repository of the distribution is normally immutable,
+repositories like the one containing updates get new content often. The
+meaning of refreshing a repository is to get the up to date version of
+the metadata locally, so that all operations (solving, retrieval) match
+the current content of the repository.
+</p>
+
+<p>
+If a repository is out of date, it means the local metadata represents a
+previous version of the repository content. We would solve, and likely
+fetch packages, but those packages may not exists in the repository
+anymore, so you will get an error at retrieval time.
+</p>
+
+<p>
+The list of repositories of the system is kept in <code>/etc/zypp/repos.d</code>.
+<code>zypper</code> provides most of repository operations in a safer way than
+messing with those files by hand.
+</p>
+
+<p>
+During refresh, metadata is cached locally at <code>/var/cache/zypp/raw</code> and
+converted to an efficient format for solving operations in
+<code>/var/cache/zypp/solv</code>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-services" class="outline-4">
+<h4 id="services">Services</h4>
+<div class="outline-text-4" id="text-services">
+<p>
+Services are a higher-level version of repositories. It is another index
+that lists repositories. When the system is subscribed to a service,
+refreshing the service will result in a new list of repositories, and
+the package manager will add new ones or remove obsolete ones.
+</p>
+
+<p>
+Services are used for example on SUSE Linux Enterprise with the SUSE
+Customer Center. A customer is subscribed to a service provided by SCC
+using a credential. The customer, based on his entitlements, can
+&ldquo;activate&rdquo; a new product. SUSE Customer Center knows about those
+activations, and on service refresh, it will provide a new list of
+repositories that includes the new activated product.
+</p>
+
+<p>
+Services can be remote (like SCC), or local (via a plugin installed on
+the system). The package manager asks the plugin for a list of
+repositories. It is up to the plugin to build that list. This is
+normally used for integration with other systems. The connectivity
+between <code>zypper</code> and
+<a href="http://spacewalk.redhat.com/">Spacewalk</a>/<a href="https://www.suse.com/products/suse-manager">SUSE
+Manager</a> was originally implemented using a local plugin.
+</p>
+</div>
+</div>
+
+<div id="outline-container-repository-sources" class="outline-4">
+<h4 id="repository-sources">Repository sources</h4>
+<div class="outline-text-4" id="text-repository-sources">
+<p>
+If you are using SUSE Linux Enterprise, your repositories will appear
+after the <code>SUSEConnect</code> tool registers your product against the
+<a href="https://scc.suse.com">SUSE Customer Center</a>.
+</p>
+
+<p>
+If you are on openSUSE, the default installation will setup the base and
+update repositories. Additionally, there is a lot of content published
+by the community on the <a href="https://software.opensuse.org/search">build
+service projects</a> (but please note that packages from unofficial
+repositories are not reviewed by openSUSE) or via projects like
+<a href="http://packman.links2linux.org/">packman</a>.
+</p>
+
+<p>
+SUSE Linux Enterprise users can take advantage of the community content
+via the <a href="https://packagehub.suse.com/">Package Hub</a>.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-other-package-manager-operations" class="outline-3">
+<h3 id="other-package-manager-operations">Other package manager operations</h3>
+<div class="outline-text-3" id="text-other-package-manager-operations">
+<p>
+You can use <code>zypper lu</code> to list updates. <code>zypper up</code> to update them.
+</p>
+
+<p>
+You can lock packages to avoid them being removed or pulled-in using
+<code>zypper addlock</code> <code>zypper removelock</code>. You can also list active locks
+with <code>zypper locks</code>.
+</p>
+
+<p>
+The distribution upgrade operation <code>dup</code> is used to do destructive
+upgrades. This means packages may be suggested for removal as
+dependencies like <code>Obsoletes</code> are taken into account. It is usually used
+for upgrading major releases or to update rolling distributions like
+<a href="https://en.opensuse.org/Portal:Tumbleweed">Tumbleweed</a>. It has to be
+used with care.
+</p>
+</div>
+</div>
+
+<div id="outline-container-other-solvable-types-products-patterns-system" class="outline-3">
+<h3 id="other-solvable-types-products-patterns-system">Other solvable types (Products, Patterns, System)</h3>
+<div class="outline-text-3" id="text-other-solvable-types-products-patterns-system">
+<p>
+The package manager solver loads all available and installed packages to
+do the solving. However, there are other entities similar to packages
+that also have dependencies.
+</p>
+</div>
+
+<div id="outline-container-patterns" class="outline-4">
+<h4 id="patterns">Patterns</h4>
+<div class="outline-text-4" id="text-patterns">
+<p>
+Patterns are used to install a collection of software in a comfortable
+way. For example you can install a working Laptop-oriented system with:
+</p>
+
+<pre class="example" id="org9078108">
+$ zypper install -t pattern laptop
+</pre>
+
+<p>
+But where do patterns come from? They don&rsquo;t exist on their own. The
+package managers create them dynamically from packages names
+<code>patterns-XXXXXX</code> which have a special set of dependencies. So
+installing a pattern would actually install the package representing
+that pattern. The other way around is true, if you install the package
+representing the pattern, it will make the system look like the pattern
+is installed.
+</p>
+
+<p>
+<code>$ zypper info --provides patterns-desktop-laptop</code> would show you some
+of the magic behind patterns (equivalent to
+<code>rpm -q --provides patterns-desktop-laptop</code>).
+</p>
+</div>
+</div>
+
+<div id="outline-container-products" class="outline-4">
+<h4 id="products">Products</h4>
+<div class="outline-text-4" id="text-products">
+<p>
+Similar to patterns, products can be queried with:
+</p>
+
+<pre class="example" id="org5f7ea05">
+$ zypper search -t product
+</pre>
+
+<p>
+Product comes from a package called XXXXXX-release which has some
+special dependencies (<code>rpm -q --provides openSUSE-release</code>). The release
+package/product installs some information in <code>/etc/products.d</code> that is
+used by other tools to get information about the base and addons
+products installed.
+</p>
+</div>
+</div>
+
+<div id="outline-container-patches" class="outline-4">
+<h4 id="patches">Patches</h4>
+<div class="outline-text-4" id="text-patches">
+<p>
+Patches are used for updates and described by the <code>updateinfo.xml</code>
+section of the metadata. They represent an entity that conflicts with
+older versions of one or more packages. Installing a patch does not
+install packages, but generates a conflict in the solver that ends with
+the affected version of packages being upgraded.
+</p>
+
+<p>
+Patches also carry additional property, like the
+<a href="https://cve.mitre.org/">CVE</a> identifiers of the issues they fix or
+links to bug tracker incidents.
+</p>
+</div>
+</div>
+
+<div id="outline-container-system" class="outline-4">
+<h4 id="system">System</h4>
+<div class="outline-text-4" id="text-system">
+<p>
+During solving, there is one entity providing dependencies that is used
+to match locale and hardware information. If you have a WLAN card, the
+package manager will dynamically read <code>/sys/devices</code> and make this
+entity have provides like:
+</p>
+
+<pre class="example" id="orgea12c05">
+Provides :modalias(pci:v0000104Cd0000840[01]sv*sd*bc*sc*i*)
+</pre>
+
+<p>
+Then, a package providing a WLAN driver for some cards (e.g.
+<code>wlan-kmp-default</code>), could have the following dependencies:
+</p>
+
+<pre class="example" id="org1e3fe53">
+Supplements: modalias(kernel-default:pci:v0000104Cd0000840[01]sv*sd*bc*sc*i*)
+Supplements: modalias(kernel-default:pci:v0000104Cd00009066sv*sd*bc*sc*i*)
+Supplements: modalias(kernel-default:pci:v000010B7d00006000sv*sd*bc*sc*i*)
+</pre>
+
+<p>
+Which results in that at solving time, if the hardware is present, the
+driver will be selected automatically.
+</p>
+
+<aside>
+<p><i class="fa fa-sticky-note-o"></i><small>
+This is one of the core features of the <a href="https://drivers.suse.com/doc/SolidDriver/Kernel_Module_Packages.html#automatic-installation-via-modaliases">Kernel Module Packages section of the SUSE SolidDriver Program</a>. For more information about KMPs, check this <a href="https://www.suse.com/communities/blog/using-sles-and-the-sle-sdk-build-kernel-module-package-kmp/">Using SLES and the SLE SDK to Build a Kernel Module Package (KMP)</a> post. For more information about the SUSE SolidDriver Program, check this <a href="https://www.suse.com/communities/blog/suse-soliddriver-program/">blog post</a>.
+</small></p>
+</aside>
+
+<p>
+Something similar is done with translation packages and the current
+configured system locale.
+</p>
+</div>
+</div>
+
+<div id="outline-container-important-notes" class="outline-4">
+<h4 id="important-notes">Important notes</h4>
+<div class="outline-text-4" id="text-important-notes">
+<p>
+What is important to note is that all those types are only really
+present at solving time. In reality, your system is only packages, and
+all information comes from the installed packages. Every operation on
+patches, patterns and products result in a package operation. This is to
+make the package manager compatible with the lower level <code>rpm</code> tool.
+</p>
+</div>
+</div>
+</div>
+</section>
+
+<section id="outline-container-creating-packages" class="outline-2">
+<h2 id="creating-packages">Creating packages</h2>
+<div class="outline-text-2" id="text-creating-packages">
+<p>
+Packages are created providing a so-called <code>.spec</code> file. A spec file
+defines the attributes of the package, explicit dependencies (others are
+injected as we already mentioned), and how the content of the package is
+created. A very simple spec file would be:
+</p>
+
+<pre class="example" id="org5c576ea">
+Name:           mypackage
+Version:        1.0
+Release:        0
+License:        MIT
+Summary:        Dummy package
+BuildRoot:      %{_tmppath}/%{name}-%{version}-build
+
+%description
+Dummy text
+
+%install
+mkdir -p %{buildroot}%{_datadir}/%{name}
+touch %{buildroot}%{_datadir}/%{name}/CONTENT
+
+%files
+%defattr(-,root,root)
+%{_datadir}/%{name}/CONTENT
+
+%changelog
+</pre>
+
+<p>
+This spec file just creates a directory <code>/usr/share/mypackage</code> and puts
+a dummy <code>CONTENT</code> file in it.
+</p>
+
+<p>
+spec files are heavily defined by macros that make sure that paths and
+values are specified by the distribution. Those macros are shipped by
+the base distribution and are located in <code>/usr/lib/rpm</code> and <code>/etc/rpm</code>.
+Other packages may contribute more macros. For example the macros
+defined in <code>/usr/lib/rpm/golang-macros.rb</code> are provided by the
+<code>golang-packaging</code> package and are useful to create packages that use
+the Go language.
+</p>
+</div>
+
+<div id="outline-container-common-macros" class="outline-3">
+<h3 id="common-macros">Common macros</h3>
+<div class="outline-text-3" id="text-common-macros">
+<p>
+When building spec files, you should be familiar with
+<a href="https://en.opensuse.org/SUSE_Package_Conventions/RPM_Macros">macros</a>
+like <code>%{_prefix}</code>, <code>%{_datadir}</code>, <code>%{_mandir}</code>, <code>%{_libdir}</code>,
+<code>%{_bindir}</code>, etc. You can evaluate a macro like this:
+</p>
+
+<pre class="example" id="orgb5c6c0a">
+$ rpm --eval "%{_libdir}"
+/usr/lib64
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sub-packages" class="outline-3">
+<h3 id="sub-packages">Sub-packages</h3>
+<div class="outline-text-3" id="text-sub-packages">
+<p>
+Sometimes from a single source you will build multiple components that
+are independent of each other.
+</p>
+
+<p>
+The sources for an <code>Office Suite</code> may result in:
+</p>
+
+<ul class="org-ul">
+<li>A Word Processor</li>
+<li>A Spreadsheet</li>
+<li>Common libraries</li>
+<li>Development files</li>
+</ul>
+
+<p>
+For this, you can declare
+<a href="http://ftp.rpm.org/max-rpm/ch-rpm-subpack.html">subpackages</a>, which
+is an independent description and attributes section for each component.
+The build section is common, and then again in the <code>%files</code> section, you
+will declare which files go to each subpackage. In this case you would
+end with something like:
+</p>
+
+<ul class="org-ul">
+<li><code>office-wordprocessor</code></li>
+<li><code>office-spreadsheet</code></li>
+<li><code>liboffice</code></li>
+<li><code>office-devel</code></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-building-with-rpmbuild" class="outline-3">
+<h3 id="building-with-rpmbuild">Building with rpmbuild</h3>
+<div class="outline-text-3" id="text-building-with-rpmbuild">
+<p>
+You can build a package with the <code>rpmbuild</code> tool. It requires the spec
+file to be in a specific location, so I usually tweak the standard
+configuration so that spec files are searched in the current directory:
+</p>
+
+<pre class="example" id="org023c513">
+$ cat ~/.rpmmacros
+%topdir /space/packages
+%_builddir %{topdir}/build
+%_rpmdir %{topdir}/rpms
+%_sourcedir %(echo $PWD)
+%_specdir %(echo $PWD)
+%_srcrpmdir %{topdir}/rpms
+</pre>
+
+<p>
+As you can see, I also configure it so that built packages are saved in
+<code>/space/packages</code>. Tweak that to your own preferences.
+</p>
+
+<p>
+Once I have this setup, I can do:
+</p>
+
+<pre class="example" id="orga9ad2a2">
+$ rpmbuild -bb mypackage.spec
+Executing(%install): /bin/sh -e /var/tmp/rpm-tmp.lVzwnj
++ umask 022
++ cd /space/packages/build
++ mkdir -p /home/duncan/rpmbuild/BUILDROOT/mypackage-1.0-0.x86_64/usr/share/mypackage
++ touch /home/duncan/rpmbuild/BUILDROOT/mypackage-1.0-0.x86_64/usr/share/mypackage/CONTENT
++ /usr/lib/rpm/brp-compress
++ /usr/lib/rpm/brp-suse
+Processing files: mypackage-1.0-0.x86_64
+Provides: mypackage = 1.0-0 mypackage(x86-64) = 1.0-0
+Requires(rpmlib): rpmlib(CompressedFileNames) &lt;= 3.0.4-1 rpmlib(PayloadFilesHavePrefix) &lt;= 4.0-1
+Checking for unpackaged file(s): /usr/lib/rpm/check-files /home/duncan/rpmbuild/BUILDROOT/mypackage-1.0-0.x86_64
+Wrote: /space/packages/rpms/x86_64/mypackage-1.0-0.x86_64.rpm
+Executing(%clean): /bin/sh -e /var/tmp/rpm-tmp.0xLGri
++ umask 022
++ cd /space/packages/build
++ /usr/bin/rm -rf /home/duncan/rpmbuild/BUILDROOT/mypackage-1.0-0.x86_64
++ rm -rf filelists
+</pre>
+
+<p>
+Now I can verify the content of the package:
+</p>
+
+<pre class="example" id="org9871356">
+% rpm -qpl /space/packages/rpms/x86_64/mypackage-1.0-0.x86_64.rpm
+/usr/share/mypackage/CONTENT
+</pre>
+
+<p>
+As you can see, everything that we put into the <code>%{buildroot}</code> ended as
+content of the package.
+</p>
+
+<p>
+Now the term &ldquo;building a package&rdquo; can have two meanings. One is
+assembling the package from existing content. You could build your
+application in Jenkins, take the built artifacts and use the spec file
+to package it.
+</p>
+
+<p>
+However, where rpm really shines is that you can build the application
+in the spec file itself, and use the distribution and dependencies to
+setup the build environment.
+</p>
+
+<p>
+A common use case to illustrate this is the typical Linux application
+built with <code>configure &amp;&amp; make &amp;&amp; make install</code>. Lets try to build a
+package for <a href="http://gqlplus.sourceforge.net">gqlplus</a>, an alternative
+client for Oracle databases.
+</p>
+
+<p>
+Provided that you have readline and ncurses development headers, you can
+build this application just unpacking the tarball and performing the
+commands mentioned above. Some programs require an extra step with
+<code>autoconf</code> in order to generate the <code>configure</code> script. This is specific
+to building software and has nothing to do with packaging. Certainly
+building a Qt based program will be a different experience, and if you
+build a Java application, you will have to deal with other tools.
+</p>
+
+<p>
+When you do <code>./configure</code> you would need to pass the right <code>--prefix</code>.
+This is where macros help you. You could do
+<code>configure --prefix=%{_prefix}</code>, however, there is a better macro called
+<code>%configure</code> which takes care and sets most of the configure options
+(try expanding it: <code>echo $(rpm --eval '%configure')</code>)
+</p>
+
+<p>
+Now, the package can&rsquo;t build if some libraries are not present, a C
+compiler is there, and the basic build tools (make) are not available.
+That is what <code>BuildRequires</code> are for. They define what packages are
+needed for building, but not necessarily at runtime.
+</p>
+
+<p>
+On the other hand, the original <code>oracle-instantclient-sqlplus</code> package
+is required at runtime, but we don&rsquo;t need it to build our package.
+</p>
+
+<pre class="example" id="orged7fcc7">
+Name:           gqlplus
+Version:        1.15
+Release:        0
+License:        GPL-2.0
+Summary:        A drop-in replacement for sqlplus, an Oracle SQL client
+Url:            http://gqlplus.sourceforge.net/
+Group:          Productivity/Databases/Clients
+Source0:        %{name}-%{version}.tar.bz2
+BuildRequires:  readline-devel
+BuildRequires:  ncurses-devel
+BuildRequires:  gcc make autoconf automake
+BuildRoot:      %{_tmppath}/%{name}-%{version}-build
+Requires:       oracle-instantclient-sqlplus
+%description
+GQLPlus is a drop-in replacement for sqlplus, an Oracle SQL client, for UNIX and UNIX-like platforms. The difference between GQLPlus and sqlplus is command-line editing and history, plus table-name and column-name completion.
+
+%prep
+%setup -q
+
+%build
+aclocal &amp;&amp; autoconf
+automake --add-missing
+%configure
+make %{?_smp_mflags}
+
+%install
+%makeinstall
+
+%files
+%defattr(-,root,root)
+%doc ChangeLog README LICENSE
+%{_bindir}/gqlplus
+
+%changelog
+</pre>
+
+<p>
+The <code>Source0</code> section specifies a source that you can refer later using
+the <code>%SOURCE0</code> or <code>%{S:0}</code> macros. You can have more than one source
+(<code>Source1</code>, etc).
+</p>
+
+<p>
+The prep section uses the
+<a href="http://ftp.rpm.org/max-rpm/s1-rpm-inside-macros.html#S2-RPM-INSIDE-SETUP-MACRO">%setup</a>
+macro to unpack the sources. You could as well operate directly on the
+source files if you need to do something unconventional.
+</p>
+
+<p>
+As we need <code>make install</code> to install the files inside <code>%{buildroot}</code>, we
+should call <code>make install DESTDIR=%{buildroot}</code>, but <code>%makeinstall</code> is
+just a macro for that.
+</p>
+
+<p>
+The files section list the files <code>rpmbuild</code> should expect to find inside
+<code>%{buildroot}</code> that will be the content of the package.
+</p>
+
+<p>
+Note also that we don&rsquo;t need to add a runtime <code>Requires</code> to the readline
+and ncurses libraries. Because the executable is linked against the ones
+installed by the -devel packages, it will be scanned and the right
+<code>Requires</code> injected:
+</p>
+
+<pre class="example" id="org23847e9">
+$ rpm -qp --requires gqlplus-1.15-0.x86_64.rpm
+libc.so.6()(64bit)
+...
+libncurses.so.6()(64bit)
+libreadline.so.7()(64bit)
+oracle-instantclient-sqlplus
+...
+</pre>
+
+<p>
+These symbols are provided by the right package, so the solver will
+match them:
+</p>
+
+<pre class="example" id="org3cbd58c">
+rpm -q --whatprovides 'libncurses.so.6()(64bit)'
+libncurses6-6.0-19.1.x86_64
+</pre>
+
+<p>
+For more information on how to build packages for various types of
+software, visit the
+<a href="https://en.opensuse.org/openSUSE:Packaging_guidelines">openSUSE
+Packaging Guidelines</a>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-building-in-a-real-build-environment" class="outline-3">
+<h3 id="building-in-a-real-build-environment">Building in a real build environment</h3>
+<div class="outline-text-3" id="text-building-in-a-real-build-environment">
+<p>
+Building this way means the build environment is our system. If a
+package is in <code>BuildRequires</code>, you will have to install it in your
+system first.
+</p>
+
+<p>
+If the software you are building links against some library only if it
+is available, even if you don&rsquo;t mention it in your <code>BuildRequires</code>, if
+that library is present in your system, it will taint the build and make
+<code>configure</code> find it.
+</p>
+
+<p>
+What if you want to build against <i>only</i> the packages that are in the
+build requirements?
+</p>
+</div>
+
+<div id="outline-container-the-open-build-service" class="outline-4">
+<h4 id="the-open-build-service">The Open Build Service</h4>
+<div class="outline-text-4" id="text-the-open-build-service">
+<p>
+The <a href="http://openbuildservice.org/">Open Build Service</a> allows to build
+packages for multiple distributions and architectures. Visit the
+<a href="https://openbuildservice.org/help/">Help Material</a> section of the
+website for a deeper introduction. For the package we are building, you
+can get an account at the <a href="https://build.opensuse.org">openSUSE Build
+Service</a> instance. Go to your &ldquo;Home Project&rdquo;, &ldquo;Create New Package&rdquo; and
+upload the spec and sources. See the
+<a href="https://en.opensuse.org/openSUSE:Build_Service_Tutorial#Workflow">new
+package workflow</a> for more information.
+</p>
+
+<p>
+You need then to configure some target distributions for your home
+project. That can be one base distribution or another project. This
+shows the power by allowing building based on layers that can override
+things from previous layers.
+</p>
+
+<p>
+Add the most popular SUSE distributions (latest Leap and Tumbleweed) and
+your package will be built automatically. A repository will be published
+automatically and made available for public consumption.
+</p>
+
+<p>
+Every time the sources changes, the package will be rebuilt, and if you
+have more packages in the same project, they will be rebuilt in the
+right order and re-published.
+</p>
+
+
+<figure id="org567bed5">
+<img src="images/gqlplus-obs.png" alt="gqlplus-obs.png">
+
+</figure>
+
+<p>
+Open Build Service can not only build packages, but also images from
+those packages. All SUSE products and the openSUSE distributions are
+built using the Open Build Service. Contributors basically submit new
+sources, and the Open Build Service takes care of assembling it all
+(<a href="https://openqa.opensuse.org/">openQA</a> takes later care that it
+works).
+</p>
+</div>
+</div>
+
+<div id="outline-container-using-the-build-service-locally" class="outline-4">
+<h4 id="using-the-build-service-locally">Using the Build Service locally</h4>
+<div class="outline-text-4" id="text-using-the-build-service-locally">
+<p>
+With the <code>osc</code> tool you can checkout packages from OBS, make changes and
+resubmit them.
+</p>
+
+<pre class="example" id="org85de805">
+$ osc co home:dmacvicar gqlplus
+A    home:dmacvicar
+A    home:dmacvicar/gqlplus
+A    home:dmacvicar/gqlplus/gqlplus-1.15.tar.bz2
+A    home:dmacvicar/gqlplus/gqlplus.changes
+A    home:dmacvicar/gqlplus/gqlplus.spec
+At revision 4.
+</pre>
+
+<p>
+The most interesting feature is the ability to build locally. &ldquo;We
+already did that!&rdquo; you may think (<code>rpmbuild</code>). However, <code>osc</code> allows you
+to build in an isolated environment (either a
+<a href="https://en.wikipedia.org/wiki/Chroot">chroot jail</a> or a virtual
+machine), setting up that environment automatically using the
+<code>BuildRequires</code> of the spec file, and also allowing you to build against
+a different distribution than the one you are running.
+</p>
+
+<pre class="example" id="orge58b185">
+$ cd home:dmacvicar/gqlplus
+$ osc build openSUSE_Leap_42.2
+...
+
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-improving-the-package" class="outline-3">
+<h3 id="improving-the-package">Improving the package</h3>
+<div class="outline-text-3" id="text-improving-the-package">
+<p>
+When you build a package in the build service, you will find out that in
+addition to the automated magic that injects dependencies, there is a
+bunch of checks being done to the package.
+</p>
+
+<p>
+Yes, those checks are quite pedantic. It is the only way to ensure
+quality and consistency when a product is assembled from thousands of
+sources by hundreds of contributors.
+</p>
+
+<p>
+The <code>spec-cleaner</code> tool can help you keeping your spec file in shape:
+</p>
+
+<pre class="example" id="org47478b9">
+$ spec-cleaner -i gqlplus.spec
+</pre>
+
+<p>
+For example, it can help you converting <code>BuildRequires: foo-devel</code>
+dependencies to <code>BuildRequires: pkgconfig(foo)</code>. If a -devel package
+installs a pkg-config module, a <code>Provides: pkgconfig(foo)</code> is
+automatically injected. If the build process (<code>./configure</code> or
+<code>Makefile</code>) uses pkg-config to find the software, it makes more sense
+and it is closer to reality to depend on <code>pkgconfig(foo)</code> being present,
+regardless of which <code>-devel</code> package provides it.
+</p>
+
+<p>
+For post-build checks, you can get more information about how to fix
+them in the
+<a href="https://en.opensuse.org/openSUSE:Packaging_checks">openSUSE Packaging
+Checks</a> page.
+</p>
+</div>
+</div>
+
+<div id="outline-container-changelogs" class="outline-3">
+<h3 id="changelogs">Changelogs</h3>
+<div class="outline-text-3" id="text-changelogs">
+<p>
+Until now we have left the <code>%changelog</code> section empty. Some
+distributions write there the history for the package. SUSE-flavored
+distributions keep the
+<a href="https://en.opensuse.org/openSUSE:Creating_a_changes_file_(RPM)">changelog</a>
+in a separate <code>.changes</code> file. To quickly generate or update it, you can
+use <code>osc vc</code> in the directory containing the spec file and the sources.
+</p>
+
+<p>
+The editor used by <code>osc vc</code> is determined by the <code>EDITOR</code> environment
+variable just like for most <code>git</code> commands.
+</p>
+</div>
+</div>
+
+<div id="outline-container-finding-the-devel-package-on-obs" class="outline-3">
+<h3 id="finding-the-devel-package-on-obs">Finding the devel package on OBS</h3>
+<div class="outline-text-3" id="text-finding-the-devel-package-on-obs">
+<p>
+When contributing to an already-existing package on OBS, it is usually
+best to submit any change requests to the project where that package is
+developed. It is easy to find the devel project using the <code>develproject</code>
+(<code>dp</code>) command:
+</p>
+
+<pre class="example" id="orga6869ec">
+$ osc dp openSUSE:Factory rsync
+network
+</pre>
+
+<p>
+Create a branch and a local checkout of the package using the <code>branch</code>
+command:
+</p>
+
+<pre class="example" id="orge9e9bcb">
+$ osc bco network rsync
+A    home:dmacvicar:branches:network
+A    home:dmacvicar:branches:network/rsync
+...
+At revision 11d4f594469a6679d30ae05f8b2187fd.
+Note: You can use "osc delete" or "osc submitpac" when done.
+</pre>
+
+<p>
+Now, you can make local changes to the package, for example adding a
+patch to be applied to the sources after unpacking the source tarball.
+You can then build the package locally as described earlier using
+<code>osc build</code>.
+</p>
+
+<p>
+Once you are happy with the package, you can commit it to your personal
+project on OBS using <code>osc commit</code>. The build service will then build the
+package remotely, so this step may reveal more issues (for example if
+building on the ARM platform as well) that need to be fixed before
+submitting the change to the devel project.
+</p>
+
+<p>
+Once everything builds successfully on the build service as well as
+locally, you can create a <i>submit request</i> to get the new version merged
+into the devel project. To do this, use the <code>submitrequest</code> (<code>sr</code>)
+command:
+</p>
+
+<pre class="example" id="orgfb31a43">
+$ osc sr
+</pre>
+
+<p>
+When the package is a branch from an existing project created using the
+<code>branch</code> command, the build service remembers where the package was
+branched from and automatically creates the submit request to that
+location. If you want to override this, simply pass the project name as
+an argument to <code>sr</code>: <code>osc sr openSUSE:Factory</code>. This should rarely be
+needed, however.
+</p>
+</div>
+</div>
+</section>
+</main>
+<footer id="postamble" class="status">
+<p class="date">Date: 2017-03-08</p>
+<p class="author">Author: Duncan Mac-Vicar P.</p>
+<p class="date">Created: 20 Oct. 2020</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 20 Oct. 2020 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>openSUSE Build service: layering, linking, patching and aggregating</title>
+<meta name="generator" content="Org mode">
+<meta name="author" content="Duncan Mac-Vicar P.">
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-1687066-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-1687066-2');
+</script>
+<link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css' rel='stylesheet' integrity='sha256-k2/8zcNbxVIh5mnQ52A0r3a6jAgMGxFJFE2707UxGCk= sha512-ZV9KawG2Legkwp3nAlxLIVFudTauWuBpC10uEafMHYL0Sarrz5A7G79kXh5+5+woxQ5HM559XX2UZjMJ36Wplg==' crossorigin='anonymous'/>
+<meta description='The blog of Duncan Mac-Vicar P.'/>
+<link rel='alternate' type='application+rss/xml' title='The blog of Duncan Mac-Vicar P.' href='posts/rss.xml'/>
+<link rel="stylesheet" href="../../css/site.css?v=e21a1eb21340254d7e0023bf45ef785954bb24f4151e4abcd60e4c86799b8d8b" type="text/css">
+</head>
+<body>
+<header id="preamble" class="status">
+<aside>
+  <h1>Hi.</h1>
+  <a href="/">
+    <img src="https://www.gravatar.com/avatar/3b67365812827fa25df5093b38934a8f?s=80" class="avatar" alt="My photo"/>
+  </a>
+  <h2>I'm <a href="/">Duncan Mac-Vicar P.</a></h2>
+  <div id="bio">
+    <small><p>I am inspired by creating software. I do that mostly at <a href="https://www.suse.com"><!--img src="https://www.suse.com/common/img/suse_54x33.png" height="33" width="54" style="float: left;"-->SUSE</a>.
+      <p>When things break, I fix them or go play guitar...</p></small>
+  </div>
+  <div id="social">
+    Follow me:
+    <div id="stalker">
+      <a title="dmacvicar on Github" href="https://github.com/dmacvicar">
+        <i class="fa fa-github-square"></i>
+      </a>
+      <a title="dmacvicar on Hacker News" href="https://news.ycombinator.com/user?id=dmacvicar">
+        <i class="fa fa-hacker-news"></i>
+      </a>
+      <a title="dmacvicar on Twitter" href="https://twitter.com/dmacvicar">
+        <i class="fa fa-twitter-square"></i>
+      </a>
+      <a title="RSS feed" id="atom" href="posts/rss.xml">
+        <i class="fa fa-rss-square"></i>
+      </a>
+    </div>
+  </div>
+</aside>
+</header>
+<main id="content">
+<header>
+<h1 class="title">openSUSE Build service: layering, linking, patching and aggregating</h1>
+<p class="subtitle">Aug 20, 2008</p>
+</header><p>
+Today I used some of the coolest <a href="http://build.opensuse.org">openSUSE Build Service</a> features: project layering, patches against linked packages and aggregates. I want to write about them.
+</p>
+
+<p>
+I needed to test a feature in PackageKit. I am using openSUSE 11.0. However upstream PackageKit does not play nice with 11.0. <a href="http://en.opensuse.org/User:Haass">Stefan Haas</a> fixed this, taking our PackageKit sources, adding some patches, and building them in his <a href="https://build.opensuse.org/package/show?package=PackageKit&amp;project=home%3Ahaass">home project</a>, which results in a repository <a href="http://download.opensuse.org/repositories/home:/haass/openSUSE_11.0/">here</a>.
+</p>
+
+<p>
+My feature involved a patch against PackageKit and then testing it from a client application (to adapt it), so what I wanted to achieve was to use Stefan&rsquo;s PackageKit plus my patch, packaged in a rpm.
+</p>
+
+<p>
+I could just copy Stefan&rsquo;s sources and patches to my home project, and add my patch, but that would be duplication. Any change Stefan does later would require to copy it again.
+</p>
+
+<p>
+Luckily the build service has a feature call linking, so I can link Stefan&rsquo;s package to my home project. You can do that from osc or from the web user interface (Link package from another project), and that would result in a new package called PackageKit in my project (I created a subproject home:dmacvicar:packagekit for this purpose) with a single file called <i>_link</i>.
+</p>
+
+<p>
+This version of PackageKit only builds with Factory&rsquo;s libzypp, so here we have various options:
+</p>
+
+<ul class="org-ul">
+<li>build on top of zypp:svn/openSUSE_11.0 which is ZYpp svn built on openSUSE_11.0</li>
+<li>link all <a href="https://build.opensuse.org/project/show?project=zypp%3Asvn">zypp:svn</a> packages to my project (too inefficient, Adrian would kill me if I start to rebuild ZYpp in every project :-) )</li>
+<li>aggregate all ZYpp openSUSE_11.0 packages from <a href="https://build.opensuse.org/project/show?project=zypp%3Asvn">zypp:svn</a> in my project (aggregate explained later)</li>
+</ul>
+
+<p>
+Because I already have the <a href="http://download.opensuse.org/repositories/zypp:/svn/openSUSE_11.0/">repo zypp:svn</a> in my repo list, I chose building on top of <a href="https://build.opensuse.org/project/show?project=zypp%3Asvn">zypp:svn</a>. (This will mean that in order to use this modified PackageKit repo, you need to add <a href="https://build.opensuse.org/project/show?project=zypp%3Asvn">zypp:svn</a> as well).
+</p>
+
+<p>
+So now, I can add my patch next to the _link file. However, How to make this patch appear in Stefan&rsquo;s specfile? Do we need to patch the spec file too? No. The build service does it for you. Just edit the _link file which looks like this:
+</p>
+
+<p>
+So it looks like:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xml"><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">link</span> <span class="org-nxml-attribute-local-name">project</span>=<span class="org-string">'zypp:svn'</span> <span class="org-nxml-attribute-local-name">package</span>=<span class="org-string">'PackageKit'</span><span class="org-nxml-tag-delimiter">&gt;</span>
+  <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">patches</span><span class="org-nxml-tag-delimiter">&gt;</span>
+    <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">apply</span> <span class="org-nxml-attribute-local-name">name</span>=<span class="org-string">"patch"</span> <span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+  <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">patches</span><span class="org-nxml-tag-delimiter">&gt;</span>
+<span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">link</span><span class="org-nxml-tag-delimiter">&gt;</span>
+</pre>
+</div>
+
+<p>
+This will insert the patch in the spec file when building. That is real magic.
+</p>
+
+<p>
+Sadly, this bleeding edge PackageKit version requires some libtar-devel not available in 11.0. Stefan had a <a href="https://build.opensuse.org/package/show?package=libtar&amp;project=home%3Ahaass">backport to 11.0 in his home project</a> too. Do we need to link the package to our project too? No. Linking here is unnecessary because we don&rsquo;t really need to rebuild a copy of this package, we only need to make it available in our repository for people installing PackageKit from our project, who don&rsquo;t have Stefan&rsquo;s project added in their repository list, that will get libtar grabbed via dependencies, but we don&rsquo;t care if the metadata grabs the final rpm from Stefan&rsquo;s project.
+</p>
+
+<p>
+That is called &ldquo;aggregate&rdquo;. To aggregate a package from another project, we create a new package (called libtar) and add to it a file called <i>_aggregate</i> (the web interface does not help you here). Edit that file so it looks like:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xml"><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">aggregatelist</span><span class="org-nxml-tag-delimiter">&gt;</span>
+  <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">aggregate</span> <span class="org-nxml-attribute-local-name">project</span>=<span class="org-string">"home:haas"</span><span class="org-nxml-tag-delimiter">&gt;</span>
+    <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">package</span><span class="org-nxml-tag-delimiter">&gt;</span><span class="org-nxml-text">libtar</span><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">package</span><span class="org-nxml-tag-delimiter">&gt;</span>
+    <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">package</span><span class="org-nxml-tag-delimiter">&gt;</span><span class="org-nxml-text">libtar-devel</span><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">package</span><span class="org-nxml-tag-delimiter">&gt;</span>
+  <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">aggregate</span><span class="org-nxml-tag-delimiter">&gt;</span>
+<span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">aggregatelist</span><span class="org-nxml-tag-delimiter">&gt;</span>
+</pre>
+</div>
+
+<p>
+This will map <i>home:haass</i> repositories 1:1 to our repositories. So if we build our project against <i>openSUSE_11.0</i>, it will aggregate our package with home:haass/openSUSE_11.0 too. If you don&rsquo;t have a 1:1 mapping, look the <a href="http://en.opensuse.org/Build_Service/Tips_and_Tricks#Example_of_an__aggregate">Build Service Tips and Tricks</a> to do more complex aggregates.
+</p>
+
+<p>
+Then I am ready to install my new PackageKit:
+</p>
+
+<pre class="example" id="orge41dfeb">
+$ sudo zypper in -r home_dmacvicar_packagekit PackageKit PackageKit-devel
+Reading installed packages...
+
+The following NEW packages are going to be installed:
+PackageKit-devel PackageKit
+
+Overall download size: 1.1 M. After the operation, additional 5.1 M will
+be used.
+Continue? [YES/no]: y
+</pre>
+</main>
+<footer id="postamble" class="status">
+<p class='disclaimer'>The postings on this site are my own and don't necessarily represent my employer’s positions, strategies or opinions.</p>
+
+<p>Last updated 20 Oct. 2020. Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.3 (<a href="https://orgmode.org">Org</a> mode 9.4). <a href="/README.html">Details</a>.</p>
+</footer>
+</body>
+</html>

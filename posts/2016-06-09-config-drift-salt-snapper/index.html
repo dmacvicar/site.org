@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 20 Oct. 2020 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Managing configuration drift with Salt and Snapper</title>
+<meta name="generator" content="Org mode">
+<meta name="author" content="Duncan Mac-Vicar P.">
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-1687066-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-1687066-2');
+</script>
+<link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css' rel='stylesheet' integrity='sha256-k2/8zcNbxVIh5mnQ52A0r3a6jAgMGxFJFE2707UxGCk= sha512-ZV9KawG2Legkwp3nAlxLIVFudTauWuBpC10uEafMHYL0Sarrz5A7G79kXh5+5+woxQ5HM559XX2UZjMJ36Wplg==' crossorigin='anonymous'/>
+<meta description='The blog of Duncan Mac-Vicar P.'/>
+<link rel='alternate' type='application+rss/xml' title='The blog of Duncan Mac-Vicar P.' href='posts/rss.xml'/>
+<link rel="stylesheet" href="../../css/site.css?v=e21a1eb21340254d7e0023bf45ef785954bb24f4151e4abcd60e4c86799b8d8b" type="text/css">
+</head>
+<body>
+<header id="preamble" class="status">
+<aside>
+  <h1>Hi.</h1>
+  <a href="/">
+    <img src="https://www.gravatar.com/avatar/3b67365812827fa25df5093b38934a8f?s=80" class="avatar" alt="My photo"/>
+  </a>
+  <h2>I'm <a href="/">Duncan Mac-Vicar P.</a></h2>
+  <div id="bio">
+    <small><p>I am inspired by creating software. I do that mostly at <a href="https://www.suse.com"><!--img src="https://www.suse.com/common/img/suse_54x33.png" height="33" width="54" style="float: left;"-->SUSE</a>.
+      <p>When things break, I fix them or go play guitar...</p></small>
+  </div>
+  <div id="social">
+    Follow me:
+    <div id="stalker">
+      <a title="dmacvicar on Github" href="https://github.com/dmacvicar">
+        <i class="fa fa-github-square"></i>
+      </a>
+      <a title="dmacvicar on Hacker News" href="https://news.ycombinator.com/user?id=dmacvicar">
+        <i class="fa fa-hacker-news"></i>
+      </a>
+      <a title="dmacvicar on Twitter" href="https://twitter.com/dmacvicar">
+        <i class="fa fa-twitter-square"></i>
+      </a>
+      <a title="RSS feed" id="atom" href="posts/rss.xml">
+        <i class="fa fa-rss-square"></i>
+      </a>
+    </div>
+  </div>
+</aside>
+</header>
+<main id="content">
+<header>
+<h1 class="title">Managing configuration drift with Salt and Snapper</h1>
+<p class="subtitle">Jun 09, 2016</p>
+</header>
+<div id="outline-container-introduction" class="outline-3">
+<h3 id="introduction">Introduction</h3>
+<div class="outline-text-3" id="text-introduction">
+<p>
+Many configuration management tools originate in the DevOps space and become immensely popular and while they do manage configuration, they are tailored towards deployment of new servers using this configuration and not towards auditing of existing servers.
+</p>
+
+<p>
+For example, lets imagine a server with the following state:
+</p>
+
+<pre class="example" id="orgd45c22d">
+/etc/motd:
+  file.managed:
+    - source: salt://common/motd
+</pre>
+
+<p>
+If we apply this state (in <code>test</code> mode) on a non-compliant server:
+</p>
+
+<pre class="example" id="org8628307">
+$ salt minion1 state.apply test=True
+minion1:
+----------
+          ID: /etc/motd
+    Function: file.managed
+      Result: None
+     Comment: The file /etc/motd is set to be changed
+     Started: 10:06:05.021643
+    Duration: 30.339 ms
+     Changes:
+              ----------
+              diff:
+                  ---
+                  +++
+                  @@ -1 +1 @@
+                  -Have a lot of fun...
+                  +This is my managed motd
+
+Summary for minion1
+------------
+Succeeded: 1 (unchanged=1, changed=1)
+Failed:    0
+------------
+Total states run:     1
+</pre>
+
+<p>
+Salt is able to tell us that there is a file that deviates from the configuration. And we can easily fix it by just removing <code>test=True</code>.
+</p>
+
+<p>
+Now, lets say an intruder adds a malicious entry to <code>/etc/hosts</code>:
+</p>
+
+<pre class="example" id="org68386a9">
+192.168.1.34    www.google.com
+</pre>
+
+<p>
+If we re run our state in test mode:
+</p>
+
+<pre class="example" id="org4b82ccb">
+$ salt minion1 state.apply test=True
+minion1:
+----------
+          ID: /etc/motd
+    Function: file.managed
+      Result: None
+     Comment: The file /etc/motd is set to be changed
+     Started: 10:12:11.518105
+    Duration: 29.479 ms
+     Changes:
+              ----------
+              diff:
+                  ---
+                  +++
+                  @@ -1 +1 @@
+                  -Have a lot of fun...
+                  +This is my managed motd
+
+Summary for minion1
+------------
+Succeeded: 1 (unchanged=1, changed=1)
+Failed:    0
+------------
+Total states run:     1
+</pre>
+
+<p>
+As expected, it did not find anything, because this rule is not in the configuration.
+</p>
+</div>
+</div>
+
+<div id="outline-container-creating-new-systems-vs-auditing-existing-systems" class="outline-3">
+<h3 id="creating-new-systems-vs-auditing-existing-systems">Creating new systems vs auditing existing systems</h3>
+<div class="outline-text-3" id="text-creating-new-systems-vs-auditing-existing-systems">
+<p>
+This model works fine in the DevOps world where the culture is to take a random Linux image from the internet and use it as a base to deploy systems from scratch. As long as all tests pass, replacing the underlying image is not a problem. Only what is explicitly defined is evaluated against the configuration and defined as a drift.
+</p>
+
+<p>
+When meeting enterprise customers who are starting to use configuration management to improve the control on their infrastructure, it turns out their expectations where different. &ldquo;If I use Salt, will it tell me when somebody makes a change to the system?&rdquo;. &ldquo;Ugh.. no&#x2026; well depends&#x2026;&rdquo;.
+</p>
+</div>
+</div>
+
+<div id="outline-container-baselines" class="outline-3">
+<h3 id="baselines">Baselines</h3>
+<div class="outline-text-3" id="text-baselines">
+<p>
+That was the point that I started to think about - how could we use the state system to do more generic auditing and how do you do it without ruining the experience of working with states? Then it all clicked &#x2013; implicit state can be done explicitly by using another state. When the customer said “any change”, they were in reality saying &ldquo;any change against my defined configuration&rdquo; plus &ldquo;any change since my last working configuration&rdquo;.
+</p>
+
+<p>
+So, we needed a way to manage &ldquo;last working configuration&rdquo; and turns out SUSE is where <a href="http://snapper.io">Snapper</a> originated and Snapper is nowadays available with most Linux distributions.
+</p>
+
+<p>
+Snapper is a set of tools over snapshots (mostly btrfs, but also works on others like ext4 if you have the required kernel/tool patches). Think of it of what docker did to containers, snapper does to snapshots. It adds the required workflows, terminology and tools to make them usable.
+</p>
+
+<p>
+It also turns out that my system already has some snapshots, because just like I can manually take one, tools like YaST and zypper take snapshots before and after doing operations. You can even select previous snapshots from the bootloader and boot into the previous working system.
+</p>
+
+<p>
+What if I could describe a state in Salt that said: &ldquo;Nothing deviates from this snapshots, except&#x2026;.&rdquo;.
+</p>
+</div>
+</div>
+
+<div id="outline-container-lets-do-it" class="outline-3">
+<h3 id="lets-do-it">Let&rsquo;s do it</h3>
+<div class="outline-text-3" id="text-lets-do-it">
+<p>
+So during this year Department workshop I paired with <a href="https://github.com/meaksh">Pablo</a> and our project had the following steps:
+</p>
+
+<ul class="org-ul">
+<li>Complete the Salt execution module to expose the basic snapper operations you can do from the command line. Example:</li>
+</ul>
+
+<pre class="example" id="org239b9c0">
+salt minion1 snapper.create_snapshot
+</pre>
+
+<ul class="org-ul">
+<li>Create a generic way for sysadmins to do Salt operations which can be reverted. We implemented this as a meta-call (a call taking another call as a parameter) <code>snapper.run</code>. So you can do something like:</li>
+</ul>
+
+<pre class="example" id="orge4519e7">
+$ salt minion2 snapper.run function=file.append args='["/etc/motd", "some text"]'
+minion2:
+    Wrote 1 lines to "/etc/motd"
+</pre>
+
+<p>
+This will generate a snapshot before running the command, run the command and then take a snapshot afterwards, also adding metadata about the Salt job that did the change:
+</p>
+
+<pre class="example" id="orgb6377f6">
+...
+pre    | 21 |       | Thu Jun  9 10:34:36 2016 | root | number  | salt job 20160609103437556668 | salt_jid=20160609103437556668
+post   | 22 | 21    | Thu Jun  9 10:34:37 2016 | root | number  | salt job 20160609103437556668 | salt_jid=20160609103437556668
+</pre>
+
+<p>
+Because in Salt, state is implemented as a method <code>state.apply</code> or <code>state.highstate</code>, calling <code>snapper.run function=state.apply</code> means you can rollback a failed <code>state.apply</code>.
+</p>
+
+<p>
+And of course we not only exposed <code>snapper.diff</code> which takes the snapshot number but also a <code>snapper.diff_jid</code> which tells you what a Salt job changed:
+</p>
+
+<pre class="example" id="org8ece9e4">
+$ salt minion2 snapper.diff_jid 20160609103437556668
+minion2:
+    ----------
+    /etc/motd:
+        --- /.snapshots/21/snapshot/etc/motd
+        +++ /.snapshots/22/snapshot/etc/motd
+        @@ -1 +1,2 @@
+         Have a lot of fun...
+        +some text
+</pre>
+
+<p>
+Additionally, you get <code>snapper.undo_jid</code> which you can guess what it does: it undoes the changes done by a specific salt job (which of course could be a <code>state.apply</code> run).
+</p>
+
+<ul class="org-ul">
+<li>And finally, allowing a system administrator to use snapshots as a baseline to apply state. Lets take the original example with the malicious user modifying `/etc/hosts&rsquo;, we will add a snapper state rule:</li>
+</ul>
+
+<pre class="example" id="orga92ebc8">
+my_baseline:
+  snapper.baseline_snapshot:
+    - number: 20
+    - ignore:
+      - /var/log
+      - /var/cache
+
+/etc/motd:
+  file.managed:
+      - source: salt://common/motd
+</pre>
+
+<p>
+Now we apply the state in test mode again:
+</p>
+
+<pre class="example" id="orgbd4caf2">
+$ salt minion1 state.apply test=True
+minion1:
+----------
+          ID: my_baseline
+    Function: snapper.baseline_snapshot
+      Result: None
+     Comment: 1 files changes are set to be undone
+     Started: 12:20:24.899848
+    Duration: 1051.996 ms
+     Changes:
+              ----------
+              files:
+                  ----------
+                  /etc/hosts:
+                      ----------
+                      actions:
+                          - modified
+                      comment:
+                          text file
+                      diff:
+                          --- /etc/hosts
+                          +++ /.snapshots/21/snapshot/etc/hosts
+                          @@ -22,5 +22,3 @@
+                           ff02::3         ipv6-allhosts
+
+
+                          -192.168.1.34    www.google.com
+                          -
+----------
+          ID: /etc/motd
+    Function: file.managed
+      Result: None
+     Comment: The file /etc/motd is set to be changed
+     Started: 12:20:25.953348
+    Duration: 20.425 ms
+     Changes:
+              ----------
+              diff:
+                  ---
+                  +++
+                  @@ -1 +1 @@
+                  -Have a lot of fun...
+                  +This is my managed motd
+
+Summary for minion1
+------------
+Succeeded: 2 (unchanged=2, changed=2)
+Failed:    0
+------------
+Total states run:     2
+</pre>
+
+<p>
+Exactly what we expect!.
+</p>
+</div>
+</div>
+
+<section id="outline-container-conclusions" class="outline-2">
+<h2 id="conclusions">Conclusions</h2>
+<div class="outline-text-2" id="text-conclusions">
+<p>
+So with this you can use your configuration management to manage your state against a defined state and on top of that we give you the tooling to inspect and rollback configuration changes.
+</p>
+
+<p>
+We will continue adding the missing pieces to give the administrators full overview and control over their running systems.
+</p>
+
+<p>
+You can find our current work <a href="https://github.com/SUSE/salt-snapper-module">in this github repository</a>. We plan of course to send it upstream once the design and implementation settles down.
+</p>
+</div>
+</section>
+</main>
+<footer id="postamble" class="status">
+<p class='disclaimer'>The postings on this site are my own and don't necessarily represent my employer’s positions, strategies or opinions.</p>
+
+<p>Last updated 20 Oct. 2020. Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.3 (<a href="https://orgmode.org">Org</a> mode 9.4). <a href="/README.html">Details</a>.</p>
+</footer>
+</body>
+</html>
