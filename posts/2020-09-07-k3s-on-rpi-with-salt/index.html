@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 20 Oct. 2020 -->
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 11 Dec. 2021 -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Raspberry Pi cluster with k3s &amp; Salt (Part 1)</title>
-<meta name="generator" content="Org mode">
-<meta name="author" content="Duncan Mac-Vicar P.">
+<meta name="author" content="Duncan Mac-Vicar P." />
+<meta name="generator" content="Org Mode" />
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-1687066-2"></script>
 <script>
@@ -30,7 +30,7 @@
   </a>
   <h2>I'm <a href="/">Duncan Mac-Vicar P.</a></h2>
   <div id="bio">
-    <small><p>I am inspired by creating software. I do that mostly at <a href="https://www.suse.com"><!--img src="https://www.suse.com/common/img/suse_54x33.png" height="33" width="54" style="float: left;"-->SUSE</a>.
+    <small><p>I am inspired by creating software and learning from others.</p>
       <p>When things break, I fix them or go play guitar...</p></small>
   </div>
   <div id="social">
@@ -52,16 +52,16 @@
   </div>
 </aside>
 </header>
-<main id="content">
+<main id="content" class="content">
 <header>
 <h1 class="title">Raspberry Pi cluster with k3s &amp; Salt (Part 1)</h1>
-<p class="subtitle">Sep 07, 2020</p>
+<p class="subtitle" role="doc-subtitle">Sep 07, 2020</p>
 </header><p>
 I have been running some workloads on Raspberry Pi&rsquo;s / <a href="https://software.opensuse.org/distributions/leap">Leap</a> for some time. I manage them using <a href="https://docs.saltstack.com/en/latest/topics/ssh">salt-ssh</a> along with a <a href="https://www.kickstarter.com/projects/pine64/pine-a64-first-15-64-bit-single-board-super-comput/">Pine64</a> running <a href="https://www.openbsd.org">OpenBSD</a>. You can read more about using Salt this way in my <a href="../2016-05-18-using-salt-like-ansible/index.html">Using Salt like Ansible</a> post.
 </p>
 
 
-<figure id="org3b2f436">
+<figure id="org2a82834">
 <img src="images/rpi-cluster-small.jpg" alt="rpi-cluster-small.jpg">
 
 </figure>
@@ -140,9 +140,9 @@ I decided for the the initial iteration:
 All the above managed with <span class="underline">salt-ssh</span> tree on a git repository just like I was used to
 </p>
 
-<section id="outline-container-org4be2bc5" class="outline-2">
-<h2 id="org4be2bc5">k3s installation</h2>
-<div class="outline-text-2" id="text-org4be2bc5">
+<section id="outline-container-orgde8252f" class="outline-2">
+<h2 id="orgde8252f">k3s installation</h2>
+<div class="outline-text-2" id="text-orgde8252f">
 <p>
 We start by creating <code>k3s/init.sls</code>. For the k3s state I defined a minimal pillar defining the server and the shared token:
 </p>
@@ -281,9 +281,9 @@ The k3s state works as follows: it runs the installation script in server or age
 </div>
 </section>
 
-<section id="outline-container-orgadd5533" class="outline-2">
-<h2 id="orgadd5533">Workloads</h2>
-<div class="outline-text-2" id="text-orgadd5533">
+<section id="outline-container-org098645c" class="outline-2">
+<h2 id="org098645c">Workloads</h2>
+<div class="outline-text-2" id="text-org098645c">
 <p>
 The next step is to move workloads like <a href="https://www.home-assistant.io">homeassistant</a> into this setup.
 </p>
@@ -488,7 +488,7 @@ In a future post, I will describe the dashboards setup, and other improvements.
 <footer id="postamble" class="status">
 <p class='disclaimer'>The postings on this site are my own and don't necessarily represent my employer’s positions, strategies or opinions.</p>
 
-<p>Last updated 20 Oct. 2020. Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.3 (<a href="https://orgmode.org">Org</a> mode 9.4). <a href="/README.html">Details</a>.</p>
+<p>Last updated 11 Dec. 2021. Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.2 (<a href="https://orgmode.org">Org</a> mode 9.4.6). <a href="/README.html">Details</a>.</p>
 </footer>
 </body>
 </html>

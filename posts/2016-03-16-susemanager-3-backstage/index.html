@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 20 Oct. 2020 -->
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 11 Dec. 2021 -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Not sweet but salty, SUSE Manager 3 Technical Backstage Part I</title>
-<meta name="generator" content="Org mode">
-<meta name="author" content="Duncan Mac-Vicar P.">
+<meta name="author" content="Duncan Mac-Vicar P." />
+<meta name="generator" content="Org Mode" />
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-1687066-2"></script>
 <script>
@@ -30,7 +30,7 @@
   </a>
   <h2>I'm <a href="/">Duncan Mac-Vicar P.</a></h2>
   <div id="bio">
-    <small><p>I am inspired by creating software. I do that mostly at <a href="https://www.suse.com"><!--img src="https://www.suse.com/common/img/suse_54x33.png" height="33" width="54" style="float: left;"-->SUSE</a>.
+    <small><p>I am inspired by creating software and learning from others.</p>
       <p>When things break, I fix them or go play guitar...</p></small>
   </div>
   <div id="social">
@@ -52,10 +52,10 @@
   </div>
 </aside>
 </header>
-<main id="content">
+<main id="content" class="content">
 <header>
 <h1 class="title">Not sweet but salty, SUSE Manager 3 Technical Backstage Part I</h1>
-<p class="subtitle">Mar 16, 2016</p>
+<p class="subtitle" role="doc-subtitle">Mar 16, 2016</p>
 </header>
 <section id="outline-container-introduction" class="outline-2">
 <h2 id="introduction">Introduction</h2>
@@ -166,7 +166,7 @@ The awesomeness of Salt started to click at various levels. The idea of orchestr
 </p>
 
 
-<figure id="org213b522">
+<figure id="orgfb49c69">
 <img src="images/susecon-susemanager-1.png" alt="SUSECon I">
 
 <figcaption><span class="figure-number">Figure 1: </span>Weird picture</figcaption>
@@ -177,7 +177,7 @@ At SUSECon we showed that with the concept of reactive infrastructure; it was tr
 </p>
 
 
-<figure id="org7eb8e88">
+<figure id="org03e4ef9">
 <img src="images/susecon-susemanager-2.png" alt="susecon-susemanager-2.png">
 
 </figure>
@@ -234,7 +234,7 @@ The basic architecture of a reactor that handles Salt events and interacts with 
 </p>
 
 
-<figure id="orge16da3d">
+<figure id="orgdda0292">
 <img src="images/suma-salt-architecture.png" alt="suma-salt-architecture.png">
 
 </figure>
@@ -286,7 +286,7 @@ The next step was to make SUSE Manager aware of minions. First by registering th
 </p>
 
 
-<figure id="org0ab58e3">
+<figure id="org7c98665">
 <img src="images/minion-clients-2.png" alt="minion-clients-2.png">
 
 </figure>
@@ -296,7 +296,7 @@ After we had done work in order to retrieve the inventory data using Salt itself
 </p>
 
 
-<figure id="org5d8f12b">
+<figure id="org61466e4">
 <img src="images/minion-overview-1.png" alt="minion-overview-1.png">
 
 </figure>
@@ -306,7 +306,7 @@ Once this was working we improved on it, allowing to operate the <code>salt-key<
 </p>
 
 
-<figure id="org6c584d0">
+<figure id="org05ff546">
 <img src="images/pending-minions-1.png" alt="pending-minions-1.png">
 
 </figure>
@@ -316,7 +316,7 @@ And from there you can accept which ones to onboard:
 </p>
 
 
-<figure id="org8a60070">
+<figure id="org0c9c577">
 <img src="images/minion-onboarding-1.png" alt="minion-onboarding-1.png">
 
 </figure>
@@ -337,7 +337,7 @@ While you can patch, install packages in the same way you did with traditional c
 </ul>
 
 
-<figure id="org2371035">
+<figure id="org1889f6f">
 <img src="images/states-catalog-1.png" alt="states-catalog-1.png">
 
 </figure>
@@ -347,7 +347,7 @@ Additionally, SUSE Manager also has a higher level state user interface for pack
 </p>
 
 
-<figure id="org3c635fd">
+<figure id="orge58374c">
 <img src="images/package-states-1.png" alt="package-states-1.png">
 
 </figure>
@@ -361,7 +361,7 @@ SUSE Manager allows to apply states from the State Catalog to Organizations and 
 </p>
 
 
-<figure id="org07195ec">
+<figure id="orgb4c9b67">
 <img src="images/minion-custom-states-1.png" alt="minion-custom-states-1.png">
 
 </figure>
@@ -378,7 +378,7 @@ The <code>Remote Commands</code> page in the <code>Salt</code> section gives you
 </p>
 
 
-<figure id="orgb281bdf">
+<figure id="orgee0ec63">
 <img src="images/remote-commands-1.png" alt="remote-commands-1.png">
 
 </figure>
@@ -399,7 +399,7 @@ Making Salt an important part of SUSE Manager does not end there. In our industr
 </ul>
 
 
-<figure id="org6559f50">
+<figure id="org3774105">
 <img src="images/saltconf-sponsor-1.png" alt="saltconf-sponsor-1.png">
 
 </figure>
@@ -431,7 +431,7 @@ Configuration Management is only one of the features that will arrive SUSE Manag
 <footer id="postamble" class="status">
 <p class='disclaimer'>The postings on this site are my own and don't necessarily represent my employer’s positions, strategies or opinions.</p>
 
-<p>Last updated 20 Oct. 2020. Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.3 (<a href="https://orgmode.org">Org</a> mode 9.4). <a href="/README.html">Details</a>.</p>
+<p>Last updated 11 Dec. 2021. Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.2 (<a href="https://orgmode.org">Org</a> mode 9.4.6). <a href="/README.html">Details</a>.</p>
 </footer>
 </body>
 </html>

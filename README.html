@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 20 Oct. 2020 -->
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 11 Dec. 2021 -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>My homepage with org-mode</title>
-<meta name="generator" content="Org mode">
-<meta name="author" content="Duncan Mac-Vicar P.">
+<meta name="author" content="Duncan Mac-Vicar P." />
+<meta name="generator" content="Org Mode" />
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-1687066-2"></script>
 <script>
@@ -30,7 +30,7 @@
   </a>
   <h2>I'm <a href="/">Duncan Mac-Vicar P.</a></h2>
   <div id="bio">
-    <small><p>I am inspired by creating software. I do that mostly at <a href="https://www.suse.com"><!--img src="https://www.suse.com/common/img/suse_54x33.png" height="33" width="54" style="float: left;"-->SUSE</a>.
+    <small><p>I am inspired by creating software and learning from others.</p>
       <p>When things break, I fix them or go play guitar...</p></small>
   </div>
   <div id="social">
@@ -52,37 +52,36 @@
   </div>
 </aside>
 </header>
-<main id="content">
+<main id="content" class="content">
 <header>
 <h1 class="title">My homepage with org-mode</h1>
 </header>
-<figure id="orgee3ece3">
-<a href="https://github.com/dmacvicar/site.org/actions?query=workflow%3A%22Build+and+publish+to+pages%22"><object type="image/svg+xml" data="https://github.com/dmacvicar/site.org/workflows/Build%20and%20publish%20to%20pages/badge.svg" class="org-svg">
-Sorry, your browser does not support SVG.</object></a>
+<figure id="orgc6438a6">
+<a href="https://github.com/dmacvicar/site.org/actions?query=workflow%3A%22Build+and+publish+to+pages%22"><img src="https://github.com/dmacvicar/site.org/workflows/Build%20and%20publish%20to%20pages/badge.svg" alt="badge.svg" class="org-svg"></a>
 
 </figure>
 
-<section id="outline-container-orgf3e95ae" class="outline-2">
-<h2 id="orgf3e95ae">Introduction</h2>
-<div class="outline-text-2" id="text-orgf3e95ae">
+<section id="outline-container-orga85f314" class="outline-2">
+<h2 id="orga85f314">Introduction</h2>
+<div class="outline-text-2" id="text-orga85f314">
 <p>
 This setup based on <a href="https://orgmode.org">org-mode</a> aims to replace my previous <a href="https://jekyllrb.com">Jekyll</a> setup used to publish my site.
 </p>
 </div>
 </section>
 
-<section id="outline-container-org211080e" class="outline-2">
-<h2 id="org211080e">Implementation</h2>
-<div class="outline-text-2" id="text-org211080e">
+<section id="outline-container-orgce95e0b" class="outline-2">
+<h2 id="orgce95e0b">Implementation</h2>
+<div class="outline-text-2" id="text-orgce95e0b">
 <p>
 For details about the implementation see <a href="posts/2019-09-03-migrating-from-jekyll-to-org/index.html">the introductory post</a> and the <a href="https://github.com/dmacvicar/site.org"><i aria-hidden='true' class='fa fa-github'></i> Source</a>.
 </p>
 </div>
 </section>
 
-<section id="outline-container-orgeffe2b0" class="outline-2">
-<h2 id="orgeffe2b0">Usage</h2>
-<div class="outline-text-2" id="text-orgeffe2b0">
+<section id="outline-container-orgd072def" class="outline-2">
+<h2 id="orgd072def">Usage</h2>
+<div class="outline-text-2" id="text-orgd072def">
 <ul class="org-ul">
 <li>Posts go into <code>posts/</code>
 Preferably in their own subdirectory together with all their assets (self-contained)</li>
@@ -93,7 +92,7 @@ Preferably in their own subdirectory together with all their assets (self-contai
 To generate:
 </p>
 
-<pre class="example" id="org945f67a">
+<pre class="example" id="org503e848">
 $ make
 </pre>
 
@@ -102,9 +101,9 @@ The output site will be rendered in <code>public/</code>.
 </p>
 </div>
 
-<div id="outline-container-org5f91e1d" class="outline-3">
-<h3 id="org5f91e1d">RSS Feeds</h3>
-<div class="outline-text-3" id="text-org5f91e1d">
+<div id="outline-container-org40a4474" class="outline-3">
+<h3 id="org40a4474">RSS Feeds</h3>
+<div class="outline-text-3" id="text-org40a4474">
 <p>
 I am documenting this part because it is complicated and I tend to forget how it works everytime something breaks.
 </p>
@@ -161,13 +160,13 @@ The <span class="underline">RSS</span> exporter will then use the property for t
 </div>
 </section>
 
-<section id="outline-container-org05e6434" class="outline-2">
-<h2 id="org05e6434">Features</h2>
-<div class="outline-text-2" id="text-org05e6434">
+<section id="outline-container-org28bb770" class="outline-2">
+<h2 id="org28bb770">Features</h2>
+<div class="outline-text-2" id="text-org28bb770">
 </div>
-<div id="outline-container-org4d01fdb" class="outline-4">
-<h4 id="org4d01fdb">Redirection</h4>
-<div class="outline-text-4" id="text-org4d01fdb">
+<div id="outline-container-org81281c9" class="outline-4">
+<h4 id="org81281c9">Redirection</h4>
+<div class="outline-text-4" id="text-org81281c9">
 <p>
 When the site was generated using Jekyll, posts where generated in the <code>/:year/:month/:day/:id.html</code> route.
 In order to generate a redirect page, use the following keyword to generate a redirect page:
@@ -180,9 +179,9 @@ In order to generate a redirect page, use the following keyword to generate a re
 </div>
 </div>
 
-<div id="outline-container-orgb78aceb" class="outline-3">
-<h3 id="orgb78aceb">Drafts</h3>
-<div class="outline-text-3" id="text-orgb78aceb">
+<div id="outline-container-orga3541c6" class="outline-3">
+<h3 id="orga3541c6">Drafts</h3>
+<div class="outline-text-3" id="text-orga3541c6">
 <p>
 To hide a post from the list of recent posts or the full archive, use:
 </p>
@@ -199,9 +198,9 @@ Note that the post will still be published, but you will need to access it by it
 </div>
 </section>
 
-<section id="outline-container-orgb1843df" class="outline-2">
-<h2 id="orgb1843df">License</h2>
-<div class="outline-text-2" id="text-orgb1843df">
+<section id="outline-container-org3a57aa9" class="outline-2">
+<h2 id="org3a57aa9">License</h2>
+<div class="outline-text-2" id="text-org3a57aa9">
 <p>
 The code used for generating the site is licensed under the <a href="LICENSE">MIT</a> license.
 </p>
@@ -215,7 +214,7 @@ The content of the site, Copyright (©) 2014-2019 Duncan Mac-Vicar P..
 <footer id="postamble" class="status">
 <p class='disclaimer'>The postings on this site are my own and don't necessarily represent my employer’s positions, strategies or opinions.</p>
 
-<p>Last updated 20 Oct. 2020. Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.3 (<a href="https://orgmode.org">Org</a> mode 9.4). <a href="/README.html">Details</a>.</p>
+<p>Last updated 11 Dec. 2021. Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.2 (<a href="https://orgmode.org">Org</a> mode 9.4.6). <a href="/README.html">Details</a>.</p>
 </footer>
 </body>
 </html>
