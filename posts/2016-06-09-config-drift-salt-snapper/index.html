@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 11 Dec. 2021 -->
+<!-- 02 Jan. 2022 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Managing configuration drift with Salt and Snapper</title>
@@ -68,7 +68,7 @@ Many configuration management tools originate in the DevOps space and become imm
 For example, lets imagine a server with the following state:
 </p>
 
-<pre class="example" id="orge4a6228">
+<pre class="example" id="org4cf818e">
 /etc/motd:
   file.managed:
     - source: salt://common/motd
@@ -78,7 +78,7 @@ For example, lets imagine a server with the following state:
 If we apply this state (in <code>test</code> mode) on a non-compliant server:
 </p>
 
-<pre class="example" id="orgd293d7c">
+<pre class="example" id="org4f48c7a">
 $ salt minion1 state.apply test=True
 minion1:
 ----------
@@ -113,7 +113,7 @@ Salt is able to tell us that there is a file that deviates from the configuratio
 Now, lets say an intruder adds a malicious entry to <code>/etc/hosts</code>:
 </p>
 
-<pre class="example" id="org3a458e3">
+<pre class="example" id="org6cf02f3">
 192.168.1.34    www.google.com
 </pre>
 
@@ -121,7 +121,7 @@ Now, lets say an intruder adds a malicious entry to <code>/etc/hosts</code>:
 If we re run our state in test mode:
 </p>
 
-<pre class="example" id="org7db2f8a">
+<pre class="example" id="org92129ee">
 $ salt minion1 state.apply test=True
 minion1:
 ----------
@@ -203,7 +203,7 @@ So during this year Department workshop I paired with <a href="https://github.co
 <li>Complete the Salt execution module to expose the basic snapper operations you can do from the command line. Example:</li>
 </ul>
 
-<pre class="example" id="org0b0cc6a">
+<pre class="example" id="org12ae5e6">
 salt minion1 snapper.create_snapshot
 </pre>
 
@@ -211,7 +211,7 @@ salt minion1 snapper.create_snapshot
 <li>Create a generic way for sysadmins to do Salt operations which can be reverted. We implemented this as a meta-call (a call taking another call as a parameter) <code>snapper.run</code>. So you can do something like:</li>
 </ul>
 
-<pre class="example" id="org8f31e1f">
+<pre class="example" id="org33f2c96">
 $ salt minion2 snapper.run function=file.append args='["/etc/motd", "some text"]'
 minion2:
     Wrote 1 lines to "/etc/motd"
@@ -221,7 +221,7 @@ minion2:
 This will generate a snapshot before running the command, run the command and then take a snapshot afterwards, also adding metadata about the Salt job that did the change:
 </p>
 
-<pre class="example" id="orgd5bfd48">
+<pre class="example" id="org00b3371">
 ...
 pre    | 21 |       | Thu Jun  9 10:34:36 2016 | root | number  | salt job 20160609103437556668 | salt_jid=20160609103437556668
 post   | 22 | 21    | Thu Jun  9 10:34:37 2016 | root | number  | salt job 20160609103437556668 | salt_jid=20160609103437556668
@@ -235,7 +235,7 @@ Because in Salt, state is implemented as a method <code>state.apply</code> or <c
 And of course we not only exposed <code>snapper.diff</code> which takes the snapshot number but also a <code>snapper.diff_jid</code> which tells you what a Salt job changed:
 </p>
 
-<pre class="example" id="org86ba0c1">
+<pre class="example" id="org1b7c834">
 $ salt minion2 snapper.diff_jid 20160609103437556668
 minion2:
     ----------
@@ -255,7 +255,7 @@ Additionally, you get <code>snapper.undo_jid</code> which you can guess what it 
 <li>And finally, allowing a system administrator to use snapshots as a baseline to apply state. Lets take the original example with the malicious user modifying `/etc/hosts&rsquo;, we will add a snapper state rule:</li>
 </ul>
 
-<pre class="example" id="org14d7a4d">
+<pre class="example" id="org6288197">
 my_baseline:
   snapper.baseline_snapshot:
     - number: 20
@@ -272,7 +272,7 @@ my_baseline:
 Now we apply the state in test mode again:
 </p>
 
-<pre class="example" id="orgb622ebc">
+<pre class="example" id="org440add3">
 $ salt minion1 state.apply test=True
 minion1:
 ----------
@@ -351,7 +351,7 @@ You can find our current work <a href="https://github.com/SUSE/salt-snapper-modu
 <footer id="postamble" class="status">
 <p class='disclaimer'>The postings on this site are my own and don't necessarily represent my employer’s positions, strategies or opinions.</p>
 
-<p>Last updated 11 Dec. 2021. Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.2 (<a href="https://orgmode.org">Org</a> mode 9.4.6). <a href="/README.html">Details</a>.</p>
+<p>Last updated 02 Jan. 2022. Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.2 (<a href="https://orgmode.org">Org</a> mode 9.4.6). <a href="/README.html">Details</a>.</p>
 </footer>
 </body>
 </html>
