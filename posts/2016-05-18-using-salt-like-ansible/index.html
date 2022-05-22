@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 02 Jan. 2022 -->
+<!-- 22 May. 2022 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Using Salt like Ansible</title>
@@ -16,41 +16,34 @@
 
   gtag('config', 'UA-1687066-2');
 </script>
-<link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css' rel='stylesheet' integrity='sha256-k2/8zcNbxVIh5mnQ52A0r3a6jAgMGxFJFE2707UxGCk= sha512-ZV9KawG2Legkwp3nAlxLIVFudTauWuBpC10uEafMHYL0Sarrz5A7G79kXh5+5+woxQ5HM559XX2UZjMJ36Wplg==' crossorigin='anonymous'/>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css' rel='stylesheet' integrity='sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==' crossorigin='anonymous'/>
 <meta description='The blog of Duncan Mac-Vicar P.'/>
 <link rel='alternate' type='application+rss/xml' title='The blog of Duncan Mac-Vicar P.' href='posts/rss.xml'/>
-<link rel="stylesheet" href="../../css/site.css?v=e21a1eb21340254d7e0023bf45ef785954bb24f4151e4abcd60e4c86799b8d8b" type="text/css">
+<link rel="stylesheet" href="../../css/site.css?v=d06246555179cc693994c6cd6cd74faed6bc08c754a9ae99c23e96ba131806e7" type="text/css">
 </head>
 <body>
 <header id="preamble" class="status">
-<aside>
-  <h1>Hi.</h1>
-  <a href="/">
-    <img src="https://www.gravatar.com/avatar/3b67365812827fa25df5093b38934a8f?s=80" class="avatar" alt="My photo"/>
-  </a>
-  <h2>I'm <a href="/">Duncan Mac-Vicar P.</a></h2>
-  <div id="bio">
-    <small><p>I am inspired by creating software and learning from others.</p>
-      <p>When things break, I fix them or go play guitar...</p></small>
-  </div>
-  <div id="social">
-    Follow me:
-    <div id="stalker">
-      <a title="dmacvicar on Github" href="https://github.com/dmacvicar">
-        <i class="fa fa-github-square"></i>
+  <div class="logo">
+      <a href="/">
+      <img src="https://www.gravatar.com/avatar/3b67365812827fa25df5093b38934a8f?s=80" class="avatar" alt="My photo"/>
+      </a>
+      <a href="/"><h2>Duncan Mac-Vicar P.</h2></a>
+      <div id="social">
+        <a title="dmacvicar on Github" href="https://github.com/dmacvicar">
+          <i class="fa-brands fa-github"></i>
       </a>
       <a title="dmacvicar on Hacker News" href="https://news.ycombinator.com/user?id=dmacvicar">
-        <i class="fa fa-hacker-news"></i>
+        <i class="fa-brands fa-hacker-news"></i>
       </a>
       <a title="dmacvicar on Twitter" href="https://twitter.com/dmacvicar">
-        <i class="fa fa-twitter-square"></i>
+        <i class="fa-brands fa-twitter"></i>
       </a>
       <a title="RSS feed" id="atom" href="posts/rss.xml">
-        <i class="fa fa-rss-square"></i>
+        <i class="fa-solid fa-rss"></i>
       </a>
-    </div>
-  </div>
-</aside>
+   </div>
+ </div>
+ <sub>I am inspired by creating software and learning from others. When things break, I fix them or go play guitar <i class="fa-solid fa-guitar"></i> ...</sub>
 </header>
 <main id="content" class="content">
 <header>
@@ -73,7 +66,7 @@ The first part of the answer had to do that the master-minion architecture of Sa
 </p>
 
 
-<figure id="orgc22f7c6">
+<figure id="org49df981">
 <img src="images/salt-0mq.png" alt="salt-0mq.png">
 
 </figure>
@@ -83,7 +76,7 @@ For example, you can create more scalable topoligies using the concept of syndic
 </p>
 
 
-<figure id="org7c15d7e">
+<figure id="org8f29aa3">
 <img src="images/salt-syndic.png" alt="salt-syndic.png">
 
 </figure>
@@ -93,7 +86,7 @@ Or manage dumb devices with the concept of Salt proxies:
 </p>
 
 
-<figure id="orgb2c7ccd">
+<figure id="org4b63213">
 <img src="images/salt-proxy.png" alt="salt-proxy.png">
 
 </figure>
@@ -145,7 +138,7 @@ If you want to run Salt like Ansible, you only need to install <code>salt-ssh</c
 Well, there are a couple of other <a href="https://bugzilla.suse.com/show_bug.cgi?id=1057772">packages required</a>
 </p>
 
-<pre class="example" id="org1ce3e9a">
+<pre class="example" id="orge4ded68">
 ssh $HOST zypper -n install python-pyOpenSSL python-xml
 </pre>
 </blockquote>
@@ -154,7 +147,7 @@ ssh $HOST zypper -n install python-pyOpenSSL python-xml
 Salt is available out of the box on <a href="https://www.opensuse.org/">openSUSE Leap and Tumbleweed</a> so if you are using them just type:
 </p>
 
-<pre class="example" id="org30f6a4a">
+<pre class="example" id="org99b4310">
 zypper in salt-ssh
 </pre>
 
@@ -206,7 +199,7 @@ Then create <code>~/Project/etc/salt/master</code>:
 And create both trees:
 </p>
 
-<pre class="example" id="org9f3905d">
+<pre class="example" id="org12aa077">
 mkdir -p srv/salt
 mkdir -p srv/pillar
 </pre>
@@ -272,7 +265,7 @@ Ansible will assume you have SSH access available to your servers, usually based
 So, in the Ansible tutorial, you did:
 </p>
 
-<pre class="example" id="orgcd77851">
+<pre class="example" id="org051ecd1">
 $ ansible all -m ping
 127.0.0.1 | success &gt;&gt; {
     "changed": false,
@@ -284,7 +277,7 @@ $ ansible all -m ping
 The equivalent in <code>salt-ssh</code> would be:
 </p>
 
-<pre class="example" id="org69cc848">
+<pre class="example" id="orga4cdcb8">
 salt-ssh '*' test.ping
 node1:
     True
@@ -311,7 +304,7 @@ If we didn&rsquo;t have modules, we&rsquo;d be left running arbitrary shell comm
 </p>
 </blockquote>
 
-<pre class="example" id="org5e916bc">
+<pre class="example" id="org478599b">
 ansible all -s -m shell -a 'apt-get install nginx'
 </pre>
 
@@ -329,7 +322,7 @@ For installing software on Debian/Ubuntu servers, the &ldquo;apt&rdquo; module w
 </p>
 </blockquote>
 
-<pre class="example" id="org28ebe9d">
+<pre class="example" id="org72c6ef1">
 ansible all -s -m apt -a 'pkg=nginx state=installed update_cache=true'
 127.0.0.1 | success &gt;&gt; {
     "changed": false
@@ -348,7 +341,7 @@ There are two execution modules worth to mention:
 <li>The <code>cmd</code> module, which you can use to run shell commands when you want to accomplish something that is not provided by a built-in execution module. Taking the example above:</li>
 </ul>
 
-<pre class="example" id="org870cd29">
+<pre class="example" id="org1cfaa20">
 salt-ssh '*' cmd.run 'apt-get install nginx'
 </pre>
 
@@ -356,7 +349,7 @@ salt-ssh '*' cmd.run 'apt-get install nginx'
 <li>The <code>state</code> module, which is the execution module that allows to apply state modules and more complex composition of states, known as <code>sls</code> files.</li>
 </ul>
 
-<pre class="example" id="orgc75ee88">
+<pre class="example" id="org9e75f1f">
 salt-ssh '*' pkg.install nginx
 </pre>
 
@@ -372,7 +365,7 @@ On Salt you would normally use the non-idempotent execution modules from the com
 If you still want to apply state data like ansible does it:
 </p>
 
-<pre class="example" id="org78d4982">
+<pre class="example" id="org7635d44">
 salt-ssh '*' state.high '{"nginx": {"pkg": ["installed"]}}'
 </pre>
 </div>
@@ -420,7 +413,7 @@ This means, all hosts should get that state. You can do very <a href="https://do
 So when you run:
 </p>
 
-<pre class="example" id="org7c19bd4">
+<pre class="example" id="org3825677">
 salt-ssh '*' state.apply
 </pre>
 
@@ -432,7 +425,7 @@ You are applying the highstate on all hosts, but the highstate of each host is d
 You can as well apply a specific state, even if that state does not form part of the host highstate:
 </p>
 
-<pre class="example" id="org5b464e1">
+<pre class="example" id="org96dcaab">
 salt-ssh '*' state.apply nginx
 </pre>
 
@@ -561,7 +554,7 @@ Edit <code>srv/pillar/top.sls</code> and define who will see this pillar (in thi
 Then you can see which data every host sees:
 </p>
 
-<pre class="example" id="orgf0ef9b6">
+<pre class="example" id="org8693428">
 salt-ssh '*' pillar.items
 node1:
     ----------
@@ -695,7 +688,7 @@ Then we can run the Role(s):
 </p>
 </blockquote>
 
-<pre class="example" id="org953af3d">
+<pre class="example" id="org92fbcee">
 salt-ssh '*' state.apply
 </pre>
 
@@ -713,7 +706,7 @@ Would apply what <code>top.sls</code> defines.
 These are equivalent to grains, and you can see what grains you have available by calling:
 </p>
 
-<pre class="example" id="org5585109">
+<pre class="example" id="org4f588c0">
 salt-ssh '*' grains.items
 </pre>
 
@@ -787,7 +780,7 @@ And then refer to it from the <a href="https://docs.saltstack.com/en/latest/ref/
 In order to refresh the pillar data, you can use:
 </p>
 
-<pre class="example" id="org59c4008">
+<pre class="example" id="org04ee4bb">
 salt-ssh '*' saltutil.refresh_pillar
 </pre>
 </div>
@@ -819,7 +812,7 @@ The master/minion infrastructure brings a whole new set of possibilities. The re
 <footer id="postamble" class="status">
 <p class='disclaimer'>The postings on this site are my own and don't necessarily represent my employer’s positions, strategies or opinions.</p>
 
-<p>Last updated 02 Jan. 2022. Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.2 (<a href="https://orgmode.org">Org</a> mode 9.4.6). <a href="/README.html">Details</a>.</p>
+<p>Last updated 22 May. 2022. Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.2 (<a href="https://orgmode.org">Org</a> mode 9.4.6). <a href="/README.html">Details</a>.</p>
 </footer>
 </body>
 </html>

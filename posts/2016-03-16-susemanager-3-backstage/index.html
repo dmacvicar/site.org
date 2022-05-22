@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 02 Jan. 2022 -->
+<!-- 22 May. 2022 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Not sweet but salty, SUSE Manager 3 Technical Backstage Part I</title>
@@ -16,41 +16,34 @@
 
   gtag('config', 'UA-1687066-2');
 </script>
-<link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css' rel='stylesheet' integrity='sha256-k2/8zcNbxVIh5mnQ52A0r3a6jAgMGxFJFE2707UxGCk= sha512-ZV9KawG2Legkwp3nAlxLIVFudTauWuBpC10uEafMHYL0Sarrz5A7G79kXh5+5+woxQ5HM559XX2UZjMJ36Wplg==' crossorigin='anonymous'/>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css' rel='stylesheet' integrity='sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==' crossorigin='anonymous'/>
 <meta description='The blog of Duncan Mac-Vicar P.'/>
 <link rel='alternate' type='application+rss/xml' title='The blog of Duncan Mac-Vicar P.' href='posts/rss.xml'/>
-<link rel="stylesheet" href="../../css/site.css?v=e21a1eb21340254d7e0023bf45ef785954bb24f4151e4abcd60e4c86799b8d8b" type="text/css">
+<link rel="stylesheet" href="../../css/site.css?v=d06246555179cc693994c6cd6cd74faed6bc08c754a9ae99c23e96ba131806e7" type="text/css">
 </head>
 <body>
 <header id="preamble" class="status">
-<aside>
-  <h1>Hi.</h1>
-  <a href="/">
-    <img src="https://www.gravatar.com/avatar/3b67365812827fa25df5093b38934a8f?s=80" class="avatar" alt="My photo"/>
-  </a>
-  <h2>I'm <a href="/">Duncan Mac-Vicar P.</a></h2>
-  <div id="bio">
-    <small><p>I am inspired by creating software and learning from others.</p>
-      <p>When things break, I fix them or go play guitar...</p></small>
-  </div>
-  <div id="social">
-    Follow me:
-    <div id="stalker">
-      <a title="dmacvicar on Github" href="https://github.com/dmacvicar">
-        <i class="fa fa-github-square"></i>
+  <div class="logo">
+      <a href="/">
+      <img src="https://www.gravatar.com/avatar/3b67365812827fa25df5093b38934a8f?s=80" class="avatar" alt="My photo"/>
+      </a>
+      <a href="/"><h2>Duncan Mac-Vicar P.</h2></a>
+      <div id="social">
+        <a title="dmacvicar on Github" href="https://github.com/dmacvicar">
+          <i class="fa-brands fa-github"></i>
       </a>
       <a title="dmacvicar on Hacker News" href="https://news.ycombinator.com/user?id=dmacvicar">
-        <i class="fa fa-hacker-news"></i>
+        <i class="fa-brands fa-hacker-news"></i>
       </a>
       <a title="dmacvicar on Twitter" href="https://twitter.com/dmacvicar">
-        <i class="fa fa-twitter-square"></i>
+        <i class="fa-brands fa-twitter"></i>
       </a>
       <a title="RSS feed" id="atom" href="posts/rss.xml">
-        <i class="fa fa-rss-square"></i>
+        <i class="fa-solid fa-rss"></i>
       </a>
-    </div>
-  </div>
-</aside>
+   </div>
+ </div>
+ <sub>I am inspired by creating software and learning from others. When things break, I fix them or go play guitar <i class="fa-solid fa-guitar"></i> ...</sub>
 </header>
 <main id="content" class="content">
 <header>
@@ -166,7 +159,7 @@ The awesomeness of Salt started to click at various levels. The idea of orchestr
 </p>
 
 
-<figure id="org436832f">
+<figure id="orgf78fa48">
 <img src="images/susecon-susemanager-1.png" alt="SUSECon I">
 
 <figcaption><span class="figure-number">Figure 1: </span>Weird picture</figcaption>
@@ -177,7 +170,7 @@ At SUSECon we showed that with the concept of reactive infrastructure; it was tr
 </p>
 
 
-<figure id="orgcd8bd37">
+<figure id="org897acb2">
 <img src="images/susecon-susemanager-2.png" alt="susecon-susemanager-2.png">
 
 </figure>
@@ -234,7 +227,7 @@ The basic architecture of a reactor that handles Salt events and interacts with 
 </p>
 
 
-<figure id="orgc31e6d5">
+<figure id="orgc863d51">
 <img src="images/suma-salt-architecture.png" alt="suma-salt-architecture.png">
 
 </figure>
@@ -286,7 +279,7 @@ The next step was to make SUSE Manager aware of minions. First by registering th
 </p>
 
 
-<figure id="org9e5269e">
+<figure id="org08b7b47">
 <img src="images/minion-clients-2.png" alt="minion-clients-2.png">
 
 </figure>
@@ -296,7 +289,7 @@ After we had done work in order to retrieve the inventory data using Salt itself
 </p>
 
 
-<figure id="org4b2aa9f">
+<figure id="org02a1eb5">
 <img src="images/minion-overview-1.png" alt="minion-overview-1.png">
 
 </figure>
@@ -306,7 +299,7 @@ Once this was working we improved on it, allowing to operate the <code>salt-key<
 </p>
 
 
-<figure id="orgcc0b366">
+<figure id="orgdc057b7">
 <img src="images/pending-minions-1.png" alt="pending-minions-1.png">
 
 </figure>
@@ -316,7 +309,7 @@ And from there you can accept which ones to onboard:
 </p>
 
 
-<figure id="orgca20d43">
+<figure id="orgf61fc5f">
 <img src="images/minion-onboarding-1.png" alt="minion-onboarding-1.png">
 
 </figure>
@@ -337,7 +330,7 @@ While you can patch, install packages in the same way you did with traditional c
 </ul>
 
 
-<figure id="org1cba318">
+<figure id="org3cbb2bd">
 <img src="images/states-catalog-1.png" alt="states-catalog-1.png">
 
 </figure>
@@ -347,7 +340,7 @@ Additionally, SUSE Manager also has a higher level state user interface for pack
 </p>
 
 
-<figure id="orgfb59284">
+<figure id="org9f84cfc">
 <img src="images/package-states-1.png" alt="package-states-1.png">
 
 </figure>
@@ -361,7 +354,7 @@ SUSE Manager allows to apply states from the State Catalog to Organizations and 
 </p>
 
 
-<figure id="orgf577cab">
+<figure id="org1d38084">
 <img src="images/minion-custom-states-1.png" alt="minion-custom-states-1.png">
 
 </figure>
@@ -378,7 +371,7 @@ The <code>Remote Commands</code> page in the <code>Salt</code> section gives you
 </p>
 
 
-<figure id="orgfc85b5e">
+<figure id="orge36e8d9">
 <img src="images/remote-commands-1.png" alt="remote-commands-1.png">
 
 </figure>
@@ -399,7 +392,7 @@ Making Salt an important part of SUSE Manager does not end there. In our industr
 </ul>
 
 
-<figure id="org4dd89cf">
+<figure id="org486eeb1">
 <img src="images/saltconf-sponsor-1.png" alt="saltconf-sponsor-1.png">
 
 </figure>
@@ -431,7 +424,7 @@ Configuration Management is only one of the features that will arrive SUSE Manag
 <footer id="postamble" class="status">
 <p class='disclaimer'>The postings on this site are my own and don't necessarily represent my employer’s positions, strategies or opinions.</p>
 
-<p>Last updated 02 Jan. 2022. Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.2 (<a href="https://orgmode.org">Org</a> mode 9.4.6). <a href="/README.html">Details</a>.</p>
+<p>Last updated 22 May. 2022. Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.2 (<a href="https://orgmode.org">Org</a> mode 9.4.6). <a href="/README.html">Details</a>.</p>
 </footer>
 </body>
 </html>

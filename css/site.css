@@ -1,77 +1,54 @@
-/* https://jgthms.com/web-design-in-4-minutes */
-/* @import 'https://fonts.googleapis.com/css?family=Roboto:300,400,500'; */
-@import 'https://fonts.googleapis.com/css?family=Raleway:400,300,600';
 
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Saira+Semi+Condensed:wght@100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&family=Roboto:wght@400;700&family=Saira+Semi+Condensed:wght@100&display=swap');
+
+/* readable*/
 body {
   margin: 0 auto;
-  display: grid;
-  grid-template-areas: 
-    "header"
-    "main"
-    "footer";
-  grid-gap: 1em;
-  align-content: space-evenly;
+  max-width: 50em;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-size: 16px;
   line-height: 1.5;
-  /*color: #566b78;*/
-  color: ##222222;
-  background-color: white;
-  border-top: 7px solid #3498db;
-  width: 80%;
+  padding: 4em 1em;
 }
 
-header#preamble, main#content, footer#postamble {
-  padding-left: 2em;
+header#preamble {
+    background-color: white;
 }
 
-header {
-  grid-area: header;
-  font-family: "open sans", sans-serif;
+header#preamble .logo{
+    display: flex;
+	align-items: start;
+	flex-wrap: wrap;
 }
 
-header a {
-  font-weight: 600;
+header#preamble a {
+    text-decoration: none;
 }
 
-main {
-  grid-area: main;
-  border-left: 1px solid #ddd;
-  /* font: 400 16px/22px "open sans", sans-serif; */
+header .logo img {
+    margin-right: 1em;
 }
 
-footer {
-  grid-area: footer;
-
-  font-size: 80%;
-  color: #666;
-  border-top: 4px solid #EEE;
-  overflow: hidden;
-}
-
-@media (min-width: 500px) {
-  body {
-    grid-template-columns: 1fr 3fr;
-    grid-template-areas:
-      "header main"
-      "header footer";
-  }
-}
-
-h1, h2, h3, h4, h5, h6 {
-  color: #181818;
-  font-family: "open sans", sans-serif;
-  font-weight: 600;
-}
-
-.post-list.outline-2 h2 {
-  font-size: 0.9rem;
-}
-
-.post-list ul {
-  padding-left: 0;
+body > header {
+    padding: 1em;
 }
 
 h2 {
   margin-top: 1em;
+  padding-top: 1em;
+}
+
+header #social {
+    flex-grow: 1;
+    display: flex;
+    justify-content: end;
+    column-gap: 0.5em;
+}
+
+body {
+  color: #555;
 }
 
 h1,
@@ -80,138 +57,58 @@ strong {
   color: #333;
 }
 
-h1.title {
-  font-weight: 800;
+code,
+pre {
+  background: #eee;
 }
 
-h1 {
-  font-size: 32px;
-  line-height: 40px;
-}
-
-h2 {
-    font-size: 24px;
-    line-height: 30px;
+code {
+  padding: 2px 4px;
+  vertical-align: text-bottom;
 }
 
 pre {
   padding: 1em;
-  border-left: 2px solid #69c;
 }
 
-pre.example, pre.src, code {
-  font-family: monospace, monospace;
-  border: 1px solid #ddd;
-  background-color: #eef;
-  font-size: 85%;
-}
-
-pre.example, pre.src {
-  overflow-x: scroll;
-  width: 80ch;
-  padding: 0 1em;
-}
-
-a {
-  /* color: #e81c4f; */
-  color: #3498db;
-}
-
-aside h1, aside h2 {
-  text-align: center;
-}
-
-#preamble img {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.avatar {
-  -webkit-border-radius: 50%;
-}
-
-.timestamp {
-  font-family: 'Lucida Console', 'Andale Mono', monospace;
-  color: #aaa;
-  padding-right: 5px;
-  font-size: 14px;
+.timestamp, p[role="doc-subtitle"] {
+    font-family: 'Roboto Mono', monospace;
+    color: #aaa;
+    padding-right: 5px;
+    font-size: 14px;
 }
 
 section.post-list ul {
   list-style-type: none;
 }
 
-section.post-list li .timestamp:after {
+section.post-list li .timestamp::after {
   content: " »";
 }
 
-#bio {
-  border-top: 1px dotted #ddd;
+footer {
+    padding: 1rem;
+    font-size: 12px;
+    border-top: 1px solid #eee;
+    color: #666;
 }
 
-#social {
-  font-size: 13px;
+section figure {
+    margin-top: 1.5em;
 }
 
-hr {
-  margin-top: 1rem;
-  margin-bottom: 1.5rem;
-  border-width: 0;
-  border-top-width: 0px;
-  border-top: 1px solid #E1E1E1;
+figure img {
+    max-width: 100%;
+    height: auto;
+    margin-right: 2rem;
+    margin-bottom: 1rem;
+    border: 1px solid #000;
+    box-shadow: 1px 2px 5px black;
 }
 
-blockquote {
-  background: #f9f9f9;
-
-  border-left: 10px solid #ccc;
-  margin: 1.5em 10px;
-  padding: 0.5em 10px;
-  quotes: "\201C""\201D""\2018""\2019";
-}
-
-blockquote p {
-  display: inline;
-}
-
-blockquote::before {
-  color: #ccc;
-  content: open-quote;
-  font-size: 4em;
-  line-height: 0.1em;
-  margin-right: 0.25em;
-  vertical-align: -0.4em;
-}
-
-.subtitle, figcaption {
-  color: #aaa;
-  margin: 0 0 10px 0;
-}
-
-figcaption {
-  font-size: 0.7em;
-}
-
-.figure-number {
-  visibility: hidden;
-}
-
-main img {
-  outline: 0;
-  max-width: 100%;
-  height: auto;
-}
-
-main img {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-#stalker i {
-  font-size: 28px;
-  margin-right: 5px;
+.org-src-container, pre.example {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 14px;
 }
 
 /* https://github.com/fniessen/org-html-themes/blob/master/styles/readtheorg/css/htmlize.css */
