@@ -1,6 +1,6 @@
 (require 'package)
 (package-initialize)
-(setq package-archives '(("org" . "https://orgmode.org/elpa/")
+(setq package-archives '(("elpa" . "http://elpa.gnu.org/packages/")
                          ("nongnu" . "https://elpa.nongnu.org/nongnu/")
                          ("melpa" . "https://melpa.org/packages/")))
 (package-refresh-contents)
