@@ -40,6 +40,13 @@ h2 {
   padding-top: 1em;
 }
 
+header #social {
+    flex-grow: 1;
+    display: flex;
+    justify-content: end;
+    column-gap: 0.5em;
+}
+
 body {
   color: #555;
 }
