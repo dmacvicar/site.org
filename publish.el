@@ -2,7 +2,7 @@
 (package-initialize)
 (unless package-archive-contents
   (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
-  (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/") t)
+  (add-to-list 'package-archives '("gnu" . "https://elpa.nongnu.org/nongnu/") t)
   (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
   (package-refresh-contents))
 (dolist (pkg '(dash projectile org-contrib yaml-mode htmlize))
