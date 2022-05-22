@@ -97,7 +97,7 @@ section figure {
     margin-top: 1.5em;
 }
 
-section figure img {
+figure img {
     max-width: 100%;
     height: auto;
     margin-right: 2rem;
