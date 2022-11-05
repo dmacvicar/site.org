@@ -10,107 +10,107 @@
      xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
      xmlns:media="http://search.yahoo.com/mrss/"><channel>
   <title>Blog</title>
-  <atom:link href="http://duncan.codes/rss.xml" rel="self" type="application/rss+xml" />
-  <link>http://duncan.codes/</link>
+  <atom:link href="http://mac-vicar.eu/rss.xml" rel="self" type="application/rss+xml" />
+  <link>http://mac-vicar.eu/</link>
   <description><![CDATA[]]></description>
   <language>en</language>
-  <pubDate>Sun, 22 May 2022 14:17:17 +0000</pubDate>
-  <lastBuildDate>Sun, 22 May 2022 14:17:17 +0000</lastBuildDate>
-  <generator>Emacs 27.2 Org-mode 9.5.3</generator>
+  <pubDate>Sat, 05 Nov 2022 12:24:25 +0000</pubDate>
+  <lastBuildDate>Sat, 05 Nov 2022 12:24:25 +0000</lastBuildDate>
+  <generator>Emacs 27.2 Org-mode 9.4.4</generator>
   <webMaster>duncan@gmail.com (Duncan Mac-Vicar P.)</webMaster>
   <image>
     <url>https://orgmode.org/img/org-mode-unicorn-logo.png</url>
     <title>Blog</title>
-    <link>http://duncan.codes/</link>
+    <link>http://mac-vicar.eu/</link>
   </image>
 
 
   <item>
     <title>openSUSE Build service: layering, linking, patching and aggregating</title>
-    <link>http://duncan.codes/posts/2008-08-20-opensuse-build-service-layering-linking-patching-and-aggregating/index.html</link>
+    <link>http://mac-vicar.eu/posts/2008-08-20-opensuse-build-service-layering-linking-patching-and-aggregating/index.html</link>
     <author>duncan@gmail.com (Duncan Mac-Vicar P.)</author>
-    <guid isPermaLink="false">http://duncan.codes/posts/2008-08-20-opensuse-build-service-layering-linking-patching-and-aggregating/index.html</guid>
+    <guid isPermaLink="false">http://mac-vicar.eu/posts/2008-08-20-opensuse-build-service-layering-linking-patching-and-aggregating/index.html</guid>
     <pubDate>Wed, 20 Aug 2008 00:00:00 +0000</pubDate>
 
     <description><![CDATA[]]></description>
   </item>
   <item>
     <title>SUSE Manager 2.1</title>
-    <link>http://duncan.codes/posts/2014-06-11-suse-manager-2-1/index.html</link>
+    <link>http://mac-vicar.eu/posts/2014-06-11-suse-manager-2-1/index.html</link>
     <author>duncan@gmail.com (Duncan Mac-Vicar P.)</author>
-    <guid isPermaLink="false">http://duncan.codes/posts/2014-06-11-suse-manager-2-1/index.html</guid>
+    <guid isPermaLink="false">http://mac-vicar.eu/posts/2014-06-11-suse-manager-2-1/index.html</guid>
     <pubDate>Wed, 11 Jun 2014 00:00:00 +0000</pubDate>
 
     <description><![CDATA[]]></description>
   </item>
   <item>
     <title>Not sweet but salty, SUSE Manager 3 Technical Backstage Part I</title>
-    <link>http://duncan.codes/posts/2016-03-16-susemanager-3-backstage/index.html</link>
+    <link>http://mac-vicar.eu/posts/2016-03-16-susemanager-3-backstage/index.html</link>
     <author>duncan@gmail.com (Duncan Mac-Vicar P.)</author>
-    <guid isPermaLink="false">http://duncan.codes/posts/2016-03-16-susemanager-3-backstage/index.html</guid>
+    <guid isPermaLink="false">http://mac-vicar.eu/posts/2016-03-16-susemanager-3-backstage/index.html</guid>
     <pubDate>Wed, 16 Mar 2016 00:00:00 +0000</pubDate>
 
     <description><![CDATA[]]></description>
   </item>
   <item>
     <title>Using Salt like Ansible</title>
-    <link>http://duncan.codes/posts/2016-05-18-using-salt-like-ansible/index.html</link>
+    <link>http://mac-vicar.eu/posts/2016-05-18-using-salt-like-ansible/index.html</link>
     <author>duncan@gmail.com (Duncan Mac-Vicar P.)</author>
-    <guid isPermaLink="false">http://duncan.codes/posts/2016-05-18-using-salt-like-ansible/index.html</guid>
+    <guid isPermaLink="false">http://mac-vicar.eu/posts/2016-05-18-using-salt-like-ansible/index.html</guid>
     <pubDate>Wed, 18 May 2016 00:00:00 +0000</pubDate>
 
     <description><![CDATA[]]></description>
   </item>
   <item>
     <title>Managing configuration drift with Salt and Snapper</title>
-    <link>http://duncan.codes/posts/2016-06-09-config-drift-salt-snapper/index.html</link>
+    <link>http://mac-vicar.eu/posts/2016-06-09-config-drift-salt-snapper/index.html</link>
     <author>duncan@gmail.com (Duncan Mac-Vicar P.)</author>
-    <guid isPermaLink="false">http://duncan.codes/posts/2016-06-09-config-drift-salt-snapper/index.html</guid>
+    <guid isPermaLink="false">http://mac-vicar.eu/posts/2016-06-09-config-drift-salt-snapper/index.html</guid>
     <pubDate>Thu, 09 Jun 2016 00:00:00 +0000</pubDate>
 
     <description><![CDATA[]]></description>
   </item>
   <item>
     <title>Building Docker images with plain Salt</title>
-    <link>http://duncan.codes/posts/2016-07-11-building-docker-images-with-plain-salt/index.html</link>
+    <link>http://mac-vicar.eu/posts/2016-07-11-building-docker-images-with-plain-salt/index.html</link>
     <author>duncan@gmail.com (Duncan Mac-Vicar P.)</author>
-    <guid isPermaLink="false">http://duncan.codes/posts/2016-07-11-building-docker-images-with-plain-salt/index.html</guid>
+    <guid isPermaLink="false">http://mac-vicar.eu/posts/2016-07-11-building-docker-images-with-plain-salt/index.html</guid>
     <pubDate>Mon, 11 Jul 2016 00:00:00 +0000</pubDate>
 
     <description><![CDATA[]]></description>
   </item>
   <item>
     <title>Migrating from Jekyll to org-mode and Github Actions</title>
-    <link>http://duncan.codes/posts/2019-09-03-migrating-from-jekyll-to-org/index.html</link>
+    <link>http://mac-vicar.eu/posts/2019-09-03-migrating-from-jekyll-to-org/index.html</link>
     <author>duncan@gmail.com (Duncan Mac-Vicar P.)</author>
-    <guid isPermaLink="false">http://duncan.codes/posts/2019-09-03-migrating-from-jekyll-to-org/index.html</guid>
+    <guid isPermaLink="false">http://mac-vicar.eu/posts/2019-09-03-migrating-from-jekyll-to-org/index.html</guid>
     <pubDate>Tue, 03 Sep 2019 00:00:00 +0000</pubDate>
 
     <description><![CDATA[]]></description>
   </item>
   <item>
     <title>Raspberry Pi cluster with k3s &amp; Salt (Part 1)</title>
-    <link>http://duncan.codes/posts/2020-09-07-k3s-on-rpi-with-salt/index.html</link>
+    <link>http://mac-vicar.eu/posts/2020-09-07-k3s-on-rpi-with-salt/index.html</link>
     <author>duncan@gmail.com (Duncan Mac-Vicar P.)</author>
-    <guid isPermaLink="false">http://duncan.codes/posts/2020-09-07-k3s-on-rpi-with-salt/index.html</guid>
+    <guid isPermaLink="false">http://mac-vicar.eu/posts/2020-09-07-k3s-on-rpi-with-salt/index.html</guid>
     <pubDate>Mon, 07 Sep 2020 00:00:00 +0000</pubDate>
 
     <description><![CDATA[]]></description>
   </item>
   <item>
     <title>Prose linting with Vale and Emacs</title>
-    <link>http://duncan.codes/posts/2020-09-14-prose-linting-vale-emacs.org/index.html</link>
+    <link>http://mac-vicar.eu/posts/2020-09-14-prose-linting-vale-emacs.org/index.html</link>
     <author>duncan@gmail.com (Duncan Mac-Vicar P.)</author>
-    <guid isPermaLink="false">http://duncan.codes/posts/2020-09-14-prose-linting-vale-emacs.org/index.html</guid>
+    <guid isPermaLink="false">http://mac-vicar.eu/posts/2020-09-14-prose-linting-vale-emacs.org/index.html</guid>
     <pubDate>Mon, 14 Sep 2020 00:00:00 +0000</pubDate>
 
     <description><![CDATA[]]></description>
   </item>
   <item>
     <title>Migrating away from Google services</title>
-    <link>http://duncan.codes/posts/2020-10-20-migrating-away-google-services/index.html</link>
+    <link>http://mac-vicar.eu/posts/2020-10-20-migrating-away-google-services/index.html</link>
     <author>duncan@gmail.com (Duncan Mac-Vicar P.)</author>
-    <guid isPermaLink="false">http://duncan.codes/posts/2020-10-20-migrating-away-google-services/index.html</guid>
+    <guid isPermaLink="false">http://mac-vicar.eu/posts/2020-10-20-migrating-away-google-services/index.html</guid>
     <pubDate>Tue, 20 Oct 2020 00:00:00 +0000</pubDate>
 
     <description><![CDATA[]]></description>

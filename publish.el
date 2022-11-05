@@ -4,12 +4,13 @@
                          ("nongnu" . "https://elpa.nongnu.org/nongnu/")
                          ("melpa" . "https://melpa.org/packages/")))
 (package-refresh-contents)
-(dolist (pkg '(dash projectile org-contrib yaml-mode htmlize))
+(dolist (pkg '(dash projectile yaml-mode htmlize))
   (unless (package-installed-p pkg)
     (package-install pkg)))
 
 (require 'dash)
 (require 'org)
+
 (require 'ox-rss)
 (require 'ox-publish)
 (require 'projectile)
@@ -75,7 +76,6 @@
   "Format ENTRY for rss.org for excusive use of exporting to RSS/XML. Each entry needs to be a headline. STYLE is not used."
   (let* ((base-directory (plist-get (cdr project) :base-directory))
          (filename (expand-file-name entry (expand-file-name base-directory (duncan/project-root))))
-         
          (title (duncan/post-get-metadata-from-frontmatter filename "TITLE"))
          ;;(title (org-publish-format-file-entry "%t" filename project))
          ;;(title (org-publish-find-title filename project))
@@ -249,7 +249,7 @@
          :publishing-directory "./public"
          :publishing-function 'ignore
          ;;:publishing-function 'duncan/org-rss-publish-to-rss
-         :html-link-home "http://duncan.codes/"
+         :html-link-home "http://mac-vicar.eu/"
          :html-link-use-abs-url t
          :auto-sitemap t
          :sitemap-style 'list
@@ -280,7 +280,7 @@
          :base-extension "org"
          :publishing-directory "./public"
          :publishing-function 'duncan/org-rss-publish-to-rss
-         :html-link-home "http://duncan.codes/"
+         :html-link-home "http://mac-vicar.eu/"
          :html-link-use-abs-url t)
    (list "site"
          :base-directory "./"

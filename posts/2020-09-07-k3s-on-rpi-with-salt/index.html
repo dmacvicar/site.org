@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 22 May. 2022 -->
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- 05 Nov. 2022 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Raspberry Pi cluster with k3s &amp; Salt (Part 1)</title>
-<meta name="author" content="Duncan Mac-Vicar P." />
-<meta name="generator" content="Org Mode" />
+<meta name="generator" content="Org mode">
+<meta name="author" content="Duncan Mac-Vicar P.">
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-1687066-2"></script>
 <script>
@@ -45,16 +45,16 @@
  </div>
  <sub>I am inspired by creating software and learning from others. When things break, I fix them or go play guitar <i class="fa-solid fa-guitar"></i> ...</sub>
 </header>
-<main id="content" class="content">
+<main id="content">
 <header>
 <h1 class="title">Raspberry Pi cluster with k3s &amp; Salt (Part 1)</h1>
-<p class="subtitle" role="doc-subtitle">Sep 07, 2020</p>
+<p class="subtitle">Sep 07, 2020</p>
 </header><p>
 I have been running some workloads on Raspberry Pi&rsquo;s / <a href="https://software.opensuse.org/distributions/leap">Leap</a> for some time. I manage them using <a href="https://docs.saltstack.com/en/latest/topics/ssh">salt-ssh</a> along with a <a href="https://www.kickstarter.com/projects/pine64/pine-a64-first-15-64-bit-single-board-super-comput/">Pine64</a> running <a href="https://www.openbsd.org">OpenBSD</a>. You can read more about using Salt this way in my <a href="../2016-05-18-using-salt-like-ansible/index.html">Using Salt like Ansible</a> post.
 </p>
 
 
-<figure id="orgc441b37">
+<figure id="org02efdcf">
 <img src="images/rpi-cluster-small.jpg" alt="rpi-cluster-small.jpg">
 
 </figure>
@@ -133,9 +133,9 @@ I decided for the the initial iteration:
 All the above managed with <span class="underline">salt-ssh</span> tree on a git repository just like I was used to
 </p>
 
-<section id="outline-container-org4ef07c2" class="outline-2">
-<h2 id="org4ef07c2">k3s installation</h2>
-<div class="outline-text-2" id="text-org4ef07c2">
+<section id="outline-container-orgd72156a" class="outline-2">
+<h2 id="orgd72156a">k3s installation</h2>
+<div class="outline-text-2" id="text-orgd72156a">
 <p>
 We start by creating <code>k3s/init.sls</code>. For the k3s state I defined a minimal pillar defining the server and the shared token:
 </p>
@@ -274,9 +274,9 @@ The k3s state works as follows: it runs the installation script in server or age
 </div>
 </section>
 
-<section id="outline-container-org9fea7dc" class="outline-2">
-<h2 id="org9fea7dc">Workloads</h2>
-<div class="outline-text-2" id="text-org9fea7dc">
+<section id="outline-container-orga03e2cf" class="outline-2">
+<h2 id="orga03e2cf">Workloads</h2>
+<div class="outline-text-2" id="text-orga03e2cf">
 <p>
 The next step is to move workloads like <a href="https://www.home-assistant.io">homeassistant</a> into this setup.
 </p>
@@ -481,7 +481,7 @@ In a future post, I will describe the dashboards setup, and other improvements.
 <footer id="postamble" class="status">
 <p class='disclaimer'>The postings on this site are my own and don't necessarily represent my employer’s positions, strategies or opinions.</p>
 
-<p>Last updated 22 May. 2022. Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.2 (<a href="https://orgmode.org">Org</a> mode 9.5.3). <a href="/README.html">Details</a>.</p>
+<p>Last updated 05 Nov. 2022. Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.2 (<a href="https://orgmode.org">Org</a> mode 9.4.4). <a href="/README.html">Details</a>.</p>
 </footer>
 </body>
 </html>

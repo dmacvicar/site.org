@@ -1,26 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 22 May. 2022 -->
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- 05 Nov. 2022 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>RPM Packaging Tutorial</title>
-<meta name="author" content="Duncan Mac-Vicar P." />
-<meta name="generator" content="Org Mode" />
+<meta name="generator" content="Org mode">
+<meta name="author" content="Duncan Mac-Vicar P.">
 <link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/css/htmlize.css"/>
 <link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/css/readtheorg.css"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://fniessen.github.io/org-html-themes/src/lib/js/jquery.stickytableheaders.min.js"></script>
 <script type="text/javascript" src="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/js/readtheorg.js"></script>
+<script type="text/javascript">
+// @license magnet:?xt=urn:btih:e95b018ef3580986a04669f1b5879592219e2a7a&dn=public-domain.txt Public Domain
+<!--/*--><![CDATA[/*><!--*/
+     function CodeHighlightOn(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.add("code-highlighted");
+         target.classList.add("code-highlighted");
+       }
+     }
+     function CodeHighlightOff(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.remove("code-highlighted");
+         target.classList.remove("code-highlighted");
+       }
+     }
+    /*]]>*///-->
+// @license-end
+</script>
 </head>
 <body>
-<main id="content" class="content">
+<main id="content">
 <header>
 <h1 class="title">RPM Packaging Tutorial</h1>
-</header><nav id="table-of-contents" role="doc-toc">
+</header><nav id="table-of-contents">
 <h2>Table of Contents</h2>
-<div id="text-table-of-contents" role="doc-toc">
+<div id="text-table-of-contents">
 <ul>
 <li><a href="#authors">Authors</a></li>
 <li><a href="#document-revisions">Document revisions</a></li>
@@ -188,7 +210,7 @@ Lets start with a famous UNIX tool: <code>rsync</code>.
 So a package is an archive file:
 </p>
 
-<pre class="example" id="orgaf7dc8e">
+<pre class="example" id="org604f921">
 rsync-3.1.2-1.5.x86_64.rpm
 </pre>
 
@@ -196,7 +218,7 @@ rsync-3.1.2-1.5.x86_64.rpm
 containing all files related to the application:
 </p>
 
-<pre class="example" id="org9340ec1">
+<pre class="example" id="org5a2db0c">
 $ rpm -qpl rsync-3.1.2-1.5.x86_64.rpm
 
 /etc/logrotate.d/rsync
@@ -227,7 +249,7 @@ to:
 <li><code>Name</code>, <code>Summary</code>, <code>Description</code>, <code>License</code>, etc.</li>
 </ul>
 
-<pre class="example" id="orge9219d4">
+<pre class="example" id="org8edd683">
 $ rpm -qpi rsync-3.1.2-1.5.x86_64.rpm
 
 Name        : rsync
@@ -264,7 +286,7 @@ Distribution: openSUSE Tumbleweed
 (<code>Requires</code>)</li>
 </ul>
 
-<pre class="example" id="org36b4bb9">
+<pre class="example" id="org90b8492">
 $ rpm -qp --requires rsync-3.1.2-1.5.x86_64.rpm
 /bin/sh
 /usr/bin/perl
@@ -305,7 +327,7 @@ called during runtime.
 <li>What does the package provide for other packages to work (<code>Provides</code>)</li>
 </ul>
 
-<pre class="example" id="org73f008d">
+<pre class="example" id="org4469201">
 $ rpm -qp --provides rsync-3.1.2-1.5.x86_64.rpm
 config(rsync) = 3.1.2-1.5
 rsync = 3.1.2-1.5
@@ -334,7 +356,7 @@ level.
 Packages can be installed with the <code>rpm</code> tools:
 </p>
 
-<pre class="example" id="org12e423f">
+<pre class="example" id="org49b50f6">
 $ rpm -U rsync-3.1.2-1.5.x86_64.rpm
 </pre>
 
@@ -345,7 +367,7 @@ the <code>-p</code> option and use what is called the NVRA
 subset of it, e.g. just name (<code>rsync</code>).
 </p>
 
-<pre class="example" id="org073cf9b">
+<pre class="example" id="orgbe4d052">
 $ rpm -q --provides rsync
 </pre>
 
@@ -411,7 +433,7 @@ build system scanned the executable <code>/usr/lib/rsync</code> and realized it 
 linked against <code>libc.so.6</code>:
 </p>
 
-<pre class="example" id="org7b730c8">
+<pre class="example" id="orgcfbdd3d">
 $ ldd /usr/bin/rsync
         linux-vdso.so.1 (0x00007ffccb34a000)
         libacl.so.1 =&gt; /lib64/libacl.so.1 (0x00007fc406028000)
@@ -440,7 +462,7 @@ only <code>Requires: libsound</code> (as in package name). Then when he/she trie
 to run it:
 </p>
 
-<pre class="example" id="orgbb183fc">
+<pre class="example" id="org7caed35">
 $ musicplayer
 error while loading shared libraries: libsound.so.7: cannot open shared object file: No such file or directory
 </pre>
@@ -551,7 +573,7 @@ includes a command-line tool called <code>zypper</code>. While tools like
 console you will likely interact with <code>zypper</code>.
 </p>
 
-<pre class="example" id="org3f0590b">
+<pre class="example" id="orgdaa75ca">
 $ zypper install rsync-3.1.2-1.5.x86_64.rpm
 </pre>
 
@@ -594,7 +616,7 @@ package, and then rpm files are retrieved on demand at installation
 time.
 </p>
 
-<pre class="example" id="orgedaaad9">
+<pre class="example" id="orge62f450">
 $ zypper lr
 
 # | Alias          | Name           | Enabled | GPG Check | Refresh
@@ -656,7 +678,7 @@ rpm files into its cache.
 <div id="outline-container-refreshing-a-repository" class="outline-4">
 <h4 id="refreshing-a-repository">Refreshing a repository</h4>
 <div class="outline-text-4" id="text-refreshing-a-repository">
-<pre class="example" id="org9e93368">
+<pre class="example" id="orga747364">
 $ zypper ref
 </pre>
 
@@ -788,7 +810,7 @@ Patterns are used to install a collection of software in a comfortable
 way. For example you can install a working Laptop-oriented system with:
 </p>
 
-<pre class="example" id="orgf7b86ea">
+<pre class="example" id="org7fa775a">
 $ zypper install -t pattern laptop
 </pre>
 
@@ -817,7 +839,7 @@ of the magic behind patterns (equivalent to
 Similar to patterns, products can be queried with:
 </p>
 
-<pre class="example" id="orgbae03e3">
+<pre class="example" id="org8442171">
 $ zypper search -t product
 </pre>
 
@@ -860,7 +882,7 @@ package manager will dynamically read <code>/sys/devices</code> and make this
 entity have provides like:
 </p>
 
-<pre class="example" id="org4e626cc">
+<pre class="example" id="org405cae5">
 Provides :modalias(pci:v0000104Cd0000840[01]sv*sd*bc*sc*i*)
 </pre>
 
@@ -869,7 +891,7 @@ Then, a package providing a WLAN driver for some cards (e.g.
 <code>wlan-kmp-default</code>), could have the following dependencies:
 </p>
 
-<pre class="example" id="org84c7aba">
+<pre class="example" id="orga5045eb">
 Supplements: modalias(kernel-default:pci:v0000104Cd0000840[01]sv*sd*bc*sc*i*)
 Supplements: modalias(kernel-default:pci:v0000104Cd00009066sv*sd*bc*sc*i*)
 Supplements: modalias(kernel-default:pci:v000010B7d00006000sv*sd*bc*sc*i*)
@@ -918,7 +940,7 @@ injected as we already mentioned), and how the content of the package is
 created. A very simple spec file would be:
 </p>
 
-<pre class="example" id="orgc9e4a99">
+<pre class="example" id="org463d7f7">
 Name:           mypackage
 Version:        1.0
 Release:        0
@@ -966,7 +988,7 @@ like <code>%{_prefix}</code>, <code>%{_datadir}</code>, <code>%{_mandir}</code>,
 <code>%{_bindir}</code>, etc. You can evaluate a macro like this:
 </p>
 
-<pre class="example" id="orgb03af37">
+<pre class="example" id="org1683c2f">
 $ rpm --eval "%{_libdir}"
 /usr/lib64
 </pre>
@@ -1019,7 +1041,7 @@ file to be in a specific location, so I usually tweak the standard
 configuration so that spec files are searched in the current directory:
 </p>
 
-<pre class="example" id="org021d28f">
+<pre class="example" id="org5b38dae">
 $ cat ~/.rpmmacros
 %topdir /space/packages
 %_builddir %{topdir}/build
@@ -1038,7 +1060,7 @@ As you can see, I also configure it so that built packages are saved in
 Once I have this setup, I can do:
 </p>
 
-<pre class="example" id="orgae52e87">
+<pre class="example" id="org83723f3">
 $ rpmbuild -bb mypackage.spec
 Executing(%install): /bin/sh -e /var/tmp/rpm-tmp.lVzwnj
 + umask 022
@@ -1063,7 +1085,7 @@ Executing(%clean): /bin/sh -e /var/tmp/rpm-tmp.0xLGri
 Now I can verify the content of the package:
 </p>
 
-<pre class="example" id="org1640dfa">
+<pre class="example" id="orge375a9f">
 % rpm -qpl /space/packages/rpms/x86_64/mypackage-1.0-0.x86_64.rpm
 /usr/share/mypackage/CONTENT
 </pre>
@@ -1123,7 +1145,7 @@ On the other hand, the original <code>oracle-instantclient-sqlplus</code> packag
 is required at runtime, but we don&rsquo;t need it to build our package.
 </p>
 
-<pre class="example" id="org07c794e">
+<pre class="example" id="org2f93a13">
 Name:           gqlplus
 Version:        1.15
 Release:        0
@@ -1191,7 +1213,7 @@ installed by the -devel packages, it will be scanned and the right
 <code>Requires</code> injected:
 </p>
 
-<pre class="example" id="org633c529">
+<pre class="example" id="orgb442b10">
 $ rpm -qp --requires gqlplus-1.15-0.x86_64.rpm
 libc.so.6()(64bit)
 ...
@@ -1206,7 +1228,7 @@ These symbols are provided by the right package, so the solver will
 match them:
 </p>
 
-<pre class="example" id="orgf46a93e">
+<pre class="example" id="orgc8c1460">
 rpm -q --whatprovides 'libncurses.so.6()(64bit)'
 libncurses6-6.0-19.1.x86_64
 </pre>
@@ -1277,7 +1299,7 @@ right order and re-published.
 </p>
 
 
-<figure id="org32e5db1">
+<figure id="org6c100ec">
 <img src="images/gqlplus-obs.png" alt="gqlplus-obs.png">
 
 </figure>
@@ -1301,7 +1323,7 @@ With the <code>osc</code> tool you can checkout packages from OBS, make changes 
 resubmit them.
 </p>
 
-<pre class="example" id="orgb66331e">
+<pre class="example" id="orgc273b30">
 $ osc co home:dmacvicar gqlplus
 A    home:dmacvicar
 A    home:dmacvicar/gqlplus
@@ -1321,7 +1343,7 @@ machine), setting up that environment automatically using the
 a different distribution than the one you are running.
 </p>
 
-<pre class="example" id="orgc8319ef">
+<pre class="example" id="org0208ac4">
 $ cd home:dmacvicar/gqlplus
 $ osc build openSUSE_Leap_42.2
 ...
@@ -1350,7 +1372,7 @@ sources by hundreds of contributors.
 The <code>spec-cleaner</code> tool can help you keeping your spec file in shape:
 </p>
 
-<pre class="example" id="orgb6167a3">
+<pre class="example" id="org5cfea45">
 $ spec-cleaner -i gqlplus.spec
 </pre>
 
@@ -1402,7 +1424,7 @@ developed. It is easy to find the devel project using the <code>develproject</co
 (<code>dp</code>) command:
 </p>
 
-<pre class="example" id="org5692511">
+<pre class="example" id="org184f296">
 $ osc dp openSUSE:Factory rsync
 network
 </pre>
@@ -1412,7 +1434,7 @@ Create a branch and a local checkout of the package using the <code>branch</code
 command:
 </p>
 
-<pre class="example" id="org91d220c">
+<pre class="example" id="org5e9d40f">
 $ osc bco network rsync
 A    home:dmacvicar:branches:network
 A    home:dmacvicar:branches:network/rsync
@@ -1443,7 +1465,7 @@ into the devel project. To do this, use the <code>submitrequest</code> (<code>sr
 command:
 </p>
 
-<pre class="example" id="org754fc76">
+<pre class="example" id="orge97fc64">
 $ osc sr
 </pre>
 
@@ -1462,7 +1484,7 @@ needed, however.
 <footer id="postamble" class="status">
 <p class="date">Date: 2017-03-08</p>
 <p class="author">Author: Duncan Mac-Vicar P.</p>
-<p class="date">Created: 22 May. 2022</p>
+<p class="date">Created: 05 Nov. 2022</p>
 </footer>
 </body>
 </html>
