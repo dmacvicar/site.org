@@ -10,6 +10,8 @@
 
 (require 'dash)
 (require 'org)
+(require 'org-contrib)
+
 (require 'ox-rss)
 (require 'ox-publish)
 (require 'projectile)
