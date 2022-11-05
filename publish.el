@@ -4,13 +4,12 @@
                          ("nongnu" . "https://elpa.nongnu.org/nongnu/")
                          ("melpa" . "https://melpa.org/packages/")))
 (package-refresh-contents)
-(dolist (pkg '(dash projectile org-contrib yaml-mode htmlize))
+(dolist (pkg '(dash projectile yaml-mode htmlize))
   (unless (package-installed-p pkg)
     (package-install pkg)))
 
 (require 'dash)
 (require 'org)
-(require 'org-contrib)
 
 (require 'ox-rss)
 (require 'ox-publish)
