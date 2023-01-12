@@ -1,7 +1,6 @@
 (require 'package)
 (package-initialize)
-(setq package-archives '(("elpa" . "http://elpa.gnu.org/packages/")
-                         ("nongnu" . "https://elpa.nongnu.org/nongnu/")
+(setq package-archives '(("nongnu" . "https://elpa.nongnu.org/nongnu/")
                          ("melpa" . "https://melpa.org/packages/")))
 (package-refresh-contents)
 (dolist (pkg '(dash projectile yaml-mode htmlize))
