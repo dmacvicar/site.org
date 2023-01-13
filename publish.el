@@ -1,7 +1,6 @@
 (require 'package)
 (package-initialize)
-(setq package-archives '(("elpa" . "http://elpa.gnu.org/packages/")
-                         ("nongnu" . "https://elpa.nongnu.org/nongnu/")
+(setq package-archives '(("nongnu" . "https://elpa.nongnu.org/nongnu/")
                          ("melpa" . "https://melpa.org/packages/")))
 (package-refresh-contents)
 (dolist (pkg '(dash projectile yaml-mode htmlize))
@@ -83,14 +82,14 @@
          (draft? (duncan/post-get-metadata-from-frontmatter filename "DRAFT")))
     (unless (or (equal entry "404.org") draft?)
       (with-temp-buffer
-             (insert (format "* [[file:%s][%s]]\n" entry title))
-             (org-set-property "RSS_PERMALINK" (concat "posts/" (file-name-sans-extension entry) ".html"))
-             (org-set-property "RSS_TITLE" title)
-             (org-set-property "PUBDATE" date)
-             ;; to avoid second update to rss.org by org-icalendar-create-uid
-             ;;(insert-file-contents entry)
-             (buffer-string))))
-              )
+        (org-mode)
+        (insert (format "* [[file:%s][%s]]\n" entry title))
+        (org-set-property "RSS_PERMALINK" (concat "posts/" (file-name-sans-extension entry) ".html"))
+        (org-set-property "RSS_TITLE" title)
+        (org-set-property "PUBDATE" date)
+        ;; to avoid second update to rss.org by org-icalendar-create-uid
+        ;;(insert-file-contents entry)
+        (buffer-string)))))
 
 (defun duncan/org-html-timestamp (timestamp contents info)
   "We are not going to leak org mode silly <date> format when rendering TIMESTAMP to the world, aren't we?.  CONTENTS and INFO are passed down to org-html-timestamp."

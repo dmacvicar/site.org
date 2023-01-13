@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 05 Nov. 2022 -->
+<!-- 13 Jan. 2023 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Raspberry Pi cluster with k3s &amp; Salt (Part 1)</title>
@@ -54,7 +54,7 @@ I have been running some workloads on Raspberry Pi&rsquo;s / <a href="https://so
 </p>
 
 
-<figure id="org02efdcf">
+<figure id="orgd58d18a">
 <img src="images/rpi-cluster-small.jpg" alt="rpi-cluster-small.jpg">
 
 </figure>
@@ -133,9 +133,9 @@ I decided for the the initial iteration:
 All the above managed with <span class="underline">salt-ssh</span> tree on a git repository just like I was used to
 </p>
 
-<section id="outline-container-orgd72156a" class="outline-2">
-<h2 id="orgd72156a">k3s installation</h2>
-<div class="outline-text-2" id="text-orgd72156a">
+<section id="outline-container-org5a86a8e" class="outline-2">
+<h2 id="org5a86a8e">k3s installation</h2>
+<div class="outline-text-2" id="text-org5a86a8e">
 <p>
 We start by creating <code>k3s/init.sls</code>. For the k3s state I defined a minimal pillar defining the server and the shared token:
 </p>
@@ -274,9 +274,9 @@ The k3s state works as follows: it runs the installation script in server or age
 </div>
 </section>
 
-<section id="outline-container-orga03e2cf" class="outline-2">
-<h2 id="orga03e2cf">Workloads</h2>
-<div class="outline-text-2" id="text-orga03e2cf">
+<section id="outline-container-org22fc775" class="outline-2">
+<h2 id="org22fc775">Workloads</h2>
+<div class="outline-text-2" id="text-org22fc775">
 <p>
 The next step is to move workloads like <a href="https://www.home-assistant.io">homeassistant</a> into this setup.
 </p>
@@ -481,7 +481,7 @@ In a future post, I will describe the dashboards setup, and other improvements.
 <footer id="postamble" class="status">
 <p class='disclaimer'>The postings on this site are my own and don't necessarily represent my employer’s positions, strategies or opinions.</p>
 
-<p>Last updated 05 Nov. 2022. Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.2 (<a href="https://orgmode.org">Org</a> mode 9.4.4). <a href="/README.html">Details</a>.</p>
+<p>Last updated 13 Jan. 2023. Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.2 (<a href="https://orgmode.org">Org</a> mode 9.4.4). <a href="/README.html">Details</a>.</p>
 </footer>
 </body>
 </html>
