@@ -1,6 +1,6 @@
 #+TITLE: 2022: Exciting software projects, technologies and trends
 #+DATE: <2023-01-15 Sun>
-#+DRAFT t
+#+DRAFT: t
 
 These are some of the software projects and technologies that caught my attention and excitement during 2022. They did not necessarily appear during 2022.
 
