@@ -10,13 +10,13 @@ There is a clear bias in my selection and focus. I have spent most of my life de
 
 Description from its [[https://tree-sitter.github.io/tree-sitter/][website]]:
 
-+#begin_quote
+#+begin_quote
 Tree-sitter is a parser generator tool and an incremental parsing library. It can build a concrete syntax tree for a source file and efficiently update the syntax tree as the source file is edited.
 #+end_quote
 
 Why is this important? [[https://news.ycombinator.com/item?id=33721166][This comment]] summarizes it well:
 
-+#begin_quote
+#+begin_quote
 Incremental parsing of incorrect code is one of those things that is literally impossible in the general case, but tree-sitter has found a lot of good ways to do it that are not just possible for a large fraction of reality, but also performant. It's hard to understate how impressive a piece of engineering this is.
 #+end_quote
 
@@ -30,7 +30,7 @@ Originally, you could replace the limited [[https://en.wikipedia.org/wiki/Regula
 
 Description from its [[https://tree-sitter.github.io/tree-sitter/][website]]:
 
-+#begin_quote
+#+begin_quote
 WireGuard® is an extremely simple yet fast and modern VPN that utilizes state-of-the-art cryptography.
 #+end_quote
 
