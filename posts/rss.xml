@@ -14,8 +14,8 @@
   <link>http://mac-vicar.eu/</link>
   <description><![CDATA[]]></description>
   <language>en</language>
-  <pubDate>Fri, 13 Jan 2023 00:00:40 +0000</pubDate>
-  <lastBuildDate>Fri, 13 Jan 2023 00:00:40 +0000</lastBuildDate>
+  <pubDate>Sun, 15 Jan 2023 22:26:30 +0000</pubDate>
+  <lastBuildDate>Sun, 15 Jan 2023 22:26:30 +0000</lastBuildDate>
   <generator>Emacs 27.2 Org-mode 9.4.4</generator>
   <webMaster>duncan@gmail.com (Duncan Mac-Vicar P.)</webMaster>
   <image>
@@ -112,6 +112,15 @@
     <author>duncan@gmail.com (Duncan Mac-Vicar P.)</author>
     <guid isPermaLink="false">http://mac-vicar.eu/posts/2020-10-20-migrating-away-google-services/index.html</guid>
     <pubDate>Tue, 20 Oct 2020 00:00:00 +0000</pubDate>
+
+    <description><![CDATA[]]></description>
+  </item>
+  <item>
+    <title>2022: Exciting software projects, technologies and trends</title>
+    <link>http://mac-vicar.eu/posts/2023-01-15-exciting-technologies/index.html</link>
+    <author>duncan@gmail.com (Duncan Mac-Vicar P.)</author>
+    <guid isPermaLink="false">http://mac-vicar.eu/posts/2023-01-15-exciting-technologies/index.html</guid>
+    <pubDate>Sun, 15 Jan 2023 00:00:00 +0000</pubDate>
 
     <description><![CDATA[]]></description>
   </item>

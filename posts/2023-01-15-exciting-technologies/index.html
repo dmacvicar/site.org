@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 15 Jan. 2023 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2022: Exciting software projects, technologies and trends</title>
+<meta name="generator" content="Org mode">
+<meta name="author" content="Duncan Mac-Vicar P.">
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-1687066-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-1687066-2');
+</script>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css' rel='stylesheet' integrity='sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==' crossorigin='anonymous'/>
+<meta description='The blog of Duncan Mac-Vicar P.'/>
+<link rel='alternate' type='application+rss/xml' title='The blog of Duncan Mac-Vicar P.' href='posts/rss.xml'/>
+<link rel="stylesheet" href="../../css/site.css?v=d06246555179cc693994c6cd6cd74faed6bc08c754a9ae99c23e96ba131806e7" type="text/css">
+</head>
+<body>
+<header id="preamble" class="status">
+  <div class="logo">
+      <a href="/">
+      <img src="https://www.gravatar.com/avatar/3b67365812827fa25df5093b38934a8f?s=80" class="avatar" alt="My photo"/>
+      </a>
+      <a href="/"><h2>Duncan Mac-Vicar P.</h2></a>
+      <div id="social">
+        <a title="dmacvicar on Github" href="https://github.com/dmacvicar">
+          <i class="fa-brands fa-github"></i>
+      </a>
+      <a title="dmacvicar on Hacker News" href="https://news.ycombinator.com/user?id=dmacvicar">
+        <i class="fa-brands fa-hacker-news"></i>
+      </a>
+      <a title="dmacvicar on Twitter" href="https://twitter.com/dmacvicar">
+        <i class="fa-brands fa-twitter"></i>
+      </a>
+      <a title="RSS feed" id="atom" href="posts/rss.xml">
+        <i class="fa-solid fa-rss"></i>
+      </a>
+   </div>
+ </div>
+ <sub>I am inspired by creating software and learning from others. When things break, I fix them or go play guitar <i class="fa-solid fa-guitar"></i> ...</sub>
+</header>
+<main id="content">
+<header>
+<h1 class="title">2022: Exciting software projects, technologies and trends</h1>
+<p class="subtitle">Jan 15, 2023</p>
+</header><p>
+#+DRAFT t
+</p>
+
+<p>
+These are some of the software projects and technologies that caught my attention and excitement during 2022. They did not necessarily appear during 2022.
+</p>
+
+<p>
+There is a clear bias in my selection and focus. I have spent most of my life developing open-source, datacenter, and e-commerce infrastructure software, on UNIX-like systems. I admire software that solves complex problems in a simple, elegant and lean manner, and those who get easily adopted and standarized as the &ldquo;default&rdquo;.
+</p>
+
+<section id="outline-container-orgd4451d7" class="outline-2">
+<h2 id="orgd4451d7">Tree-sitter</h2>
+<div class="outline-text-2" id="text-orgd4451d7">
+<p>
+Description from its <a href="https://tree-sitter.github.io/tree-sitter/">website</a>:
+</p>
+
+<p>
++#begin_quote
+Tree-sitter is a parser generator tool and an incremental parsing library. It can build a concrete syntax tree for a source file and efficiently update the syntax tree as the source file is edited.
+#+end_quote
+</p>
+
+<p>
+Why is this important? <a href="https://news.ycombinator.com/item?id=33721166">This comment</a> summarizes it well:
+</p>
+
+<p>
++#begin_quote
+Incremental parsing of incorrect code is one of those things that is literally impossible in the general case, but tree-sitter has found a lot of good ways to do it that are not just possible for a large fraction of reality, but also performant. It&rsquo;s hard to understate how impressive a piece of engineering this is.
+#+end_quote
+</p>
+
+<p>
+I see this technology having an impact on IDEs, editors, linters and other tools similar to what the <a href="https://llvm.org/">LLVM</a> project did years ago for the compiler and interpreter ecosystem, and what <a href="https://microsoft.github.io/language-server-protocol/">Language Server Protocol</a> did for IDEs during the last years.
+</p>
+
+<p>
+For example, the Emacs editor adopted LSP by including eglot by default.
+</p>
+
+<p>
+Originally, you could replace the limited <a href="https://en.wikipedia.org/wiki/Regular_expression">regexp</a>-based syntax highlighting in Emacs with the <a href="https://emacs-tree-sitter.github.io/">emacs-tree-sitter</a> modes. This is not longer necessary, as from version 29+, Tree-sitter support <a href="https://lists.gnu.org/archive/html/emacs-devel/2022-11/msg01443.html">is part of Emacs by default</a>.
+</p>
+</div>
+</section>
+
+<section id="outline-container-org4ad64a7" class="outline-2">
+<h2 id="org4ad64a7">Wireguard</h2>
+<div class="outline-text-2" id="text-org4ad64a7">
+<p>
+Description from its <a href="https://tree-sitter.github.io/tree-sitter/">website</a>:
+</p>
+
+<p>
++#begin_quote
+WireGuard® is an extremely simple yet fast and modern VPN that utilizes state-of-the-art cryptography.
+#+end_quote
+</p>
+
+<p>
+Wireguard&rsquo;s simplicity:
+</p>
+
+<ul class="org-ul">
+<li>implemented in ~5000 lines of code, when most VPN solutions range from tens of thousands to hundred of thousands</li>
+<li>works at the interface level, which mean you can threat it like any other interface</li>
+<li>the state is hidden from the user, so things like roaming just work</li>
+<li>It is incorporated in most open-source operating systems. There is a Windows native version and a multi-platform userspace version written in Go.
+<ul class="org-ul">
+<li><a href="https://networkmanager.dev/">NetworkManager</a>, what most people use to manage networks in desktop Linux, has native support for it, and GNOME even displays the toggle for Wireguard connections.</li>
+</ul></li>
+<li>Android/iOS app</li>
+<li>Most commercial VPN providers support it, including the <a href="https://mullvad.net">only one that is worth your time</a>.</li>
+</ul>
+
+<p>
+Some higher-level solutions have been built on top of WireGuard. The most impressive is <a href="https://tailscale.com/">Tailscale</a>, which brings magical usability to access private networks spread across the world.
+</p>
+
+<p>
+And last but not least, <a href="https://en.avm.de/products/fritzbox/">Fritzboxes</a>, one of the most popular consumer routers in Germany, supports <a href="https://en.avm.de/news/the-latest-news-from-fritz/2022/wireguard-vpn-has-never-been-so-easy/">Wireguard natively, since December 2022</a>, which means I now can access my home LAN very easily and from almost any device.
+</p>
+</div>
+</section>
+
+
+<section id="outline-container-org047bacf" class="outline-2">
+<h2 id="org047bacf">Litestream and liteFS</h2>
+<div class="outline-text-2" id="text-org047bacf">
+<p>
+I believe many of the complicated app architectures today are either too early or just unnecessary.
+</p>
+
+<p>
+sqlite is a local database engine which operates on a single file per database. It is the most deployed database in the world, and it is likely running in your pocket inside your phone on many different apps.
+</p>
+
+<p>
+Many business could start in a single machine using a sqlite database.
+</p>
+
+<p>
+<a href="https://litestream.io/">Litestream</a> is a project from <a href="https://benjohnson.ca/about/">Ben Johnson</a> that replicates sqlite3 databases to make sqlite globally distributed. The replication part was extracted into <a href="https://github.com/superfly/litefs">LiteFS</a>, while Litestream kept the disaster recovery replication.
+</p>
+
+<p>
+With this model, LiteFS uses <a href="https://en.wikipedia.org/wiki/Filesystem_in_Userspace">FUSE (Filesystem in userspace)</a> as a pass-through filesystem to intercept writes to the database in order to detect transaction boundaries and replicate those in the replica nodes.
+</p>
+
+<p>
+Litestream allows to replicate databases by continuously copying write-ahead log pages to cloud storage.
+</p>
+
+<p>
+An alternative implementation of trasaction replication using sqlite <a href="https://www.sqlite.org/vfs.html">built-in VFS</a> is also planned.
+</p>
+
+<p>
+The project was since then acquired by <a href="https://fly.io">Fly.io</a>, which specializes in deploying apps close to the users.
+</p>
+
+<p>
+Both projects give sqlite superpowers and allow for resilient and performant applicatons while keeping the setup and architecture lean and simple.
+</p>
+
+<p>
+During the Twitter exodus to Mastodon, I saw people dealing with the complexity and resource requirements of operating Mastodon for a single user. My <a href="https://social.mac-vicar.eu/">Fediverse instance</a> is not Mastodon, but <a href="https://github.com/superseriousbusiness/gotosocial">gotosocial</a>. Uses 128M ram, a 140M sqlite database, and runs on a 5€ micro VM. The database is replicated to a sftp share with Litestream.
+</p>
+</div>
+</section>
+
+<section id="outline-container-orgc0ca6d5" class="outline-2">
+<h2 id="orgc0ca6d5">Stable Diffusion</h2>
+<div class="outline-text-2" id="text-orgc0ca6d5">
+<p>
+<a href="https://stability.ai/blog/stable-diffusion-v2-release">StableDiffusion</a> is an AI model which allows to:
+</p>
+
+<ul class="org-ul">
+<li>transform text prompt into images</li>
+<li>transform images plus a text prompt into new images</li>
+<li>edit images by selecting an area and a prompt</li>
+</ul>
+
+<p>
+Also impressive are the creations where StableDiffusion is used to change a single video frame, and another model is used to extrapolate the change to the resto of the frames, resulting in full video editing.
+</p>
+
+<p>
+The <a href="https://dreambooth.github.io/">Dreambooth</a> model allows to finetune StableDiffusion for specific subjects. This is what the Lensa app does when generating many avatars from your selfies.
+</p>
+
+<p>
+I believe this will have huge impact in creative industries (design, gaming), and will make their software understand the semantics of the image, just like IDEs have been doing it for years offering syntax aware refactorings.
+</p>
+</div>
+</section>
+
+<section id="outline-container-orge3e2762" class="outline-2">
+<h2 id="orge3e2762">ChatGPT</h2>
+<div class="outline-text-2" id="text-orge3e2762">
+<p>
+I&rsquo;d like to mention ChatGPT together with  <a href="https://github.com/features/copilot">Copilot</a>, but I haven&rsquo;t tried Copilot yet.
+</p>
+
+<p>
+These technologies are already proving being very useful in the context of programming.
+</p>
+
+<p>
+Leaving out the controversial topic of training proprietary models on GPL code for another ocassion, I am impressed how good ChatGPT is to port code from one dimension to another, eg. rewriting using a different language, library, etc. I think it will become very useful for porting, refactoring and updating software.
+</p>
+
+<p>
+For example, I was very pleased with ChatGPT beging able to take some Linux commands, and generating me a set of <a href="https://www.ansible.com/">Ansible</a> tasks to replicate such configuration
+</p>
+
+<p>
+<a href="images/chatgpt-ansible.png">Ansible with ChatGPT</a>
+</p>
+</div>
+</section>
+
+<section id="outline-container-org576ab07" class="outline-2">
+<h2 id="org576ab07">Phoenix LiveView, hotwire and the return of the server-side HTML</h2>
+<div class="outline-text-2" id="text-org576ab07">
+<p>
+Single page applications (SPA) are with us for longer I can remember, but the feeling something is not right in that model continues to live with me.
+</p>
+
+<p>
+Having two architectures on the client side and server side taking care of similar problem and dividing teams through <code>json</code> messages in two worlds speaking different languages seems odd.
+</p>
+
+<p>
+The unstability of the Javascript eco-system just makes thing worse.
+</p>
+
+<p>
+I missed the Rails times, however I could not picture how to solve the challenges SPAs aim to solve when it come to highly interactive applications.
+</p>
+
+<p>
+<a href="https://www.phoenixframework.org/">Phoenix</a> is a web framework for <a href="https://elixir-lang.org/">Elixir</a>, a language running on the <a href="https://www.erlang.org/">Erlang VM</a>. His creator has a Rails background, so he took off from where Rails left and brought innovation to the space in the form of <a href="https://github.com/phoenixframework/phoenix_live_view">Phoenix LiveView</a>, a technique which allows for highly interactive applications without abandoning the server side paradigm.
+</p>
+
+<p>
+Other toolkits have appeared which allow to start server side and add interactivity in a structured way without abandoning the server side paradigm. One is <a href="https://hotwired.dev/">HotWire</a> from Basecamp, which includes Turbo and other libraries, and <a href="https://htmx.org/">htmx</a>, which works by just annotating HTML.
+</p>
+</div>
+</section>
+
+<section id="outline-container-orgfc88fc0" class="outline-2">
+<h2 id="orgfc88fc0">virtio-fs and krunvm</h2>
+<div class="outline-text-2" id="text-orgfc88fc0">
+<p>
+Something I always disliked about virtualization was the use of images. It added a whole layer of complexity.
+</p>
+
+<p>
+virtio-fs]] is a filesystem that allows to share the host filesystem with the guest with local semantics.
+</p>
+
+<p>
+qemu has support for it, so you can boot a root filesystem.
+</p>
+
+<p>
+One tool that takes advantage of virtio-fs is krunvm. It allows to run container images as micro virtual machines. The machines implement a few simple virtio devices enough to run an embedded kernel in libkrun.
+</p>
+
+<p>
+krunvm takes virtio-fs to the next level, basically making it invisible, allowing to mount any host folder into the virtual machine the same way that you do it with container images.
+</p>
+
+<p>
+Follow the work <a href="https://github.com/slp">Sergio Lopez</a> is doing in this space.
+</p>
+
+<hr>
+
+<p>
+These are my picks. What are yours?
+</p>
+</div>
+</section>
+</main>
+<footer id="postamble" class="status">
+<p class='disclaimer'>The postings on this site are my own and don't necessarily represent my employer’s positions, strategies or opinions.</p>
+
+<p>Last updated 15 Jan. 2023. Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.2 (<a href="https://orgmode.org">Org</a> mode 9.4.4). <a href="/README.html">Details</a>.</p>
+</footer>
+</body>
+</html>
