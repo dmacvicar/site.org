@@ -210,7 +210,7 @@ Lets start with a famous UNIX tool: <code>rsync</code>.
 So a package is an archive file:
 </p>
 
-<pre class="example" id="orgc178736">
+<pre class="example" id="org5dd5068">
 rsync-3.1.2-1.5.x86_64.rpm
 </pre>
 
@@ -218,7 +218,7 @@ rsync-3.1.2-1.5.x86_64.rpm
 containing all files related to the application:
 </p>
 
-<pre class="example" id="org68f5f98">
+<pre class="example" id="org580f86a">
 $ rpm -qpl rsync-3.1.2-1.5.x86_64.rpm
 
 /etc/logrotate.d/rsync
@@ -249,7 +249,7 @@ to:
 <li><code>Name</code>, <code>Summary</code>, <code>Description</code>, <code>License</code>, etc.</li>
 </ul>
 
-<pre class="example" id="org999d07e">
+<pre class="example" id="orgb74d150">
 $ rpm -qpi rsync-3.1.2-1.5.x86_64.rpm
 
 Name        : rsync
@@ -286,7 +286,7 @@ Distribution: openSUSE Tumbleweed
 (<code>Requires</code>)</li>
 </ul>
 
-<pre class="example" id="orgca4d12b">
+<pre class="example" id="orga0dd55e">
 $ rpm -qp --requires rsync-3.1.2-1.5.x86_64.rpm
 /bin/sh
 /usr/bin/perl
@@ -327,7 +327,7 @@ called during runtime.
 <li>What does the package provide for other packages to work (<code>Provides</code>)</li>
 </ul>
 
-<pre class="example" id="orgd448e27">
+<pre class="example" id="orge39a912">
 $ rpm -qp --provides rsync-3.1.2-1.5.x86_64.rpm
 config(rsync) = 3.1.2-1.5
 rsync = 3.1.2-1.5
@@ -356,7 +356,7 @@ level.
 Packages can be installed with the <code>rpm</code> tools:
 </p>
 
-<pre class="example" id="org3c79b1e">
+<pre class="example" id="orgf96452f">
 $ rpm -U rsync-3.1.2-1.5.x86_64.rpm
 </pre>
 
@@ -367,7 +367,7 @@ the <code>-p</code> option and use what is called the NVRA
 subset of it, e.g. just name (<code>rsync</code>).
 </p>
 
-<pre class="example" id="org8501f0f">
+<pre class="example" id="orgd37ccfd">
 $ rpm -q --provides rsync
 </pre>
 
@@ -433,7 +433,7 @@ build system scanned the executable <code>/usr/lib/rsync</code> and realized it 
 linked against <code>libc.so.6</code>:
 </p>
 
-<pre class="example" id="org990d10d">
+<pre class="example" id="orgc24d123">
 $ ldd /usr/bin/rsync
         linux-vdso.so.1 (0x00007ffccb34a000)
         libacl.so.1 =&gt; /lib64/libacl.so.1 (0x00007fc406028000)
@@ -462,7 +462,7 @@ only <code>Requires: libsound</code> (as in package name). Then when he/she trie
 to run it:
 </p>
 
-<pre class="example" id="org858f36e">
+<pre class="example" id="org62b9052">
 $ musicplayer
 error while loading shared libraries: libsound.so.7: cannot open shared object file: No such file or directory
 </pre>
@@ -573,7 +573,7 @@ includes a command-line tool called <code>zypper</code>. While tools like
 console you will likely interact with <code>zypper</code>.
 </p>
 
-<pre class="example" id="org7d2f9f5">
+<pre class="example" id="orge1d2bef">
 $ zypper install rsync-3.1.2-1.5.x86_64.rpm
 </pre>
 
@@ -616,7 +616,7 @@ package, and then rpm files are retrieved on demand at installation
 time.
 </p>
 
-<pre class="example" id="orgc3f57b2">
+<pre class="example" id="orgb4a3df2">
 $ zypper lr
 
 # | Alias          | Name           | Enabled | GPG Check | Refresh
@@ -678,7 +678,7 @@ rpm files into its cache.
 <div id="outline-container-refreshing-a-repository" class="outline-4">
 <h4 id="refreshing-a-repository">Refreshing a repository</h4>
 <div class="outline-text-4" id="text-refreshing-a-repository">
-<pre class="example" id="org356523d">
+<pre class="example" id="org06651e6">
 $ zypper ref
 </pre>
 
@@ -810,7 +810,7 @@ Patterns are used to install a collection of software in a comfortable
 way. For example you can install a working Laptop-oriented system with:
 </p>
 
-<pre class="example" id="orgd3400b9">
+<pre class="example" id="orgbaad14f">
 $ zypper install -t pattern laptop
 </pre>
 
@@ -839,7 +839,7 @@ of the magic behind patterns (equivalent to
 Similar to patterns, products can be queried with:
 </p>
 
-<pre class="example" id="org45811b4">
+<pre class="example" id="org2adcd54">
 $ zypper search -t product
 </pre>
 
@@ -882,7 +882,7 @@ package manager will dynamically read <code>/sys/devices</code> and make this
 entity have provides like:
 </p>
 
-<pre class="example" id="orgc58a873">
+<pre class="example" id="org457ce5e">
 Provides :modalias(pci:v0000104Cd0000840[01]sv*sd*bc*sc*i*)
 </pre>
 
@@ -891,7 +891,7 @@ Then, a package providing a WLAN driver for some cards (e.g.
 <code>wlan-kmp-default</code>), could have the following dependencies:
 </p>
 
-<pre class="example" id="orgf59a07d">
+<pre class="example" id="orged3905d">
 Supplements: modalias(kernel-default:pci:v0000104Cd0000840[01]sv*sd*bc*sc*i*)
 Supplements: modalias(kernel-default:pci:v0000104Cd00009066sv*sd*bc*sc*i*)
 Supplements: modalias(kernel-default:pci:v000010B7d00006000sv*sd*bc*sc*i*)
@@ -940,7 +940,7 @@ injected as we already mentioned), and how the content of the package is
 created. A very simple spec file would be:
 </p>
 
-<pre class="example" id="org0bfc9ee">
+<pre class="example" id="org2025275">
 Name:           mypackage
 Version:        1.0
 Release:        0
@@ -988,7 +988,7 @@ like <code>%{_prefix}</code>, <code>%{_datadir}</code>, <code>%{_mandir}</code>,
 <code>%{_bindir}</code>, etc. You can evaluate a macro like this:
 </p>
 
-<pre class="example" id="orgf226094">
+<pre class="example" id="orgb897a94">
 $ rpm --eval "%{_libdir}"
 /usr/lib64
 </pre>
@@ -1041,7 +1041,7 @@ file to be in a specific location, so I usually tweak the standard
 configuration so that spec files are searched in the current directory:
 </p>
 
-<pre class="example" id="orgafe2783">
+<pre class="example" id="org3d2004b">
 $ cat ~/.rpmmacros
 %topdir /space/packages
 %_builddir %{topdir}/build
@@ -1060,7 +1060,7 @@ As you can see, I also configure it so that built packages are saved in
 Once I have this setup, I can do:
 </p>
 
-<pre class="example" id="orgffb2527">
+<pre class="example" id="orgb991785">
 $ rpmbuild -bb mypackage.spec
 Executing(%install): /bin/sh -e /var/tmp/rpm-tmp.lVzwnj
 + umask 022
@@ -1085,7 +1085,7 @@ Executing(%clean): /bin/sh -e /var/tmp/rpm-tmp.0xLGri
 Now I can verify the content of the package:
 </p>
 
-<pre class="example" id="orgbbf6f51">
+<pre class="example" id="org6a87f12">
 % rpm -qpl /space/packages/rpms/x86_64/mypackage-1.0-0.x86_64.rpm
 /usr/share/mypackage/CONTENT
 </pre>
@@ -1145,7 +1145,7 @@ On the other hand, the original <code>oracle-instantclient-sqlplus</code> packag
 is required at runtime, but we don&rsquo;t need it to build our package.
 </p>
 
-<pre class="example" id="orgf817606">
+<pre class="example" id="org7afcb89">
 Name:           gqlplus
 Version:        1.15
 Release:        0
@@ -1213,7 +1213,7 @@ installed by the -devel packages, it will be scanned and the right
 <code>Requires</code> injected:
 </p>
 
-<pre class="example" id="org1b00bc9">
+<pre class="example" id="orgd6a118e">
 $ rpm -qp --requires gqlplus-1.15-0.x86_64.rpm
 libc.so.6()(64bit)
 ...
@@ -1228,7 +1228,7 @@ These symbols are provided by the right package, so the solver will
 match them:
 </p>
 
-<pre class="example" id="org591911f">
+<pre class="example" id="orgf5a585a">
 rpm -q --whatprovides 'libncurses.so.6()(64bit)'
 libncurses6-6.0-19.1.x86_64
 </pre>
@@ -1299,7 +1299,7 @@ right order and re-published.
 </p>
 
 
-<figure id="org1dff78e">
+<figure id="org4c92e04">
 <img src="images/gqlplus-obs.png" alt="gqlplus-obs.png">
 
 </figure>
@@ -1323,7 +1323,7 @@ With the <code>osc</code> tool you can checkout packages from OBS, make changes 
 resubmit them.
 </p>
 
-<pre class="example" id="orgd2830c6">
+<pre class="example" id="org50805c5">
 $ osc co home:dmacvicar gqlplus
 A    home:dmacvicar
 A    home:dmacvicar/gqlplus
@@ -1343,7 +1343,7 @@ machine), setting up that environment automatically using the
 a different distribution than the one you are running.
 </p>
 
-<pre class="example" id="orge373810">
+<pre class="example" id="orga9c69c6">
 $ cd home:dmacvicar/gqlplus
 $ osc build openSUSE_Leap_42.2
 ...
@@ -1372,7 +1372,7 @@ sources by hundreds of contributors.
 The <code>spec-cleaner</code> tool can help you keeping your spec file in shape:
 </p>
 
-<pre class="example" id="org4b90aa0">
+<pre class="example" id="orga33da94">
 $ spec-cleaner -i gqlplus.spec
 </pre>
 
@@ -1424,7 +1424,7 @@ developed. It is easy to find the devel project using the <code>develproject</co
 (<code>dp</code>) command:
 </p>
 
-<pre class="example" id="org33d485a">
+<pre class="example" id="orgdfeb076">
 $ osc dp openSUSE:Factory rsync
 network
 </pre>
@@ -1434,7 +1434,7 @@ Create a branch and a local checkout of the package using the <code>branch</code
 command:
 </p>
 
-<pre class="example" id="orgabf0846">
+<pre class="example" id="orgf0b083e">
 $ osc bco network rsync
 A    home:dmacvicar:branches:network
 A    home:dmacvicar:branches:network/rsync
@@ -1465,7 +1465,7 @@ into the devel project. To do this, use the <code>submitrequest</code> (<code>sr
 command:
 </p>
 
-<pre class="example" id="orgac1e8c5">
+<pre class="example" id="org3d5f0c9">
 $ osc sr
 </pre>
 
