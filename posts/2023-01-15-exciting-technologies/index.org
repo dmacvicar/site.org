@@ -1,0 +1,130 @@
+#+TITLE: 2022: Exciting software projects, technologies and trends
+#+DATE: <2023-01-15 Sun>
+#+DRAFT t
+
+These are some of the software projects and technologies that caught my attention and excitement during 2022. They did not necessarily appear during 2022.
+
+There is a clear bias in my selection and focus. I have spent most of my life developing open-source, datacenter, and e-commerce infrastructure software, on UNIX-like systems. I admire software that solves complex problems in a simple, elegant and lean manner, and those who get easily adopted and standarized as the "default".
+
+* Tree-sitter
+
+Description from its [[https://tree-sitter.github.io/tree-sitter/][website]]:
+
++#begin_quote
+Tree-sitter is a parser generator tool and an incremental parsing library. It can build a concrete syntax tree for a source file and efficiently update the syntax tree as the source file is edited.
+#+end_quote
+
+Why is this important? [[https://news.ycombinator.com/item?id=33721166][This comment]] summarizes it well:
+
++#begin_quote
+Incremental parsing of incorrect code is one of those things that is literally impossible in the general case, but tree-sitter has found a lot of good ways to do it that are not just possible for a large fraction of reality, but also performant. It's hard to understate how impressive a piece of engineering this is.
+#+end_quote
+
+I see this technology having an impact on IDEs, editors, linters and other tools similar to what the [[https://llvm.org/][LLVM]] project did years ago for the compiler and interpreter ecosystem, and what [[https://microsoft.github.io/language-server-protocol/][Language Server Protocol]] did for IDEs during the last years.
+
+For example, the Emacs editor adopted LSP by including eglot by default.
+
+Originally, you could replace the limited [[https://en.wikipedia.org/wiki/Regular_expression][regexp]]-based syntax highlighting in Emacs with the [[https://emacs-tree-sitter.github.io/][emacs-tree-sitter]] modes. This is not longer necessary, as from version 29+, Tree-sitter support [[https://lists.gnu.org/archive/html/emacs-devel/2022-11/msg01443.html][is part of Emacs by default]].
+
+* Wireguard
+
+Description from its [[https://tree-sitter.github.io/tree-sitter/][website]]:
+
++#begin_quote
+WireGuard® is an extremely simple yet fast and modern VPN that utilizes state-of-the-art cryptography.
+#+end_quote
+
+Wireguard's simplicity:
+
+- implemented in ~5000 lines of code, when most VPN solutions range from tens of thousands to hundred of thousands
+- works at the interface level, which mean you can threat it like any other interface
+- the state is hidden from the user, so things like roaming just work
+- It is incorporated in most open-source operating systems. There is a Windows native version and a multi-platform userspace version written in Go.
+ - [[https://networkmanager.dev/][NetworkManager]], what most people use to manage networks in desktop Linux, has native support for it, and GNOME even displays the toggle for Wireguard connections.
+- Android/iOS app
+- Most commercial VPN providers support it, including the [[https://mullvad.net][only one that is worth your time]].
+
+Some higher-level solutions have been built on top of WireGuard. The most impressive is [[https://tailscale.com/][Tailscale]], which brings magical usability to access private networks spread across the world.
+
+And last but not least, [[https://en.avm.de/products/fritzbox/][Fritzboxes]], one of the most popular consumer routers in Germany, supports [[https://en.avm.de/news/the-latest-news-from-fritz/2022/wireguard-vpn-has-never-been-so-easy/][Wireguard natively, since December 2022]], which means I now can access my home LAN very easily and from almost any device.
+
+
+* Litestream and liteFS
+
+I believe many of the complicated app architectures today are either too early or just unnecessary.
+
+sqlite is a local database engine which operates on a single file per database. It is the most deployed database in the world, and it is likely running in your pocket inside your phone on many different apps.
+
+Many business could start in a single machine using a sqlite database.
+
+[[https://litestream.io/][Litestream]] is a project from [[https://benjohnson.ca/about/][Ben Johnson]] that replicates sqlite3 databases to make sqlite globally distributed. The replication part was extracted into [[https://github.com/superfly/litefs][LiteFS]], while Litestream kept the disaster recovery replication.
+
+With this model, LiteFS uses [[https://en.wikipedia.org/wiki/Filesystem_in_Userspace][FUSE (Filesystem in userspace)]] as a pass-through filesystem to intercept writes to the database in order to detect transaction boundaries and replicate those in the replica nodes.
+
+Litestream allows to replicate databases by continuously copying write-ahead log pages to cloud storage.
+
+An alternative implementation of trasaction replication using sqlite [[https://www.sqlite.org/vfs.html][built-in VFS]] is also planned.
+
+The project was since then acquired by [[https://fly.io][Fly.io]], which specializes in deploying apps close to the users.
+
+Both projects give sqlite superpowers and allow for resilient and performant applicatons while keeping the setup and architecture lean and simple.
+
+During the Twitter exodus to Mastodon, I saw people dealing with the complexity and resource requirements of operating Mastodon for a single user. My [[https://social.mac-vicar.eu/][Fediverse instance]] is not Mastodon, but [[https://github.com/superseriousbusiness/gotosocial][gotosocial]]. Uses 128M ram, a 140M sqlite database, and runs on a 5€ micro VM. The database is replicated to a sftp share with Litestream.
+
+* Stable Diffusion
+
+[[https://stability.ai/blog/stable-diffusion-v2-release][StableDiffusion]] is an AI model which allows to:
+
+- transform text prompt into images
+- transform images plus a text prompt into new images
+- edit images by selecting an area and a prompt
+
+Also impressive are the creations where StableDiffusion is used to change a single video frame, and another model is used to extrapolate the change to the resto of the frames, resulting in full video editing.
+
+The [[https://dreambooth.github.io/][Dreambooth]] model allows to finetune StableDiffusion for specific subjects. This is what the Lensa app does when generating many avatars from your selfies.
+
+I believe this will have huge impact in creative industries (design, gaming), and will make their software understand the semantics of the image, just like IDEs have been doing it for years offering syntax aware refactorings.
+
+* ChatGPT
+
+I'd like to mention ChatGPT together with  [[https://github.com/features/copilot][Copilot]], but I haven't tried Copilot yet.
+
+These technologies are already proving being very useful in the context of programming.
+
+Leaving out the controversial topic of training proprietary models on GPL code for another ocassion, I am impressed how good ChatGPT is to port code from one dimension to another, eg. rewriting using a different language, library, etc. I think it will become very useful for porting, refactoring and updating software.
+
+For example, I was very pleased with ChatGPT beging able to take some Linux commands, and generating me a set of [[https://www.ansible.com/][Ansible]] tasks to replicate such configuration
+
+[[file:images/chatgpt-ansible.png][Ansible with ChatGPT]]
+
+* Phoenix LiveView, hotwire and the return of the server-side HTML
+
+Single page applications (SPA) are with us for longer I can remember, but the feeling something is not right in that model continues to live with me.
+
+Having two architectures on the client side and server side taking care of similar problem and dividing teams through =json= messages in two worlds speaking different languages seems odd.
+
+The unstability of the Javascript eco-system just makes thing worse.
+
+I missed the Rails times, however I could not picture how to solve the challenges SPAs aim to solve when it come to highly interactive applications.
+
+[[https://www.phoenixframework.org/][Phoenix]] is a web framework for [[https://elixir-lang.org/][Elixir]], a language running on the [[https://www.erlang.org/][Erlang VM]]. His creator has a Rails background, so he took off from where Rails left and brought innovation to the space in the form of [[https://github.com/phoenixframework/phoenix_live_view][Phoenix LiveView]], a technique which allows for highly interactive applications without abandoning the server side paradigm.
+
+Other toolkits have appeared which allow to start server side and add interactivity in a structured way without abandoning the server side paradigm. One is [[https://hotwired.dev/][HotWire]] from Basecamp, which includes Turbo and other libraries, and [[https://htmx.org/][htmx]], which works by just annotating HTML.
+
+* virtio-fs and krunvm
+
+Something I always disliked about virtualization was the use of images. It added a whole layer of complexity.
+
+virtio-fs]] is a filesystem that allows to share the host filesystem with the guest with local semantics.
+
+qemu has support for it, so you can boot a root filesystem.
+
+One tool that takes advantage of virtio-fs is krunvm. It allows to run container images as micro virtual machines. The machines implement a few simple virtio devices enough to run an embedded kernel in libkrun.
+
+krunvm takes virtio-fs to the next level, basically making it invisible, allowing to mount any host folder into the virtual machine the same way that you do it with container images.
+
+Follow the work [[https://github.com/slp][Sergio Lopez]] is doing in this space.
+
+-----
+
+These are my picks. What are yours?
