@@ -95,7 +95,7 @@ Leaving out the controversial topic of training proprietary models on GPL code f
 
 For example, I was very pleased with ChatGPT beging able to take some Linux commands, and generating me a set of [[https://www.ansible.com/][Ansible]] tasks to replicate such configuration
 
-[[file:images/chatgpt-ansible.png][Ansible with ChatGPT]]
+[[file:images/chatgpt-ansible.png]]
 
 * Phoenix LiveView, hotwire and the return of the server-side HTML
 
