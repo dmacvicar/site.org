@@ -1,6 +1,5 @@
 #+TITLE: 2022 picks: software projects to keep an eye on
 #+DATE: <2023-01-19 Thu>
-#+DRAFT: t
 #+OPTIONS: toc:nil
 
 These software projects and technologies caught my attention and excitement during 2022, though they may not have necessarily appeared that year. My selection and focus have a clear bias as I have spent most of my life developing open-source, data center, and e-commerce infrastructure software on UNIX-like systems. I only included projects I have tried myself.
