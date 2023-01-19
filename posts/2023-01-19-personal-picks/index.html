@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 15 Jan. 2023 -->
+<!-- 19 Jan. 2023 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>2022: Exciting software projects, technologies and trends</title>
+<title>2022: My Personal picks for software to keep an eye on</title>
 <meta name="generator" content="Org mode">
 <meta name="author" content="Duncan Mac-Vicar P.">
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -47,19 +47,35 @@
 </header>
 <main id="content">
 <header>
-<h1 class="title">2022: Exciting software projects, technologies and trends</h1>
-<p class="subtitle">Jan 15, 2023</p>
+<h1 class="title">2022: My Personal picks for software to keep an eye on</h1>
+<p class="subtitle">Jan 19, 2023</p>
 </header><p>
-These are some of the software projects and technologies that caught my attention and excitement during 2022. They did not necessarily appear during 2022.
+These software projects and technologies caught my attention and excitement during 2022, though they may not have necessarily appeared that year. My selection and focus have a clear bias as I have spent most of my life developing open-source, datacenter, and e-commerce infrastructure software on UNIX-like systems. I also included only project I tried myself.
 </p>
 
 <p>
-There is a clear bias in my selection and focus. I have spent most of my life developing open-source, datacenter, and e-commerce infrastructure software, on UNIX-like systems. I admire software that solves complex problems in a simple, elegant and lean manner, and those who get easily adopted and standarized as the &ldquo;default&rdquo;.
+I admire software that solves complex problems in a simple, elegant, and lean manner, and those that are easily adopted and standardized as the &ldquo;default&rdquo;.
 </p>
 
-<section id="outline-container-org206865b" class="outline-2">
-<h2 id="org206865b">Tree-sitter</h2>
-<div class="outline-text-2" id="text-org206865b">
+<nav id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org843b611">Tree-sitter</a></li>
+<li><a href="#orgf6b21dd">Wireguard</a></li>
+<li><a href="#org087fa1d">Litestream and liteFS</a></li>
+<li><a href="#org3e625cb">Nix</a></li>
+<li><a href="#orge35ef98">Stable Diffusion</a></li>
+<li><a href="#org67f0b0b">ChatGPT</a></li>
+<li><a href="#orgc9819c5">Phoenix LiveView, hotwire and the return of the server-side HTML</a></li>
+<li><a href="#orgc4d470f">virtio-fs and krunvm</a></li>
+</ul>
+</div>
+</nav>
+
+<section id="outline-container-org843b611" class="outline-2">
+<h2 id="org843b611">Tree-sitter</h2>
+<div class="outline-text-2" id="text-org843b611">
 <p>
 Description from its <a href="https://tree-sitter.github.io/tree-sitter/">website</a>:
 </p>
@@ -94,9 +110,9 @@ Originally, you could replace the limited <a href="https://en.wikipedia.org/wiki
 </div>
 </section>
 
-<section id="outline-container-org6fea398" class="outline-2">
-<h2 id="org6fea398">Wireguard</h2>
-<div class="outline-text-2" id="text-org6fea398">
+<section id="outline-container-orgf6b21dd" class="outline-2">
+<h2 id="orgf6b21dd">Wireguard</h2>
+<div class="outline-text-2" id="text-orgf6b21dd">
 <p>
 Description from its <a href="https://tree-sitter.github.io/tree-sitter/">website</a>:
 </p>
@@ -134,9 +150,9 @@ And last but not least, <a href="https://en.avm.de/products/fritzbox/">Fritzboxe
 </section>
 
 
-<section id="outline-container-org4593834" class="outline-2">
-<h2 id="org4593834">Litestream and liteFS</h2>
-<div class="outline-text-2" id="text-org4593834">
+<section id="outline-container-org087fa1d" class="outline-2">
+<h2 id="org087fa1d">Litestream and liteFS</h2>
+<div class="outline-text-2" id="text-org087fa1d">
 <p>
 I believe many of the complicated app architectures today are either too early or just unnecessary.
 </p>
@@ -179,9 +195,76 @@ During the Twitter exodus to Mastodon, I saw people dealing with the complexity 
 </div>
 </section>
 
-<section id="outline-container-org3b32070" class="outline-2">
-<h2 id="org3b32070">Stable Diffusion</h2>
-<div class="outline-text-2" id="text-org3b32070">
+<section id="outline-container-org3e625cb" class="outline-2">
+<h2 id="org3e625cb">Nix</h2>
+<div class="outline-text-2" id="text-org3e625cb">
+<p>
+Nix is a tool for producing reproducible builds and deployments. It takes a different approach to package management using a declarative and functional build description.
+</p>
+
+<p>
+When you build something with Nix, it ends in its own directory in the Nix store e.g. <code>/nix/store/hxxrbmr2zh6ph90qi8b4n2m53yvan3fr-curl-7.85.0/</code> and as long as the inputs do not change, the location, which is content-addressed, will not change either. They will also depends on the exact versions they were built against.
+</p>
+
+<p>
+This allows to install multiple versions in parallel, and the current system profile itself is a collection of symbolic links to the right binaries, which means you can rollback very easily.
+</p>
+
+<p>
+While Nix can be used on Linux and MacOS, there is a full Linux <a href="https://nixos.org/">distribution built on this model</a>.
+</p>
+
+<p>
+While it can also be used for CI, building container images, etc., I use Nix in two ways:
+</p>
+
+<ul class="org-ul">
+<li><p>
+Declare project dependencies
+</p>
+
+<p>
+If I have e.g. a folder with some Ansible roles I use to configure my home gadgets, I can make that project independent from where I am running it by just having a top <code>shell.nix</code> declaring dependencies. Then a simple <code>.envrc</code> file with the line <code>use_nix</code> and <a href="https://direnv.net/">direnv</a> setup in my shell.
+</p>
+
+<p>
+As soon as I <code>cd</code> into the directory, Ansible is installed and appears in the path. I <code>cd</code> out and it dissapears. The nix store is cached, so the second time is very fast (until you <code>nix store gc</code>).
+</p>
+
+<p>
+You can use this to have reproducible developer environments.
+</p>
+
+<p>
+Nix Flakes are a new format to package Nix-based projects in a more discoverable, composable, consistent and reproducible way.
+</p>
+
+<p>
+With Flakes you could even pin your environment to a specific revision of the package descriptions.
+</p></li>
+
+<li><p>
+Manage packages, including my own
+</p>
+
+<p>
+Some packages I need all the time: Emacs, Chromium, tarsnap, etc. I use Nix for that, and keep my distribution just for the base system.
+</p>
+
+<p>
+<code>nix profile install nixpkgs#tarsnap</code> and the package is now always available. I also have packages which are not free to distribute, so I can keep the recipe to build it in git, or just override a few compile options from another package. It is just flexible.
+</p></li>
+</ul>
+
+<p>
+The language is a functional DSL that takes some curve to learn, just like the builtin functions. I am not sure if this will be some day the future of deployments, but for me as been a great addition for those two use-cases.
+</p>
+</div>
+</section>
+
+<section id="outline-container-orge35ef98" class="outline-2">
+<h2 id="orge35ef98">Stable Diffusion</h2>
+<div class="outline-text-2" id="text-orge35ef98">
 <p>
 <a href="https://stability.ai/blog/stable-diffusion-v2-release">StableDiffusion</a> is an AI model which allows to:
 </p>
@@ -206,9 +289,9 @@ I believe this will have huge impact in creative industries (design, gaming), an
 </div>
 </section>
 
-<section id="outline-container-orge10743c" class="outline-2">
-<h2 id="orge10743c">ChatGPT</h2>
-<div class="outline-text-2" id="text-orge10743c">
+<section id="outline-container-org67f0b0b" class="outline-2">
+<h2 id="org67f0b0b">ChatGPT</h2>
+<div class="outline-text-2" id="text-org67f0b0b">
 <p>
 I&rsquo;d like to mention ChatGPT together with  <a href="https://github.com/features/copilot">Copilot</a>, but I haven&rsquo;t tried Copilot yet.
 </p>
@@ -226,30 +309,26 @@ For example, I was very pleased with ChatGPT beging able to take some Linux comm
 </p>
 
 
-<figure id="org92445a7">
+<figure id="org3a0b8ac">
 <img src="images/chatgpt-ansible.png" alt="chatgpt-ansible.png">
 
 </figure>
 </div>
 </section>
 
-<section id="outline-container-org64ff26a" class="outline-2">
-<h2 id="org64ff26a">Phoenix LiveView, hotwire and the return of the server-side HTML</h2>
-<div class="outline-text-2" id="text-org64ff26a">
+<section id="outline-container-orgc9819c5" class="outline-2">
+<h2 id="orgc9819c5">Phoenix LiveView, hotwire and the return of the server-side HTML</h2>
+<div class="outline-text-2" id="text-orgc9819c5">
 <p>
 Single page applications (SPA) are with us for longer I can remember, but the feeling something is not right in that model continues to live with me.
 </p>
 
 <p>
-Having two architectures on the client side and server side taking care of similar problem and dividing teams through <code>json</code> messages in two worlds speaking different languages seems odd.
+The architecture duplication on the server and client side (controllers, views, stores), dividing teams through <code>json</code> messages in two worlds speaking different languages seems broken. The unstability of the Javascript eco-system just makes thing worse.
 </p>
 
 <p>
-The unstability of the Javascript eco-system just makes thing worse.
-</p>
-
-<p>
-I missed the Rails times, however I could not picture how to solve the challenges SPAs aim to solve when it come to highly interactive applications.
+I can&rsquo;t however, picture how to solve the challenges SPAs aim to solve when it come to highly interactive applications.
 </p>
 
 <p>
@@ -262,15 +341,15 @@ Other toolkits have appeared which allow to start server side and add interactiv
 </div>
 </section>
 
-<section id="outline-container-org8130aa6" class="outline-2">
-<h2 id="org8130aa6">virtio-fs and krunvm</h2>
-<div class="outline-text-2" id="text-org8130aa6">
+<section id="outline-container-orgc4d470f" class="outline-2">
+<h2 id="orgc4d470f">virtio-fs and krunvm</h2>
+<div class="outline-text-2" id="text-orgc4d470f">
 <p>
 Something I always disliked about virtualization was the use of images. It added a whole layer of complexity.
 </p>
 
 <p>
-virtio-fs]] is a filesystem that allows to share the host filesystem with the guest with local semantics.
+<a href="https://virtio-fs.gitlab.io/index.html">virtio-fs</a> is a filesystem that allows to share the host filesystem with the guest. Unlike virtio-9p (the one used by Windows Subsystem for Linux), it has local semantics.
 </p>
 
 <p>
@@ -278,7 +357,7 @@ qemu has support for it, so you can boot a root filesystem.
 </p>
 
 <p>
-One tool that takes advantage of virtio-fs is krunvm. It allows to run container images as micro virtual machines. The machines implement a few simple virtio devices enough to run an embedded kernel in libkrun.
+One tool that takes advantage of virtio-fs is <a href="https://github.com/containers/krunvm">krunvm</a>. It allows to run container images as micro virtual machines. The machines implement a few simple virtio devices enough to run an embedded kernel in libkrun.
 </p>
 
 <p>
@@ -300,7 +379,7 @@ These are my picks. What are yours?
 <footer id="postamble" class="status">
 <p class='disclaimer'>The postings on this site are my own and don't necessarily represent my employer’s positions, strategies or opinions.</p>
 
-<p>Last updated 15 Jan. 2023. Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.2 (<a href="https://orgmode.org">Org</a> mode 9.4.4). <a href="/README.html">Details</a>.</p>
+<p>Last updated 19 Jan. 2023. Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.2 (<a href="https://orgmode.org">Org</a> mode 9.4.4). <a href="/README.html">Details</a>.</p>
 </footer>
 </body>
 </html>
