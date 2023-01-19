@@ -4,7 +4,7 @@
 <!-- 19 Jan. 2023 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>2022: My Personal picks for software to keep an eye on</title>
+<title>2022 picks: software projects to keep an eye on</title>
 <meta name="generator" content="Org mode">
 <meta name="author" content="Duncan Mac-Vicar P.">
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -47,35 +47,35 @@
 </header>
 <main id="content">
 <header>
-<h1 class="title">2022: My Personal picks for software to keep an eye on</h1>
+<h1 class="title">2022 picks: software projects to keep an eye on</h1>
 <p class="subtitle">Jan 19, 2023</p>
 </header><p>
-These software projects and technologies caught my attention and excitement during 2022, though they may not have necessarily appeared that year. My selection and focus have a clear bias as I have spent most of my life developing open-source, datacenter, and e-commerce infrastructure software on UNIX-like systems. I only included projects I have tried myself.
+These software projects and technologies caught my attention and excitement during 2022, though they may not have necessarily appeared that year. My selection and focus have a clear bias as I have spent most of my life developing open-source, data center, and e-commerce infrastructure software on UNIX-like systems. I only included projects I have tried myself.
 </p>
 
 <p>
-I admire software that solves complex problems in a simple, elegant, and lean manner, and those that are easily adopted and standardized as the &ldquo;default&rdquo;.
+I admire software that solves complex problems in a simple, elegant, and lean manner and those that are easily adopted and standardized as the &ldquo;default&rdquo;.
 </p>
 
 <nav id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgc3a0330">Tree-sitter</a></li>
-<li><a href="#org5fcc399">Wireguard</a></li>
-<li><a href="#orgad7a7b8">Litestream and liteFS</a></li>
-<li><a href="#org0ab3393">Nix</a></li>
-<li><a href="#orgcdf4227">Stable Diffusion</a></li>
-<li><a href="#org94a7d2c">ChatGPT</a></li>
-<li><a href="#orgc703a95">Phoenix LiveView, hotwire and the return of the server-side HTML</a></li>
-<li><a href="#org8a85bcd">virtio-fs and krunvm</a></li>
+<li><a href="#org0062977">Tree-sitter</a></li>
+<li><a href="#orgae4747a">Wireguard</a></li>
+<li><a href="#org80bd9fd">Litestream and liteFS</a></li>
+<li><a href="#orgd4be292">Nix</a></li>
+<li><a href="#org2a6a90b">Stable Diffusion</a></li>
+<li><a href="#org5321a67">ChatGPT</a></li>
+<li><a href="#org62b1311">Phoenix LiveView, hotwire and the return of the server-side HTML</a></li>
+<li><a href="#org609d88f">virtio-fs and krunvm</a></li>
 </ul>
 </div>
 </nav>
 
-<section id="outline-container-orgc3a0330" class="outline-2">
-<h2 id="orgc3a0330">Tree-sitter</h2>
-<div class="outline-text-2" id="text-orgc3a0330">
+<section id="outline-container-org0062977" class="outline-2">
+<h2 id="org0062977">Tree-sitter</h2>
+<div class="outline-text-2" id="text-org0062977">
 <p>
 Description from its <a href="https://tree-sitter.github.io/tree-sitter/">website</a>:
 </p>
@@ -105,14 +105,14 @@ For example, the Emacs editor adopted LSP by including eglot by default.
 </p>
 
 <p>
-Originally, you could replace the limited <a href="https://en.wikipedia.org/wiki/Regular_expression">regexp</a>-based syntax highlighting in Emacs with the <a href="https://emacs-tree-sitter.github.io/">emacs-tree-sitter</a> modes. This is not longer necessary, as from version 29+, Tree-sitter support <a href="https://lists.gnu.org/archive/html/emacs-devel/2022-11/msg01443.html">is part of Emacs by default</a>.
+Originally, you could replace the limited <a href="https://en.wikipedia.org/wiki/Regular_expression">regexp</a>-based syntax highlighting in Emacs with the <a href="https://emacs-tree-sitter.github.io/">emacs-tree-sitter</a> modes. This is no longer necessary, as from version 29+, Tree-sitter support <a href="https://lists.gnu.org/archive/html/emacs-devel/2022-11/msg01443.html">is part of Emacs by default</a>.
 </p>
 </div>
 </section>
 
-<section id="outline-container-org5fcc399" class="outline-2">
-<h2 id="org5fcc399">Wireguard</h2>
-<div class="outline-text-2" id="text-org5fcc399">
+<section id="outline-container-orgae4747a" class="outline-2">
+<h2 id="orgae4747a">Wireguard</h2>
+<div class="outline-text-2" id="text-orgae4747a">
 <p>
 Description from its <a href="https://tree-sitter.github.io/tree-sitter/">website</a>:
 </p>
@@ -128,12 +128,12 @@ Wireguard&rsquo;s simplicity:
 </p>
 
 <ul class="org-ul">
-<li>implemented in ~5000 lines of code, when most VPN solutions range from tens of thousands to hundred of thousands</li>
-<li>works at the interface level, which mean you can threat it like any other interface</li>
+<li>implemented in ~5000 lines of code, when most VPN solutions range from tens of thousands to hundreds of thousands</li>
+<li>works at the interface level, which means you can treat it like any other interface</li>
 <li>the state is hidden from the user, so things like roaming just work</li>
 <li>It is incorporated in most open-source operating systems. There is a Windows native version and a multi-platform userspace version written in Go.
 <ul class="org-ul">
-<li><a href="https://networkmanager.dev/">NetworkManager</a>, what most people use to manage networks in desktop Linux, has native support for it, and GNOME even displays the toggle for Wireguard connections.</li>
+<li><a href="https://networkmanager.dev/">NetworkManager</a>, which most people use to manage networks in desktop Linux, has native support for it, and GNOME even displays the toggle for Wireguard connections.</li>
 </ul></li>
 <li>Android/iOS app</li>
 <li>Most commercial VPN providers support it, including the <a href="https://mullvad.net">only one that is worth your time</a>.</li>
@@ -150,19 +150,19 @@ And last but not least, <a href="https://en.avm.de/products/fritzbox/">Fritzboxe
 </section>
 
 
-<section id="outline-container-orgad7a7b8" class="outline-2">
-<h2 id="orgad7a7b8">Litestream and liteFS</h2>
-<div class="outline-text-2" id="text-orgad7a7b8">
+<section id="outline-container-org80bd9fd" class="outline-2">
+<h2 id="org80bd9fd">Litestream and liteFS</h2>
+<div class="outline-text-2" id="text-org80bd9fd">
 <p>
 I believe many of the complicated app architectures today are either too early or just unnecessary.
 </p>
 
 <p>
-sqlite is a local database engine which operates on a single file per database. It is the most deployed database in the world, and it is likely running in your pocket inside your phone on many different apps.
+SQLite is a local database engine that operates on a single file per database. It is the most deployed database in the world, and it is likely running in your pocket inside your phone on many different apps.
 </p>
 
 <p>
-Many business could start in a single machine using a sqlite database.
+Many businesses could start in a single machine using a SQLite database.
 </p>
 
 <p>
@@ -170,15 +170,15 @@ Many business could start in a single machine using a sqlite database.
 </p>
 
 <p>
-With this model, LiteFS uses <a href="https://en.wikipedia.org/wiki/Filesystem_in_Userspace">FUSE (Filesystem in userspace)</a> as a pass-through filesystem to intercept writes to the database in order to detect transaction boundaries and replicate those in the replica nodes.
+With this model, LiteFS uses <a href="https://en.wikipedia.org/wiki/Filesystem_in_Userspace">FUSE (Filesystem in userspace)</a> as a pass-through filesystem to intercept writes to the database to detect transaction boundaries and replicate those in the replica nodes.
 </p>
 
 <p>
-Litestream allows to replicate databases by continuously copying write-ahead log pages to cloud storage.
+Litestream allows replicating databases by continuously copying write-ahead log pages to cloud storage.
 </p>
 
 <p>
-An alternative implementation of trasaction replication using sqlite <a href="https://www.sqlite.org/vfs.html">built-in VFS</a> is also planned.
+An alternative implementation of transaction replication using SQLite <a href="https://www.sqlite.org/vfs.html">built-in VFS</a> is also planned.
 </p>
 
 <p>
@@ -186,32 +186,32 @@ The project was since then acquired by <a href="https://fly.io">Fly.io</a>, whic
 </p>
 
 <p>
-Both projects give sqlite superpowers and allow for resilient and performant applicatons while keeping the setup and architecture lean and simple.
+Both projects give SQLite superpowers and allow for resilient and performant applications while keeping the setup and architecture lean and simple.
 </p>
 
 <p>
-During the Twitter exodus to Mastodon, I saw people dealing with the complexity and resource requirements of operating Mastodon for a single user. My <a href="https://social.mac-vicar.eu/">Fediverse instance</a> is not Mastodon, but <a href="https://github.com/superseriousbusiness/gotosocial">gotosocial</a>. Uses 128M ram, a 140M sqlite database, and runs on a 5€ micro VM. The database is replicated to a sftp share with Litestream.
+During the Twitter exodus to Mastodon, I saw people dealing with the complexity and resource requirements of operating Mastodon for a single user. My <a href="https://social.mac-vicar.eu/">Fediverse instance</a> is not Mastodon, but <a href="https://github.com/superseriousbusiness/gotosocial">gotosocial</a>. Uses 128M ram, a 140M SQLite database, and runs on a 5€ micro VM. The database is replicated to an sftp share with Litestream.
 </p>
 </div>
 </section>
 
-<section id="outline-container-org0ab3393" class="outline-2">
-<h2 id="org0ab3393">Nix</h2>
-<div class="outline-text-2" id="text-org0ab3393">
+<section id="outline-container-orgd4be292" class="outline-2">
+<h2 id="orgd4be292">Nix</h2>
+<div class="outline-text-2" id="text-orgd4be292">
 <p>
 Nix is a tool for producing reproducible builds and deployments. It takes a different approach to package management using a declarative and functional build description.
 </p>
 
 <p>
-When you build something with Nix, it ends in its own directory in the Nix store e.g. <code>/nix/store/hxxrbmr2zh6ph90qi8b4n2m53yvan3fr-curl-7.85.0/</code> and as long as the inputs do not change, the location, which is content-addressed, will not change either. They will also depends on the exact versions they were built against.
+When you build something with Nix, it ends in its own directory in the Nix store e.g. <code>/nix/store/hxxrbmr2zh6ph90qi8b4n2m53yvan3fr-curl-7.85.0/</code> and as long as the inputs do not change, the location, which is content-addressed, will not change either. They will also depend on the exact versions they were built against.
 </p>
 
 <p>
-This allows to install multiple versions in parallel, and the current system profile itself is a collection of symbolic links to the right binaries, which means you can rollback very easily.
+This allows you the installation of multiple versions in parallel, and the current system profile itself is a collection of symbolic links to the right binaries, which means you can roll back very easily.
 </p>
 
 <p>
-While Nix can be used on Linux and MacOS, there is a full Linux <a href="https://nixos.org/">distribution built on this model</a>.
+While Nix can be used on Linux and macOS, there is a full Linux <a href="https://nixos.org/">distribution built on this model</a>.
 </p>
 
 <p>
@@ -228,7 +228,7 @@ If I have e.g. a folder with some Ansible roles I use to configure my home gadge
 </p>
 
 <p>
-As soon as I <code>cd</code> into the directory, Ansible is installed and appears in the path. I <code>cd</code> out and it dissapears. The nix store is cached, so the second time is very fast (until you <code>nix store gc</code>).
+As soon as I <code>cd</code> into the directory, Ansible is installed and appears in the path. I <code>cd</code> out and it disappears. The nix store is cached, so the second time is very fast (until you <code>nix store gc</code>).
 </p>
 
 <p>
@@ -236,11 +236,11 @@ You can use this to have reproducible developer environments.
 </p>
 
 <p>
-Nix Flakes are a new format to package Nix-based projects in a more discoverable, composable, consistent and reproducible way.
+Nix Flakes is a new format to package Nix-based projects in a more discoverable, composable, consistent and reproducible way.
 </p>
 
 <p>
-With Flakes you could even pin your environment to a specific revision of the package descriptions.
+With Flakes, you could even pin your environment to a specific revision of the package descriptions.
 </p></li>
 
 <li><p>
@@ -252,19 +252,19 @@ Some packages I need all the time: Emacs, Chromium, tarsnap, etc. I use Nix for 
 </p>
 
 <p>
-<code>nix profile install nixpkgs#tarsnap</code> and the package is now always available. I also have packages which are not free to distribute, so I can keep the recipe to build it in git, or just override a few compile options from another package. It is just flexible.
+<code>nix profile install nixpkgs#tarsnap</code> and the package is now always available. I also have packages that are not free to distribute, so I can keep the recipe to build it in git, or just override a few compile options from another package. It is just flexible.
 </p></li>
 </ul>
 
 <p>
-The language is a functional DSL that takes some curve to learn, just like the builtin functions. I am not sure if this will be some day the future of deployments, but for me as been a great addition for those two use-cases.
+The language is a functional DSL that takes some curve to learn, just like the built-in functions. I am not sure if this will be someday the future of deployments, but for me as been agreat addition to those two use cases..
 </p>
 </div>
 </section>
 
-<section id="outline-container-orgcdf4227" class="outline-2">
-<h2 id="orgcdf4227">Stable Diffusion</h2>
-<div class="outline-text-2" id="text-orgcdf4227">
+<section id="outline-container-org2a6a90b" class="outline-2">
+<h2 id="org2a6a90b">Stable Diffusion</h2>
+<div class="outline-text-2" id="text-org2a6a90b">
 <p>
 <a href="https://stability.ai/blog/stable-diffusion-v2-release">StableDiffusion</a> is an AI model which allows to:
 </p>
@@ -276,7 +276,7 @@ The language is a functional DSL that takes some curve to learn, just like the b
 </ul>
 
 <p>
-Also impressive are the creations where StableDiffusion is used to change a single video frame, and another model is used to extrapolate the change to the resto of the frames, resulting in full video editing.
+Also impressive are the creations where StableDiffusion is used to change a single video frame, and another model is used to extrapolate the change to the rest of the frames, resulting in full video editing.
 </p>
 
 <p>
@@ -284,55 +284,55 @@ The <a href="https://dreambooth.github.io/">Dreambooth</a> model allows to finet
 </p>
 
 <p>
-I believe this will have huge impact in creative industries (design, gaming), and will make their software understand the semantics of the image, just like IDEs have been doing it for years offering syntax aware refactorings.
+I believe this will have a huge impact on creative industries (design, gaming), and will make their software understand the semantics of the image, just like IDEs have been doing for years offering syntax-aware refactorings.
 </p>
 </div>
 </section>
 
-<section id="outline-container-org94a7d2c" class="outline-2">
-<h2 id="org94a7d2c">ChatGPT</h2>
-<div class="outline-text-2" id="text-org94a7d2c">
+<section id="outline-container-org5321a67" class="outline-2">
+<h2 id="org5321a67">ChatGPT</h2>
+<div class="outline-text-2" id="text-org5321a67">
 <p>
 I&rsquo;d like to mention ChatGPT together with  <a href="https://github.com/features/copilot">Copilot</a>, but I haven&rsquo;t tried Copilot yet.
 </p>
 
 <p>
-These technologies are already proving being very useful in the context of programming.
+These technologies are already proving to be very useful in the context of programming.
 </p>
 
 <p>
-Leaving out the controversial topic of training proprietary models on GPL code for another ocassion, I am impressed how good ChatGPT is to port code from one dimension to another, eg. rewriting using a different language, library, etc. I think it will become very useful for porting, refactoring and updating software.
+Leaving out the controversial topic of training proprietary models on GPL code for another occasion, I am impressed how good ChatGPT is to port code from one dimension to another, eg. rewriting using a different language, library, etc. I think it will become very useful for porting, refactoring and updating software.
 </p>
 
 <p>
-For example, I was very pleased with ChatGPT beging able to take some Linux commands, and generating me a set of <a href="https://www.ansible.com/">Ansible</a> tasks to replicate such configuration
+For example, I was very pleased with ChatGPT being able to take some Linux commands, and generating me a set of <a href="https://www.ansible.com/">Ansible</a> tasks to replicate the configuration
 </p>
 
 
-<figure id="org011a876">
+<figure id="org773d6b9">
 <img src="images/chatgpt-ansible.png" alt="chatgpt-ansible.png">
 
 </figure>
 </div>
 </section>
 
-<section id="outline-container-orgc703a95" class="outline-2">
-<h2 id="orgc703a95">Phoenix LiveView, hotwire and the return of the server-side HTML</h2>
-<div class="outline-text-2" id="text-orgc703a95">
+<section id="outline-container-org62b1311" class="outline-2">
+<h2 id="org62b1311">Phoenix LiveView, hotwire and the return of the server-side HTML</h2>
+<div class="outline-text-2" id="text-org62b1311">
 <p>
-Single page applications (SPA) are with us for longer I can remember, but the feeling something is not right in that model continues to live with me.
+Single-page applications (SPA) are with us for longer than I can remember, but the feeling something is not right in that model continues to live with me.
 </p>
 
 <p>
-The architecture duplication on the server and client side (controllers, views, stores), dividing teams through <code>json</code> messages in two worlds speaking different languages seems broken. The unstability of the Javascript eco-system just makes thing worse.
+The architecture duplication on the server and client-side (controllers, views, stores), dividing teams through <code>json</code> messages in two worlds speaking different languages seems broken. The instability of the Javascript eco-system just makes things worse.
 </p>
 
 <p>
-I can&rsquo;t however, picture how to solve the challenges SPAs aim to solve when it come to highly interactive applications.
+I can&rsquo;t however, picture how to solve the challenges SPAs aim to solve when it comes to highlyy interactive applications.
 </p>
 
 <p>
-<a href="https://www.phoenixframework.org/">Phoenix</a> is a web framework for <a href="https://elixir-lang.org/">Elixir</a>, a language running on the <a href="https://www.erlang.org/">Erlang VM</a>. His creator has a Rails background, so he took off from where Rails left and brought innovation to the space in the form of <a href="https://github.com/phoenixframework/phoenix_live_view">Phoenix LiveView</a>, a technique which allows for highly interactive applications without abandoning the server side paradigm.
+<a href="https://www.phoenixframework.org/">Phoenix</a> is a web framework for <a href="https://elixir-lang.org/">Elixir</a>, a language running on the <a href="https://www.erlang.org/">Erlang VM</a>. His creator has a Rails background, so he took off from where Rails left and brought innovation to the space in the form of <a href="https://github.com/phoenixframework/phoenix_live_view">Phoenix LiveView</a>, a technique that allows for highly interactive applications without abandoning the server side paradigm.
 </p>
 
 <p>
@@ -341,15 +341,15 @@ Other toolkits have appeared which allow to start server side and add interactiv
 </div>
 </section>
 
-<section id="outline-container-org8a85bcd" class="outline-2">
-<h2 id="org8a85bcd">virtio-fs and krunvm</h2>
-<div class="outline-text-2" id="text-org8a85bcd">
+<section id="outline-container-org609d88f" class="outline-2">
+<h2 id="org609d88f">virtio-fs and krunvm</h2>
+<div class="outline-text-2" id="text-org609d88f">
 <p>
 Something I always disliked about virtualization was the use of images. It added a whole layer of complexity.
 </p>
 
 <p>
-<a href="https://virtio-fs.gitlab.io/index.html">virtio-fs</a> is a filesystem that allows to share the host filesystem with the guest. Unlike virtio-9p (the one used by Windows Subsystem for Linux), it has local semantics.
+<a href="https://virtio-fs.gitlab.io/index.html">virtio-fs</a> is a filesystem that allows sharing the host filesystem with the guest. Unlike virtio-9p (the one used by Windows Subsystem for Linux), it has local semantics.
 </p>
 
 <p>
@@ -361,7 +361,7 @@ One tool that takes advantage of virtio-fs is <a href="https://github.com/contai
 </p>
 
 <p>
-krunvm takes virtio-fs to the next level, basically making it invisible, allowing to mount any host folder into the virtual machine the same way that you do it with container images.
+krunvm takes virtio-fs to the next level, basically making it invisible, allowing you to mount any host folder into the virtual machine the same way that you do it with container images.
 </p>
 
 <p>
