@@ -54,7 +54,7 @@ I have been running some workloads on Raspberry Pi&rsquo;s / <a href="https://so
 </p>
 
 
-<figure id="org02c38f2">
+<figure id="org08bf928">
 <img src="images/rpi-cluster-small.jpg" alt="rpi-cluster-small.jpg">
 
 </figure>
@@ -133,9 +133,9 @@ I decided for the the initial iteration:
 All the above managed with <span class="underline">salt-ssh</span> tree on a git repository just like I was used to
 </p>
 
-<section id="outline-container-orgab3f663" class="outline-2">
-<h2 id="orgab3f663">k3s installation</h2>
-<div class="outline-text-2" id="text-orgab3f663">
+<section id="outline-container-orge278918" class="outline-2">
+<h2 id="orge278918">k3s installation</h2>
+<div class="outline-text-2" id="text-orge278918">
 <p>
 We start by creating <code>k3s/init.sls</code>. For the k3s state I defined a minimal pillar defining the server and the shared token:
 </p>
@@ -274,9 +274,9 @@ The k3s state works as follows: it runs the installation script in server or age
 </div>
 </section>
 
-<section id="outline-container-orgb27414c" class="outline-2">
-<h2 id="orgb27414c">Workloads</h2>
-<div class="outline-text-2" id="text-orgb27414c">
+<section id="outline-container-orgbb1211d" class="outline-2">
+<h2 id="orgbb1211d">Workloads</h2>
+<div class="outline-text-2" id="text-orgbb1211d">
 <p>
 The next step is to move workloads like <a href="https://www.home-assistant.io">homeassistant</a> into this setup.
 </p>
