@@ -1,11 +1,11 @@
-#+TITLE: 2022: My Personal picks for software to keep an eye on
+#+TITLE: 2022 picks: software projects to keep an eye on
 #+DATE: <2023-01-19 Thu>
 #+DRAFT: t
 #+OPTIONS: toc:nil
 
-These software projects and technologies caught my attention and excitement during 2022, though they may not have necessarily appeared that year. My selection and focus have a clear bias as I have spent most of my life developing open-source, datacenter, and e-commerce infrastructure software on UNIX-like systems. I only included projects I have tried myself.
+These software projects and technologies caught my attention and excitement during 2022, though they may not have necessarily appeared that year. My selection and focus have a clear bias as I have spent most of my life developing open-source, data center, and e-commerce infrastructure software on UNIX-like systems. I only included projects I have tried myself.
 
-I admire software that solves complex problems in a simple, elegant, and lean manner, and those that are easily adopted and standardized as the "default".
+I admire software that solves complex problems in a simple, elegant, and lean manner and those that are easily adopted and standardized as the "default".
 
 #+TOC: headlines 1
 
@@ -27,7 +27,7 @@ I see this technology having an impact on IDEs, editors, linters and other tools
 
 For example, the Emacs editor adopted LSP by including eglot by default.
 
-Originally, you could replace the limited [[https://en.wikipedia.org/wiki/Regular_expression][regexp]]-based syntax highlighting in Emacs with the [[https://emacs-tree-sitter.github.io/][emacs-tree-sitter]] modes. This is not longer necessary, as from version 29+, Tree-sitter support [[https://lists.gnu.org/archive/html/emacs-devel/2022-11/msg01443.html][is part of Emacs by default]].
+Originally, you could replace the limited [[https://en.wikipedia.org/wiki/Regular_expression][regexp]]-based syntax highlighting in Emacs with the [[https://emacs-tree-sitter.github.io/][emacs-tree-sitter]] modes. This is no longer necessary, as from version 29+, Tree-sitter support [[https://lists.gnu.org/archive/html/emacs-devel/2022-11/msg01443.html][is part of Emacs by default]].
 
 * Wireguard
 
@@ -39,11 +39,11 @@ WireGuard® is an extremely simple yet fast and modern VPN that utilizes state-o
 
 Wireguard's simplicity:
 
-- implemented in ~5000 lines of code, when most VPN solutions range from tens of thousands to hundred of thousands
-- works at the interface level, which mean you can threat it like any other interface
+- implemented in ~5000 lines of code, when most VPN solutions range from tens of thousands to hundreds of thousands
+- works at the interface level, which means you can treat it like any other interface
 - the state is hidden from the user, so things like roaming just work
 - It is incorporated in most open-source operating systems. There is a Windows native version and a multi-platform userspace version written in Go.
- - [[https://networkmanager.dev/][NetworkManager]], what most people use to manage networks in desktop Linux, has native support for it, and GNOME even displays the toggle for Wireguard connections.
+ - [[https://networkmanager.dev/][NetworkManager]], which most people use to manage networks in desktop Linux, has native support for it, and GNOME even displays the toggle for Wireguard connections.
 - Android/iOS app
 - Most commercial VPN providers support it, including the [[https://mullvad.net][only one that is worth your time]].
 
@@ -56,33 +56,33 @@ And last but not least, [[https://en.avm.de/products/fritzbox/][Fritzboxes]], on
 
 I believe many of the complicated app architectures today are either too early or just unnecessary.
 
-sqlite is a local database engine which operates on a single file per database. It is the most deployed database in the world, and it is likely running in your pocket inside your phone on many different apps.
+SQLite is a local database engine that operates on a single file per database. It is the most deployed database in the world, and it is likely running in your pocket inside your phone on many different apps.
 
-Many business could start in a single machine using a sqlite database.
+Many businesses could start in a single machine using a SQLite database.
 
 [[https://litestream.io/][Litestream]] is a project from [[https://benjohnson.ca/about/][Ben Johnson]] that replicates sqlite3 databases to make sqlite globally distributed. The replication part was extracted into [[https://github.com/superfly/litefs][LiteFS]], while Litestream kept the disaster recovery replication.
 
-With this model, LiteFS uses [[https://en.wikipedia.org/wiki/Filesystem_in_Userspace][FUSE (Filesystem in userspace)]] as a pass-through filesystem to intercept writes to the database in order to detect transaction boundaries and replicate those in the replica nodes.
+With this model, LiteFS uses [[https://en.wikipedia.org/wiki/Filesystem_in_Userspace][FUSE (Filesystem in userspace)]] as a pass-through filesystem to intercept writes to the database to detect transaction boundaries and replicate those in the replica nodes.
 
-Litestream allows to replicate databases by continuously copying write-ahead log pages to cloud storage.
+Litestream allows replicating databases by continuously copying write-ahead log pages to cloud storage.
 
-An alternative implementation of trasaction replication using sqlite [[https://www.sqlite.org/vfs.html][built-in VFS]] is also planned.
+An alternative implementation of transaction replication using SQLite [[https://www.sqlite.org/vfs.html][built-in VFS]] is also planned.
 
 The project was since then acquired by [[https://fly.io][Fly.io]], which specializes in deploying apps close to the users.
 
-Both projects give sqlite superpowers and allow for resilient and performant applicatons while keeping the setup and architecture lean and simple.
+Both projects give SQLite superpowers and allow for resilient and performant applications while keeping the setup and architecture lean and simple.
 
-During the Twitter exodus to Mastodon, I saw people dealing with the complexity and resource requirements of operating Mastodon for a single user. My [[https://social.mac-vicar.eu/][Fediverse instance]] is not Mastodon, but [[https://github.com/superseriousbusiness/gotosocial][gotosocial]]. Uses 128M ram, a 140M sqlite database, and runs on a 5€ micro VM. The database is replicated to a sftp share with Litestream.
+During the Twitter exodus to Mastodon, I saw people dealing with the complexity and resource requirements of operating Mastodon for a single user. My [[https://social.mac-vicar.eu/][Fediverse instance]] is not Mastodon, but [[https://github.com/superseriousbusiness/gotosocial][gotosocial]]. Uses 128M ram, a 140M SQLite database, and runs on a 5€ micro VM. The database is replicated to an sftp share with Litestream.
 
 * Nix
 
 Nix is a tool for producing reproducible builds and deployments. It takes a different approach to package management using a declarative and functional build description.
 
-When you build something with Nix, it ends in its own directory in the Nix store e.g. =/nix/store/hxxrbmr2zh6ph90qi8b4n2m53yvan3fr-curl-7.85.0/= and as long as the inputs do not change, the location, which is content-addressed, will not change either. They will also depends on the exact versions they were built against.
+When you build something with Nix, it ends in its own directory in the Nix store e.g. =/nix/store/hxxrbmr2zh6ph90qi8b4n2m53yvan3fr-curl-7.85.0/= and as long as the inputs do not change, the location, which is content-addressed, will not change either. They will also depend on the exact versions they were built against.
 
-This allows to install multiple versions in parallel, and the current system profile itself is a collection of symbolic links to the right binaries, which means you can rollback very easily.
+This allows you the installation of multiple versions in parallel, and the current system profile itself is a collection of symbolic links to the right binaries, which means you can roll back very easily.
 
-While Nix can be used on Linux and MacOS, there is a full Linux [[https://nixos.org/][distribution built on this model]].
+While Nix can be used on Linux and macOS, there is a full Linux [[https://nixos.org/][distribution built on this model]].
 
 While it can also be used for CI, building container images, etc., I use Nix in two ways:
 
@@ -90,21 +90,21 @@ While it can also be used for CI, building container images, etc., I use Nix in 
 
   If I have e.g. a folder with some Ansible roles I use to configure my home gadgets, I can make that project independent from where I am running it by just having a top =shell.nix= declaring dependencies. Then a simple =.envrc= file with the line =use_nix= and [[https://direnv.net/][direnv]] setup in my shell.
 
-  As soon as I =cd= into the directory, Ansible is installed and appears in the path. I =cd= out and it dissapears. The nix store is cached, so the second time is very fast (until you =nix store gc=).
+  As soon as I =cd= into the directory, Ansible is installed and appears in the path. I =cd= out and it disappears. The nix store is cached, so the second time is very fast (until you =nix store gc=).
 
   You can use this to have reproducible developer environments.
 
-  Nix Flakes are a new format to package Nix-based projects in a more discoverable, composable, consistent and reproducible way.
+  Nix Flakes is a new format to package Nix-based projects in a more discoverable, composable, consistent and reproducible way.
 
-  With Flakes you could even pin your environment to a specific revision of the package descriptions.
+  With Flakes, you could even pin your environment to a specific revision of the package descriptions.
 
 - Manage packages, including my own
 
   Some packages I need all the time: Emacs, Chromium, tarsnap, etc. I use Nix for that, and keep my distribution just for the base system.
 
-  =nix profile install nixpkgs#tarsnap= and the package is now always available. I also have packages which are not free to distribute, so I can keep the recipe to build it in git, or just override a few compile options from another package. It is just flexible.
+  =nix profile install nixpkgs#tarsnap= and the package is now always available. I also have packages that are not free to distribute, so I can keep the recipe to build it in git, or just override a few compile options from another package. It is just flexible.
 
-The language is a functional DSL that takes some curve to learn, just like the builtin functions. I am not sure if this will be some day the future of deployments, but for me as been a great addition for those two use-cases.
+The language is a functional DSL that takes some curve to learn, just like the built-in functions. I am not sure if this will be someday the future of deployments, but for me as been agreat addition to those two use cases..
 
 * Stable Diffusion
 
@@ -114,33 +114,33 @@ The language is a functional DSL that takes some curve to learn, just like the b
 - transform images plus a text prompt into new images
 - edit images by selecting an area and a prompt
 
-Also impressive are the creations where StableDiffusion is used to change a single video frame, and another model is used to extrapolate the change to the resto of the frames, resulting in full video editing.
+Also impressive are the creations where StableDiffusion is used to change a single video frame, and another model is used to extrapolate the change to the rest of the frames, resulting in full video editing.
 
 The [[https://dreambooth.github.io/][Dreambooth]] model allows to finetune StableDiffusion for specific subjects. This is what the Lensa app does when generating many avatars from your selfies.
 
-I believe this will have huge impact in creative industries (design, gaming), and will make their software understand the semantics of the image, just like IDEs have been doing it for years offering syntax aware refactorings.
+I believe this will have a huge impact on creative industries (design, gaming), and will make their software understand the semantics of the image, just like IDEs have been doing for years offering syntax-aware refactorings.
 
 * ChatGPT
 
 I'd like to mention ChatGPT together with  [[https://github.com/features/copilot][Copilot]], but I haven't tried Copilot yet.
 
-These technologies are already proving being very useful in the context of programming.
+These technologies are already proving to be very useful in the context of programming.
 
-Leaving out the controversial topic of training proprietary models on GPL code for another ocassion, I am impressed how good ChatGPT is to port code from one dimension to another, eg. rewriting using a different language, library, etc. I think it will become very useful for porting, refactoring and updating software.
+Leaving out the controversial topic of training proprietary models on GPL code for another occasion, I am impressed how good ChatGPT is to port code from one dimension to another, eg. rewriting using a different language, library, etc. I think it will become very useful for porting, refactoring and updating software.
 
-For example, I was very pleased with ChatGPT beging able to take some Linux commands, and generating me a set of [[https://www.ansible.com/][Ansible]] tasks to replicate such configuration
+For example, I was very pleased with ChatGPT being able to take some Linux commands, and generating me a set of [[https://www.ansible.com/][Ansible]] tasks to replicate the configuration
 
 [[file:images/chatgpt-ansible.png]]
 
 * Phoenix LiveView, hotwire and the return of the server-side HTML
 
-Single page applications (SPA) are with us for longer I can remember, but the feeling something is not right in that model continues to live with me.
+Single-page applications (SPA) are with us for longer than I can remember, but the feeling something is not right in that model continues to live with me.
 
-The architecture duplication on the server and client side (controllers, views, stores), dividing teams through =json= messages in two worlds speaking different languages seems broken. The unstability of the Javascript eco-system just makes thing worse.
+The architecture duplication on the server and client-side (controllers, views, stores), dividing teams through =json= messages in two worlds speaking different languages seems broken. The instability of the Javascript eco-system just makes things worse.
 
-I can't however, picture how to solve the challenges SPAs aim to solve when it come to highly interactive applications.
+I can't however, picture how to solve the challenges SPAs aim to solve when it comes to highlyy interactive applications.
 
-[[https://www.phoenixframework.org/][Phoenix]] is a web framework for [[https://elixir-lang.org/][Elixir]], a language running on the [[https://www.erlang.org/][Erlang VM]]. His creator has a Rails background, so he took off from where Rails left and brought innovation to the space in the form of [[https://github.com/phoenixframework/phoenix_live_view][Phoenix LiveView]], a technique which allows for highly interactive applications without abandoning the server side paradigm.
+[[https://www.phoenixframework.org/][Phoenix]] is a web framework for [[https://elixir-lang.org/][Elixir]], a language running on the [[https://www.erlang.org/][Erlang VM]]. His creator has a Rails background, so he took off from where Rails left and brought innovation to the space in the form of [[https://github.com/phoenixframework/phoenix_live_view][Phoenix LiveView]], a technique that allows for highly interactive applications without abandoning the server side paradigm.
 
 Other toolkits have appeared which allow to start server side and add interactivity in a structured way without abandoning the server side paradigm. One is [[https://hotwired.dev/][HotWire]] from Basecamp, which includes Turbo and other libraries, and [[https://htmx.org/][htmx]], which works by just annotating HTML.
 
@@ -148,13 +148,13 @@ Other toolkits have appeared which allow to start server side and add interactiv
 
 Something I always disliked about virtualization was the use of images. It added a whole layer of complexity.
 
-[[https://virtio-fs.gitlab.io/index.html][virtio-fs]] is a filesystem that allows to share the host filesystem with the guest. Unlike virtio-9p (the one used by Windows Subsystem for Linux), it has local semantics.
+[[https://virtio-fs.gitlab.io/index.html][virtio-fs]] is a filesystem that allows sharing the host filesystem with the guest. Unlike virtio-9p (the one used by Windows Subsystem for Linux), it has local semantics.
 
 qemu has support for it, so you can boot a root filesystem.
 
 One tool that takes advantage of virtio-fs is [[https://github.com/containers/krunvm][krunvm]]. It allows to run container images as micro virtual machines. The machines implement a few simple virtio devices enough to run an embedded kernel in libkrun.
 
-krunvm takes virtio-fs to the next level, basically making it invisible, allowing to mount any host folder into the virtual machine the same way that you do it with container images.
+krunvm takes virtio-fs to the next level, basically making it invisible, allowing you to mount any host folder into the virtual machine the same way that you do it with container images.
 
 Follow the work [[https://github.com/slp][Sergio Lopez]] is doing in this space.
 
