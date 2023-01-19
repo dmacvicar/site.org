@@ -1,10 +1,13 @@
-#+TITLE: 2022: Exciting software projects, technologies and trends
+#+TITLE: 2022: My Personal picks for software to keep an eye on
 #+DATE: <2023-01-19 Thu>
 #+DRAFT: t
+#+OPTIONS: toc:nil
 
-These are some of the software projects and technologies that caught my attention and excitement during 2022. They did not necessarily appear during 2022.
+These software projects and technologies caught my attention and excitement during 2022, though they may not have necessarily appeared that year. My selection and focus have a clear bias as I have spent most of my life developing open-source, datacenter, and e-commerce infrastructure software on UNIX-like systems. I also included only project I tried myself.
 
-There is a clear bias in my selection and focus. I have spent most of my life developing open-source, datacenter, and e-commerce infrastructure software, on UNIX-like systems. I admire software that solves complex problems in a simple, elegant and lean manner, and those who get easily adopted and standarized as the "default".
+I admire software that solves complex problems in a simple, elegant, and lean manner, and those that are easily adopted and standardized as the "default".
+
+#+TOC: headlines 1
 
 * Tree-sitter
 
@@ -71,6 +74,38 @@ Both projects give sqlite superpowers and allow for resilient and performant app
 
 During the Twitter exodus to Mastodon, I saw people dealing with the complexity and resource requirements of operating Mastodon for a single user. My [[https://social.mac-vicar.eu/][Fediverse instance]] is not Mastodon, but [[https://github.com/superseriousbusiness/gotosocial][gotosocial]]. Uses 128M ram, a 140M sqlite database, and runs on a 5€ micro VM. The database is replicated to a sftp share with Litestream.
 
+* Nix
+
+Nix is a tool for producing reproducible builds and deployments. It takes a different approach to package management using a declarative and functional build description.
+
+When you build something with Nix, it ends in its own directory in the Nix store e.g. =/nix/store/hxxrbmr2zh6ph90qi8b4n2m53yvan3fr-curl-7.85.0/= and as long as the inputs do not change, the location, which is content-addressed, will not change either. They will also depends on the exact versions they were built against.
+
+This allows to install multiple versions in parallel, and the current system profile itself is a collection of symbolic links to the right binaries, which means you can rollback very easily.
+
+While Nix can be used on Linux and MacOS, there is a full Linux [[https://nixos.org/][distribution built on this model]].
+
+While it can also be used for CI, building container images, etc., I use Nix in two ways:
+
+- Declare project dependencies
+
+  If I have e.g. a folder with some Ansible roles I use to configure my home gadgets, I can make that project independent from where I am running it by just having a top =shell.nix= declaring dependencies. Then a simple =.envrc= file with the line =use_nix= and [[https://direnv.net/][direnv]] setup in my shell.
+
+  As soon as I =cd= into the directory, Ansible is installed and appears in the path. I =cd= out and it dissapears. The nix store is cached, so the second time is very fast (until you =nix store gc=).
+
+  You can use this to have reproducible developer environments.
+
+  Nix Flakes are a new format to package Nix-based projects in a more discoverable, composable, consistent and reproducible way.
+
+  With Flakes you could even pin your environment to a specific revision of the package descriptions.
+
+- Manage packages, including my own
+
+  Some packages I need all the time: Emacs, Chromium, tarsnap, etc. I use Nix for that, and keep my distribution just for the base system.
+
+  =nix profile install nixpkgs#tarsnap= and the package is now always available. I also have packages which are not free to distribute, so I can keep the recipe to build it in git, or just override a few compile options from another package. It is just flexible.
+
+The language is a functional DSL that takes some curve to learn, just like the builtin functions. I am not sure if this will be some day the future of deployments, but for me as been a great addition for those two use-cases.
+
 * Stable Diffusion
 
 [[https://stability.ai/blog/stable-diffusion-v2-release][StableDiffusion]] is an AI model which allows to:
@@ -101,11 +136,9 @@ For example, I was very pleased with ChatGPT beging able to take some Linux comm
 
 Single page applications (SPA) are with us for longer I can remember, but the feeling something is not right in that model continues to live with me.
 
-Having two architectures on the client side and server side taking care of similar problem and dividing teams through =json= messages in two worlds speaking different languages seems odd.
+The architecture duplication on the server and client side (controllers, views, stores), dividing teams through =json= messages in two worlds speaking different languages seems broken. The unstability of the Javascript eco-system just makes thing worse.
 
-The unstability of the Javascript eco-system just makes thing worse.
-
-I missed the Rails times, however I could not picture how to solve the challenges SPAs aim to solve when it come to highly interactive applications.
+I can't however, picture how to solve the challenges SPAs aim to solve when it come to highly interactive applications.
 
 [[https://www.phoenixframework.org/][Phoenix]] is a web framework for [[https://elixir-lang.org/][Elixir]], a language running on the [[https://www.erlang.org/][Erlang VM]]. His creator has a Rails background, so he took off from where Rails left and brought innovation to the space in the form of [[https://github.com/phoenixframework/phoenix_live_view][Phoenix LiveView]], a technique which allows for highly interactive applications without abandoning the server side paradigm.
 
@@ -115,11 +148,11 @@ Other toolkits have appeared which allow to start server side and add interactiv
 
 Something I always disliked about virtualization was the use of images. It added a whole layer of complexity.
 
-virtio-fs]] is a filesystem that allows to share the host filesystem with the guest with local semantics.
+[[https://virtio-fs.gitlab.io/index.html][virtio-fs]] is a filesystem that allows to share the host filesystem with the guest. Unlike virtio-9p (the one used by Windows Subsystem for Linux), it has local semantics.
 
 qemu has support for it, so you can boot a root filesystem.
 
-One tool that takes advantage of virtio-fs is krunvm. It allows to run container images as micro virtual machines. The machines implement a few simple virtio devices enough to run an embedded kernel in libkrun.
+One tool that takes advantage of virtio-fs is [[https://github.com/containers/krunvm][krunvm]]. It allows to run container images as micro virtual machines. The machines implement a few simple virtio devices enough to run an embedded kernel in libkrun.
 
 krunvm takes virtio-fs to the next level, basically making it invisible, allowing to mount any host folder into the virtual machine the same way that you do it with container images.
 
