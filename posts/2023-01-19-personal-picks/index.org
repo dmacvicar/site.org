@@ -3,7 +3,7 @@
 #+DRAFT: t
 #+OPTIONS: toc:nil
 
-These software projects and technologies caught my attention and excitement during 2022, though they may not have necessarily appeared that year. My selection and focus have a clear bias as I have spent most of my life developing open-source, datacenter, and e-commerce infrastructure software on UNIX-like systems. I also included only project I tried myself.
+These software projects and technologies caught my attention and excitement during 2022, though they may not have necessarily appeared that year. My selection and focus have a clear bias as I have spent most of my life developing open-source, datacenter, and e-commerce infrastructure software on UNIX-like systems. I only included projects I have tried myself.
 
 I admire software that solves complex problems in a simple, elegant, and lean manner, and those that are easily adopted and standardized as the "default".
 
