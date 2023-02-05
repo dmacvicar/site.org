@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 19 Jan. 2023 -->
+<!-- 05 Feb. 2023 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Using Salt like Ansible</title>
@@ -66,7 +66,7 @@ The first part of the answer had to do that the master-minion architecture of Sa
 </p>
 
 
-<figure id="orgeed2784">
+<figure id="orgb8eab47">
 <img src="images/salt-0mq.png" alt="salt-0mq.png">
 
 </figure>
@@ -76,7 +76,7 @@ For example, you can create more scalable topoligies using the concept of syndic
 </p>
 
 
-<figure id="org85cb424">
+<figure id="orgb07e958">
 <img src="images/salt-syndic.png" alt="salt-syndic.png">
 
 </figure>
@@ -86,7 +86,7 @@ Or manage dumb devices with the concept of Salt proxies:
 </p>
 
 
-<figure id="orgea9656f">
+<figure id="org9db86ac">
 <img src="images/salt-proxy.png" alt="salt-proxy.png">
 
 </figure>
@@ -138,7 +138,7 @@ If you want to run Salt like Ansible, you only need to install <code>salt-ssh</c
 Well, there are a couple of other <a href="https://bugzilla.suse.com/show_bug.cgi?id=1057772">packages required</a>
 </p>
 
-<pre class="example" id="orga7afe1c">
+<pre class="example" id="org7371ce3">
 ssh $HOST zypper -n install python-pyOpenSSL python-xml
 </pre>
 </blockquote>
@@ -147,7 +147,7 @@ ssh $HOST zypper -n install python-pyOpenSSL python-xml
 Salt is available out of the box on <a href="https://www.opensuse.org/">openSUSE Leap and Tumbleweed</a> so if you are using them just type:
 </p>
 
-<pre class="example" id="orgc120461">
+<pre class="example" id="orgee4f330">
 zypper in salt-ssh
 </pre>
 
@@ -199,7 +199,7 @@ Then create <code>~/Project/etc/salt/master</code>:
 And create both trees:
 </p>
 
-<pre class="example" id="org6477c98">
+<pre class="example" id="org39131c5">
 mkdir -p srv/salt
 mkdir -p srv/pillar
 </pre>
@@ -265,7 +265,7 @@ Ansible will assume you have SSH access available to your servers, usually based
 So, in the Ansible tutorial, you did:
 </p>
 
-<pre class="example" id="org800c8da">
+<pre class="example" id="orge73aaba">
 $ ansible all -m ping
 127.0.0.1 | success &gt;&gt; {
     "changed": false,
@@ -277,7 +277,7 @@ $ ansible all -m ping
 The equivalent in <code>salt-ssh</code> would be:
 </p>
 
-<pre class="example" id="org5c0fb1b">
+<pre class="example" id="orga8aa5c0">
 salt-ssh '*' test.ping
 node1:
     True
@@ -304,7 +304,7 @@ If we didn&rsquo;t have modules, we&rsquo;d be left running arbitrary shell comm
 </p>
 </blockquote>
 
-<pre class="example" id="org21e074d">
+<pre class="example" id="orgbbb110a">
 ansible all -s -m shell -a 'apt-get install nginx'
 </pre>
 
@@ -322,7 +322,7 @@ For installing software on Debian/Ubuntu servers, the &ldquo;apt&rdquo; module w
 </p>
 </blockquote>
 
-<pre class="example" id="orgb0447c7">
+<pre class="example" id="orgd53f922">
 ansible all -s -m apt -a 'pkg=nginx state=installed update_cache=true'
 127.0.0.1 | success &gt;&gt; {
     "changed": false
@@ -341,7 +341,7 @@ There are two execution modules worth to mention:
 <li>The <code>cmd</code> module, which you can use to run shell commands when you want to accomplish something that is not provided by a built-in execution module. Taking the example above:</li>
 </ul>
 
-<pre class="example" id="org79ae839">
+<pre class="example" id="org0884a08">
 salt-ssh '*' cmd.run 'apt-get install nginx'
 </pre>
 
@@ -349,7 +349,7 @@ salt-ssh '*' cmd.run 'apt-get install nginx'
 <li>The <code>state</code> module, which is the execution module that allows to apply state modules and more complex composition of states, known as <code>sls</code> files.</li>
 </ul>
 
-<pre class="example" id="orgd042bb7">
+<pre class="example" id="orgb76d618">
 salt-ssh '*' pkg.install nginx
 </pre>
 
@@ -365,7 +365,7 @@ On Salt you would normally use the non-idempotent execution modules from the com
 If you still want to apply state data like ansible does it:
 </p>
 
-<pre class="example" id="orgca37b5e">
+<pre class="example" id="org63271e4">
 salt-ssh '*' state.high '{"nginx": {"pkg": ["installed"]}}'
 </pre>
 </div>
@@ -413,7 +413,7 @@ This means, all hosts should get that state. You can do very <a href="https://do
 So when you run:
 </p>
 
-<pre class="example" id="orgb88baa0">
+<pre class="example" id="orgec995fe">
 salt-ssh '*' state.apply
 </pre>
 
@@ -425,7 +425,7 @@ You are applying the highstate on all hosts, but the highstate of each host is d
 You can as well apply a specific state, even if that state does not form part of the host highstate:
 </p>
 
-<pre class="example" id="orge981199">
+<pre class="example" id="org9122ce6">
 salt-ssh '*' state.apply nginx
 </pre>
 
@@ -554,7 +554,7 @@ Edit <code>srv/pillar/top.sls</code> and define who will see this pillar (in thi
 Then you can see which data every host sees:
 </p>
 
-<pre class="example" id="org125e835">
+<pre class="example" id="org8cce536">
 salt-ssh '*' pillar.items
 node1:
     ----------
@@ -688,7 +688,7 @@ Then we can run the Role(s):
 </p>
 </blockquote>
 
-<pre class="example" id="orgd0deccc">
+<pre class="example" id="orgdefe920">
 salt-ssh '*' state.apply
 </pre>
 
@@ -706,7 +706,7 @@ Would apply what <code>top.sls</code> defines.
 These are equivalent to grains, and you can see what grains you have available by calling:
 </p>
 
-<pre class="example" id="orgd0c6f43">
+<pre class="example" id="org0ec6dcb">
 salt-ssh '*' grains.items
 </pre>
 
@@ -780,7 +780,7 @@ And then refer to it from the <a href="https://docs.saltstack.com/en/latest/ref/
 In order to refresh the pillar data, you can use:
 </p>
 
-<pre class="example" id="org42115ff">
+<pre class="example" id="orgb5131f2">
 salt-ssh '*' saltutil.refresh_pillar
 </pre>
 </div>
@@ -812,7 +812,7 @@ The master/minion infrastructure brings a whole new set of possibilities. The re
 <footer id="postamble" class="status">
 <p class='disclaimer'>The postings on this site are my own and don't necessarily represent my employer’s positions, strategies or opinions.</p>
 
-<p>Last updated 19 Jan. 2023. Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.2 (<a href="https://orgmode.org">Org</a> mode 9.4.4). <a href="/README.html">Details</a>.</p>
+<p>Last updated 05 Feb. 2023. Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.2 (<a href="https://orgmode.org">Org</a> mode 9.4.4). <a href="/README.html">Details</a>.</p>
 </footer>
 </body>
 </html>
