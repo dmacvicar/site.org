@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 05 Feb. 2023 -->
+<!-- 06 Jul. 2023 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>My personal setup</title>
@@ -19,6 +19,7 @@
 <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css' rel='stylesheet' integrity='sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==' crossorigin='anonymous'/>
 <meta description='The blog of Duncan Mac-Vicar P.'/>
 <link rel='alternate' type='application+rss/xml' title='The blog of Duncan Mac-Vicar P.' href='posts/rss.xml'/>
+<link rel='stylesheet' href='css/index.css?v=947370da49ce6a70746b3cb8a4de44c929ca0b1e3d6ca60c89603f567a841a26'/>
 <link rel="stylesheet" href="css/site.css?v=d06246555179cc693994c6cd6cd74faed6bc08c754a9ae99c23e96ba131806e7" type="text/css">
 </head>
 <body>
@@ -49,11 +50,12 @@
 <header>
 <h1 class="title">My personal setup</h1>
 </header>
-<section id="outline-container-org8ab7566" class="outline-2">
-<h2 id="org8ab7566">General setup</h2>
-<div class="outline-text-2" id="text-org8ab7566">
+<section id="outline-container-orgb5c3cee" class="outline-2">
+<h2 id="orgb5c3cee">General setup</h2>
+<div class="outline-text-2" id="text-orgb5c3cee">
 <p>
-I like Thinkpads. Until July 2021, I used a 12&ldquo; <a href="https://www.lenovo.com/us/en/laptops/thinkpad/x-series/x230">Thinkpad X230</a> from 2012. Nowadays I use a <a href="https://www.lenovo.com/us/en/p/laptops/thinkpad/thinkpadx/ThinkPad-X13-(Intel)-/22TPX13X3N1">Thinkpad X13</a>.
+I like Thinkpads. Nowadays I use a <a href="https://www.lenovo.com/us/en/p/laptops/thinkpad/thinkpadx/ThinkPad-X13-(Intel)-/22TPX13X3N1">Thinkpad X13</a>.
+Until July 2021, I used a 12&ldquo; <a href="https://www.lenovo.com/us/en/laptops/thinkpad/x-series/x230">Thinkpad X230</a> from 2012.
 </p>
 
 <ul class="org-ul">
@@ -92,18 +94,27 @@ You can also read some details about the setup for my <a href="music.html">music
 I also have a small Home &ldquo;Lab&rdquo;
 </p>
 <ul class="org-ul">
-<li>3 Raspberry Pi 3/4 running openSUSE Leap 15.2 and [k3s](<a href="https://k3s.io/">https://k3s.io/</a>)</li>
-<li>1 <a href="https://linux-sunxi.org/Pine64">Pine64</a> running OpenBSD 6.7</li>
-<li>1 <a href="https://linux-sunxi.org/Pine64">Pine64</a> running FreeBSD</li>
-<li><a href="https://www.home-assistant.io/">HomeAssistant</a>.</li>
-<li>Managed by <a href="https://docs.saltstack.com/en/latest/topics/ssh">salt-ssh</a> (looking for a replacement).</li>
+<li><del>3 Raspberry Pi 3/4 running openSUSE Leap 15.2 and [k3s](<a href="https://k3s.io/">https://k3s.io/</a>)</del></li>
+<li>Lenovo ThinkCentre M910q Tiny running Arch Linux
+<ul class="org-ul">
+<li><a href="https://www.home-assistant.io/">HomeAssistant</a></li>
+</ul></li>
+<li>1 <a href="https://linux-sunxi.org/Pine64">Pine64</a> running <del>OpenBSD 6.7</del> NetBSD 9.2
+<ul class="org-ul">
+<li>dnsmasq</li>
+</ul></li>
+<li>1 <a href="https://linux-sunxi.org/Pine64">Pine64</a> running FreeBSD 13.2
+<ul class="org-ul">
+<li>dnsmasq</li>
+</ul></li>
+<li>All managed with <del><a href="https://docs.saltproject.io/en/latest/topics/ssh/index.html">salt-ssh</a></del> <a href="https://docs.ansible.com/ansible/latest/index.html">ansible</a></li>
 </ul>
 </div>
 </section>
 
-<section id="outline-container-org46a458b" class="outline-2">
-<h2 id="org46a458b">Work</h2>
-<div class="outline-text-2" id="text-org46a458b">
+<section id="outline-container-orge7683ab" class="outline-2">
+<h2 id="orge7683ab">Work</h2>
+<div class="outline-text-2" id="text-orge7683ab">
 <ul class="org-ul">
 <li><a href="http://isync.sourceforge.net">mbsync</a> to synchronize IMAP locally</li>
 <li><a href="https://marlam.de/msmtp">msmtp</a> to send email</li>
@@ -120,53 +131,54 @@ This setup is kept in an internal dotfiles repository.
 </p>
 </div>
 
-<div id="outline-container-org91e8a47" class="outline-4">
-<h4 id="org91e8a47">Other</h4>
-<div class="outline-text-4" id="text-org91e8a47">
+<div id="outline-container-org2907b97" class="outline-4">
+<h4 id="org2907b97">Other</h4>
+<div class="outline-text-4" id="text-org2907b97">
 <ul class="org-ul">
 <li><a href="https://github.com/abraunegg/onedrive">unofficial onedrive client</a> to sync files to OneDrive</li>
-<li><a href="https://www.bose.com/products/headphones/noise_cancelling_headphones/noise-cancelling-headphones-700.html">Bose 700</a> noise cancelling headphones for a great confcall experience</li>
+<li><a href="https://www.jabra.com.de/business/speakerphones/jabra-speak-series/jabra-speak-510">Jabra  Speak 510+</a> and <a href="https://www.bose.com/products/headphones/noise_cancelling_headphones/noise-cancelling-headphones-700.html">Bose 700</a> noise cancelling headphones for a great confcall experience</li>
 </ul>
 </div>
 </div>
 </section>
 
-<section id="outline-container-org9b4c677" class="outline-2">
-<h2 id="org9b4c677">Development environment</h2>
-<div class="outline-text-2" id="text-org9b4c677">
+<section id="outline-container-orgbfeb5dd" class="outline-2">
+<h2 id="orgbfeb5dd">Development environment</h2>
+<div class="outline-text-2" id="text-orgbfeb5dd">
 <ul class="org-ul">
 <li><a href="https://www.gnu.org/software/emacs">Emacs</a> as editor for most languages, with <a href="https://raw.githubusercontent.com/dmacvicar/dotfiles/master/emacs/.emacs.d/init.el">many</a> extensions. Some highlights:
 <ul class="org-ul">
-<li><a href="https://github.com/hlissner/doom-emacs">Doom Emacs</a> as the Emacs distribution</li>
+<li>Packages managed by <a href="https://github.com/progfolio/elpaca">elpaca</a></li>
 <li><a href="https://melpa.org/#/lsp-mode">LSP mode</a> to take advantage of all <a href="https://en.wikipedia.org/wiki/Language_Server_Protocol">LSP</a> servers out there</li>
 <li><a href="https://magit.vc">Magit</a> as a git front-end</li>
 </ul></li>
 <li><a href="https://github.com/tmux/tmux/wiki">tmux</a> to manage my consoles and to split the screen in my favourite layout (editor left side, two command lines right side)</li>
-<li>Given my open-source background, I have to dig in code written in many languages. My go-to languages are C++, Golang and Ruby depending on the task.</li>
+<li>Given my open-source background, I have to dig in code written in
+many languages. My go-to languages are C++, Golang and <del>Ruby</del> Python depending on the task.</li>
 </ul>
 </div>
 
-<div id="outline-container-org5c160b2" class="outline-4">
-<h4 id="org5c160b2">C++</h4>
-<div class="outline-text-4" id="text-org5c160b2">
+<div id="outline-container-orgf7da243" class="outline-4">
+<h4 id="orgf7da243">C++</h4>
+<div class="outline-text-4" id="text-orgf7da243">
 <ul class="org-ul">
 <li><a href="https://cmake.org">CMake</a> as build system and to fetch dependencies</li>
 <li><a href="https://clang.llvm.org/">clang</a> provides most of the features to lsp-mode in Emacs</li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgff79c4e" class="outline-4">
-<h4 id="orgff79c4e">Ruby</h4>
-<div class="outline-text-4" id="text-orgff79c4e">
+<div id="outline-container-orga732852" class="outline-4">
+<h4 id="orga732852">Ruby</h4>
+<div class="outline-text-4" id="text-orga732852">
 <ul class="org-ul">
 <li>I use the distribution interpreter and <a href="https://bundler.io">bundler</a> to vendor dependencies inside the project</li>
 <li>I use the <a href="https://solargraph.org">Solargraph</a> gem to power lsp-mode in emacs</li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org5049039" class="outline-4">
-<h4 id="org5049039">Golang</h4>
-<div class="outline-text-4" id="text-org5049039">
+<div id="outline-container-org216e637" class="outline-4">
+<h4 id="org216e637">Golang</h4>
+<div class="outline-text-4" id="text-org216e637">
 <ul class="org-ul">
 <li>I just use the standard Go modules</li>
 <li><a href="https://github.com/golang/tools/tree/master/gopls">gopls</a> to power lsp-mode in emacs</li>
@@ -178,7 +190,7 @@ This setup is kept in an internal dotfiles repository.
 <footer id="postamble" class="status">
 <p class='disclaimer'>The postings on this site are my own and don't necessarily represent my employer’s positions, strategies or opinions.</p>
 
-<p>Last updated 05 Feb. 2023. Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.2 (<a href="https://orgmode.org">Org</a> mode 9.4.4). <a href="/README.html">Details</a>.</p>
+<p>Last updated 06 Jul. 2023. Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.2 (<a href="https://orgmode.org">Org</a> mode 9.4.4). <a href="/README.html">Details</a>.</p>
 </footer>
 </body>
 </html>
