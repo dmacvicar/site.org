@@ -37,6 +37,7 @@ I also have a small Home "Lab"
     - dnsmasq
   - 1 [[https://linux-sunxi.org/Pine64][Pine64]] running FreeBSD 13.2
     - dnsmasq
+  - All managed with +[[https://docs.saltproject.io/en/latest/topics/ssh/index.html][salt-ssh]]+ [[https://docs.ansible.com/ansible/latest/index.html][ansible]]
 
 * Work
 
