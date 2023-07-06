@@ -2,7 +2,8 @@
 
 * General setup
 
-I like Thinkpads. Until July 2021, I used a 12" [[https://www.lenovo.com/us/en/laptops/thinkpad/x-series/x230][Thinkpad X230]] from 2012. Nowadays I use a [[https://www.lenovo.com/us/en/p/laptops/thinkpad/thinkpadx/ThinkPad-X13-(Intel)-/22TPX13X3N1][Thinkpad X13]].
+I like Thinkpads. Nowadays I use a [[https://www.lenovo.com/us/en/p/laptops/thinkpad/thinkpadx/ThinkPad-X13-(Intel)-/22TPX13X3N1][Thinkpad X13]].
+Until July 2021, I used a 12" [[https://www.lenovo.com/us/en/laptops/thinkpad/x-series/x230][Thinkpad X230]] from 2012.
 
 - A quite fresh [[https://software.opensuse.org/distributions/tumbleweed][openSUSE Tumbleweed]] as operating system/distro
 - Lately, I install user software using [[https://nixos.org/][Nix]] on top of Linux, instead of relying mostly on my distro packages. It allows to share installations across users while still allowing per-user profiles and  versions. When using different users for private/work, this works very well.
@@ -29,11 +30,13 @@ I like Thinkpads. Until July 2021, I used a 12" [[https://www.lenovo.com/us/en/l
 You can also read some details about the setup for my [[file:music.org][music hobby activities]].
 
 I also have a small Home "Lab"
-  - 3 Raspberry Pi 3/4 running openSUSE Leap 15.2 and [k3s](https://k3s.io/)
-  - 1 [[https://linux-sunxi.org/Pine64][Pine64]] running OpenBSD 6.7
-  - 1 [[https://linux-sunxi.org/Pine64][Pine64]] running FreeBSD
-  - [[https://www.home-assistant.io/][HomeAssistant]].
-  - Managed by [[https://docs.saltstack.com/en/latest/topics/ssh][salt-ssh]] (looking for a replacement).
+  - +3 Raspberry Pi 3/4 running openSUSE Leap 15.2 and [k3s](https://k3s.io/)+
+  - Lenovo ThinkCentre M910q Tiny running Arch Linux
+    - [[https://www.home-assistant.io/][HomeAssistant]]
+  - 1 [[https://linux-sunxi.org/Pine64][Pine64]] running +OpenBSD 6.7+ NetBSD 9.2
+    - dnsmasq
+  - 1 [[https://linux-sunxi.org/Pine64][Pine64]] running FreeBSD 13.2
+    - dnsmasq
 
 * Work
 
@@ -48,16 +51,17 @@ This setup is kept in an internal dotfiles repository.
 
 *** Other
 - [[https://github.com/abraunegg/onedrive][unofficial onedrive client]] to sync files to OneDrive
-- [[https://www.bose.com/products/headphones/noise_cancelling_headphones/noise-cancelling-headphones-700.html][Bose 700]] noise cancelling headphones for a great confcall experience
+- [[https://www.jabra.com.de/business/speakerphones/jabra-speak-series/jabra-speak-510][Jabra  Speak 510+]] and [[https://www.bose.com/products/headphones/noise_cancelling_headphones/noise-cancelling-headphones-700.html][Bose 700]] noise cancelling headphones for a great confcall experience
 
 * Development environment
 
 - [[https://www.gnu.org/software/emacs][Emacs]] as editor for most languages, with [[https://raw.githubusercontent.com/dmacvicar/dotfiles/master/emacs/.emacs.d/init.el][many]] extensions. Some highlights:
-  - [[https://github.com/hlissner/doom-emacs][Doom Emacs]] as the Emacs distribution
+  - Packages managed by [[https://github.com/progfolio/elpaca][elpaca]]
   - [[https://melpa.org/#/lsp-mode][LSP mode]] to take advantage of all [[https://en.wikipedia.org/wiki/Language_Server_Protocol][LSP]] servers out there
   - [[https://magit.vc][Magit]] as a git front-end
 - [[https://github.com/tmux/tmux/wiki][tmux]] to manage my consoles and to split the screen in my favourite layout (editor left side, two command lines right side)
-- Given my open-source background, I have to dig in code written in many languages. My go-to languages are C++, Golang and Ruby depending on the task.
+- Given my open-source background, I have to dig in code written in
+  many languages. My go-to languages are C++, Golang and +Ruby+ Python depending on the task.
 
 *** C++
 - [[https://cmake.org][CMake]] as build system and to fetch dependencies
