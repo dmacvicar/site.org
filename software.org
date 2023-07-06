@@ -1,0 +1,87 @@
+
+* Reflections on software development
+
+These get updated from time to time, as I fail and learn.
+
+** On Agile
+
+- I have seen software succeed and fail on all processes and
+  methodologies.
+
+- Most methodologies will work if the people doing the work is
+  empowered and they have ownership to take decisions.
+
+- Any agile frankenstein is better than no structured workflow. Have
+  the team set and document their preferred workflow and then iterate on it.
+
+** On Bugs and features
+
+- Bug backlogs are a bad idea. If you have a large one, toss it away.
+  (they may be justified if you provide L3 service to a customer)
+
+- Feature backlogs are also a bad idea. Focus on the main epics/topics
+  for the next quarter, and keep a tickets for the X next sprints.
+
+- Focus on creating quality earlier in the process, including
+  pair/mob programming, collaboration, reviews, linters, tests, automation
+
+** On technologies
+
+- Prefer boring, open-source technology that has been around for a
+  while, which active base and prospect of maintainership.
+
+- Be conservative with dependencies. If you have to, follow the same
+  criteria as with technologies.
+
+- Prefer simple and boring architectures. Simple is harder than
+  complicated, and more reliable.
+
+- SPA's are a bad idea as architecture, and something in the
+  Javascript ecosystem culture is not right (moving on to new things over maintaining and fixing).
+
+** On leadership and skills
+
+- Promote those who act to make things better. Complaining and
+  pointing out things that suck is too easy.
+- Ideas and idea people are overrated. Execution makes most of the difference.
+- Learn to write proposals, policies, pitches.
+- Learn to have conversations about difficult topics.
+- Be humble and threat people with respect.
+- Inexperienced people tend to be more confident and prefer complexity.
+
+** On communication
+
+- If you will work remotely and asynchronous, you and your
+  organization will need to learn to write well.
+- Writing one-pagers, pitches, and RFCs is a good way to clear your
+  own ideas.
+- Ask for stakeholders to write things down. Only then people realize
+  how confused they are and the amount of open ends to what seems
+  simple at first sight.
+
+** On technical debt and legacy systems
+
+- The term "technical debt" is overused in meaning, exagerated
+  and little acted upon.
+
+- Part of the reason is unlike writters who had to read hundred books,
+  developers read little code before they start writing a lot of it.
+  Reading feels overwhelming.
+
+- It look harder to change other's people code than writing new.
+
+- Technical debt happens because software lives executing in the head of
+  developers, not computers. Once nobody is around it is hard to
+  reason and change it anymore.
+
+- Many decisions and assumptions look wrong after some time.
+
+- Learn to take advantage of some responsible debt for speed. Like in
+  real life, 0% debt may not be an optimum.
+
+- Empower people to collect, identify, analyse and plan for fixing
+  technical debt. One step at a time.
+
+- Avoid rewrites unless somebody has the full system in their head,
+  you have enough to test against, or you can suffocate the old system
+  while keeping things working.
