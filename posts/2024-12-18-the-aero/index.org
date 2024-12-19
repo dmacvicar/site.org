@@ -113,7 +113,7 @@ Find some PCMCIA card with Ethernet and combine it with some WIFI access point a
 
 * Next projects
 
-- My previous computer to this one, a rare taiwanese CAF 396SX which I was looking for years and finally found and acquired.
+- My previous computer to this one, a rare taiwanese CAF 386SX which I was looking for years and finally found and acquired.
 - An Atari 130XE, which I disassembled and applied the process to get rid of the yellow color, but never assembled back.
 - My Timex Sinclair rescued from my parents (in perfect condition). Need to figure the TV/display part.
 
