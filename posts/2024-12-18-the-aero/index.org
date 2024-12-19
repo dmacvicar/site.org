@@ -1,0 +1,119 @@
+#+TITLE: The Aero: restoring a Compaq Contura Aero 4/33C
+#+DATE: <2024-12-18 Wed>
+#+OPTIONS: toc:nil
+
+* The Aero
+
+The Contura Aero is a very special laptop to me. It was the first computer I did not have to share. I was no longer afraid of deleting my father's work (or being blamed for it).
+
+It was a gift from another person. It was a quite an expensive and luxurious computer for Chile in 1994 when I got it. My family would not have bought one just for me. I am grateful for it since it supported my interest for computers for many years.
+
+For some years I became nostalgic about it and wanted to experience it again.
+
+[[file:images/the-aero.jpg]]
+
+* The restoration
+
+The Aero has a design problem in the display clutch (see [[https://www.rigacci.org/comp/aero/doc/aero_faq.html][2.1.5.7 Screen hinge problem (the darn "clutch")]] in the FAQ) which makes very hard to find one without a broken display bezel.
+
+Over the span of a few years I bought two units on eBay. The first one had the broken bezel. I bought a second unit, without the cracks but it had a display that turned on and off intermittently. The plan was to make one out of two or three units.
+
+Luckily, in addition to the FAQ, there are different "cult" sites like https://remember.the-aero.org/ where one can find all kind of information.
+
+Opening the device requires patience and being careful.
+
+** CMOS battery
+
+When I replaced the CMOS battery, the battery holder broke, and I had to unsolder the one from the other motherboard and pray it worked. It did.
+
+[[file:images/aero-mb-1.jpg]]
+
+[[file:images/aero-mb-2.jpg]]
+
+** Storage
+
+Another question was whether to replace the hard disk. They are noisy, but the current one had a working Windows 95 install.
+
+I thought about replacing it with a 32GB M.2 SATA SSD on top of a 2.5" IDE adapter.
+
+It did not boot.
+
+I spent a lot of time here. I thought I could do all the installations on a VM putting the SSD on a M.2 SATA to USB adapter and have libvirt access the device directly.
+
+I had not enabled LBA on the BIOS, which required an update first and then to select hard disk as "Other" type. Also I forgot the IDE adapter and the USB adapter could be exposing different geometries when I did the partition on the VM
+
+After updating the BIOS, changing the hard disk type and using a BIOS overlay driver (Ontrack Disk Manager), [[https://www.philscomputerlab.com/ontrack-disk-manager.html][which nowadays you can get for free]], and installing DOS directly from floppies, I had a bootable machine with several logical drive letters (C:, D:, E:, F:...) of 2G each.
+
+Before closing it, I wanted to put as much software on the drive to play later, as I did not have another good way of moving data.
+
+Unfortunately, the partition type Ontrack Disk Manager creates is not a standard partition, but I could mount it by creating a loop device from the offset and then
+
+#+begin_src
+losetup --partscan --find --show -o 32256 /dev/sdb
+#+end_src
+
+And then you could see all FAT partitions using the loop device:
+
+#+begin_src
+fdisk /dev/loop0 -l
+#+end_src
+
+#+begin_src
+mount /dev/loop0p1 /mnt/c
+#+end_src
+
+I put it different Windows I had on CDs, and a full copy of the [[https://archive.org/details/Simtel_CD-ROM_May_1995_General_Applications_Disc_1_1995][MS-DOS SIMTEL Collection]], which I owned and offered in my BBS around 1995.
+
+** Closing
+
+When I was ready to close it and put back the screen bezel (the good one, the other was broken) I realized, the good one was missing a piece of plastic which allows the bezel screw to fixate against the display.
+
+[[file:images/aero-bezel-screw-1.jpg]]
+
+Instead of the screw cup, there was a hole:
+
+[[file:images/aero-bezel-screw-2.jpg]]
+
+I had to fix this. Or choose to live with the broken Bezel which had a visible crack.
+
+My wife suggested I 3D print it. I initially dismissed the idea because I don't have any 3D modeling skills, but it resulted much easier than I thought.
+
+There is a [[https://openscad.org/][CAD program you can use with code]], which is quite simple for these geometrical stuff. Especially if you start with some AI prompt and iterate from there.
+
+[[file:images/aero-cad-1.jpg]]
+
+
+8 prototypes later and 2-3 min of print time each, I had the one I thought it would work.
+
+Surprisingly, it worked perfectly, I did not even feel forcing the screw. And it closed.
+
+[[file:images/aero-bezel-screw-3.jpg]]
+
+** Final result
+
+[[file:images/aero-final-1.jpg]]
+
+[[file:images/aero-final-2.jpg]]
+
+[[file:images/aero-final-3.jpg]]
+
+** Future improvements
+
+*** Battery
+
+I have no idea if it works and it looks like the previous owner already opened the enclosure to change the cells.
+
+*** RAM
+
+I will try to get the 8M module to get 16M instead of the 12 (4+8) it has right now.
+
+*** Connectivity
+
+Find some PCMCIA card with Ethernet and combine it with some WIFI access point and get it online somehow on MS-DOS.
+
+* Next projects
+
+- My previous computer to this one, a rare taiwanese CAF 396SX which I was looking for years and finally found and acquired.
+- An Atari 130XE, which I disassembled and applied the process to get rid of the yellow color, but never assembled back.
+- My Timex Sinclair rescued from my parents (in perfect condition). Need to figure the TV/display part.
+
