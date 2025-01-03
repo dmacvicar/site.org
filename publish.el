@@ -137,7 +137,8 @@
   "List of elements going in head for all pages.  Takes PLIST as context."
   (let ((description "The blog of Duncan Mac-Vicar P."))
     (list
-     (list "link" (list "href" "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" "rel" "stylesheet" "integrity" "sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" "crossorigin" "anonymous"))
+    (list "link" (list "href" "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" "rel" "stylesheet" "integrity" "sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" "crossorigin" "anonymous"))
+     (list "link" (list "rel" "preload" "href" "fonts/blockzone-webfont.woff2" "as" "font" "type" "font/woff2" "crossorigin" ""))
      (list "meta" (list "description" description))
      (list "link" (list "rel" "alternate" "type" "application+rss/xml" "title" description "href" "posts/rss.xml")))))
 
@@ -308,7 +309,7 @@
          :exclude (regexp-opt '("assets" "public"))
          :include '("CNAME" "keybase.txt" "LICENSE" ".nojekyll" "publish.el" ".well-known/nostr.json")
          :recursive t
-         :base-extension (regexp-opt '("jpg" "gif" "png" "js" "svg" "css"))
+         :base-extension (regexp-opt '("jpg" "gif" "png" "js" "svg" "css" "woff" "woff2"))
          :publishing-directory "./public"
          :publishing-function 'org-publish-attachment)))
 
