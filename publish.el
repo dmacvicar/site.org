@@ -143,7 +143,6 @@
        (replace-regexp-in-string "&[lg]t;" "" trans))
       (`latex
        (replace-regexp-in-string "[<>]" "" trans))))
-  (print weblorg--sites)
   (weblorg-export)
   (org-publish-all))
 
