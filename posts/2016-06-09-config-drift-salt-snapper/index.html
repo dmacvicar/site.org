@@ -55,7 +55,7 @@ Many configuration management tools originate in the DevOps space and become imm
 For example, lets imagine a server with the following state:
 </p>
 
-<pre class="example" id="org1fca823">
+<pre class="example" id="org288ad3d">
 /etc/motd:
   file.managed:
     - source: salt://common/motd
@@ -65,7 +65,7 @@ For example, lets imagine a server with the following state:
 If we apply this state (in <code>test</code> mode) on a non-compliant server:
 </p>
 
-<pre class="example" id="org4f4aeca">
+<pre class="example" id="org20561b5">
 $ salt minion1 state.apply test=True
 minion1:
 ----------
@@ -100,7 +100,7 @@ Salt is able to tell us that there is a file that deviates from the configuratio
 Now, lets say an intruder adds a malicious entry to <code>/etc/hosts</code>:
 </p>
 
-<pre class="example" id="org42f0b14">
+<pre class="example" id="orgb20e863">
 192.168.1.34    www.google.com
 </pre>
 
@@ -108,7 +108,7 @@ Now, lets say an intruder adds a malicious entry to <code>/etc/hosts</code>:
 If we re run our state in test mode:
 </p>
 
-<pre class="example" id="orgc57e668">
+<pre class="example" id="org10fca7f">
 $ salt minion1 state.apply test=True
 minion1:
 ----------
@@ -190,7 +190,7 @@ So during this year Department workshop I paired with <a href="https://github.co
 <li>Complete the Salt execution module to expose the basic snapper operations you can do from the command line. Example:</li>
 </ul>
 
-<pre class="example" id="org534ced9">
+<pre class="example" id="orgda0b46c">
 salt minion1 snapper.create_snapshot
 </pre>
 
@@ -198,7 +198,7 @@ salt minion1 snapper.create_snapshot
 <li>Create a generic way for sysadmins to do Salt operations which can be reverted. We implemented this as a meta-call (a call taking another call as a parameter) <code>snapper.run</code>. So you can do something like:</li>
 </ul>
 
-<pre class="example" id="orgbc887ca">
+<pre class="example" id="org9e39883">
 $ salt minion2 snapper.run function=file.append args='["/etc/motd", "some text"]'
 minion2:
     Wrote 1 lines to "/etc/motd"
@@ -208,7 +208,7 @@ minion2:
 This will generate a snapshot before running the command, run the command and then take a snapshot afterwards, also adding metadata about the Salt job that did the change:
 </p>
 
-<pre class="example" id="orgcedf292">
+<pre class="example" id="org0ca8dd1">
 ...
 pre    | 21 |       | Thu Jun  9 10:34:36 2016 | root | number  | salt job 20160609103437556668 | salt_jid=20160609103437556668
 post   | 22 | 21    | Thu Jun  9 10:34:37 2016 | root | number  | salt job 20160609103437556668 | salt_jid=20160609103437556668
@@ -222,7 +222,7 @@ Because in Salt, state is implemented as a method <code>state.apply</code> or <c
 And of course we not only exposed <code>snapper.diff</code> which takes the snapshot number but also a <code>snapper.diff_jid</code> which tells you what a Salt job changed:
 </p>
 
-<pre class="example" id="org158767f">
+<pre class="example" id="org4b59d1f">
 $ salt minion2 snapper.diff_jid 20160609103437556668
 minion2:
     ----------
@@ -242,7 +242,7 @@ Additionally, you get <code>snapper.undo_jid</code> which you can guess what it 
 <li>And finally, allowing a system administrator to use snapshots as a baseline to apply state. Lets take the original example with the malicious user modifying `/etc/hosts&rsquo;, we will add a snapper state rule:</li>
 </ul>
 
-<pre class="example" id="orge4bea33">
+<pre class="example" id="orgaa6125c">
 my_baseline:
   snapper.baseline_snapshot:
     - number: 20
@@ -259,7 +259,7 @@ my_baseline:
 Now we apply the state in test mode again:
 </p>
 
-<pre class="example" id="orgbd37108">
+<pre class="example" id="org042d5e8">
 $ salt minion1 state.apply test=True
 minion1:
 ----------
@@ -343,6 +343,6 @@ You can find our current work <a href="https://github.com/SUSE/salt-snapper-modu
  
  <p class='disclaimer'>The postings on this site are my own and don't necessarily represent my employer’s positions, strategies or opinions.</p>
 
-  <p>Last updated 06 Jan 2025. Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.2 (<a href="https://orgmode.org/">Org</a> mode 9.4.4). <a href="http://localhost:8000/readme.html">Details</a>.</p>
+  <p>Last updated 06 Jan 2025. Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> undefined (<a href="https://orgmode.org/">Org</a> mode undefined). <a href="http://localhost:8000/readme.html">Details</a>.</p>
 </body>
 </html>
