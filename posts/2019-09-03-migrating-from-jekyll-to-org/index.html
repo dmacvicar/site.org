@@ -173,7 +173,7 @@ While I could have most of the configuration in my <code>~/.emacs.d/init.el</cod
 There are a bunch of <i>emacs</i> options that help achieving this:
 </p>
 
-<pre class="example" id="org45fb459">
+<pre class="example" id="org528f608">
 $ emacs --help
 ...
 --batch                     do not do interactive display; implies -q
@@ -222,7 +222,7 @@ Using <i>org-publish</i> boils down to defining a list of components (blog posts
 <div id="outline-container-directory-structure" class="outline-4">
 <h4 id="directory-structure">Directory Structure</h4>
 <div class="outline-text-4">
-<pre class="example" id="org13e4d9d">
+<pre class="example" id="org5c5fb9f">
 ├── CNAME
 ├── css
 │   ├── index.css
@@ -330,7 +330,7 @@ The sitemap function is also configured, like in the <i>blog</i> component, but 
 </ul>
 
 
-<figure id="org05df288">
+<figure id="org9e81092">
 <img src="images/sitemap-function.png" alt="sitemap-function.png">
 
 </figure>
@@ -362,7 +362,7 @@ It works just like posts, but I setup each (don&rsquo;t expect to have many) to 
 </ul>
 
 
-<figure id="org3e769ae">
+<figure id="org78368cc">
 <img src="images/readtheorg.png" alt="readtheorg.png">
 
 </figure>
@@ -373,7 +373,7 @@ It works just like posts, but I setup each (don&rsquo;t expect to have many) to 
 <h4 id="export-workflow">Export workflow</h4>
 <div class="outline-text-4">
 
-<figure id="orgd961da2">
+<figure id="org10d1985">
 <img src="images/publishing-function.png" alt="publishing-function.png">
 
 </figure>
@@ -393,7 +393,7 @@ I managed to port most of the <i>Lagom</i> look and feel by starting a CSS from 
 <h4 id="before">Before</h4>
 <div class="outline-text-4">
 
-<figure id="orge3fdc4c">
+<figure id="orgb5256d9">
 <img src="images/jekyll.png" alt="jekyll.png">
 
 </figure>
@@ -404,7 +404,7 @@ I managed to port most of the <i>Lagom</i> look and feel by starting a CSS from 
 <h4 id="after">After</h4>
 <div class="outline-text-4">
 
-<figure id="orgd4169eb">
+<figure id="org2802992">
 <img src="images/org.png" alt="org.png">
 
 </figure>
@@ -446,14 +446,14 @@ on:
 
 jobs:
   build:
-    env:
-      ENV: production
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
       with:
 	fetch-depth: 1
     - name: build
+      env:
+	ENV: production
       uses: docker://iquiw/alpine-emacs
       if: github.event.deleted == false
       with:

@@ -18,7 +18,7 @@
     <description><![CDATA[]]></description>
     <language>en</language>
     <pubDate>Wed, 18 Dec 2024 00:00:00 +0000</pubDate>
-    <lastBuildDate>Mon, 06 Jan 2025 13:25:46 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 06 Jan 2025 13:38:16 +0000</lastBuildDate>
     <generator>weblorg 0.1.0 (https://emacs.love/weblorg)</generator>
     <webMaster>undefined</webMaster>
     <image>
@@ -51,7 +51,7 @@ For some years I became nostalgic about it and wanted to experience it again.
 </p>
 
 
-<figure id="org1956c11">
+<figure id="org68ca260">
 <img src="images/the-aero.jpg" alt="the-aero.jpg">
 
 </figure>
@@ -86,13 +86,13 @@ When I replaced the CMOS battery, the battery holder broke, and I had to unsolde
 </p>
 
 
-<figure id="org44e4d5f">
+<figure id="orgdcc4eb2">
 <img src="images/aero-mb-1.jpg" alt="aero-mb-1.jpg">
 
 </figure>
 
 
-<figure id="org2465b83">
+<figure id="org32f08a2">
 <img src="images/aero-mb-2.jpg" alt="aero-mb-2.jpg">
 
 </figure>
@@ -164,7 +164,7 @@ When I was ready to close it and put back the screen bezel (the good one, the ot
 </p>
 
 
-<figure id="orga0b1248">
+<figure id="org830bf47">
 <img src="images/aero-bezel-screw-1.jpg" alt="aero-bezel-screw-1.jpg">
 
 </figure>
@@ -174,7 +174,7 @@ Instead of the screw cup, there was a hole:
 </p>
 
 
-<figure id="org8b208b4">
+<figure id="orgfb16f92">
 <img src="images/aero-bezel-screw-2.jpg" alt="aero-bezel-screw-2.jpg">
 
 </figure>
@@ -192,7 +192,7 @@ There is a <a href="https://openscad.org/">CAD program you can use with code</a>
 </p>
 
 
-<figure id="org097a42e">
+<figure id="org2ac2616">
 <img src="images/aero-cad-1.jpg" alt="aero-cad-1.jpg">
 
 </figure>
@@ -207,7 +207,7 @@ Surprisingly, it worked perfectly, I did not even feel forcing the screw. And it
 </p>
 
 
-<figure id="orgaa512ec">
+<figure id="org7eb64ab">
 <img src="images/aero-bezel-screw-3.jpg" alt="aero-bezel-screw-3.jpg">
 
 </figure>
@@ -218,19 +218,19 @@ Surprisingly, it worked perfectly, I did not even feel forcing the screw. And it
 <h3 id="final-result">Final result</h3>
 <div class="outline-text-3">
 
-<figure id="org81789c9">
+<figure id="org4f6bd52">
 <img src="images/aero-final-1.jpg" alt="aero-final-1.jpg">
 
 </figure>
 
 
-<figure id="orgb6b60a1">
+<figure id="org45c7645">
 <img src="images/aero-final-2.jpg" alt="aero-final-2.jpg">
 
 </figure>
 
 
-<figure id="orgb7f2af9">
+<figure id="org0eab433">
 <img src="images/aero-final-3.jpg" alt="aero-final-3.jpg">
 
 </figure>
@@ -301,14 +301,14 @@ I admire software that solves complex problems in a simple, elegant, and lean ma
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org554b903">Tree-sitter</a></li>
-<li><a href="#org8e06a87">Wireguard</a></li>
-<li><a href="#org1160ae6">Litestream and liteFS</a></li>
-<li><a href="#orgdc51e3c">Nix</a></li>
-<li><a href="#org9490f02">Stable Diffusion</a></li>
-<li><a href="#orgd10d78f">ChatGPT</a></li>
-<li><a href="#orgd207c89">Phoenix LiveView, hotwire and the return of the server-side HTML</a></li>
-<li><a href="#orga882a7b">virtio-fs and krunvm</a></li>
+<li><a href="#org2161e4d">Tree-sitter</a></li>
+<li><a href="#orgbac155e">Wireguard</a></li>
+<li><a href="#orgb5e0982">Litestream and liteFS</a></li>
+<li><a href="#org1bc0b13">Nix</a></li>
+<li><a href="#org927143d">Stable Diffusion</a></li>
+<li><a href="#org13d3bc1">ChatGPT</a></li>
+<li><a href="#org9f7074d">Phoenix LiveView, hotwire and the return of the server-side HTML</a></li>
+<li><a href="#org705987a">virtio-fs and krunvm</a></li>
 </ul>
 </div>
 </nav>
@@ -549,7 +549,7 @@ For example, I was very pleased with ChatGPT being able to take some Linux comma
 </p>
 
 
-<figure id="org048a432">
+<figure id="org1be84c4">
 <img src="images/chatgpt-ansible.png" alt="chatgpt-ansible.png">
 
 </figure>
@@ -669,7 +669,7 @@ After evaluating several mail providers including Tutanota, ProtonMail, Mailfenc
 </ul>
 
 
-<figure id="orgae47df3">
+<figure id="org1377b3e">
 <img src="images/mailbox.png" alt="mailbox.png">
 
 </figure>
@@ -729,7 +729,7 @@ I selected <a href="https://www.hetzner.com/storage/storage-share">Hetzner Stora
 </p>
 
 
-<figure id="orgfa73b7a">
+<figure id="org2852704">
 <img src="images/nextcloud.png" alt="nextcloud.png">
 
 </figure>
@@ -781,7 +781,7 @@ FitoTrack and Sportractive where the most promissing ones. In both apps I could 
 </p>
 
 
-<figure id="org022a1e3">
+<figure id="org7e47a58">
 <img src="images/fitotrack.png" alt="fitotrack.png">
 
 </figure>
@@ -1037,7 +1037,7 @@ And with this Emacs works:
 </p>
 
 
-<figure id="orga1bea38">
+<figure id="org4c0d33e">
 <img src="images/emacs.png" alt="emacs.png">
 
 </figure>
@@ -1071,7 +1071,7 @@ I have been running some workloads on Raspberry Pi&rsquo;s / <a href="https://so
 </p>
 
 
-<figure id="orgc4bbe9d">
+<figure id="org8048725">
 <img src="images/rpi-cluster-small.jpg" alt="rpi-cluster-small.jpg">
 
 </figure>
@@ -1633,7 +1633,7 @@ While I could have most of the configuration in my <code>~/.emacs.d/init.el</cod
 There are a bunch of <i>emacs</i> options that help achieving this:
 </p>
 
-<pre class="example" id="orgbf0e11b">
+<pre class="example" id="org6dac4bc">
 $ emacs --help
 ...
 --batch                     do not do interactive display; implies -q
@@ -1682,7 +1682,7 @@ Using <i>org-publish</i> boils down to defining a list of components (blog posts
 <div id="outline-container-directory-structure" class="outline-4">
 <h4 id="directory-structure">Directory Structure</h4>
 <div class="outline-text-4">
-<pre class="example" id="orgfc5c64e">
+<pre class="example" id="orgb889398">
 ├── CNAME
 ├── css
 │   ├── index.css
@@ -1790,7 +1790,7 @@ The sitemap function is also configured, like in the <i>blog</i> component, but 
 </ul>
 
 
-<figure id="org9b33b13">
+<figure id="orgd30038b">
 <img src="images/sitemap-function.png" alt="sitemap-function.png">
 
 </figure>
@@ -1822,7 +1822,7 @@ It works just like posts, but I setup each (don&rsquo;t expect to have many) to 
 </ul>
 
 
-<figure id="org53d9aaf">
+<figure id="org4ea81ca">
 <img src="images/readtheorg.png" alt="readtheorg.png">
 
 </figure>
@@ -1833,7 +1833,7 @@ It works just like posts, but I setup each (don&rsquo;t expect to have many) to 
 <h4 id="export-workflow">Export workflow</h4>
 <div class="outline-text-4">
 
-<figure id="org3917cf4">
+<figure id="org7ed1ad1">
 <img src="images/publishing-function.png" alt="publishing-function.png">
 
 </figure>
@@ -1853,7 +1853,7 @@ I managed to port most of the <i>Lagom</i> look and feel by starting a CSS from 
 <h4 id="before">Before</h4>
 <div class="outline-text-4">
 
-<figure id="org311f08c">
+<figure id="org6b63734">
 <img src="images/jekyll.png" alt="jekyll.png">
 
 </figure>
@@ -1864,7 +1864,7 @@ I managed to port most of the <i>Lagom</i> look and feel by starting a CSS from 
 <h4 id="after">After</h4>
 <div class="outline-text-4">
 
-<figure id="orgfc58b79">
+<figure id="org797c08f">
 <img src="images/org.png" alt="org.png">
 
 </figure>
@@ -1906,14 +1906,14 @@ on:
 
 jobs:
   build:
-    env:
-      ENV: production
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
       with:
 	fetch-depth: 1
     - name: build
+      env:
+	ENV: production
       uses: docker://iquiw/alpine-emacs
       if: github.event.deleted == false
       with:
@@ -2009,7 +2009,7 @@ container.</li>
 </ul>
 
 
-<figure id="org289c48a">
+<figure id="org4125619">
 <img src="images/diagram-short.png" alt="Diagram">
 
 </figure>
@@ -2046,7 +2046,7 @@ I prepared a <a href="https://github.com/saltstack/salt/pull/34484">pull request
 </p>
 
 
-<figure id="org5559425">
+<figure id="org90413ed">
 <img src="images/awesome.png" alt="Awesome">
 
 </figure>
@@ -2075,7 +2075,7 @@ Many configuration management tools originate in the DevOps space and become imm
 For example, lets imagine a server with the following state:
 </p>
 
-<pre class="example" id="org1a40b0a">
+<pre class="example" id="org2bd920c">
 /etc/motd:
   file.managed:
     - source: salt://common/motd
@@ -2085,7 +2085,7 @@ For example, lets imagine a server with the following state:
 If we apply this state (in <code>test</code> mode) on a non-compliant server:
 </p>
 
-<pre class="example" id="org31e5c26">
+<pre class="example" id="org851e8a2">
 $ salt minion1 state.apply test=True
 minion1:
 ----------
@@ -2120,7 +2120,7 @@ Salt is able to tell us that there is a file that deviates from the configuratio
 Now, lets say an intruder adds a malicious entry to <code>/etc/hosts</code>:
 </p>
 
-<pre class="example" id="org0ac0b41">
+<pre class="example" id="org624dec5">
 192.168.1.34    www.google.com
 </pre>
 
@@ -2128,7 +2128,7 @@ Now, lets say an intruder adds a malicious entry to <code>/etc/hosts</code>:
 If we re run our state in test mode:
 </p>
 
-<pre class="example" id="orgfe0e383">
+<pre class="example" id="org0aa893b">
 $ salt minion1 state.apply test=True
 minion1:
 ----------
@@ -2210,7 +2210,7 @@ So during this year Department workshop I paired with <a href="https://github.co
 <li>Complete the Salt execution module to expose the basic snapper operations you can do from the command line. Example:</li>
 </ul>
 
-<pre class="example" id="orgc959846">
+<pre class="example" id="orgd4321f0">
 salt minion1 snapper.create_snapshot
 </pre>
 
@@ -2218,7 +2218,7 @@ salt minion1 snapper.create_snapshot
 <li>Create a generic way for sysadmins to do Salt operations which can be reverted. We implemented this as a meta-call (a call taking another call as a parameter) <code>snapper.run</code>. So you can do something like:</li>
 </ul>
 
-<pre class="example" id="orga7b1038">
+<pre class="example" id="org1a964e9">
 $ salt minion2 snapper.run function=file.append args='["/etc/motd", "some text"]'
 minion2:
     Wrote 1 lines to "/etc/motd"
@@ -2228,7 +2228,7 @@ minion2:
 This will generate a snapshot before running the command, run the command and then take a snapshot afterwards, also adding metadata about the Salt job that did the change:
 </p>
 
-<pre class="example" id="org8651904">
+<pre class="example" id="org4e1b46a">
 ...
 pre    | 21 |       | Thu Jun  9 10:34:36 2016 | root | number  | salt job 20160609103437556668 | salt_jid=20160609103437556668
 post   | 22 | 21    | Thu Jun  9 10:34:37 2016 | root | number  | salt job 20160609103437556668 | salt_jid=20160609103437556668
@@ -2242,7 +2242,7 @@ Because in Salt, state is implemented as a method <code>state.apply</code> or <c
 And of course we not only exposed <code>snapper.diff</code> which takes the snapshot number but also a <code>snapper.diff_jid</code> which tells you what a Salt job changed:
 </p>
 
-<pre class="example" id="org8d7063c">
+<pre class="example" id="orgce057d7">
 $ salt minion2 snapper.diff_jid 20160609103437556668
 minion2:
     ----------
@@ -2262,7 +2262,7 @@ Additionally, you get <code>snapper.undo_jid</code> which you can guess what it 
 <li>And finally, allowing a system administrator to use snapshots as a baseline to apply state. Lets take the original example with the malicious user modifying `/etc/hosts&rsquo;, we will add a snapper state rule:</li>
 </ul>
 
-<pre class="example" id="orgb779cb6">
+<pre class="example" id="orgaae23a0">
 my_baseline:
   snapper.baseline_snapshot:
     - number: 20
@@ -2279,7 +2279,7 @@ my_baseline:
 Now we apply the state in test mode again:
 </p>
 
-<pre class="example" id="orgd364398">
+<pre class="example" id="org9ae61dd">
 $ salt minion1 state.apply test=True
 minion1:
 ----------
@@ -2380,7 +2380,7 @@ The first part of the answer had to do that the master-minion architecture of Sa
 </p>
 
 
-<figure id="org5a236a1">
+<figure id="orgd48b5bb">
 <img src="images/salt-0mq.png" alt="salt-0mq.png">
 
 </figure>
@@ -2390,7 +2390,7 @@ For example, you can create more scalable topoligies using the concept of syndic
 </p>
 
 
-<figure id="orgb04418a">
+<figure id="org74c9b7f">
 <img src="images/salt-syndic.png" alt="salt-syndic.png">
 
 </figure>
@@ -2400,7 +2400,7 @@ Or manage dumb devices with the concept of Salt proxies:
 </p>
 
 
-<figure id="orgfb452b0">
+<figure id="org2dd4f02">
 <img src="images/salt-proxy.png" alt="salt-proxy.png">
 
 </figure>
@@ -2452,7 +2452,7 @@ If you want to run Salt like Ansible, you only need to install <code>salt-ssh</c
 Well, there are a couple of other <a href="https://bugzilla.suse.com/show_bug.cgi?id=1057772">packages required</a>
 </p>
 
-<pre class="example" id="org4e52090">
+<pre class="example" id="org81df4ff">
 ssh $HOST zypper -n install python-pyOpenSSL python-xml
 </pre>
 </blockquote>
@@ -2461,7 +2461,7 @@ ssh $HOST zypper -n install python-pyOpenSSL python-xml
 Salt is available out of the box on <a href="https://www.opensuse.org/">openSUSE Leap and Tumbleweed</a> so if you are using them just type:
 </p>
 
-<pre class="example" id="org58a6bc9">
+<pre class="example" id="orgc132cb9">
 zypper in salt-ssh
 </pre>
 
@@ -2513,7 +2513,7 @@ pillar_roots:
 And create both trees:
 </p>
 
-<pre class="example" id="org1bef057">
+<pre class="example" id="org1cd858d">
 mkdir -p srv/salt
 mkdir -p srv/pillar
 </pre>
@@ -2579,7 +2579,7 @@ Ansible will assume you have SSH access available to your servers, usually based
 So, in the Ansible tutorial, you did:
 </p>
 
-<pre class="example" id="org63f886e">
+<pre class="example" id="org2a7ea25">
 $ ansible all -m ping
 127.0.0.1 | success &gt;&gt; {
     "changed": false,
@@ -2591,7 +2591,7 @@ $ ansible all -m ping
 The equivalent in <code>salt-ssh</code> would be:
 </p>
 
-<pre class="example" id="org593efb5">
+<pre class="example" id="org82c93c9">
 salt-ssh '*' test.ping
 node1:
     True
@@ -2618,7 +2618,7 @@ If we didn&rsquo;t have modules, we&rsquo;d be left running arbitrary shell comm
 </p>
 </blockquote>
 
-<pre class="example" id="org4c96496">
+<pre class="example" id="org9c14129">
 ansible all -s -m shell -a 'apt-get install nginx'
 </pre>
 
@@ -2636,7 +2636,7 @@ For installing software on Debian/Ubuntu servers, the &ldquo;apt&rdquo; module w
 </p>
 </blockquote>
 
-<pre class="example" id="orgb4dfc15">
+<pre class="example" id="org8163523">
 ansible all -s -m apt -a 'pkg=nginx state=installed update_cache=true'
 127.0.0.1 | success &gt;&gt; {
     "changed": false
@@ -2655,7 +2655,7 @@ There are two execution modules worth to mention:
 <li>The <code>cmd</code> module, which you can use to run shell commands when you want to accomplish something that is not provided by a built-in execution module. Taking the example above:</li>
 </ul>
 
-<pre class="example" id="org42e95b5">
+<pre class="example" id="org1000b29">
 salt-ssh '*' cmd.run 'apt-get install nginx'
 </pre>
 
@@ -2663,7 +2663,7 @@ salt-ssh '*' cmd.run 'apt-get install nginx'
 <li>The <code>state</code> module, which is the execution module that allows to apply state modules and more complex composition of states, known as <code>sls</code> files.</li>
 </ul>
 
-<pre class="example" id="org97076d8">
+<pre class="example" id="orgd402fd9">
 salt-ssh '*' pkg.install nginx
 </pre>
 
@@ -2679,7 +2679,7 @@ On Salt you would normally use the non-idempotent execution modules from the com
 If you still want to apply state data like ansible does it:
 </p>
 
-<pre class="example" id="org53e2cf5">
+<pre class="example" id="orgd0fdbb0">
 salt-ssh '*' state.high '{"nginx": {"pkg": ["installed"]}}'
 </pre>
 </div>
@@ -2727,7 +2727,7 @@ This means, all hosts should get that state. You can do very <a href="https://do
 So when you run:
 </p>
 
-<pre class="example" id="orgf323407">
+<pre class="example" id="org06b8ab2">
 salt-ssh '*' state.apply
 </pre>
 
@@ -2739,7 +2739,7 @@ You are applying the highstate on all hosts, but the highstate of each host is d
 You can as well apply a specific state, even if that state does not form part of the host highstate:
 </p>
 
-<pre class="example" id="orgd88ba4a">
+<pre class="example" id="orgf4faec6">
 salt-ssh '*' state.apply nginx
 </pre>
 
@@ -2868,7 +2868,7 @@ Edit <code>srv/pillar/top.sls</code> and define who will see this pillar (in thi
 Then you can see which data every host sees:
 </p>
 
-<pre class="example" id="orga25aea4">
+<pre class="example" id="org8d51601">
 salt-ssh '*' pillar.items
 node1:
     ----------
@@ -3002,7 +3002,7 @@ Then we can run the Role(s):
 </p>
 </blockquote>
 
-<pre class="example" id="org4d959b6">
+<pre class="example" id="orgac51188">
 salt-ssh '*' state.apply
 </pre>
 
@@ -3020,7 +3020,7 @@ Would apply what <code>top.sls</code> defines.
 These are equivalent to grains, and you can see what grains you have available by calling:
 </p>
 
-<pre class="example" id="org6e09af2">
+<pre class="example" id="org02d816f">
 salt-ssh '*' grains.items
 </pre>
 
@@ -3094,7 +3094,7 @@ sshkeys:
 In order to refresh the pillar data, you can use:
 </p>
 
-<pre class="example" id="org9271af3">
+<pre class="example" id="org034d0d4">
 salt-ssh '*' saltutil.refresh_pillar
 </pre>
 </div>
@@ -3241,7 +3241,7 @@ The awesomeness of Salt started to click at various levels. The idea of orchestr
 </p>
 
 
-<figure id="orge0df05f">
+<figure id="orgd612d93">
 <img src="images/susecon-susemanager-1.png" alt="SUSECon I">
 
 <figcaption><span class="figure-number">Figure 1: </span>Weird picture</figcaption>
@@ -3252,7 +3252,7 @@ At SUSECon we showed that with the concept of reactive infrastructure; it was tr
 </p>
 
 
-<figure id="org66ce456">
+<figure id="org83e07d3">
 <img src="images/susecon-susemanager-2.png" alt="susecon-susemanager-2.png">
 
 </figure>
@@ -3309,7 +3309,7 @@ The basic architecture of a reactor that handles Salt events and interacts with 
 </p>
 
 
-<figure id="org0c3f785">
+<figure id="orge2d5225">
 <img src="images/suma-salt-architecture.png" alt="suma-salt-architecture.png">
 
 </figure>
@@ -3361,7 +3361,7 @@ The next step was to make SUSE Manager aware of minions. First by registering th
 </p>
 
 
-<figure id="org5e19d20">
+<figure id="org3483254">
 <img src="images/minion-clients-2.png" alt="minion-clients-2.png">
 
 </figure>
@@ -3371,7 +3371,7 @@ After we had done work in order to retrieve the inventory data using Salt itself
 </p>
 
 
-<figure id="org9e165fc">
+<figure id="org05b04f4">
 <img src="images/minion-overview-1.png" alt="minion-overview-1.png">
 
 </figure>
@@ -3381,7 +3381,7 @@ Once this was working we improved on it, allowing to operate the <code>salt-key<
 </p>
 
 
-<figure id="org51ecee1">
+<figure id="org58e1db7">
 <img src="images/pending-minions-1.png" alt="pending-minions-1.png">
 
 </figure>
@@ -3391,7 +3391,7 @@ And from there you can accept which ones to onboard:
 </p>
 
 
-<figure id="org470d099">
+<figure id="org4c6b8e3">
 <img src="images/minion-onboarding-1.png" alt="minion-onboarding-1.png">
 
 </figure>
@@ -3412,7 +3412,7 @@ While you can patch, install packages in the same way you did with traditional c
 </ul>
 
 
-<figure id="orgf564ea1">
+<figure id="org981887e">
 <img src="images/states-catalog-1.png" alt="states-catalog-1.png">
 
 </figure>
@@ -3422,7 +3422,7 @@ Additionally, SUSE Manager also has a higher level state user interface for pack
 </p>
 
 
-<figure id="org88da278">
+<figure id="org7099704">
 <img src="images/package-states-1.png" alt="package-states-1.png">
 
 </figure>
@@ -3436,7 +3436,7 @@ SUSE Manager allows to apply states from the State Catalog to Organizations and 
 </p>
 
 
-<figure id="org7b71c36">
+<figure id="orgd8f89bc">
 <img src="images/minion-custom-states-1.png" alt="minion-custom-states-1.png">
 
 </figure>
@@ -3453,7 +3453,7 @@ The <code>Remote Commands</code> page in the <code>Salt</code> section gives you
 </p>
 
 
-<figure id="org41e8e1c">
+<figure id="org1bdb6f8">
 <img src="images/remote-commands-1.png" alt="remote-commands-1.png">
 
 </figure>
@@ -3474,7 +3474,7 @@ Making Salt an important part of SUSE Manager does not end there. In our industr
 </ul>
 
 
-<figure id="org8465381">
+<figure id="org011452a">
 <img src="images/saltconf-sponsor-1.png" alt="saltconf-sponsor-1.png">
 
 </figure>
@@ -3530,13 +3530,13 @@ Well, now you can see it yourself, as <a href="https://www.suse.com/company/pres
 </p>
 
 
-<figure id="org11ad60b">
+<figure id="orgd963e47">
 <img src="images/suse-manager-systems-systems-details-overview.png" alt="SUSE Manager Systems Systems Details Overview">
 
 </figure>
 
 
-<figure id="org49b84ac">
+<figure id="orga390e78">
 <img src="images/screenshot-from-2014-06-10-234145.png" alt="screenshot-from-2014-06-10-234145.png">
 
 </figure>
@@ -3553,7 +3553,7 @@ Mirror Credentials, SUSE Products.
 </p></li>
 </ul>
 
-<figure id="orgc7ca9fa">
+<figure id="org3185d3f">
 <img src="images/suse-manager-admin-setup-wizard-mirror-credentials.png" alt="suse-manager-admin-setup-wizard-mirror-credentials.png">
 
 </figure>
@@ -3577,7 +3577,7 @@ security issue by assigning the stage channel to a system.
 </p></li>
 </ul>
 
-<figure id="orgffae92e">
+<figure id="orgeeb78d3">
 <img src="images/cve-audit.png" alt="cve-audit.png">
 
 </figure>
@@ -3680,7 +3680,7 @@ This will map <i>home:haass</i> repositories 1:1 to our repositories. So if we b
 Then I am ready to install my new PackageKit:
 </p>
 
-<pre class="example" id="orgc21835a">
+<pre class="example" id="org1b38a6a">
 $ sudo zypper in -r home_dmacvicar_packagekit PackageKit PackageKit-devel
 Reading installed packages...
 
@@ -3716,7 +3716,7 @@ April 3, probably 2003 or 2004. I was in Chile by then. It was sleeping time for
 The following takes place between 5 am and 6 am&#x2026; Events ocur in real time.
 </p>
 
-<pre class="example" id="org2f7fcc3">
+<pre class="example" id="orgdabe170">
 --&gt; Lazlo ([HOST REMOVED].edu) has joined #kopete
 &lt;Lazlo&gt; uhh, hi all heh. I have a strange request. is that Sean Egan
 from New York (sorry kinda new to irc)
