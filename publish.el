@@ -10,14 +10,15 @@
 (require 'weblorg)
 (require 'string-inflection)
 
+(if (string= (getenv "ENV") "production")
+    (setq weblorg-default-url "https://mac-vicar.eu")
+  (setq weblorg-default-url "http://localhost:8000"))
+
 (weblorg-site
- :base-url (if (string= (getenv "ENV") "production")
-               "https://mac-vicar.eu"
-             "http://localhost:8000")
- :template-vars `(("org_version" . ,org-version)
-                  ("emacs_version" . ,emacs-version)
-                  ("site_owner" . ,user-full-name)
-                  ("site_name" . "Duncan Mac-Vicar P. site")))
+  :template-vars `(("org_version" . ,org-version)
+                   ("emacs_version" . ,emacs-version)
+                   ("site_owner" . ,user-full-name)
+                   ("site_name" . "Duncan Mac-Vicar P. site")))
 
 (defun custom/parse-org-file (file)
   "Custom wrapper for `weblorg--parse-org-file` to set the slug as the last folder name in the file path."
@@ -35,18 +36,18 @@
  :input-pattern "posts/**/index.org"
  :output "public/posts/{{ slug }}/index.html"
  :url "//posts/{{ slug }}/"
-; modifies slug to include the date
-:input-parser #'custom/parse-org-file)
+ ; modifies slug to include the date
+ :input-parser #'custom/parse-org-file)
 
  (weblorg-route
- :name "blog"
- :input-aggregate #'weblorg-input-aggregate-all-desc
- :template "blog.html"
- :input-pattern "posts/**/index.org"
- :output "public/posts/index.html"
- :url "//posts/"
- ; modifies slug to include the date
-:input-parser #'custom/parse-org-file)
+  :name "blog"
+  :input-aggregate #'weblorg-input-aggregate-all-desc
+  :template "blog.html"
+  :input-pattern "posts/**/index.org"
+  :output "public/posts/index.html"
+  :url "//posts/"
+  ; modifies slug to include the date
+  :input-parser #'custom/parse-org-file)
 
 (weblorg-route
  :name "feed"
@@ -72,13 +73,13 @@
  :url "/{{ slug }}.html")
 
 (weblorg-copy-static
-   :output "public/{{ file }}"
-   :url "/{{ file }}")
+  :output "public/{{ file }}"
+  :url "/{{ file }}")
 
 (weblorg-copy-static
  :name "post-images"
  :input-pattern "posts/**/images/*"
-   :output "public/{{ file }}")
+ :output "public/{{ file }}")
 
 (let ((user-full-name "Duncan Mac-Vicar P.")
       (user-mail-address "duncan@mac-vicar.eu")
@@ -142,6 +143,7 @@
        (replace-regexp-in-string "&[lg]t;" "" trans))
       (`latex
        (replace-regexp-in-string "[<>]" "" trans))))
+  (print weblorg--sites)
   (weblorg-export)
   (org-publish-all))
 
