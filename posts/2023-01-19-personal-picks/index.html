@@ -1,36 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en-us">
 <head>
-<!-- 19 Dec. 2024 -->
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>2022 picks: software projects to keep an eye on</title>
-<meta name="generator" content="Org mode">
-<meta name="author" content="Duncan Mac-Vicar P.">
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-1687066-2"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-1687066-2');
-</script>
-<link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css' rel='stylesheet' integrity='sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==' crossorigin='anonymous'/>
-<meta description='The blog of Duncan Mac-Vicar P.'/>
-<link rel='alternate' type='application+rss/xml' title='The blog of Duncan Mac-Vicar P.' href='posts/rss.xml'/>
-<link rel="stylesheet" href="../../css/site.css?v=d06246555179cc693994c6cd6cd74faed6bc08c754a9ae99c23e96ba131806e7" type="text/css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-1687066-2"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-1687066-2');
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous">
+  <link href="http://localhost:8000/css/site.css" rel="stylesheet">
+  <link rel="preload" href="http://localhost:8000/fonts/blockzone-webfont.woff2" as="font" type="font/woff2" crossorigin>
+  
 </head>
 <body>
-<header id="preamble" class="status">
-  <div class="logo">
+  <header id="preamble" class="status">
+    <div class="logo">
       <a href="/">
-      <img src="https://www.gravatar.com/avatar/3b67365812827fa25df5093b38934a8f?s=80" class="avatar" alt="My photo"/>
+        <img src="https://www.gravatar.com/avatar/3b67365812827fa25df5093b38934a8f?s=80" class="avatar" alt="My photo"/>
       </a>
       <a href="/"><h2>Duncan Mac-Vicar P.</h2></a>
       <div id="social">
         <a title="dmacvicar on Github" href="https://github.com/dmacvicar">
-          <i class="fa-brands fa-github"></i>
+        <i class="fa-brands fa-github"></i>
       </a>
       <a title="dmacvicar on Hacker News" href="https://news.ycombinator.com/user?id=dmacvicar">
         <i class="fa-brands fa-hacker-news"></i>
@@ -41,15 +35,15 @@
       <a title="RSS feed" id="atom" href="posts/rss.xml">
         <i class="fa-solid fa-rss"></i>
       </a>
-   </div>
- </div>
- <sub>I am inspired by creating software and learning from others. When things break, I fix them or go play guitar <i class="fa-solid fa-guitar"></i> ...</sub>
-</header>
-<main id="content">
-<header>
-<h1 class="title">2022 picks: software projects to keep an eye on</h1>
-<p class="subtitle">Jan 19, 2023</p>
-</header><p>
+    </div>
+   <sub>I am inspired by creating software and learning from others. When things break, I fix them or go play guitar <i class="fa-solid fa-guitar"></i> ...</sub>
+ </header>
+ <main id="main">
+ 
+<h1>2022 picks: software projects to keep an eye on</h1>
+<div class="date">19 Jan 2023</div>
+<div class="content">
+  <p>
 These software projects and technologies caught my attention and excitement during 2022, though they may not have necessarily appeared that year. My selection and focus have a clear bias as I have spent most of my life developing open-source, data center, and e-commerce infrastructure software on UNIX-like systems. I only included projects I have tried myself.
 </p>
 
@@ -61,21 +55,21 @@ I admire software that solves complex problems in a simple, elegant, and lean ma
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgbc9c845">Tree-sitter</a></li>
-<li><a href="#orgd1a8ba2">Wireguard</a></li>
-<li><a href="#orgaeeeb3a">Litestream and liteFS</a></li>
-<li><a href="#org1d0b3e7">Nix</a></li>
-<li><a href="#org3acabc6">Stable Diffusion</a></li>
-<li><a href="#org4ccc701">ChatGPT</a></li>
-<li><a href="#org53f951a">Phoenix LiveView, hotwire and the return of the server-side HTML</a></li>
-<li><a href="#orgdbdbb52">virtio-fs and krunvm</a></li>
+<li><a href="#org173fce6">Tree-sitter</a></li>
+<li><a href="#org81ef5ae">Wireguard</a></li>
+<li><a href="#orgc627793">Litestream and liteFS</a></li>
+<li><a href="#orgfc08c4e">Nix</a></li>
+<li><a href="#orgfde5d47">Stable Diffusion</a></li>
+<li><a href="#org7a7e21c">ChatGPT</a></li>
+<li><a href="#orgab46696">Phoenix LiveView, hotwire and the return of the server-side HTML</a></li>
+<li><a href="#org39b07ba">virtio-fs and krunvm</a></li>
 </ul>
 </div>
 </nav>
 
-<section id="outline-container-orgbc9c845" class="outline-2">
-<h2 id="orgbc9c845">Tree-sitter</h2>
-<div class="outline-text-2" id="text-orgbc9c845">
+<section id="outline-container-tree-sitter" class="outline-2">
+<h2 id="tree-sitter">Tree-sitter</h2>
+<div class="outline-text-2">
 <p>
 Description from its <a href="https://tree-sitter.github.io/tree-sitter/">website</a>:
 </p>
@@ -110,9 +104,9 @@ Originally, you could replace the limited <a href="https://en.wikipedia.org/wiki
 </div>
 </section>
 
-<section id="outline-container-orgd1a8ba2" class="outline-2">
-<h2 id="orgd1a8ba2">Wireguard</h2>
-<div class="outline-text-2" id="text-orgd1a8ba2">
+<section id="outline-container-wireguard" class="outline-2">
+<h2 id="wireguard">Wireguard</h2>
+<div class="outline-text-2">
 <p>
 Description from its <a href="https://tree-sitter.github.io/tree-sitter/">website</a>:
 </p>
@@ -150,9 +144,9 @@ And last but not least, <a href="https://en.avm.de/products/fritzbox/">Fritzboxe
 </section>
 
 
-<section id="outline-container-orgaeeeb3a" class="outline-2">
-<h2 id="orgaeeeb3a">Litestream and liteFS</h2>
-<div class="outline-text-2" id="text-orgaeeeb3a">
+<section id="outline-container-litestream-and-litefs" class="outline-2">
+<h2 id="litestream-and-litefs">Litestream and liteFS</h2>
+<div class="outline-text-2">
 <p>
 I believe many of the complicated app architectures today are either too early or just unnecessary.
 </p>
@@ -195,9 +189,9 @@ During the Twitter exodus to Mastodon, I saw people dealing with the complexity 
 </div>
 </section>
 
-<section id="outline-container-org1d0b3e7" class="outline-2">
-<h2 id="org1d0b3e7">Nix</h2>
-<div class="outline-text-2" id="text-org1d0b3e7">
+<section id="outline-container-nix" class="outline-2">
+<h2 id="nix">Nix</h2>
+<div class="outline-text-2">
 <p>
 Nix is a tool for producing reproducible builds and deployments. It takes a different approach to package management using a declarative and functional build description.
 </p>
@@ -262,9 +256,9 @@ The language is a functional DSL that takes some curve to learn, just like the b
 </div>
 </section>
 
-<section id="outline-container-org3acabc6" class="outline-2">
-<h2 id="org3acabc6">Stable Diffusion</h2>
-<div class="outline-text-2" id="text-org3acabc6">
+<section id="outline-container-stable-diffusion" class="outline-2">
+<h2 id="stable-diffusion">Stable Diffusion</h2>
+<div class="outline-text-2">
 <p>
 <a href="https://stability.ai/blog/stable-diffusion-v2-release">StableDiffusion</a> is an AI model which allows to:
 </p>
@@ -289,9 +283,9 @@ I believe this will have a huge impact on creative industries (design, gaming), 
 </div>
 </section>
 
-<section id="outline-container-org4ccc701" class="outline-2">
-<h2 id="org4ccc701">ChatGPT</h2>
-<div class="outline-text-2" id="text-org4ccc701">
+<section id="outline-container-chatgpt" class="outline-2">
+<h2 id="chatgpt">ChatGPT</h2>
+<div class="outline-text-2">
 <p>
 I&rsquo;d like to mention ChatGPT together with  <a href="https://github.com/features/copilot">Copilot</a>, but I haven&rsquo;t tried Copilot yet.
 </p>
@@ -309,16 +303,16 @@ For example, I was very pleased with ChatGPT being able to take some Linux comma
 </p>
 
 
-<figure id="org415d4c0">
+<figure id="org9a8c40c">
 <img src="images/chatgpt-ansible.png" alt="chatgpt-ansible.png">
 
 </figure>
 </div>
 </section>
 
-<section id="outline-container-org53f951a" class="outline-2">
-<h2 id="org53f951a">Phoenix LiveView, hotwire and the return of the server-side HTML</h2>
-<div class="outline-text-2" id="text-org53f951a">
+<section id="outline-container-phoenix-liveview-hotwire-and-the-return-of-the-server-side-html" class="outline-2">
+<h2 id="phoenix-liveview-hotwire-and-the-return-of-the-server-side-html">Phoenix LiveView, hotwire and the return of the server-side HTML</h2>
+<div class="outline-text-2">
 <p>
 Single-page applications (SPA) are with us for longer than I can remember, but the feeling something is not right in that model continues to live with me.
 </p>
@@ -341,9 +335,9 @@ Other toolkits have appeared which allow to start server side and add interactiv
 </div>
 </section>
 
-<section id="outline-container-orgdbdbb52" class="outline-2">
-<h2 id="orgdbdbb52">virtio-fs and krunvm</h2>
-<div class="outline-text-2" id="text-orgdbdbb52">
+<section id="outline-container-virtio-fs-and-krunvm" class="outline-2">
+<h2 id="virtio-fs-and-krunvm">virtio-fs and krunvm</h2>
+<div class="outline-text-2">
 <p>
 Something I always disliked about virtualization was the use of images. It added a whole layer of complexity.
 </p>
@@ -375,11 +369,15 @@ These are my picks. What are yours?
 </p>
 </div>
 </section>
-</main>
-<footer id="postamble" class="status">
-<p class='disclaimer'>The postings on this site are my own and don't necessarily represent my employer’s positions, strategies or opinions.</p>
 
-<p>Last updated 19 Dec. 2024. Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.2 (<a href="https://orgmode.org">Org</a> mode 9.4.4). <a href="/README.html">Details</a>.</p>
-</footer>
+</div>
+
+ </main>
+
+<hr/>
+ 
+ <p class='disclaimer'>The postings on this site are my own and don't necessarily represent my employer’s positions, strategies or opinions.</p>
+
+  <p>Last updated 06 Jan 2025. Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.2 (<a href="https://orgmode.org/">Org</a> mode 9.4.4). <a href="http://localhost:8000/readme.html">Details</a>.</p>
 </body>
 </html>

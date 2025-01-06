@@ -1,36 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en-us">
 <head>
-<!-- 19 Dec. 2024 -->
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SUSE Manager 2.1</title>
-<meta name="generator" content="Org mode">
-<meta name="author" content="Duncan Mac-Vicar P.">
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-1687066-2"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-1687066-2');
-</script>
-<link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css' rel='stylesheet' integrity='sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==' crossorigin='anonymous'/>
-<meta description='The blog of Duncan Mac-Vicar P.'/>
-<link rel='alternate' type='application+rss/xml' title='The blog of Duncan Mac-Vicar P.' href='posts/rss.xml'/>
-<link rel="stylesheet" href="../../css/site.css?v=d06246555179cc693994c6cd6cd74faed6bc08c754a9ae99c23e96ba131806e7" type="text/css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-1687066-2"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-1687066-2');
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous">
+  <link href="http://localhost:8000/css/site.css" rel="stylesheet">
+  <link rel="preload" href="http://localhost:8000/fonts/blockzone-webfont.woff2" as="font" type="font/woff2" crossorigin>
+  
 </head>
 <body>
-<header id="preamble" class="status">
-  <div class="logo">
+  <header id="preamble" class="status">
+    <div class="logo">
       <a href="/">
-      <img src="https://www.gravatar.com/avatar/3b67365812827fa25df5093b38934a8f?s=80" class="avatar" alt="My photo"/>
+        <img src="https://www.gravatar.com/avatar/3b67365812827fa25df5093b38934a8f?s=80" class="avatar" alt="My photo"/>
       </a>
       <a href="/"><h2>Duncan Mac-Vicar P.</h2></a>
       <div id="social">
         <a title="dmacvicar on Github" href="https://github.com/dmacvicar">
-          <i class="fa-brands fa-github"></i>
+        <i class="fa-brands fa-github"></i>
       </a>
       <a title="dmacvicar on Hacker News" href="https://news.ycombinator.com/user?id=dmacvicar">
         <i class="fa-brands fa-hacker-news"></i>
@@ -41,15 +35,15 @@
       <a title="RSS feed" id="atom" href="posts/rss.xml">
         <i class="fa-solid fa-rss"></i>
       </a>
-   </div>
- </div>
- <sub>I am inspired by creating software and learning from others. When things break, I fix them or go play guitar <i class="fa-solid fa-guitar"></i> ...</sub>
-</header>
-<main id="content">
-<header>
-<h1 class="title">SUSE Manager 2.1</h1>
-<p class="subtitle">Jun 11, 2014</p>
-</header><p>
+    </div>
+   <sub>I am inspired by creating software and learning from others. When things break, I fix them or go play guitar <i class="fa-solid fa-guitar"></i> ...</sub>
+ </header>
+ <main id="main">
+ 
+<h1>SUSE Manager 2.1</h1>
+<div class="date">11 Jun 2014</div>
+<div class="content">
+  <p>
 Back in March, Christian Stankowic <a href="http://blog.christian-stankowic.de/?p=5862&amp;lang=en">analysed Spacewalk 2.1 and its new user interface</a> look and feel. He asked himself how
 SUSE Manager would look like:
 </p>
@@ -68,13 +62,13 @@ Well, now you can see it yourself, as <a href="https://www.suse.com/company/pres
 </p>
 
 
-<figure id="org813c60a">
+<figure id="org14921c4">
 <img src="images/suse-manager-systems-systems-details-overview.png" alt="SUSE Manager Systems Systems Details Overview">
 
 </figure>
 
 
-<figure id="org4fda47c">
+<figure id="orge96eea9">
 <img src="images/screenshot-from-2014-06-10-234145.png" alt="screenshot-from-2014-06-10-234145.png">
 
 </figure>
@@ -91,7 +85,7 @@ Mirror Credentials, SUSE Products.
 </p></li>
 </ul>
 
-<figure id="orgf3d1800">
+<figure id="org154ddea">
 <img src="images/suse-manager-admin-setup-wizard-mirror-credentials.png" alt="suse-manager-admin-setup-wizard-mirror-credentials.png">
 
 </figure>
@@ -115,7 +109,7 @@ security issue by assigning the stage channel to a system.
 </p></li>
 </ul>
 
-<figure id="org9dc0061">
+<figure id="org4db3f93">
 <img src="images/cve-audit.png" alt="cve-audit.png">
 
 </figure>
@@ -128,11 +122,15 @@ side (eg. if you login via ssh to the client).</li>
 <p>
 And of course, most of the work is <a href="https://github.com/spacewalkproject/spacewalk/pulls">already merged upstream</a>.
 </p>
-</main>
-<footer id="postamble" class="status">
-<p class='disclaimer'>The postings on this site are my own and don't necessarily represent my employer’s positions, strategies or opinions.</p>
 
-<p>Last updated 19 Dec. 2024. Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.2 (<a href="https://orgmode.org">Org</a> mode 9.4.4). <a href="/README.html">Details</a>.</p>
-</footer>
+</div>
+
+ </main>
+
+<hr/>
+ 
+ <p class='disclaimer'>The postings on this site are my own and don't necessarily represent my employer’s positions, strategies or opinions.</p>
+
+  <p>Last updated 06 Jan 2025. Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.2 (<a href="https://orgmode.org/">Org</a> mode 9.4.4). <a href="http://localhost:8000/readme.html">Details</a>.</p>
 </body>
 </html>

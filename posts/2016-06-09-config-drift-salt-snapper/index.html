@@ -1,36 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en-us">
 <head>
-<!-- 19 Dec. 2024 -->
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Managing configuration drift with Salt and Snapper</title>
-<meta name="generator" content="Org mode">
-<meta name="author" content="Duncan Mac-Vicar P.">
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-1687066-2"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-1687066-2');
-</script>
-<link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css' rel='stylesheet' integrity='sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==' crossorigin='anonymous'/>
-<meta description='The blog of Duncan Mac-Vicar P.'/>
-<link rel='alternate' type='application+rss/xml' title='The blog of Duncan Mac-Vicar P.' href='posts/rss.xml'/>
-<link rel="stylesheet" href="../../css/site.css?v=d06246555179cc693994c6cd6cd74faed6bc08c754a9ae99c23e96ba131806e7" type="text/css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-1687066-2"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-1687066-2');
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous">
+  <link href="http://localhost:8000/css/site.css" rel="stylesheet">
+  <link rel="preload" href="http://localhost:8000/fonts/blockzone-webfont.woff2" as="font" type="font/woff2" crossorigin>
+  
 </head>
 <body>
-<header id="preamble" class="status">
-  <div class="logo">
+  <header id="preamble" class="status">
+    <div class="logo">
       <a href="/">
-      <img src="https://www.gravatar.com/avatar/3b67365812827fa25df5093b38934a8f?s=80" class="avatar" alt="My photo"/>
+        <img src="https://www.gravatar.com/avatar/3b67365812827fa25df5093b38934a8f?s=80" class="avatar" alt="My photo"/>
       </a>
       <a href="/"><h2>Duncan Mac-Vicar P.</h2></a>
       <div id="social">
         <a title="dmacvicar on Github" href="https://github.com/dmacvicar">
-          <i class="fa-brands fa-github"></i>
+        <i class="fa-brands fa-github"></i>
       </a>
       <a title="dmacvicar on Hacker News" href="https://news.ycombinator.com/user?id=dmacvicar">
         <i class="fa-brands fa-hacker-news"></i>
@@ -41,15 +35,15 @@
       <a title="RSS feed" id="atom" href="posts/rss.xml">
         <i class="fa-solid fa-rss"></i>
       </a>
-   </div>
- </div>
- <sub>I am inspired by creating software and learning from others. When things break, I fix them or go play guitar <i class="fa-solid fa-guitar"></i> ...</sub>
-</header>
-<main id="content">
-<header>
-<h1 class="title">Managing configuration drift with Salt and Snapper</h1>
-<p class="subtitle">Jun 09, 2016</p>
-</header>
+    </div>
+   <sub>I am inspired by creating software and learning from others. When things break, I fix them or go play guitar <i class="fa-solid fa-guitar"></i> ...</sub>
+ </header>
+ <main id="main">
+ 
+<h1>Managing configuration drift with Salt and Snapper</h1>
+<div class="date">09 Jun 2016</div>
+<div class="content">
+  
 <div id="outline-container-introduction" class="outline-3">
 <h3 id="introduction">Introduction</h3>
 <div class="outline-text-3" id="text-introduction">
@@ -61,7 +55,7 @@ Many configuration management tools originate in the DevOps space and become imm
 For example, lets imagine a server with the following state:
 </p>
 
-<pre class="example" id="org413eac1">
+<pre class="example" id="org1fca823">
 /etc/motd:
   file.managed:
     - source: salt://common/motd
@@ -71,7 +65,7 @@ For example, lets imagine a server with the following state:
 If we apply this state (in <code>test</code> mode) on a non-compliant server:
 </p>
 
-<pre class="example" id="orgefcf655">
+<pre class="example" id="org4f4aeca">
 $ salt minion1 state.apply test=True
 minion1:
 ----------
@@ -106,7 +100,7 @@ Salt is able to tell us that there is a file that deviates from the configuratio
 Now, lets say an intruder adds a malicious entry to <code>/etc/hosts</code>:
 </p>
 
-<pre class="example" id="org67f851b">
+<pre class="example" id="org42f0b14">
 192.168.1.34    www.google.com
 </pre>
 
@@ -114,7 +108,7 @@ Now, lets say an intruder adds a malicious entry to <code>/etc/hosts</code>:
 If we re run our state in test mode:
 </p>
 
-<pre class="example" id="org6bf66bd">
+<pre class="example" id="orgc57e668">
 $ salt minion1 state.apply test=True
 minion1:
 ----------
@@ -196,7 +190,7 @@ So during this year Department workshop I paired with <a href="https://github.co
 <li>Complete the Salt execution module to expose the basic snapper operations you can do from the command line. Example:</li>
 </ul>
 
-<pre class="example" id="org3bf6361">
+<pre class="example" id="org534ced9">
 salt minion1 snapper.create_snapshot
 </pre>
 
@@ -204,7 +198,7 @@ salt minion1 snapper.create_snapshot
 <li>Create a generic way for sysadmins to do Salt operations which can be reverted. We implemented this as a meta-call (a call taking another call as a parameter) <code>snapper.run</code>. So you can do something like:</li>
 </ul>
 
-<pre class="example" id="orgbd96f0f">
+<pre class="example" id="orgbc887ca">
 $ salt minion2 snapper.run function=file.append args='["/etc/motd", "some text"]'
 minion2:
     Wrote 1 lines to "/etc/motd"
@@ -214,7 +208,7 @@ minion2:
 This will generate a snapshot before running the command, run the command and then take a snapshot afterwards, also adding metadata about the Salt job that did the change:
 </p>
 
-<pre class="example" id="org02d3446">
+<pre class="example" id="orgcedf292">
 ...
 pre    | 21 |       | Thu Jun  9 10:34:36 2016 | root | number  | salt job 20160609103437556668 | salt_jid=20160609103437556668
 post   | 22 | 21    | Thu Jun  9 10:34:37 2016 | root | number  | salt job 20160609103437556668 | salt_jid=20160609103437556668
@@ -228,7 +222,7 @@ Because in Salt, state is implemented as a method <code>state.apply</code> or <c
 And of course we not only exposed <code>snapper.diff</code> which takes the snapshot number but also a <code>snapper.diff_jid</code> which tells you what a Salt job changed:
 </p>
 
-<pre class="example" id="org6e0568f">
+<pre class="example" id="org158767f">
 $ salt minion2 snapper.diff_jid 20160609103437556668
 minion2:
     ----------
@@ -248,7 +242,7 @@ Additionally, you get <code>snapper.undo_jid</code> which you can guess what it 
 <li>And finally, allowing a system administrator to use snapshots as a baseline to apply state. Lets take the original example with the malicious user modifying `/etc/hosts&rsquo;, we will add a snapper state rule:</li>
 </ul>
 
-<pre class="example" id="orgd2b09a0">
+<pre class="example" id="orge4bea33">
 my_baseline:
   snapper.baseline_snapshot:
     - number: 20
@@ -265,7 +259,7 @@ my_baseline:
 Now we apply the state in test mode again:
 </p>
 
-<pre class="example" id="org535ef58">
+<pre class="example" id="orgbd37108">
 $ salt minion1 state.apply test=True
 minion1:
 ----------
@@ -340,11 +334,15 @@ You can find our current work <a href="https://github.com/SUSE/salt-snapper-modu
 </p>
 </div>
 </section>
-</main>
-<footer id="postamble" class="status">
-<p class='disclaimer'>The postings on this site are my own and don't necessarily represent my employer’s positions, strategies or opinions.</p>
 
-<p>Last updated 19 Dec. 2024. Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.2 (<a href="https://orgmode.org">Org</a> mode 9.4.4). <a href="/README.html">Details</a>.</p>
-</footer>
+</div>
+
+ </main>
+
+<hr/>
+ 
+ <p class='disclaimer'>The postings on this site are my own and don't necessarily represent my employer’s positions, strategies or opinions.</p>
+
+  <p>Last updated 06 Jan 2025. Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.2 (<a href="https://orgmode.org/">Org</a> mode 9.4.4). <a href="http://localhost:8000/readme.html">Details</a>.</p>
 </body>
 </html>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <rss version="2.0"
      xmlns:content="http://purl.org/rss/1.0/modules/content/"
      xmlns:wfw="http://wellformedweb.org/CommentAPI/"
@@ -8,130 +8,3865 @@
      xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
      xmlns:georss="http://www.georss.org/georss"
      xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
-     xmlns:media="http://search.yahoo.com/mrss/"><channel>
-  <title>Blog</title>
-  <atom:link href="http://mac-vicar.eu/rss.xml" rel="self" type="application/rss+xml" />
-  <link>http://mac-vicar.eu/</link>
-  <description><![CDATA[]]></description>
-  <language>en</language>
-  <pubDate>Thu, 19 Dec 2024 07:35:18 +0000</pubDate>
-  <lastBuildDate>Thu, 19 Dec 2024 07:35:18 +0000</lastBuildDate>
-  <generator>Emacs 27.2 Org-mode 9.4.4</generator>
-  <webMaster>duncan@gmail.com (Duncan Mac-Vicar P.)</webMaster>
-  <image>
-    <url>https://orgmode.org/img/org-mode-unicorn-logo.png</url>
-    <title>Blog</title>
-    <link>http://mac-vicar.eu/</link>
-  </image>
-
-
-  <item>
-    <title>openSUSE Build service: layering, linking, patching and aggregating</title>
-    <link>http://mac-vicar.eu/posts/2008-08-20-opensuse-build-service-layering-linking-patching-and-aggregating/index.html</link>
-    <author>duncan@gmail.com (Duncan Mac-Vicar P.)</author>
-    <guid isPermaLink="false">http://mac-vicar.eu/posts/2008-08-20-opensuse-build-service-layering-linking-patching-and-aggregating/index.html</guid>
-    <pubDate>Wed, 20 Aug 2008 00:00:00 +0000</pubDate>
-
+     xmlns:media="http://search.yahoo.com/mrss/">
+  <channel>
+    <title>Duncan Mac-Vicar P. site</title>
+    <atom:link
+      href="http://localhost:8000/posts/rss.xml"
+      rel="self" type="application/rss+xml" />
+    <link>http://localhost:8000/</link>
     <description><![CDATA[]]></description>
-  </item>
-  <item>
-    <title>SUSE Manager 2.1</title>
-    <link>http://mac-vicar.eu/posts/2014-06-11-suse-manager-2-1/index.html</link>
-    <author>duncan@gmail.com (Duncan Mac-Vicar P.)</author>
-    <guid isPermaLink="false">http://mac-vicar.eu/posts/2014-06-11-suse-manager-2-1/index.html</guid>
-    <pubDate>Wed, 11 Jun 2014 00:00:00 +0000</pubDate>
-
-    <description><![CDATA[]]></description>
-  </item>
-  <item>
-    <title>Not sweet but salty, SUSE Manager 3 Technical Backstage Part I</title>
-    <link>http://mac-vicar.eu/posts/2016-03-16-susemanager-3-backstage/index.html</link>
-    <author>duncan@gmail.com (Duncan Mac-Vicar P.)</author>
-    <guid isPermaLink="false">http://mac-vicar.eu/posts/2016-03-16-susemanager-3-backstage/index.html</guid>
-    <pubDate>Wed, 16 Mar 2016 00:00:00 +0000</pubDate>
-
-    <description><![CDATA[]]></description>
-  </item>
-  <item>
-    <title>Using Salt like Ansible</title>
-    <link>http://mac-vicar.eu/posts/2016-05-18-using-salt-like-ansible/index.html</link>
-    <author>duncan@gmail.com (Duncan Mac-Vicar P.)</author>
-    <guid isPermaLink="false">http://mac-vicar.eu/posts/2016-05-18-using-salt-like-ansible/index.html</guid>
-    <pubDate>Wed, 18 May 2016 00:00:00 +0000</pubDate>
-
-    <description><![CDATA[]]></description>
-  </item>
-  <item>
-    <title>Managing configuration drift with Salt and Snapper</title>
-    <link>http://mac-vicar.eu/posts/2016-06-09-config-drift-salt-snapper/index.html</link>
-    <author>duncan@gmail.com (Duncan Mac-Vicar P.)</author>
-    <guid isPermaLink="false">http://mac-vicar.eu/posts/2016-06-09-config-drift-salt-snapper/index.html</guid>
-    <pubDate>Thu, 09 Jun 2016 00:00:00 +0000</pubDate>
-
-    <description><![CDATA[]]></description>
-  </item>
-  <item>
-    <title>Building Docker images with plain Salt</title>
-    <link>http://mac-vicar.eu/posts/2016-07-11-building-docker-images-with-plain-salt/index.html</link>
-    <author>duncan@gmail.com (Duncan Mac-Vicar P.)</author>
-    <guid isPermaLink="false">http://mac-vicar.eu/posts/2016-07-11-building-docker-images-with-plain-salt/index.html</guid>
-    <pubDate>Mon, 11 Jul 2016 00:00:00 +0000</pubDate>
-
-    <description><![CDATA[]]></description>
-  </item>
-  <item>
-    <title>Migrating from Jekyll to org-mode and Github Actions</title>
-    <link>http://mac-vicar.eu/posts/2019-09-03-migrating-from-jekyll-to-org/index.html</link>
-    <author>duncan@gmail.com (Duncan Mac-Vicar P.)</author>
-    <guid isPermaLink="false">http://mac-vicar.eu/posts/2019-09-03-migrating-from-jekyll-to-org/index.html</guid>
-    <pubDate>Tue, 03 Sep 2019 00:00:00 +0000</pubDate>
-
-    <description><![CDATA[]]></description>
-  </item>
-  <item>
-    <title>Raspberry Pi cluster with k3s &amp; Salt (Part 1)</title>
-    <link>http://mac-vicar.eu/posts/2020-09-07-k3s-on-rpi-with-salt/index.html</link>
-    <author>duncan@gmail.com (Duncan Mac-Vicar P.)</author>
-    <guid isPermaLink="false">http://mac-vicar.eu/posts/2020-09-07-k3s-on-rpi-with-salt/index.html</guid>
-    <pubDate>Mon, 07 Sep 2020 00:00:00 +0000</pubDate>
-
-    <description><![CDATA[]]></description>
-  </item>
-  <item>
-    <title>Prose linting with Vale and Emacs</title>
-    <link>http://mac-vicar.eu/posts/2020-09-14-prose-linting-vale-emacs.org/index.html</link>
-    <author>duncan@gmail.com (Duncan Mac-Vicar P.)</author>
-    <guid isPermaLink="false">http://mac-vicar.eu/posts/2020-09-14-prose-linting-vale-emacs.org/index.html</guid>
-    <pubDate>Mon, 14 Sep 2020 00:00:00 +0000</pubDate>
-
-    <description><![CDATA[]]></description>
-  </item>
-  <item>
-    <title>Migrating away from Google services</title>
-    <link>http://mac-vicar.eu/posts/2020-10-20-migrating-away-google-services/index.html</link>
-    <author>duncan@gmail.com (Duncan Mac-Vicar P.)</author>
-    <guid isPermaLink="false">http://mac-vicar.eu/posts/2020-10-20-migrating-away-google-services/index.html</guid>
-    <pubDate>Tue, 20 Oct 2020 00:00:00 +0000</pubDate>
-
-    <description><![CDATA[]]></description>
-  </item>
-  <item>
-    <title>2022 picks: software projects to keep an eye on</title>
-    <link>http://mac-vicar.eu/posts/2023-01-19-personal-picks/index.html</link>
-    <author>duncan@gmail.com (Duncan Mac-Vicar P.)</author>
-    <guid isPermaLink="false">http://mac-vicar.eu/posts/2023-01-19-personal-picks/index.html</guid>
-    <pubDate>Thu, 19 Jan 2023 00:00:00 +0000</pubDate>
-
-    <description><![CDATA[]]></description>
-  </item>
-  <item>
-    <title>The Aero: restoring a Compaq Contura Aero 4/33C</title>
-    <link>http://mac-vicar.eu/posts/2024-12-18-the-aero/index.html</link>
-    <author>duncan@gmail.com (Duncan Mac-Vicar P.)</author>
-    <guid isPermaLink="false">http://mac-vicar.eu/posts/2024-12-18-the-aero/index.html</guid>
+    <language>en</language>
     <pubDate>Wed, 18 Dec 2024 00:00:00 +0000</pubDate>
+    <lastBuildDate>Mon, 06 Jan 2025 13:21:39 +0000</lastBuildDate>
+    <generator>weblorg 0.1.0 (https://emacs.love/weblorg)</generator>
+    <webMaster>root</webMaster>
+    <image>
+      <url>https://www.gravatar.com/avatar/3b67365812827fa25df5093b38934a8f?s=80</url>
+      <title>Blog Author (root)</title>
+      <link>http://localhost:8000/</link>
+    </image>
 
-    <description><![CDATA[]]></description>
-  </item>
-</channel>
+    
+    <item>
+      <title>The Aero: restoring a Compaq Contura Aero 4/33C</title>
+      <link>http://localhost:8000//posts/2024-12-18-the-aero/</link>
+      <author>root</author>
+      <guid isPermaLink="false">http://localhost:8000//posts/2024-12-18-the-aero/</guid>
+      <pubDate>Wed, 18 Dec 2024 00:00:00 +0000</pubDate>
+      <description><![CDATA[
+<section id="outline-container-the-aero" class="outline-2">
+<h2 id="the-aero">The Aero</h2>
+<div class="outline-text-2">
+<p>
+The Contura Aero is a very special laptop to me. It was the first computer I did not have to share. I was no longer afraid of deleting my father&rsquo;s work (or being blamed for it).
+</p>
+
+<p>
+It was a gift from another person. It was a quite an expensive and luxurious computer for Chile in 1994 when I got it. My family would not have bought one just for me. I am grateful for it since it supported my interest for computers for many years.
+</p>
+
+<p>
+For some years I became nostalgic about it and wanted to experience it again.
+</p>
+
+
+<figure id="org2757168">
+<img src="images/the-aero.jpg" alt="the-aero.jpg">
+
+</figure>
+</div>
+</section>
+
+<section id="outline-container-the-restoration" class="outline-2">
+<h2 id="the-restoration">The restoration</h2>
+<div class="outline-text-2">
+<p>
+The Aero has a design problem in the display clutch (see <a href="https://www.rigacci.org/comp/aero/doc/aero_faq.html">2.1.5.7 Screen hinge problem (the darn &ldquo;clutch&rdquo;)</a> in the FAQ) which makes very hard to find one without a broken display bezel.
+</p>
+
+<p>
+Over the span of a few years I bought two units on eBay. The first one had the broken bezel. I bought a second unit, without the cracks but it had a display that turned on and off intermittently. The plan was to make one out of two or three units.
+</p>
+
+<p>
+Luckily, in addition to the FAQ, there are different &ldquo;cult&rdquo; sites like <a href="https://remember.the-aero.org/">https://remember.the-aero.org/</a> where one can find all kind of information.
+</p>
+
+<p>
+Opening the device requires patience and being careful.
+</p>
+</div>
+
+<div id="outline-container-cmos-battery" class="outline-3">
+<h3 id="cmos-battery">CMOS battery</h3>
+<div class="outline-text-3">
+<p>
+When I replaced the CMOS battery, the battery holder broke, and I had to unsolder the one from the other motherboard and pray it worked. It did.
+</p>
+
+
+<figure id="org41b3a87">
+<img src="images/aero-mb-1.jpg" alt="aero-mb-1.jpg">
+
+</figure>
+
+
+<figure id="org516439c">
+<img src="images/aero-mb-2.jpg" alt="aero-mb-2.jpg">
+
+</figure>
+</div>
+</div>
+
+<div id="outline-container-storage" class="outline-3">
+<h3 id="storage">Storage</h3>
+<div class="outline-text-3">
+<p>
+Another question was whether to replace the hard disk. They are noisy, but the current one had a working Windows 95 install.
+</p>
+
+<p>
+I thought about replacing it with a 32GB M.2 SATA SSD on top of a 2.5&ldquo; IDE adapter.
+</p>
+
+<p>
+It did not boot.
+</p>
+
+<p>
+I spent a lot of time here. I thought I could do all the installations on a VM putting the SSD on a M.2 SATA to USB adapter and have libvirt access the device directly.
+</p>
+
+<p>
+I had not enabled LBA on the BIOS, which required an update first and then to select hard disk as &ldquo;Other&rdquo; type. Also I forgot the IDE adapter and the USB adapter could be exposing different geometries when I did the partition on the VM
+</p>
+
+<p>
+After updating the BIOS, changing the hard disk type and using a BIOS overlay driver (Ontrack Disk Manager), <a href="https://www.philscomputerlab.com/ontrack-disk-manager.html">which nowadays you can get for free</a>, and installing DOS directly from floppies, I had a bootable machine with several logical drive letters (C:, D:, E:, F:&#x2026;) of 2G each.
+</p>
+
+<p>
+Before closing it, I wanted to put as much software on the drive to play later, as I did not have another good way of moving data.
+</p>
+
+<p>
+Unfortunately, the partition type Ontrack Disk Manager creates is not a standard partition, but I could mount it by creating a loop device from the offset and then
+</p>
+
+<pre class="example">
+losetup --partscan --find --show -o 32256 /dev/sdb
+</pre>
+
+<p>
+And then you could see all FAT partitions using the loop device:
+</p>
+
+<pre class="example">
+fdisk /dev/loop0 -l
+</pre>
+
+<pre class="example">
+mount /dev/loop0p1 /mnt/c
+</pre>
+
+<p>
+I put it different Windows I had on CDs, and a full copy of the <a href="https://archive.org/details/Simtel_CD-ROM_May_1995_General_Applications_Disc_1_1995">MS-DOS SIMTEL Collection</a>, which I owned and offered in my BBS around 1995.
+</p>
+</div>
+</div>
+
+<div id="outline-container-closing" class="outline-3">
+<h3 id="closing">Closing</h3>
+<div class="outline-text-3">
+<p>
+When I was ready to close it and put back the screen bezel (the good one, the other was broken) I realized, the good one was missing a piece of plastic which allows the bezel screw to fixate against the display.
+</p>
+
+
+<figure id="org0d3c007">
+<img src="images/aero-bezel-screw-1.jpg" alt="aero-bezel-screw-1.jpg">
+
+</figure>
+
+<p>
+Instead of the screw cup, there was a hole:
+</p>
+
+
+<figure id="orgef78450">
+<img src="images/aero-bezel-screw-2.jpg" alt="aero-bezel-screw-2.jpg">
+
+</figure>
+
+<p>
+I had to fix this. Or choose to live with the broken Bezel which had a visible crack.
+</p>
+
+<p>
+My wife suggested I 3D print it. I initially dismissed the idea because I don&rsquo;t have any 3D modeling skills, but it resulted much easier than I thought.
+</p>
+
+<p>
+There is a <a href="https://openscad.org/">CAD program you can use with code</a>, which is quite simple for these geometrical stuff. Especially if you start with some AI prompt and iterate from there.
+</p>
+
+
+<figure id="orgdb2ebba">
+<img src="images/aero-cad-1.jpg" alt="aero-cad-1.jpg">
+
+</figure>
+
+
+<p>
+8 prototypes later and 2-3 min of print time each, I had the one I thought it would work.
+</p>
+
+<p>
+Surprisingly, it worked perfectly, I did not even feel forcing the screw. And it closed.
+</p>
+
+
+<figure id="orgf5e72ca">
+<img src="images/aero-bezel-screw-3.jpg" alt="aero-bezel-screw-3.jpg">
+
+</figure>
+</div>
+</div>
+
+<div id="outline-container-final-result" class="outline-3">
+<h3 id="final-result">Final result</h3>
+<div class="outline-text-3">
+
+<figure id="org275659a">
+<img src="images/aero-final-1.jpg" alt="aero-final-1.jpg">
+
+</figure>
+
+
+<figure id="org087fa70">
+<img src="images/aero-final-2.jpg" alt="aero-final-2.jpg">
+
+</figure>
+
+
+<figure id="org2d414c7">
+<img src="images/aero-final-3.jpg" alt="aero-final-3.jpg">
+
+</figure>
+</div>
+</div>
+
+<div id="outline-container-future-improvements" class="outline-3">
+<h3 id="future-improvements">Future improvements</h3>
+<div class="outline-text-3" id="text-future-improvements">
+</div>
+<div id="outline-container-battery" class="outline-4">
+<h4 id="battery">Battery</h4>
+<div class="outline-text-4">
+<p>
+I have no idea if it works and it looks like the previous owner already opened the enclosure to change the cells.
+</p>
+</div>
+</div>
+
+<div id="outline-container-ram" class="outline-4">
+<h4 id="ram">RAM</h4>
+<div class="outline-text-4">
+<p>
+I will try to get the 8M module to get 16M instead of the 12 (4+8) it has right now.
+</p>
+</div>
+</div>
+
+<div id="outline-container-connectivity" class="outline-4">
+<h4 id="connectivity">Connectivity</h4>
+<div class="outline-text-4">
+<p>
+Find some PCMCIA card with Ethernet and combine it with some WIFI access point and get it online somehow on MS-DOS.
+</p>
+</div>
+</div>
+</div>
+</section>
+
+<section id="outline-container-next-projects" class="outline-2">
+<h2 id="next-projects">Next projects</h2>
+<div class="outline-text-2">
+<ul class="org-ul">
+<li>My previous computer to this one, a rare taiwanese CAF 386SX which I was looking for years and finally found and acquired.</li>
+<li>An Atari 130XE, which I disassembled and applied the process to get rid of the yellow color, but never assembled back.</li>
+<li>My Timex Sinclair rescued from my parents (in perfect condition). Need to figure the TV/display part.</li>
+</ul>
+</div>
+</section>
+]]></description>
+    </item>
+    
+    <item>
+      <title>2022 picks: software projects to keep an eye on</title>
+      <link>http://localhost:8000//posts/2023-01-19-personal-picks/</link>
+      <author>root</author>
+      <guid isPermaLink="false">http://localhost:8000//posts/2023-01-19-personal-picks/</guid>
+      <pubDate>Thu, 19 Jan 2023 00:00:00 +0000</pubDate>
+      <description><![CDATA[<p>
+These software projects and technologies caught my attention and excitement during 2022, though they may not have necessarily appeared that year. My selection and focus have a clear bias as I have spent most of my life developing open-source, data center, and e-commerce infrastructure software on UNIX-like systems. I only included projects I have tried myself.
+</p>
+
+<p>
+I admire software that solves complex problems in a simple, elegant, and lean manner and those that are easily adopted and standardized as the &ldquo;default&rdquo;.
+</p>
+
+<nav id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org6d16a74">Tree-sitter</a></li>
+<li><a href="#org50caa33">Wireguard</a></li>
+<li><a href="#org51776f5">Litestream and liteFS</a></li>
+<li><a href="#org012364f">Nix</a></li>
+<li><a href="#orgdbcb8a9">Stable Diffusion</a></li>
+<li><a href="#org5af62a6">ChatGPT</a></li>
+<li><a href="#orgd7fe930">Phoenix LiveView, hotwire and the return of the server-side HTML</a></li>
+<li><a href="#org75b2cd7">virtio-fs and krunvm</a></li>
+</ul>
+</div>
+</nav>
+
+<section id="outline-container-tree-sitter" class="outline-2">
+<h2 id="tree-sitter">Tree-sitter</h2>
+<div class="outline-text-2">
+<p>
+Description from its <a href="https://tree-sitter.github.io/tree-sitter/">website</a>:
+</p>
+
+<blockquote>
+<p>
+Tree-sitter is a parser generator tool and an incremental parsing library. It can build a concrete syntax tree for a source file and efficiently update the syntax tree as the source file is edited.
+</p>
+</blockquote>
+
+<p>
+Why is this important? <a href="https://news.ycombinator.com/item?id=33721166">This comment</a> summarizes it well:
+</p>
+
+<blockquote>
+<p>
+Incremental parsing of incorrect code is one of those things that is literally impossible in the general case, but tree-sitter has found a lot of good ways to do it that are not just possible for a large fraction of reality, but also performant. It&rsquo;s hard to understate how impressive a piece of engineering this is.
+</p>
+</blockquote>
+
+<p>
+I see this technology having an impact on IDEs, editors, linters and other tools similar to what the <a href="https://llvm.org/">LLVM</a> project did years ago for the compiler and interpreter ecosystem, and what <a href="https://microsoft.github.io/language-server-protocol/">Language Server Protocol</a> did for IDEs during the last years.
+</p>
+
+<p>
+For example, the Emacs editor adopted LSP by including eglot by default.
+</p>
+
+<p>
+Originally, you could replace the limited <a href="https://en.wikipedia.org/wiki/Regular_expression">regexp</a>-based syntax highlighting in Emacs with the <a href="https://emacs-tree-sitter.github.io/">emacs-tree-sitter</a> modes. This is no longer necessary, as from version 29+, Tree-sitter support <a href="https://lists.gnu.org/archive/html/emacs-devel/2022-11/msg01443.html">is part of Emacs by default</a>.
+</p>
+</div>
+</section>
+
+<section id="outline-container-wireguard" class="outline-2">
+<h2 id="wireguard">Wireguard</h2>
+<div class="outline-text-2">
+<p>
+Description from its <a href="https://tree-sitter.github.io/tree-sitter/">website</a>:
+</p>
+
+<blockquote>
+<p>
+WireGuard® is an extremely simple yet fast and modern VPN that utilizes state-of-the-art cryptography.
+</p>
+</blockquote>
+
+<p>
+Wireguard&rsquo;s simplicity:
+</p>
+
+<ul class="org-ul">
+<li>implemented in ~5000 lines of code, when most VPN solutions range from tens of thousands to hundreds of thousands</li>
+<li>works at the interface level, which means you can treat it like any other interface</li>
+<li>the state is hidden from the user, so things like roaming just work</li>
+<li>It is incorporated in most open-source operating systems. There is a Windows native version and a multi-platform userspace version written in Go.
+<ul class="org-ul">
+<li><a href="https://networkmanager.dev/">NetworkManager</a>, which most people use to manage networks in desktop Linux, has native support for it, and GNOME even displays the toggle for Wireguard connections.</li>
+</ul></li>
+<li>Android/iOS app</li>
+<li>Most commercial VPN providers support it, including the <a href="https://mullvad.net">only one that is worth your time</a>.</li>
+</ul>
+
+<p>
+Some higher-level solutions have been built on top of WireGuard. The most impressive is <a href="https://tailscale.com/">Tailscale</a>, which brings magical usability to access private networks spread across the world.
+</p>
+
+<p>
+And last but not least, <a href="https://en.avm.de/products/fritzbox/">Fritzboxes</a>, one of the most popular consumer routers in Germany, supports <a href="https://en.avm.de/news/the-latest-news-from-fritz/2022/wireguard-vpn-has-never-been-so-easy/">Wireguard natively, since December 2022</a>, which means I now can access my home LAN very easily and from almost any device.
+</p>
+</div>
+</section>
+
+
+<section id="outline-container-litestream-and-litefs" class="outline-2">
+<h2 id="litestream-and-litefs">Litestream and liteFS</h2>
+<div class="outline-text-2">
+<p>
+I believe many of the complicated app architectures today are either too early or just unnecessary.
+</p>
+
+<p>
+SQLite is a local database engine that operates on a single file per database. It is the most deployed database in the world, and it is likely running in your pocket inside your phone on many different apps.
+</p>
+
+<p>
+Many businesses could start in a single machine using a SQLite database.
+</p>
+
+<p>
+<a href="https://litestream.io/">Litestream</a> is a project from <a href="https://benjohnson.ca/about/">Ben Johnson</a> that replicates sqlite3 databases to make sqlite globally distributed. The replication part was extracted into <a href="https://github.com/superfly/litefs">LiteFS</a>, while Litestream kept the disaster recovery replication.
+</p>
+
+<p>
+With this model, LiteFS uses <a href="https://en.wikipedia.org/wiki/Filesystem_in_Userspace">FUSE (Filesystem in userspace)</a> as a pass-through filesystem to intercept writes to the database to detect transaction boundaries and replicate those in the replica nodes.
+</p>
+
+<p>
+Litestream allows replicating databases by continuously copying write-ahead log pages to cloud storage.
+</p>
+
+<p>
+An alternative implementation of transaction replication using SQLite <a href="https://www.sqlite.org/vfs.html">built-in VFS</a> is also planned.
+</p>
+
+<p>
+The project was since then acquired by <a href="https://fly.io">Fly.io</a>, which specializes in deploying apps close to the users.
+</p>
+
+<p>
+Both projects give SQLite superpowers and allow for resilient and performant applications while keeping the setup and architecture lean and simple.
+</p>
+
+<p>
+During the Twitter exodus to Mastodon, I saw people dealing with the complexity and resource requirements of operating Mastodon for a single user. My <a href="https://social.mac-vicar.eu/">Fediverse instance</a> is not Mastodon, but <a href="https://github.com/superseriousbusiness/gotosocial">gotosocial</a>. Uses 128M ram, a 140M SQLite database, and runs on a 5€ micro VM. The database is replicated to an sftp share with Litestream.
+</p>
+</div>
+</section>
+
+<section id="outline-container-nix" class="outline-2">
+<h2 id="nix">Nix</h2>
+<div class="outline-text-2">
+<p>
+Nix is a tool for producing reproducible builds and deployments. It takes a different approach to package management using a declarative and functional build description.
+</p>
+
+<p>
+When you build something with Nix, it ends in its own directory in the Nix store e.g. <code>/nix/store/hxxrbmr2zh6ph90qi8b4n2m53yvan3fr-curl-7.85.0/</code> and as long as the inputs do not change, the location, which is content-addressed, will not change either. They will also depend on the exact versions they were built against.
+</p>
+
+<p>
+This allows you the installation of multiple versions in parallel, and the current system profile itself is a collection of symbolic links to the right binaries, which means you can roll back very easily.
+</p>
+
+<p>
+While Nix can be used on Linux and macOS, there is a full Linux <a href="https://nixos.org/">distribution built on this model</a>.
+</p>
+
+<p>
+While it can also be used for CI, building container images, etc., I use Nix in two ways:
+</p>
+
+<ul class="org-ul">
+<li><p>
+Declare project dependencies
+</p>
+
+<p>
+If I have e.g. a folder with some Ansible roles I use to configure my home gadgets, I can make that project independent from where I am running it by just having a top <code>shell.nix</code> declaring dependencies. Then a simple <code>.envrc</code> file with the line <code>use_nix</code> and <a href="https://direnv.net/">direnv</a> setup in my shell.
+</p>
+
+<p>
+As soon as I <code>cd</code> into the directory, Ansible is installed and appears in the path. I <code>cd</code> out and it disappears. The nix store is cached, so the second time is very fast (until you <code>nix store gc</code>).
+</p>
+
+<p>
+You can use this to have reproducible developer environments.
+</p>
+
+<p>
+Nix Flakes is a new format to package Nix-based projects in a more discoverable, composable, consistent and reproducible way.
+</p>
+
+<p>
+With Flakes, you could even pin your environment to a specific revision of the package descriptions.
+</p></li>
+
+<li><p>
+Manage packages, including my own
+</p>
+
+<p>
+Some packages I need all the time: Emacs, Chromium, tarsnap, etc. I use Nix for that, and keep my distribution just for the base system.
+</p>
+
+<p>
+<code>nix profile install nixpkgs#tarsnap</code> and the package is now always available. I also have packages that are not free to distribute, so I can keep the recipe to build it in git, or just override a few compile options from another package. It is just flexible.
+</p></li>
+</ul>
+
+<p>
+The language is a functional DSL that takes some curve to learn, just like the built-in functions. I am not sure if this will be someday the future of deployments, but for me as been agreat addition to those two use cases..
+</p>
+</div>
+</section>
+
+<section id="outline-container-stable-diffusion" class="outline-2">
+<h2 id="stable-diffusion">Stable Diffusion</h2>
+<div class="outline-text-2">
+<p>
+<a href="https://stability.ai/blog/stable-diffusion-v2-release">StableDiffusion</a> is an AI model which allows to:
+</p>
+
+<ul class="org-ul">
+<li>transform text prompt into images</li>
+<li>transform images plus a text prompt into new images</li>
+<li>edit images by selecting an area and a prompt</li>
+</ul>
+
+<p>
+Also impressive are the creations where StableDiffusion is used to change a single video frame, and another model is used to extrapolate the change to the rest of the frames, resulting in full video editing.
+</p>
+
+<p>
+The <a href="https://dreambooth.github.io/">Dreambooth</a> model allows to finetune StableDiffusion for specific subjects. This is what the Lensa app does when generating many avatars from your selfies.
+</p>
+
+<p>
+I believe this will have a huge impact on creative industries (design, gaming), and will make their software understand the semantics of the image, just like IDEs have been doing for years offering syntax-aware refactorings.
+</p>
+</div>
+</section>
+
+<section id="outline-container-chatgpt" class="outline-2">
+<h2 id="chatgpt">ChatGPT</h2>
+<div class="outline-text-2">
+<p>
+I&rsquo;d like to mention ChatGPT together with  <a href="https://github.com/features/copilot">Copilot</a>, but I haven&rsquo;t tried Copilot yet.
+</p>
+
+<p>
+These technologies are already proving to be very useful in the context of programming.
+</p>
+
+<p>
+Leaving out the controversial topic of training proprietary models on GPL code for another occasion, I am impressed how good ChatGPT is to port code from one dimension to another, eg. rewriting using a different language, library, etc. I think it will become very useful for porting, refactoring and updating software.
+</p>
+
+<p>
+For example, I was very pleased with ChatGPT being able to take some Linux commands, and generating me a set of <a href="https://www.ansible.com/">Ansible</a> tasks to replicate the configuration
+</p>
+
+
+<figure id="orga73e498">
+<img src="images/chatgpt-ansible.png" alt="chatgpt-ansible.png">
+
+</figure>
+</div>
+</section>
+
+<section id="outline-container-phoenix-liveview-hotwire-and-the-return-of-the-server-side-html" class="outline-2">
+<h2 id="phoenix-liveview-hotwire-and-the-return-of-the-server-side-html">Phoenix LiveView, hotwire and the return of the server-side HTML</h2>
+<div class="outline-text-2">
+<p>
+Single-page applications (SPA) are with us for longer than I can remember, but the feeling something is not right in that model continues to live with me.
+</p>
+
+<p>
+The architecture duplication on the server and client-side (controllers, views, stores), dividing teams through <code>json</code> messages in two worlds speaking different languages seems broken. The instability of the Javascript eco-system just makes things worse.
+</p>
+
+<p>
+I can&rsquo;t however, picture how to solve the challenges SPAs aim to solve when it comes to highlyy interactive applications.
+</p>
+
+<p>
+<a href="https://www.phoenixframework.org/">Phoenix</a> is a web framework for <a href="https://elixir-lang.org/">Elixir</a>, a language running on the <a href="https://www.erlang.org/">Erlang VM</a>. His creator has a Rails background, so he took off from where Rails left and brought innovation to the space in the form of <a href="https://github.com/phoenixframework/phoenix_live_view">Phoenix LiveView</a>, a technique that allows for highly interactive applications without abandoning the server side paradigm.
+</p>
+
+<p>
+Other toolkits have appeared which allow to start server side and add interactivity in a structured way without abandoning the server side paradigm. One is <a href="https://hotwired.dev/">HotWire</a> from Basecamp, which includes Turbo and other libraries, and <a href="https://htmx.org/">htmx</a>, which works by just annotating HTML.
+</p>
+</div>
+</section>
+
+<section id="outline-container-virtio-fs-and-krunvm" class="outline-2">
+<h2 id="virtio-fs-and-krunvm">virtio-fs and krunvm</h2>
+<div class="outline-text-2">
+<p>
+Something I always disliked about virtualization was the use of images. It added a whole layer of complexity.
+</p>
+
+<p>
+<a href="https://virtio-fs.gitlab.io/index.html">virtio-fs</a> is a filesystem that allows sharing the host filesystem with the guest. Unlike virtio-9p (the one used by Windows Subsystem for Linux), it has local semantics.
+</p>
+
+<p>
+qemu has support for it, so you can boot a root filesystem.
+</p>
+
+<p>
+One tool that takes advantage of virtio-fs is <a href="https://github.com/containers/krunvm">krunvm</a>. It allows to run container images as micro virtual machines. The machines implement a few simple virtio devices enough to run an embedded kernel in libkrun.
+</p>
+
+<p>
+krunvm takes virtio-fs to the next level, basically making it invisible, allowing you to mount any host folder into the virtual machine the same way that you do it with container images.
+</p>
+
+<p>
+Follow the work <a href="https://github.com/slp">Sergio Lopez</a> is doing in this space.
+</p>
+
+<hr>
+
+<p>
+These are my picks. What are yours?
+</p>
+</div>
+</section>
+]]></description>
+    </item>
+    
+    <item>
+      <title>Migrating away from Google services</title>
+      <link>http://localhost:8000//posts/2020-10-20-migrating-away-google-services/</link>
+      <author>root</author>
+      <guid isPermaLink="false">http://localhost:8000//posts/2020-10-20-migrating-away-google-services/</guid>
+      <pubDate>Tue, 20 Oct 2020 00:00:00 +0000</pubDate>
+      <description><![CDATA[<p>
+My inbox tells me I started using GMail around 2004. The oldest mail I can find in my archive is from 16 years ago. After Gmail, Google Photos, Keep, Docs, Drive and Fit followed.
+</p>
+
+<p>
+I have reasons to stop. Whether your reasons are privacy, the U.S. as a data harbor, GMail becoming sluggish, karma for killing Inbox, fear about getting <a href="https://twitter.com/miguelytob/status/1315749803041619981">your account locked</a>, or you found a better email provider, the objective of this post is not to convince you about my reasons but to help you with a migration plan and showing you alternatives.
+</p>
+
+<p>
+Breaking the dependency on Google services is really hard. This dependency was a showstopper and motivator at the same time. If you are locked-in at this level, something is wrong.
+</p>
+
+<p>
+After 16 years, I was not planning to stop in a single day, but step by step. This post highlights the first steps into that direction.
+</p>
+
+<p>
+My new requirements are:
+</p>
+
+<ul class="org-ul">
+<li>My data stored in a privacy compatible jurisdiction: European Union, Nordic countries, Switzerland.</li>
+<li>Managed/hosted services are OK, as long they are in a privacy respecting jurisdiction and I pay for the product (I am not the product).</li>
+<li>Services should use open-source software where possible.</li>
+</ul>
+
+<section id="outline-container-migrating-away-from-gmail" class="outline-2">
+<h2 id="migrating-away-from-gmail">Migrating away from GMail</h2>
+<div class="outline-text-2">
+<p>
+After evaluating several mail providers including Tutanota, ProtonMail, Mailfence, Soverin, Runbox, I decided for <a href="https://mailbox.org">https://mailbox.org</a>:
+</p>
+
+<ul class="org-ul">
+<li>Provides IMAP and can be used with generic existing open-source clients</li>
+<li>Company has a focus on privacy</li>
+<li>Attractive price</li>
+<li>Located in Germany</li>
+<li>Based on Open-Xchange, which is Open-Source</li>
+<li>Provides a Calendar feature based on open standards (CalDAV)</li>
+<li>Provides <a href="https://mailbox.org/en/security">encryption in several forms</a></li>
+<li><a href="https://mailbox.org/en/company#our-responsibility">Company values</a>: privacy, eco-friendly, and work-life balance for their employees align with my own</li>
+</ul>
+
+
+<figure id="org48738d3">
+<img src="images/mailbox.png" alt="mailbox.png">
+
+</figure>
+
+<p>
+Mailbox.org is not perfect. 2FA is bolted-on like many other parts of the application. I don&rsquo;t think you can beat Google when it comes to security, but the risk of getting your account locked at Google and no escalation path or human to talk to makes all the technicallities irrelevant.
+</p>
+
+<p>
+To migrate, I planned to use <a href="https://isync.sourceforge.io/">mbsync</a>, which I already use to download my work email in my  <a href="https://www.djcbsoftware.nl/code/mu/mu4e.html">mu4e</a>/Emacs setup. The idea is to create two channels, one for GMail, one for the new provider, download the whole GMail archive (forcing pull in a sync), and then force a push on the new provider.
+</p>
+
+<p>
+Downloading all my mail with mbsync did not work. GMail has <a href="https://support.google.com/a/answer/1071518?hl=en">download limits for IMAP</a>. The next thing to try was <a href="https://takeout.google.com/">Google Takeout</a>, a service that allows you to dowload your Google data. This gave me an <a href="https://en.wikipedia.org/wiki/Mbox">mbox</a> with all my GMail messages. mbsync only works with <a href="https://en.wikipedia.org/wiki/Maildir">Maildir</a>, so I tried to upload the mbox messages with Thunderbird, but did not get far. At the end, I used <a href="http://batleth.sapienti-sat.org/projects/mb2md/">mb2md</a> to convert the mbox to Maildir format, and then used mbsync to upload the messages to the new provider. This worked.
+</p>
+
+<p>
+In order to prevent lock-in in the future, I used a custom domain. My go-to registrar is <a href="https://www.namecheap.com/">Namecheap</a> and I have no complaints. I went with <a href="https://www.gandi.net/">Gandi</a>, as they are based in France and I read good things about them.
+</p>
+
+<p>
+To be able to migrate at my own pace, I setup a forward and delete filter rule in Gmail. I had hundred of accounts using my email address as username. Thankfully, my password manager knows about those and I changed the ones I use more often. Every time I get a newsletter or notification, I take the chance to unsubscribe, and check the <code>To:</code> field and update my profile, or delete that account.
+</p>
+
+<p>
+I replaced the GMail mobile application with <a href="https://email.faircode.eu/">FairMail</a>. The build is not free as in beer ($), but it is Open-Source (GPL). Paying to get a working binary and some support is worth it.
+</p>
+</div>
+</section>
+
+<section id="outline-container-google-search" class="outline-2">
+<h2 id="google-search">Google Search</h2>
+<div class="outline-text-2">
+<p>
+I switched to <a href="https://duckduckgo.com/">DuckDuckGo</a> a long time ago already. I tried <a href="https://www.qwant.com/">Quant</a> (based in France) but for some reason it takes seconds to connect. I can&rsquo;t believe they fail in this obvious detail.
+</p>
+</div>
+</section>
+
+<section id="outline-container-migrating-google-photos-google-drive" class="outline-2">
+<h2 id="migrating-google-photos-google-drive">Migrating Google Photos &amp; Google Drive</h2>
+<div class="outline-text-2">
+<p>
+My usual workflow has been to download photos locally and upload to Google Photos. The lack of a good sync mechanism resulted in glitches over time. Some albums were present locally and some existed only in Google Photos.
+</p>
+
+<p>
+I used both <a href="https://pypi.org/project/gphotos-sync/">gohotos-sync</a> and Google Takeout to get two full copies of albums and the photo stream. gphotos-sync has a useful flag <code>--compare-folder</code> which hels comparing albums in Google Photos with the local version of those, creating symlinks for local and remote missing files.
+</p>
+
+<p>
+I then used <a href="https://exiftool.org/">exiftool</a> to sort pictures further. If you don&rsquo;t know this tool, I highly recommned you learn it.
+</p>
+
+<p>
+I selected <a href="https://www.hetzner.com/storage/storage-share">Hetzner Storage Share</a>, an affordable <a href="https://nextcloud.com/">Nextcloud</a> based service hosted in Germany. Nextcloud is intended to replace Google Drive, which means it allows to share files via eg. public links. You can, however, install many applications in it, including a very simple photo gallery.
+</p>
+
+
+<figure id="orgdcfaa05">
+<img src="images/nextcloud.png" alt="nextcloud.png">
+
+</figure>
+
+<p>
+The feature I will miss the most is to be able to do AI based search on my photos. I search often by keywords and concepts.
+</p>
+
+<p>
+I setup the <a href="https://nextcloud.com/install/#install-clients">Linux and mobile clients</a>. The Linux client syncs a part of my Pictures folder that is ready and organized. I configured Instant-Upload on my phone which auto-uploads photos I take with the camera. The upload is unidirectional, but as they land on a folder I have configured to be synced with my computer, they reach my laptop to be further organized. I can delete the camera files without risk of losing what has been uploaded.
+</p>
+
+<p>
+I still depend on Drive for sharing files with my band. I relegated Drive to its own Firefox <a href="https://addons.mozilla.org/en-US/firefox/addon/multi-account-containers/">Container</a>, this way I am not permanently logged into the Google Account as I browse the Web, but do not need to log-in again to use Drive.
+</p>
+</div>
+</section>
+
+<section id="outline-container-google-keep" class="outline-2">
+<h2 id="google-keep">Google Keep</h2>
+<div class="outline-text-2">
+<p>
+For personal notes, I use <a href="https://orgmode.org/">org-mode</a> on a synced folder. I sync the folder to my Nextcloud instance. <a href="https://play.google.com/store/apps/details?id=com.orgzly">Orgzly</a> provides a TODO widget and access the files via WebDAV. <a href="https://play.google.com/store/apps/details?id=com.madlonkay.orgro">Orgro</a> gives you a more sophisticated viewer.
+</p>
+
+<p>
+I do share a shopping list with my family in Keep and I haven&rsquo;t yet solved that problem. I have thought about a Keep-like view for Orgzly -it is <a href="https://github.com/orgzly">open-source</a>-, by transforming each headline into a card.
+</p>
+</div>
+</section>
+
+<section id="outline-container-google-fit" class="outline-2">
+<h2 id="google-fit">Google Fit</h2>
+<div class="outline-text-2">
+<p>
+I track my runs in Fit. My ideal solution would be to store tracks directly as a file in a NextCloud folder. An alternative is to store them in a internal database and do an Export from time to time.
+</p>
+
+<p>
+Google Takeout allows you to export tracks in TCX format, with summaries as CSV files. I ended with 300+ TCX files.
+</p>
+
+<p>
+I evaluated many apps that required no Cloud service. <a href="https://play.google.com/store/apps/details?id=org.runnerup">RunnerUp</a>, <a href="https://gitlab.com/brvier/ForRunners">ForRunners</a> and  <a href="https://play.google.com/store/apps/details?id=de.tadris.fitness">FitoTrack</a> are also Open-Source, where <a href="https://play.google.com/store/apps/details?id=com.sportractive">Sportractive</a> is not.
+</p>
+
+<p>
+FitoTrack and Sportractive where the most promissing ones. In both apps I could not import more than one file at a time so I contacted the authors asking for tips how to import my data. Sportractive author mentioned this was not possible. FitoTrack author found this a simple addition, implemented it and pointed me to the next release. Due to a glitch, took longer to show up in the Play Store, but I built the app from source and started experimenting with this feature.
+</p>
+
+
+<figure id="org6cb65c4">
+<img src="images/fitotrack.png" alt="fitotrack.png">
+
+</figure>
+
+<p>
+To convert the TCX files to GPX I used <a href="http://www.gpsbabel.org/">gpsbabel</a>. FitoTrack has trouble with Fit multiple laps/tracks. The <code>pack</code> option in gpsbabel merges them.
+</p>
+
+<pre class="example">
+for fn in ../*.tcx; do gpsbabel -i gtrnctr -f "$fn" -x track,pack -o gpx -F $(basename $fn .tcx).gpx; done
+</pre>
+
+<p>
+I had now 300+ files with names like <code>2018-04-15T00_44_22+02_00_PT38M17.962S_Running.gpx</code>, no description and no metadata specifying it was &ldquo;Running&rdquo;.
+</p>
+
+<p>
+I hacked this script which finds the starting point, does reverse geolocation to find the place name, cleans it up and then renames the file. It also sets the description to something like &ldquo;Run in Madrid, Spain&rdquo;.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span class="org-keyword">import</span> os
+<span class="org-keyword">import</span> time
+<span class="org-keyword">import</span> unidecode
+
+<span class="org-keyword">import</span> gpxpy
+<span class="org-keyword">import</span> gpxpy.gpx
+<span class="org-keyword">from</span> geopy.geocoders <span class="org-keyword">import</span> Nominatim
+
+<span class="org-variable-name">geolocator</span> = Nominatim(user_agent=<span class="org-string">"JustATestScript"</span>)
+
+<span class="org-keyword">for</span> filename <span class="org-keyword">in</span> os.listdir(<span class="org-string">"."</span>):
+    <span class="org-keyword">if</span> <span class="org-keyword">not</span> filename.endswith(<span class="org-string">".gpx"</span>):
+        <span class="org-keyword">continue</span>
+
+    <span class="org-keyword">print</span>(<span class="org-string">"Current: {}"</span>.<span class="org-builtin">format</span>(filename))
+    <span class="org-variable-name">gpx_file</span> = <span class="org-builtin">open</span>(filename, <span class="org-string">"r"</span>)
+    <span class="org-variable-name">gpx</span> = gpxpy.parse(gpx_file)
+
+    <span class="org-comment-delimiter"># </span><span class="org-comment">get first point</span>
+    <span class="org-variable-name">point</span> = <span class="org-constant">None</span>
+    <span class="org-keyword">try</span>:
+        <span class="org-variable-name">point</span> = gpx.tracks[0].segments[0].points[0]
+    <span class="org-keyword">except</span> <span class="org-type">Exception</span>:
+        <span class="org-keyword">print</span>(<span class="org-string">" `-&gt; No point 0"</span>)
+        <span class="org-keyword">continue</span>
+
+    <span class="org-variable-name">location</span> = geolocator.reverse(
+        (point.latitude, point.longitude),
+        language=<span class="org-string">"en"</span>,
+        addressdetails=<span class="org-constant">True</span>,
+    )
+    <span class="org-variable-name">country</span> = unidecode.unidecode(location.raw[<span class="org-string">"address"</span>][<span class="org-string">"country"</span>])
+    <span class="org-comment-delimiter"># </span><span class="org-comment">City is not so easy. Fallback until we get something</span>
+    <span class="org-variable-name">city</span> = <span class="org-constant">None</span>
+    <span class="org-keyword">for</span> place <span class="org-keyword">in</span> [<span class="org-string">"city"</span>, <span class="org-string">"village"</span>, <span class="org-string">"suburb"</span>, <span class="org-string">"town"</span>]:
+        <span class="org-keyword">if</span> place <span class="org-keyword">not</span> <span class="org-keyword">in</span> location.raw[<span class="org-string">"address"</span>]:
+            <span class="org-keyword">continue</span>
+        <span class="org-keyword">import</span> re
+        <span class="org-variable-name">city</span> = re.sub(r<span class="org-string">".+/\s+"</span>, <span class="org-string">""</span>, location.raw[<span class="org-string">"address"</span>][place])
+        <span class="org-variable-name">city</span> = unidecode.unidecode(city)
+        <span class="org-keyword">break</span>
+    <span class="org-keyword">if</span> <span class="org-keyword">not</span> city:
+        <span class="org-keyword">raise</span> <span class="org-type">Exception</span>(<span class="org-string">"No place in address: {}"</span>.<span class="org-builtin">format</span>(location.raw))
+    <span class="org-variable-name">newname</span> = <span class="org-string">"{}-Running-{}_{}.gpx"</span>.<span class="org-builtin">format</span>(
+        point.time.strftime(<span class="org-string">"%Y-%m-%d_T%H_%m"</span>),
+        city.replace(<span class="org-string">" "</span>, <span class="org-string">"_"</span>),
+        country.replace(<span class="org-string">" "</span>, <span class="org-string">"_"</span>),
+    )
+    <span class="org-keyword">print</span>(<span class="org-string">" `-&gt; new name: {}"</span>.<span class="org-builtin">format</span>(newname))
+    gpx.tracks[0]<span class="org-variable-name">.name</span> = <span class="org-string">"Run in {}, {}"</span>.<span class="org-builtin">format</span>(city, country)
+    gpx.tracks[0]<span class="org-variable-name">.description</span> = <span class="org-constant">None</span>
+    <span class="org-comment-delimiter"># </span><span class="org-comment">FIXME: does not serialize. Fix with xmlstarlet</span>
+    gpx.tracks[0].<span class="org-builtin">type</span> = <span class="org-string">"running"</span>
+    <span class="org-keyword">with</span> <span class="org-builtin">open</span>(filename, <span class="org-string">"w"</span>) <span class="org-keyword">as</span> out:
+        out.write(gpx.to_xml())
+    <span class="org-keyword">try</span>:
+        os.rename(filename, newname)
+    <span class="org-keyword">except</span> <span class="org-type">Exception</span> <span class="org-keyword">as</span> e:
+        <span class="org-keyword">print</span>(location.raw)
+        <span class="org-keyword">raise</span> e
+    <span class="org-comment-delimiter"># </span><span class="org-comment">do not call the API too fast</span>
+    time.sleep(1)
+</pre>
+</div>
+
+<p>
+The result was:
+</p>
+
+<pre class="example">
+2018-07-29_T08_07-Munich_Germany.gpx
+2019-08-10_T14_08-Barcelone_Spain.gpx
+2020-08-22_T07_08-Warsaw_Poland.gpx
+2020-07-11_T15_07-Nuremberg_Germany.gpx
+2020-08-20_T06_08-Valencia_Spain.gpx
+2018-06-03_T10_06-Stuttgart_Germany.gpx
+...
+</pre>
+
+<p>
+(city names and dates are not the real ones)
+</p>
+
+<p>
+Setting the sport type in the metadata did not get serialized back, so I fix it with xmlstarlet:
+</p>
+
+<pre class="example">
+xmlstarlet ed --inplace -N x="http://www.topografix.com/GPX/1/0" -s /x:gpx/x:trk -t elem -n type -v "running" *.gpx
+</pre>
+
+<p>
+Then, mass import into FitoTrack and I got all my activities with nice descriptions and the right &ldquo;Running&rdquo; icon.
+</p>
+</div>
+</section>
+
+<section id="outline-container-conclusions" class="outline-2">
+<h2 id="conclusions">Conclusions</h2>
+<div class="outline-text-2">
+<p>
+My new mail setup is working for some weeks already without problems. I miss some Photos features, but that&rsquo;s it.
+I was not expecting Fit to take that much effort.
+</p>
+
+<p>
+In general, I am happy with the results. I regained control of my data and I got to use more open-source.
+</p>
+</div>
+</section>
+]]></description>
+    </item>
+    
+    <item>
+      <title>Prose linting with Vale and Emacs</title>
+      <link>http://localhost:8000//posts/2020-09-14-prose-linting-vale-emacs/</link>
+      <author>root</author>
+      <guid isPermaLink="false">http://localhost:8000//posts/2020-09-14-prose-linting-vale-emacs/</guid>
+      <pubDate>Mon, 14 Sep 2020 00:00:00 +0000</pubDate>
+      <description><![CDATA[<p>
+I have set myself the goal to improve my writing. I read some books and articles on the topic, but I am also looking for real-time feedback. I am not a native english speaker.
+</p>
+
+<p>
+I found about <a href="https://www.grammarly.com/">Grammarly</a> on twitter, but there is no way I will send my emails and documents to their server as I type. That is how I started to look for an offline solution.
+</p>
+
+<p>
+I found <a href="https://github.com/amperser/proselint">proselint</a> but it seems inactive since 2018. As I tried to integrate it with Emacs, I learned about <a href="https://github.com/bnbeckwith/writegood-mode">write-good mode</a>. This Emacs mode has two flaws:
+</p>
+
+<ul class="org-ul">
+<li>The implementation is too &ldquo;simple&rdquo; (regexps)</li>
+<li>The integration works like a full Emacs mode. Mixing the linting with presentation.</li>
+</ul>
+
+<p>
+Through those projects, I learned about the original article <a href="http://matt.might.net/articles/shell-scripts-for-passive-voice-weasel-words-duplicates/">3 shell scripts to improve your writing, or &ldquo;My Ph.D. advisor rewrote himself in bash.&rdquo;</a>.
+</p>
+
+<p>
+I found a more sophisticated and extensible tool called <a href="https://github.com/btford/write-good">write-good</a>, implemented in Javascript/node, which means I will not be able to package it.
+</p>
+
+<p>
+I decided to try to write one. I found the Go library <a href="https://github.com/jdkato/prose">prose</a>. It allows to iterate over tokens, entities and sentences. Iterating over the tokens gives access to tags:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-go">for _, tok := range doc.Tokens() {
+	fmt.Println(tok.Text, tok.Tag, tok.Label)
+	// Go NNP B-GPE
+	// is VBZ O
+	// an DT O
+	// ...
+}
+</pre>
+</div>
+
+<p>
+For example, the text &ldquo;At dinner, six shrimp were eaten by Harry&rdquo; produces the following tags:
+</p>
+
+<pre class="example">
+Harry PERSON
+At IN
+dinner NN
+, ,
+six CD
+shrimp NN
+were VBD
+eaten VBN
+by IN
+Harry NNP
+</pre>
+
+<p>
+The combination <code>VBD</code> (verb, past tense )and <code>VBN</code> (verb, past participle) can be used to detect passive voice, one of the guidelines of &ldquo;good-write&rdquo;.
+</p>
+
+<p>
+Soon I figured out that the tokens do not give access to the locations. I started to see who is using the code, looking for examples.
+</p>
+
+<p>
+I realized the author of the library uses the library to power <a href="https://github.com/errata-ai/vale">vale</a>, a prose linter implemented in go. What I was trying to write.
+</p>
+
+<p>
+The <a href="https://docs.errata.ai/vale/about">vale documentation</a> revealed the tool is more than I was looking for. It includes <a href="https://github.com/errata-ai/vale/tree/master/styles/write-good">write-good</a> definitions as part of its example styles. There are examples for Documentation CI which include how <a href="https://docs.errata.ai/vale/config">Gitlab, Linode and Homebrew</a> use it to lint their documentation. It even has a <a href="https://github.com/errata-ai/vale-action">Github action</a>.
+</p>
+
+<p>
+Nothing left other than to integrate with Emacs. There is no need to write a full mode for that. A simple <a href="https://www.flycheck.org">Flycheck</a> checker should do. Turns out, it already <a href="https://melpa.org/#/flycheck-vale">exists</a>, but I could not make it work.
+</p>
+
+<p>
+The existing Emacs checker uses <i>vale</i> JSON output (<code>--output JSON</code>), which gives access to all details of the result. We can write the simplest checker from scratch, by recognizing patterns with <code>--output line</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(flycheck-define-checker vale
+  <span class="org-string">"A checker for prose"</span>
+  <span class="org-builtin">:command</span> (<span class="org-string">"vale"</span> <span class="org-string">"--output"</span> <span class="org-string">"line"</span>
+            source)
+  <span class="org-builtin">:standard-input</span> nil
+  <span class="org-builtin">:error-patterns</span>
+  ((<span class="org-warning">error</span> line-start (file-name) <span class="org-string">":"</span> line <span class="org-string">":"</span> column <span class="org-string">":"</span> (id (one-or-more (not (any <span class="org-string">":"</span>)))) <span class="org-string">":"</span> (message) line-end))
+  <span class="org-builtin">:modes</span> (markdown-mode org-mode text-mode)
+  )
+(add-to-list 'flycheck-checkers 'vale 'append)
+</pre>
+</div>
+
+<p>
+Note that for this to work, you need <i>vale</i> in your <code>PATH</code>. I packaged it in <a href="https://build.opensuse.org/package/show/home:dmacvicar/vale">the Open Build Service.</a> You need also a <code>$HOME/.vale.ini</code> or in the root of your project:
+</p>
+
+<pre class="example">
+StylesPath = /usr/share/vale/styles
+Vocab = Blog
+[*.txt]
+BasedOnStyles = Vale, write-good
+[*.md]
+BasedOnStyles = Vale, write-good
+[*.org]
+BasedOnStyles = Vale, write-good
+</pre>
+
+<p>
+And with this Emacs works:
+</p>
+
+
+<figure id="orge2cde3e">
+<img src="images/emacs.png" alt="emacs.png">
+
+</figure>
+
+<p>
+Due to <code>--output line</code> not providing severity, every message shows as error.
+</p>
+
+<p>
+I am looking forward to integrate <i>vale</i> in some documentation, develop custom styles and why not, investigate and fix the original <i>flycheck-vale</i> project.
+</p>
+
+<p>
+Also pending is to expand the configuration to work with my <a href="https://www.djcbsoftware.nl/code/mu/mu4e.html">Emacs based mail client</a>, which should be a matter of hooking into <i>mu4e</i> compose mode.
+</p>
+
+<p>
+While writing this post, I had to fix the unintended use of passive voice tens of times. Valuable feedback.
+</p>
+]]></description>
+    </item>
+    
+    <item>
+      <title>Raspberry Pi cluster with k3s &amp; Salt (Part 1)</title>
+      <link>http://localhost:8000//posts/2020-09-07-k3s-on-rpi-with-salt/</link>
+      <author>root</author>
+      <guid isPermaLink="false">http://localhost:8000//posts/2020-09-07-k3s-on-rpi-with-salt/</guid>
+      <pubDate>Mon, 07 Sep 2020 00:00:00 +0000</pubDate>
+      <description><![CDATA[<p>
+I have been running some workloads on Raspberry Pi&rsquo;s / <a href="https://software.opensuse.org/distributions/leap">Leap</a> for some time. I manage them using <a href="https://docs.saltstack.com/en/latest/topics/ssh">salt-ssh</a> along with a <a href="https://www.kickstarter.com/projects/pine64/pine-a64-first-15-64-bit-single-board-super-comput/">Pine64</a> running <a href="https://www.openbsd.org">OpenBSD</a>. You can read more about using Salt this way in my <a href="../2016-05-18-using-salt-like-ansible/index.html">Using Salt like Ansible</a> post.
+</p>
+
+
+<figure id="orgf3e7d1f">
+<img src="images/rpi-cluster-small.jpg" alt="rpi-cluster-small.jpg">
+
+</figure>
+
+<p>
+The workloads ran on containers, which were managed with <a href="https://systemd.io/">systemd</a> and <a href="https://podman.io">podman</a>. Salt managed the systemd service files on <code>/etc/systemd</code>, which start, monitor and stops the containers. For example, the <code>homeassistant.sls</code> state, managed the service file for <a href="https://mosquitto.org">mosquitto</a>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml">homeassistant.mosquito.deploy:
+  file.managed:
+    - name: /root/config/eclipse-mosquitto/mosquitto.conf
+    - source: salt://homeassistant/files/mosquitto/mosquitto.conf
+
+homeassistant.eclipse-mosquitto.container.service:
+  file.managed:
+    - name: /etc/systemd/system/eclipse-mosquitto.service
+    - contents: |
+	[Unit]
+	Description=%N Podman Container
+	After=network.target
+
+	[Service]
+	Type=simple
+	TimeoutStartSec=5m
+	ExecStartPre=-/usr/bin/podman rm -f "%N"
+	ExecStart=/usr/bin/podman run -ti --rm --name="%N" -p 1883:1883 -p 9001:9001 -v /root/config/eclipse-mosquitto:/mosquitto/config -v /etc/localtime:/etc/localtime:ro --net=host docker.io/library/eclipse-mosquitto
+	ExecReload=-/usr/bin/podman stop "%N"
+	ExecReload=-/usr/bin/podman rm "%N"
+	ExecStop=-/usr/bin/podman stop "%N"
+	Restart=on-failure
+	RestartSec=30
+
+	[Install]
+	WantedBy=multi-user.target
+  service.running:
+    - name: eclipse-mosquitto
+    - enable: True
+    - require:
+      - pkg: homeassistant.podman.pkgs
+      - file: /etc/systemd/system/eclipse-mosquitto.service
+      - file: /root/config/eclipse-mosquitto/mosquitto.conf
+    - watch:
+      - file: /root/config/eclipse-mosquitto/mosquitto.conf
+</pre>
+</div>
+
+<p>
+The Salt state also made sure the right packages and other details where ready before the service was started.
+</p>
+
+<p>
+This was very simple and worked well so far. One disadvantage is that the workloads are tied to a particular Pi. I was not going to make the setup more complex by building my own orchestrator.
+</p>
+
+<p>
+Another disadvantage is that I was pulling the containers into the SD card. I was not hoping for a long life of these. After it died, I took it as a good opportunity to re-do this setup.
+</p>
+
+<p>
+My long term goal would be to netboot the Pi&rsquo;s, and have the storage mounted. I am not very familiar with all the procedure, so I will go step by step.
+</p>
+
+<p>
+I decided for the the initial iteration:
+</p>
+
+<ul class="org-ul">
+<li><a href="https://k3s.io/">k3s (Lightweight Kubernetes)</a> on the Pi&rsquo;s</li>
+<li>The k3s server to use a USB disks/SSDs with <a href="https://btrfs.wiki.kernel.org/index.php/Main_Page">btrfs</a> as storage</li>
+<li>The worker nodes to /var/lib/rancher/k3s from USB storage</li>
+<li>Applying the states over almost stock <a href="http://download.opensuse.org/ports/aarch64/distribution/leap/15.2/appliances/">Leap 15.2</a> images should result in a working cluster</li>
+</ul>
+
+<p>
+All the above managed with <span class="underline">salt-ssh</span> tree on a git repository just like I was used to
+</p>
+
+<section id="outline-container-k3s-installation" class="outline-2">
+<h2 id="k3s-installation">k3s installation</h2>
+<div class="outline-text-2">
+<p>
+We start by creating <code>k3s/init.sls</code>. For the k3s state I defined a minimal pillar defining the server and the shared token:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml">k3s:
+  token: xxxxxxxxx
+  server: rpi03
+</pre>
+</div>
+
+<p>
+The first part of the k3s state ensures cgroups are configured correctly and disables swap:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml">k3s.boot.cmdline:
+  file.managed:
+    - name: /boot/cmdline.txt
+    - contents: |
+	cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory
+
+k3s.disable.swap:
+  cmd.run:
+    - name: swapoff -a
+    - onlyif:  swapon --noheadings --show=name,type | grep .
+</pre>
+</div>
+
+<p>
+As the goal was to avoid using the SD card, the next state makes sure <code>/var/lib/rancher/k3s</code> is a mount. I have to admit I wasted quite some time getting right the state for the storage mount. Using <a href="https://docs.saltstack.com/en/latest/ref/states/all/salt.states.mount.html#salt.states.mount.mounted"><code>mount.mounted</code></a> did not work because it is buggy and took different <code>btrfs</code> subvolume mounts from the same device as the same mount.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml">k3s.volume.mount:
+  mount.mounted:
+    - name: /var/lib/rancher/k3s
+    - device: /dev/sda1
+    - mkmnt: True
+    - fstype: btrfs
+    - persist: False
+    - opts: "subvol=/@k3s"
+</pre>
+</div>
+
+<p>
+I resorted then to write my own state. I discovered the awesome <a href="https://www.man7.org/linux/man-pages/man8/findmnt.8.html">findmnt</a> command, and my workaround looked like:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml">k3s.volume.mount:
+  cmd.run:
+    - name: mount -t btrfs -o subvol=/@{{ grains['id'] }}-data /dev/sda1 /data
+    - unless: findmnt --mountpoint /data --noheadings | grep '/dev/sda1[/@k3s]'
+    - require:
+	- file: k3s.volume.mntpoint
+</pre>
+</div>
+
+<p>
+This turned later to be a pain, as the k3s installer started k3s without caring much if this volume was mounted or not. Then I remembered: systemd does exactly that. It manages mount and dependencies. This simplified the mount state to:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml">k3s.volume.mount:
+  file.managed:
+    - name: /etc/systemd/system/var-lib-rancher-k3s.mount
+    - contents : |
+	[Unit]
+
+	[Install]
+	RequiredBy=k3s
+	RequiredBy=k3s-agent
+
+	[Mount]
+	What=/dev/sda1
+	Where=/var/lib/rancher/k3s
+	Options=subvol=/@k3s
+	Type=btrfs
+  cmd.run:
+    - name: systemctl daemon-reload
+    - onchanges:
+	- file: k3s.volume.mount
+  service.running:
+    - name: var-lib-rancher-k3s.mount
+</pre>
+</div>
+
+<p>
+The k3s state works as follows: it runs the installation script in server or agent mode depending if the pillar <code>k3s:server</code> entry matches with the node where the state is applied.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml">{%- set k3s_server = salt['pillar.get']('k3s:server') -%}
+{%- if grains['id'] == k3s_server %}
+{%- set k3s_role = 'server' -%}
+{%- set k3s_suffix = "" -%}
+{%- else %}
+{%- set k3s_role = 'agent' -%}
+{%- set k3s_suffix = '-agent' -%}
+{%- endif %}
+
+k3s.{{ k3s_role }}.install:
+  cmd.run:
+    - name: curl -sfL https://get.k3s.io | sh -s -
+    - env:
+	- INSTALL_K3S_TYPE: {{ k3s_role }}
+{%- if k3s_role == 'agent' %}
+	- K3S_URL: "https://{{ k3s_server }}:6443"
+{%- endif %}
+	- INSTALL_K3S_SKIP_ENABLE: "true"
+	- INSTALL_K3S_SKIP_START: "true"
+	- K3S_TOKEN: {{ salt['pillar.get']('k3s:token', {}) }}
+    - unless:
+	# Run install on these failed conditions
+	# No binary
+	- ls /usr/local/bin/k3s
+	# Token changed/missing
+	- grep '{{ salt['pillar.get']('k3s:token', {}) }}' /etc/systemd/system/k3s{{ k3s_suffix }}.service.env
+	# Changed/missing server
+{%- if k3s_role == 'agent' %}
+	- grep 'K3S_URL=https://{{ k3s_server }}:6443' /etc/systemd/system/k3s{{ k3s_suffix }}.service.env
+{%- endif %}
+    - require:
+	- service: k3s.volume.mount
+	- service: k3s.kubelet.volume.mount
+
+k3s.{{ k3s_role }}.running:
+  service.running:
+    - name: k3s{{ k3s_suffix }}
+    - enable: True
+    - require:
+      - cmd: k3s.{{ k3s_role }}.install
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-workloads" class="outline-2">
+<h2 id="workloads">Workloads</h2>
+<div class="outline-text-2">
+<p>
+The next step is to move workloads like <a href="https://www.home-assistant.io">homeassistant</a> into this setup.
+</p>
+
+<p>
+k3s allows to automatically deploy manifests located in <code>/var/lib/rancher/server/manifests</code>. We can deploy eg. mosquitto like the following:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml">homeassistant.mosquitto:
+  file.managed:
+    - name: /var/lib/rancher/k3s/server/manifests/mosquitto.yml
+    - source: salt://homeassistant/files/mosquitto.yml
+    - require:
+      - k3s.volume.mount
+</pre>
+</div>
+
+<p>
+With <code>mosquito.yml</code> being:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml">---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: homeassistant
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mosquitto
+  namespace: homeassistant
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mosquitto
+  template:
+    metadata:
+      labels:
+	app: mosquitto
+    spec:
+      containers:
+	- name: mosquitto
+	  image: docker.io/library/eclipse-mosquitto
+	  resources:
+	    requests:
+	      memory: "64Mi"
+	      cpu: "100m"
+	    limits:
+	      memory: "128Mi"
+	      cpu: "500m"
+	  ports:
+	  - containerPort: 1883
+	  imagePullPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mosquitto
+  namespace: homeassistant
+spec:
+  ports:
+  - name: mqtt
+    port: 1883
+    targetPort: 1883
+    protocol: TCP
+  selector:
+    app: mosquitto
+</pre>
+</div>
+
+<p>
+Homeassistant is no different, except that we use a <a href="https://kubernetes.io/docs/concepts/configuration/configmap/">ConfigMap</a> resource to store the configuration and define an <a href="https://docs.traefik.io/providers/kubernetes-ingress/">Ingress</a> resource to access it from the LAN:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml">---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: homeassistant
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: homeassistant-config
+  namespace: homeassistant
+data:
+  configuration.yaml: |
+    homeassistant:
+      auth_providers:
+	- type: homeassistant
+	- type: trusted_networks
+	  trusted_networks:
+	    - 192.168.178.0/24
+	    - 10.0.0.0/8
+	    - fd00::/8
+	  allow_bypass_login: true
+      name: Home
+      latitude: xx.xxxx
+      longitude: xx.xxxx
+      elevation: xxx
+      unit_system: metric
+      time_zone: Europe/Berlin
+    frontend:
+    config:
+    http:
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: homeassistant
+  namespace: homeassistant
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: homeassistant
+  template:
+    metadata:
+      labels:
+	app: homeassistant
+    spec:
+      containers:
+	- name: homeassistant
+	  image: homeassistant/raspberrypi3-64-homeassistant:stable
+	  volumeMounts:
+	    - name: config-volume-configuration
+	      mountPath: /config/configuration.yaml
+	      subPath: configuration.yaml
+	  livenessProbe:
+	    httpGet:
+	      scheme: HTTP
+	      path: /
+	      port: 8123
+	    initialDelaySeconds: 30
+	    timeoutSeconds: 30
+	  resources:
+	    requests:
+	      memory: "512Mi"
+	      cpu: "100m"
+	    limits:
+	      memory: "1024Mi"
+	      cpu: "500m"
+	  ports:
+	    - containerPort: 8123
+	      protocol: TCP
+	  imagePullPolicy: Always
+      volumes:
+	- name: config-volume-configuration
+	  configMap:
+	    name: homeassistant-config
+	    items:
+	    - key: configuration.yaml
+	      path: configuration.yaml
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: homeassistant
+  namespace: homeassistant
+spec:
+  selector:
+    app: homeassistant
+  ports:
+    - port: 8123
+      targetPort: 8123
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: homeassistant
+  namespace: homeassistant
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    traefik.frontend.rule.type: PathPrefixStrip
+spec:
+  rules:
+  - host: homeassistant.int.mydomain.com
+    http:
+      paths:
+      - path: /
+	backend:
+	  serviceName: homeassistant
+	  servicePort: 8123
+</pre>
+</div>
+
+<p>
+Setting up Ingress was the most time consuming part. It took me a while to figure out how it was supposed to work, and customizing the <a href="https://docs.traefik.io/">Treafik</a> Helm chart is not intuitive to me. While homeassistant was more straightforward as it is a simple HTTP behind SSL proxy service, the Kubernetes dashboard is already deployed with SSL inside the cluster. I am still figuring out how <code>ingress.kubernetes.io/protocol: https</code>, <code>traefik.ingress.kubernetes.io/pass-tls-cert: "true"</code> (oh, don&rsquo;t forget the quotes!) or <code>insecureSkipVerify</code> work toghether and what is the best way to expose it to the LAN.
+</p>
+
+<p>
+In a future post, I will describe the dashboards setup, and other improvements.
+</p>
+</div>
+</section>
+]]></description>
+    </item>
+    
+    <item>
+      <title>Migrating from Jekyll to org-mode and Github Actions</title>
+      <link>http://localhost:8000//posts/2019-09-03-migrating-from-jekyll-to-org/</link>
+      <author>root</author>
+      <guid isPermaLink="false">http://localhost:8000//posts/2019-09-03-migrating-from-jekyll-to-org/</guid>
+      <pubDate>Tue, 03 Sep 2019 00:00:00 +0000</pubDate>
+      <description><![CDATA[
+<section id="outline-container-introduction" class="outline-2">
+<h2 id="introduction">Introduction</h2>
+<div class="outline-text-2">
+<p>
+My <a href="http://mac-vicar.eu">website</a> has been generated until now by <a href="https://pages.github.com/">Github pages</a> using a static site generator tool called <a href="https://jekyllrb.com/">Jekyll</a> and the <a href="http://jekyllthemes.org/themes/lagom/">Lagom</a> theme.
+</p>
+</div>
+
+<div id="outline-container-github-pages" class="outline-3">
+<h3 id="github-pages">Github Pages</h3>
+<div class="outline-text-3">
+<p>
+Github Pages allows to host static sites in Github repositories for free. It is very simple, you would just put the website in a branch (eg. <code>gh-pages</code>) and Github will serve it as <i>username.github.io/repo</i>, or via a custom domain by adding a simple <i>CNAME</i> text file to the repository.
+</p>
+</div>
+</div>
+
+<div id="outline-container-static-site-generators" class="outline-3">
+<h3 id="static-site-generators">Static Site Generators</h3>
+<div class="outline-text-3">
+<p>
+If you did not want to write <i>HTML</i> directly, you could use a <a href="https://en.wikipedia.org/wiki/Web_template_system#Static_site_generators">static site generator</a> to keep a set of templates and content in the git repository and putting the output of the generator (the <i>HTML</i> files) into the <code>gh-pages</code> branch to be served by Github.
+</p>
+
+<p>
+In addition to be able to write the content in <a href="https://github.github.com/gfm/">Markdown</a>, site generators made much easier to maintain content like a blog, with features like different templates for posts, code syntax highlighting, drafts and support for themes, which allowed to change the look and feel of the site by just changing one configuration option and just re-generating it.
+</p>
+
+<p>
+If you wanted this process to be automatic, you could run the generation as part of some CI job (eg. with <a href="https://travis-ci.org/">TravisCI</a>), so that the site is re-generated when its sources are updated.
+</p>
+</div>
+</div>
+
+<div id="outline-container-jekyll-support-in-github-pages" class="outline-3">
+<h3 id="jekyll-support-in-github-pages">Jekyll support in Github Pages</h3>
+<div class="outline-text-3">
+<p>
+Jekyll is one of these site generators and it was the most popular for a while. The nice part was that if you used Jekyll, Github Pages will generate your website automatically, without having to setup CI. Just push your changes and a minute later your site was published.
+</p>
+
+<p>
+On the other hand, you were limited by using the Jekyll version that was installed at Github, and you could not just install any add-on that you wanted. You did not control the environment to the level you did in a typical CI.
+</p>
+</div>
+</div>
+</section>
+
+<section id="outline-container-moving-away-from-jekyll" class="outline-2">
+<h2 id="moving-away-from-jekyll">Moving away from Jekyll</h2>
+<div class="outline-text-2">
+<p>
+Jekyll just worked. I can&rsquo;t complain about it. However, I feel too tied to the Github Pages environment. You had to use a Jekyll version that was close to a year behind and live with the plugins that the environment supported, and nothing more.
+</p>
+
+<p>
+If I was to setup my own CI workflow to overcome this limitation, why keep using Jekyll?. <a href="https://gohugo.io/">Hugo</a> started to feel faster, easier to deploy locally and mostly compatible.
+</p>
+
+<p>
+I have been using Emacs for more than 10 years. 3 years ago, I switched mail clients from Thunderbird to <a href="https://www.djcbsoftware.nl/code/mu/mu4e.html">mu4e</a> on top of <a href="https://www.gnu.org/software/emacs/">Emacs</a>. Then I discovered <a href="https://orgmode.org/">org-mode</a> as a plain-text personal organization system and gradually started to live more time inside emacs. Microsoft did a so good job with <a href="https://code.visualstudio.com/">Visual Studio Code</a> that for a moment I thought I would not resist. However, Microsoft created an ecosystem by making the interaction with programming languages a standard, via the <a href="https://microsoft.github.io/language-server-protocol/">Language Server Protocol</a>, and <a href="https://github.com/emacs-lsp/lsp-mode">emacs-lsp</a> made my programming experience with emacs just better.
+</p>
+
+<p>
+I knew that <code>org-mode</code> was quite good at exporting. After I saw a couple of websites generated from org, I started to toy with the idea of using org too. It could also be a good chance to learn <a href="https://www.gnu.org/software/emacs/manual/eintr.html">Emacs Lisp</a> for real. So I started learning about org and websites.
+</p>
+</div>
+</section>
+
+<section id="outline-container-inspiration" class="outline-2">
+<h2 id="inspiration">Inspiration</h2>
+<div class="outline-text-2">
+<p>
+As I did not know where to start, I started by reading a lot of solutions by other people, documentation, posts, etc.
+</p>
+
+<p>
+Most of the structure of the final solution, its ideas, conventions, configuration and some snippets were taken from the following projects:
+</p>
+
+<ul class="org-ul">
+<li><a href="https://gitlab.com/to1ne/blog">Toon Claes&rsquo;s blog</a></li>
+<li>Example <a href="http://orgmode.org">org-mode</a> website using <a href="http://pages.gitlab.io/">GitLab Pages</a> by Rasmus</li>
+<li><a href="https://github.com/bastibe/org-static-blog">https://github.com/bastibe/org-static-blog</a></li>
+<li>The theme is a port of the original <a href="https://github.com/swanson/lagom">Lagom</a> theme I was using with Jekyll</li>
+</ul>
+</div>
+</section>
+
+<section id="outline-container-implementation" class="outline-2">
+<h2 id="implementation">Implementation</h2>
+<div class="outline-text-2" id="text-implementation">
+</div>
+<div id="outline-container-principles" class="outline-3">
+<h3 id="principles">Principles</h3>
+<div class="outline-text-3">
+<p>
+Once I had a clear picture of the domain, I made up my mind of how I wanted it and my own requirements:
+</p>
+
+<ul class="org-ul">
+<li>Use as much standard packages as possible. eg. <a href="https://orgmode.org/manual/Publishing.html">org-publish</a>. Avoid using <a href="https://melpa.org/#/?q=blog">&ldquo;frameworks&rdquo;</a> on top of emacs/org</li>
+<li>Links to old posts should still work (I had configured Jekyll to use <code>/year/month/day/post-name.html</code> )</li>
+<li>Initially, I thought about the ability to migrate content gradually, eg. supporting Markdown posts for a while</li>
+<li>Self contained. Everything should be in a single git repo, not interfering with my <code>emacs.d</code>.</li>
+<li>Ability to run it from the command line, so that <i>CI</i> could be used to automatically generate the site from <i>git</i></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-emacs-concepts-to-be-used" class="outline-3">
+<h3 id="emacs-concepts-to-be-used">Emacs concepts to be used</h3>
+<div class="outline-text-3">
+<p>
+There are a bunch of emacs concepts that help putting all the pieces together:
+</p>
+</div>
+
+<div id="outline-container-emacs-batch-mode" class="outline-4">
+<h4 id="emacs-batch-mode">Emacs batch mode</h4>
+<div class="outline-text-4">
+<p>
+While I could have most of the configuration in my <code>~/.emacs.d/init.el</code>, I wanted a self-contained solution, not depending on my personal emacs configuration being available.
+</p>
+
+<p>
+There are a bunch of <i>emacs</i> options that help achieving this:
+</p>
+
+<pre class="example" id="org4a6b7e4">
+$ emacs --help
+...
+--batch                     do not do interactive display; implies -q
+...
+--no-init-file, -q          load neither ~/.emacs nor default.el
+...
+--load, -l FILE         load Emacs Lisp FILE using the load function
+...
+--funcall, -f FUNC      call Emacs Lisp function FUNC with no arguments
+...
+</pre>
+
+<p>
+With these options, we can put all our configuration and helper functions in a <i>lisp</i> file, call emacs as a script engine, skip our personal configuration, have emacs load the file with the configuration, and call a function to run everything.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org-mode-export-ox" class="outline-4">
+<h4 id="org-mode-export-ox">org-mode Export (ox)</h4>
+<div class="outline-text-4">
+<p>
+<i>org-mode</i> includes an <a href="https://orgmode.org/manual/Exporting.html">Export subsystem</a> with several target formats (<i>ASCII</i>, <a href="https://en.wikipedia.org/wiki/Beamer_(LaTeX)"><i>beamer</i></a>, <i>HTML</i>, etc). Every backend/converter is a set of functions that take already parsed <i>org-mode</i> structures (eg. a list, a timestamp, a paragraph) and converts it to the target format. <a href="https://orgmode.org/worg/">Worg</a>, a section of the Org-mode web site that is written by a volunteer community of Org-mode fans, provide <a href="https://orgmode.org/worg/dev/org-export-reference.html">documentation on how to define an export backend</a> (<i>org-export-define-backend</i>). From here is important to understand <a href="https://orgmode.org/worg/dev/org-export-reference.html#filter-system">the filter system</a> and <i>org-export-define-derived-backend</i>, which allows to define a backend by overriding an existing one. This is what I will end using to tweak, for example, how timestamps are exported.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org-publish" class="outline-4">
+<h4 id="org-publish">org-publish</h4>
+<div class="outline-text-4">
+<p>
+<i>org-mode</i> includes a <a href="https://orgmode.org/manual/Publishing.html">publishing management system</a> that helps exporting a interlinked set of org files. There is a <a href="https://orgmode.org/worg/org-tutorials/org-publish-html-tutorial.html">nice tutorial</a> also available.
+</p>
+
+<p>
+Using <i>org-publish</i> boils down to defining a list of components (blog posts, assets, <i>RSS</i>), their options (base directory, target directory, includes/excludes, publishing function) being the <i>publishing function</i> one of the most interesting ones, as <i>org</i> comes with a few predefined ones eg. <i>org-html-publish-to-html</i> to publish <i>HTML</i> files and <i>org-publish-attachment</i> to publish static assets. The most important thing to learn here is that you can wrap those in your own to do additional stuff and customize publishing very easily. I use this for example, to skip draft posts or to write redirect files for certain posts in addition to the post itself.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-the-solution" class="outline-3">
+<h3 id="the-solution">The solution</h3>
+<div class="outline-text-3" id="text-the-solution">
+</div>
+<div id="outline-container-directory-structure" class="outline-4">
+<h4 id="directory-structure">Directory Structure</h4>
+<div class="outline-text-4">
+<pre class="example" id="orga07e5e8">
+├── CNAME
+├── css
+│   ├── index.css
+│   └── site.css
+├── index.org
+├── Makefile
+├── posts
+│   ├── 2019-10-31-some-post
+│   │   └── index.org
+│   ├── 2014-06-11-other-post
+│   │   ├── images
+│   │   │   ├── someimage.png
+│   │   │   └── another-image.png
+│   │   └── index.org
+│   ├── archive.org
+│   └── posts.org
+├── public
+├── publish.el
+├── README.org
+├── snippets
+│   ├── analytics.js
+│   ├── postamble.html
+│   └── preamble.html
+└── tutorials
+    └── how-to-something
+        └── index.org
+</pre>
+
+<p>
+Inside the directory tree, you can find:
+</p>
+
+<ul class="org-ul">
+<li>a <i>publish.el</i> file with the <i>org-publish</i> project description and all the support code and helper functions</li>
+<li>a <i>CNAME</i> file for telling <a href="https://help.github.com/en/articles/using-a-custom-domain-with-github-pages">Github Pages my domain name</a></li>
+<li>a folder with a <i>CSS</i> file for all the site. Another one that is included only on the index page</li>
+<li>a <i>Makefile</i> that just calls emacs with the parameters we described above and calls the function <i>duncan-publish-all</i></li>
+<li>a subdirectory for each post, and another one for tutorials</li>
+<li>a <i>public</i> directory where the output files are generated and the static assets copied</li>
+<li>a <i>snippets</i> directory with the preamble, postamble and Google analytics snippets</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-publish-el" class="outline-4">
+<h4 id="publish-el">publish.el</h4>
+<div class="outline-text-4">
+<p>
+The main file containing code and configuration includes a few custom publishing functions that are used as hooks for publishing and creating sitemaps.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org-publish-project" class="outline-4">
+<h4 id="org-publish-project">org-publish project</h4>
+<div class="outline-text-4">
+<p>
+The <i>org-publish</i> project (<i>org-publish-project-alist</i>) is defined in the variable <i>duncan&#x2013;publish-project-alist</i>, and defines the following components:
+</p>
+
+<ul class="org-ul">
+<li><p>
+<i>blog</i>
+</p>
+
+<p>
+This components reads all <i>org</i> files in the <code>./posts/</code> directory, and exports them to <i>HTML</i> using <i>duncan/org-html-publish-post-to-html</i> as the publishing function.
+</p>
+
+<p>
+This function injects the date as the page subtitle in the property list before delegating to the original function. This is a common pattern that you can use to override the publishing function. Note that <i>subtitle</i> is a recognized configuration property of the <i>HTML</i> export backend.
+</p></li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(<span class="org-keyword">defun</span> <span class="org-function-name">duncan/org-html-publish-post-to-html</span> (plist filename pub-dir)
+  <span class="org-doc">"Wraps org-html-publish-to-html.  Append post date as subtitle to PLIST.  FILENAME and PUB-DIR are passed."</span>
+  (<span class="org-keyword">let</span> ((project (cons 'blog plist)))
+    (plist-put plist <span class="org-builtin">:subtitle</span>
+               (format-time-string <span class="org-string">"%b %d, %Y"</span> (org-publish-find-date filename project)))
+    (duncan/org-html-publish-to-html plist filename pub-dir)))
+</pre>
+</div>
+
+<p>
+The function also checks the <code>#+REDIRECT_TO</code> property, and generates redirect pages accordingly, by spawning another export to a different path in the same <code>pub_dir</code>.
+</p>
+
+<p>
+This component is configured with a sitemap function which, even if goes through all posts, it is programmed to take only a few ones and write an <i>org</i> file with links to them. This file (<i>posts.org</i>) is then included in <i>index.org</i> and used as the list of recent posts.
+</p>
+
+<ul class="org-ul">
+<li><p>
+<i>archive-rss</i>
+</p>
+
+<p>
+This component also operates on <code>/.posts/</code>, but instead of generating HTML, it uses the <i>RSS</i> backend to generate the full site archive as <i>RSS</i>.
+</p>
+
+<p>
+The sitemap function is also configured, like in the <i>blog</i> component, but this function generates an org file with all posts, not just the latest ones. The <i>sitemap-format-entry</i> function is shared between the sitemaps functions, as the list of posts looks the same.
+</p></li>
+</ul>
+
+
+<figure id="org5fa4481">
+<img src="images/sitemap-function.png" alt="sitemap-function.png">
+
+</figure>
+
+<ul class="org-ul">
+<li><p>
+<i>site</i>
+</p>
+
+<p>
+The rest of the content of the site, including the <i>index.org</i> page and the generated <i>org</i> files for the archive (<i>archive.org</i>) and latest posts (<i>posts.org</i>).
+</p></li>
+
+<li><p>
+<i>assets</i>
+</p>
+
+<p>
+All files that are just copied over
+</p></li>
+
+<li><p>
+<i>tutorials</i>
+</p>
+
+<p>
+It works just like posts, but I setup each (don&rsquo;t expect to have many) to use the <a href="https://github.com/fniessen/org-html-themes">ReadTheOrg</a> theme. It uses the default <i>HTML</i> publishing function.
+</p></li>
+</ul>
+
+
+<figure id="orge8db44b">
+<img src="images/readtheorg.png" alt="readtheorg.png">
+
+</figure>
+</div>
+</div>
+
+<div id="outline-container-export-workflow" class="outline-4">
+<h4 id="export-workflow">Export workflow</h4>
+<div class="outline-text-4">
+
+<figure id="orga821eb2">
+<img src="images/publishing-function.png" alt="publishing-function.png">
+
+</figure>
+</div>
+</div>
+</div>
+
+<div id="outline-container-look-feel" class="outline-3">
+<h3 id="look-feel">Look &amp; Feel</h3>
+<div class="outline-text-3">
+<p>
+I managed to port most of the <i>Lagom</i> look and feel by starting a CSS from scratch (learned <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/grid">CSS Grid</a> in the process) and manually fixing each difference. I was quite satisfied with the final result. I had to use some extra page-specific CSS to hide the title in the front-page, or to <a href="https://emacs.stackexchange.com/questions/36898/proper-way-to-add-to-org-entities-user">display</a> <a href="https://fontawesome.com/">FontAwesome</a> icons.
+</p>
+</div>
+
+<div id="outline-container-before" class="outline-4">
+<h4 id="before">Before</h4>
+<div class="outline-text-4">
+
+<figure id="org6878e43">
+<img src="images/jekyll.png" alt="jekyll.png">
+
+</figure>
+</div>
+</div>
+
+<div id="outline-container-after" class="outline-4">
+<h4 id="after">After</h4>
+<div class="outline-text-4">
+
+<figure id="org63bdbd7">
+<img src="images/org.png" alt="org.png">
+
+</figure>
+</div>
+</div>
+</div>
+</section>
+
+<section id="outline-container-publishing" class="outline-2">
+<h2 id="publishing">Publishing</h2>
+<div class="outline-text-2">
+<p>
+While locally you can test by running <i>emacs</i> via the <i>Makefile</i>, I wanted a new way to run the generation on every git push:
+</p>
+
+<ul class="org-ul">
+<li>I started with <a href="https://travis-ci.com/">Travis</a>, but I could not find container jobs anymore. When I relalized that Ubuntu had an older Emacs version I just lost interest.</li>
+<li>Gitlab was easy to get working. Not only because is very simple and elegant, but some of the examples I took inspiration from where already using it, along the <a href="https://github.com/iquiw/docker-alpine-emacs">Emacs Alpine</a> container image. However, I did not want to have everything in Github, except my site</li>
+<li>Then I realized <a href="https://github.com/features/actions">Github Actions</a> was in beta, but I was not yet in. Until:</li>
+</ul>
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">You’re in 🥰</p>&mdash; Nat Friedman (@natfriedman) <a href="https://twitter.com/natfriedman/status/1165778104280707072?ref_src=twsrc%5Etfw">August 26, 2019</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div>
+
+<div id="outline-container-setting-up-a-workflow-to-build-the-site" class="outline-3">
+<h3 id="setting-up-a-workflow-to-build-the-site">Setting up a workflow to build the site</h3>
+<div class="outline-text-3">
+<p>
+While, on Linux, Github actions run on Ubuntu, they allow you to execute an action inside a container.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml">name: Build and publish to pages
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+      with:
+	fetch-depth: 1
+    - name: build
+      uses: docker://iquiw/alpine-emacs
+      if: github.event.deleted == false
+      with:
+	args: ./build.sh
+    - name: deploy
+      uses: peaceiris/actions-gh-pages@v3
+      if: success()
+      with:
+	github_token: ${{ secrets.GITHUB_TOKEN }}
+	publish_dir: ./public
+</pre>
+</div>
+
+<p>
+Combining <a href="https://github.com/actions/checkout">actions/checkout</a>, our own build script running as a container <a href="https://github.com/iquiw/docker-alpine-emacs">docker://iquiw/alpine-emacs</a> inside the <i>VM</i>, and <a href="https://github.com/peaceiris/actions-gh-pages">peaceiris/actions-gh-pages</a> we get the desired results.
+</p>
+
+<p>
+As a caveat, you need to setup a <i>personal access token</i> for the action, as the default one will not work and what gets pushed to the <i>gh-pages</i> will not show up in your website.
+</p>
+
+<p>
+The experience with Github Actions has been very positive. I will definitely replace most of my TravisCI usage in my repositories. Kudos to the Github team.
+</p>
+</div>
+</div>
+</section>
+
+<section id="outline-container-conclusions" class="outline-2">
+<h2 id="conclusions">Conclusions</h2>
+<div class="outline-text-2">
+<p>
+Not only I have a website powered by the tool I use daily, but it is also packed with awesome features. For example, the diagrams in this post are inlined as <a href="http://plantuml.com/">PlantUML</a> code in the <i>org</i> file and exported via <a href="https://orgmode.org/worg/org-contrib/babel/intro.html">Org Babel</a>.
+</p>
+
+<p>
+It also gave me project to learn <i>Emacs Lisp</i>. I do plan to add some minor features, like blog tags or categories and perhaps commenting. The learning will also benefit personalizing my editor and mail client.
+</p>
+
+<p>
+The source of this site is available <a href="https://github.com/dmacvicar/site.org">on <i aria-hidden='true' class='fa fa-github'></i> Github</a>.
+</p>
+</div>
+</section>
+]]></description>
+    </item>
+    
+    <item>
+      <title>Building Docker images with plain Salt</title>
+      <link>http://localhost:8000//posts/2016-07-11-building-docker-images-with-plain-salt/</link>
+      <author>root</author>
+      <guid isPermaLink="false">http://localhost:8000//posts/2016-07-11-building-docker-images-with-plain-salt/</guid>
+      <pubDate>Mon, 11 Jul 2016 00:00:00 +0000</pubDate>
+      <description><![CDATA[<p>
+So <a href="https://hackweek.suse.com/">Hackweek 14</a> is over. It started during the <a href="https://events.opensuse.org/conference/oSC16">openSUSE Conference 2016</a> on Friday June 24 and continued all over the following week.
+</p>
+
+<p>
+I had worked on <a href="../2016-06-09-config-drift-salt-snapper/index.html">integrating snapshots with Salt</a> with <a href="https://github.com/meaksh">Pablo</a> just some weeks before that and I was waiting for the openSUSE Conference to get the chance to show <a href="https://twitter.com/thatch45">Thomas</a> what we had done in order to get feedback and figure out next steps.
+</p>
+
+<p>
+A few days before the Conference Redhat <a href="https://www.redhat.com/en/about/press-releases/red-hat-launches-ansible-native-container-workflow-project">did a press release</a> that caught my attention: a framework to build container images with <a href="https://www.ansible.com">Ansible</a>. Yes, that makes a lot of sense. My head started immediately to think all day long about the challenges to build something like that: Installing the configuration management tool without leaving it there, etc. I got curious and started poking at the README.
+</p>
+
+<p>
+On one hand, it was not what I was expecting (well, at least, for a Press Release or Tech Preview). It still &ldquo;generated&rdquo; Dockerfiles, relied on Ansible to be installed in some way, wich was &ldquo;templated&rdquo; into Dockerfiles, and it was of course a new tool.
+</p>
+
+<p>
+On the other hand, it was pure inspiration: I remembered why I like Salt so much. I knew that with Salt <a href="../2016-05-18-using-salt-like-ansible/index.html">I wouldn&rsquo;t need to build a &ldquo;new tool&rdquo;</a>. I&rsquo;d only need to write a module and connect some pieces, and that makes my feature distributed, accessible, deployable, etc. I&rsquo;d not need to interact with Docker directly, but only with the <a href="https://docs.saltstack.com/en/latest/ref/modules/all/salt.modules.dockerng.html">Salt execution module</a> for it. The best part: I had a Hackweek project!.
+</p>
+
+<p>
+I used the chance that <a href="https://twitter.com/thatch45">Thomas</a> was at the openSUSE Conference to ask him some details about <code>salt-thin</code> and explain him rough ideas.
+</p>
+
+<p>
+The feature went more or less like expected:
+</p>
+
+<ul class="org-ul">
+<li>A Docker image is basically another image, modified.</li>
+<li>The problem can be reduced to run a Salt state run inside of the container, modulo problems.
+
+<ul class="org-ul">
+<li>The image does not have Salt.</li>
+<li>After the State run, we can&rsquo;t leave Salt there.</li>
+<li>The container does not have connectivity with the Salt master.</li>
+<li>Pillars may be templated against grains which come from the
+container.</li>
+</ul></li>
+</ul>
+
+
+<figure id="org4e284d4">
+<img src="images/diagram-short.png" alt="Diagram">
+
+</figure>
+
+<p>
+After tackling the problems one by one, you can factor some stuff out:
+</p>
+
+<ul class="org-ul">
+<li>If <code>dockerng.build_sls</code> needs to apply state on a new container and commit it, why not allow to call state on a running container?.
+<code>dockerng.sls</code> was born.</li>
+<li>If we are going to call <code>state.sls</code> and <code>grains.items</code> on the container, why not allow to call <i>any</i> module in a container?. <code>dockerng.call</code> was born.</li>
+</ul>
+
+<p>
+On Friday I was able to give the following Lightning Talk:
+</p>
+
+<p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/2znjgf9Q7J0" frameborder="0" allowfullscreen></iframe>
+</p>
+
+<p>
+The result is:
+</p>
+
+<ul class="org-ul">
+<li>You can build images using your own <code>salt://</code> tree modules only needing Python on the base image. And yes, you can consume pillar data.</li>
+<li>You can execute modules on containers. Which will be interesting to see how it can be used for auditing (eg. <a href="https://github.com/HubbleStack">HubbleStack</a>).</li>
+</ul>
+
+<p>
+I prepared a <a href="https://github.com/saltstack/salt/pull/34484">pull request</a>, which had the best reception I ever got on a pull request:
+</p>
+
+
+<figure id="org4cef417">
+<img src="images/awesome.png" alt="Awesome">
+
+</figure>
+
+<p>
+There are some details to polish and I hope it can be merged soon.
+</p>
+]]></description>
+    </item>
+    
+    <item>
+      <title>Managing configuration drift with Salt and Snapper</title>
+      <link>http://localhost:8000//posts/2016-06-09-config-drift-salt-snapper/</link>
+      <author>root</author>
+      <guid isPermaLink="false">http://localhost:8000//posts/2016-06-09-config-drift-salt-snapper/</guid>
+      <pubDate>Thu, 09 Jun 2016 00:00:00 +0000</pubDate>
+      <description><![CDATA[
+<div id="outline-container-introduction" class="outline-3">
+<h3 id="introduction">Introduction</h3>
+<div class="outline-text-3" id="text-introduction">
+<p>
+Many configuration management tools originate in the DevOps space and become immensely popular and while they do manage configuration, they are tailored towards deployment of new servers using this configuration and not towards auditing of existing servers.
+</p>
+
+<p>
+For example, lets imagine a server with the following state:
+</p>
+
+<pre class="example" id="org353d60c">
+/etc/motd:
+  file.managed:
+    - source: salt://common/motd
+</pre>
+
+<p>
+If we apply this state (in <code>test</code> mode) on a non-compliant server:
+</p>
+
+<pre class="example" id="org829439b">
+$ salt minion1 state.apply test=True
+minion1:
+----------
+          ID: /etc/motd
+    Function: file.managed
+      Result: None
+     Comment: The file /etc/motd is set to be changed
+     Started: 10:06:05.021643
+    Duration: 30.339 ms
+     Changes:
+              ----------
+              diff:
+                  ---
+                  +++
+                  @@ -1 +1 @@
+                  -Have a lot of fun...
+                  +This is my managed motd
+
+Summary for minion1
+------------
+Succeeded: 1 (unchanged=1, changed=1)
+Failed:    0
+------------
+Total states run:     1
+</pre>
+
+<p>
+Salt is able to tell us that there is a file that deviates from the configuration. And we can easily fix it by just removing <code>test=True</code>.
+</p>
+
+<p>
+Now, lets say an intruder adds a malicious entry to <code>/etc/hosts</code>:
+</p>
+
+<pre class="example" id="orgb8f5701">
+192.168.1.34    www.google.com
+</pre>
+
+<p>
+If we re run our state in test mode:
+</p>
+
+<pre class="example" id="org34dfe95">
+$ salt minion1 state.apply test=True
+minion1:
+----------
+          ID: /etc/motd
+    Function: file.managed
+      Result: None
+     Comment: The file /etc/motd is set to be changed
+     Started: 10:12:11.518105
+    Duration: 29.479 ms
+     Changes:
+              ----------
+              diff:
+                  ---
+                  +++
+                  @@ -1 +1 @@
+                  -Have a lot of fun...
+                  +This is my managed motd
+
+Summary for minion1
+------------
+Succeeded: 1 (unchanged=1, changed=1)
+Failed:    0
+------------
+Total states run:     1
+</pre>
+
+<p>
+As expected, it did not find anything, because this rule is not in the configuration.
+</p>
+</div>
+</div>
+
+<div id="outline-container-creating-new-systems-vs-auditing-existing-systems" class="outline-3">
+<h3 id="creating-new-systems-vs-auditing-existing-systems">Creating new systems vs auditing existing systems</h3>
+<div class="outline-text-3" id="text-creating-new-systems-vs-auditing-existing-systems">
+<p>
+This model works fine in the DevOps world where the culture is to take a random Linux image from the internet and use it as a base to deploy systems from scratch. As long as all tests pass, replacing the underlying image is not a problem. Only what is explicitly defined is evaluated against the configuration and defined as a drift.
+</p>
+
+<p>
+When meeting enterprise customers who are starting to use configuration management to improve the control on their infrastructure, it turns out their expectations where different. &ldquo;If I use Salt, will it tell me when somebody makes a change to the system?&rdquo;. &ldquo;Ugh.. no&#x2026; well depends&#x2026;&rdquo;.
+</p>
+</div>
+</div>
+
+<div id="outline-container-baselines" class="outline-3">
+<h3 id="baselines">Baselines</h3>
+<div class="outline-text-3" id="text-baselines">
+<p>
+That was the point that I started to think about - how could we use the state system to do more generic auditing and how do you do it without ruining the experience of working with states? Then it all clicked &#x2013; implicit state can be done explicitly by using another state. When the customer said “any change”, they were in reality saying &ldquo;any change against my defined configuration&rdquo; plus &ldquo;any change since my last working configuration&rdquo;.
+</p>
+
+<p>
+So, we needed a way to manage &ldquo;last working configuration&rdquo; and turns out SUSE is where <a href="http://snapper.io">Snapper</a> originated and Snapper is nowadays available with most Linux distributions.
+</p>
+
+<p>
+Snapper is a set of tools over snapshots (mostly btrfs, but also works on others like ext4 if you have the required kernel/tool patches). Think of it of what docker did to containers, snapper does to snapshots. It adds the required workflows, terminology and tools to make them usable.
+</p>
+
+<p>
+It also turns out that my system already has some snapshots, because just like I can manually take one, tools like YaST and zypper take snapshots before and after doing operations. You can even select previous snapshots from the bootloader and boot into the previous working system.
+</p>
+
+<p>
+What if I could describe a state in Salt that said: &ldquo;Nothing deviates from this snapshots, except&#x2026;.&rdquo;.
+</p>
+</div>
+</div>
+
+<div id="outline-container-lets-do-it" class="outline-3">
+<h3 id="lets-do-it">Let&rsquo;s do it</h3>
+<div class="outline-text-3" id="text-lets-do-it">
+<p>
+So during this year Department workshop I paired with <a href="https://github.com/meaksh">Pablo</a> and our project had the following steps:
+</p>
+
+<ul class="org-ul">
+<li>Complete the Salt execution module to expose the basic snapper operations you can do from the command line. Example:</li>
+</ul>
+
+<pre class="example" id="org43dc819">
+salt minion1 snapper.create_snapshot
+</pre>
+
+<ul class="org-ul">
+<li>Create a generic way for sysadmins to do Salt operations which can be reverted. We implemented this as a meta-call (a call taking another call as a parameter) <code>snapper.run</code>. So you can do something like:</li>
+</ul>
+
+<pre class="example" id="org565a8d1">
+$ salt minion2 snapper.run function=file.append args='["/etc/motd", "some text"]'
+minion2:
+    Wrote 1 lines to "/etc/motd"
+</pre>
+
+<p>
+This will generate a snapshot before running the command, run the command and then take a snapshot afterwards, also adding metadata about the Salt job that did the change:
+</p>
+
+<pre class="example" id="orga065f22">
+...
+pre    | 21 |       | Thu Jun  9 10:34:36 2016 | root | number  | salt job 20160609103437556668 | salt_jid=20160609103437556668
+post   | 22 | 21    | Thu Jun  9 10:34:37 2016 | root | number  | salt job 20160609103437556668 | salt_jid=20160609103437556668
+</pre>
+
+<p>
+Because in Salt, state is implemented as a method <code>state.apply</code> or <code>state.highstate</code>, calling <code>snapper.run function=state.apply</code> means you can rollback a failed <code>state.apply</code>.
+</p>
+
+<p>
+And of course we not only exposed <code>snapper.diff</code> which takes the snapshot number but also a <code>snapper.diff_jid</code> which tells you what a Salt job changed:
+</p>
+
+<pre class="example" id="org09db7ff">
+$ salt minion2 snapper.diff_jid 20160609103437556668
+minion2:
+    ----------
+    /etc/motd:
+        --- /.snapshots/21/snapshot/etc/motd
+        +++ /.snapshots/22/snapshot/etc/motd
+        @@ -1 +1,2 @@
+         Have a lot of fun...
+        +some text
+</pre>
+
+<p>
+Additionally, you get <code>snapper.undo_jid</code> which you can guess what it does: it undoes the changes done by a specific salt job (which of course could be a <code>state.apply</code> run).
+</p>
+
+<ul class="org-ul">
+<li>And finally, allowing a system administrator to use snapshots as a baseline to apply state. Lets take the original example with the malicious user modifying `/etc/hosts&rsquo;, we will add a snapper state rule:</li>
+</ul>
+
+<pre class="example" id="org01cf85f">
+my_baseline:
+  snapper.baseline_snapshot:
+    - number: 20
+    - ignore:
+      - /var/log
+      - /var/cache
+
+/etc/motd:
+  file.managed:
+      - source: salt://common/motd
+</pre>
+
+<p>
+Now we apply the state in test mode again:
+</p>
+
+<pre class="example" id="org0bf6053">
+$ salt minion1 state.apply test=True
+minion1:
+----------
+          ID: my_baseline
+    Function: snapper.baseline_snapshot
+      Result: None
+     Comment: 1 files changes are set to be undone
+     Started: 12:20:24.899848
+    Duration: 1051.996 ms
+     Changes:
+              ----------
+              files:
+                  ----------
+                  /etc/hosts:
+                      ----------
+                      actions:
+                          - modified
+                      comment:
+                          text file
+                      diff:
+                          --- /etc/hosts
+                          +++ /.snapshots/21/snapshot/etc/hosts
+                          @@ -22,5 +22,3 @@
+                           ff02::3         ipv6-allhosts
+
+
+                          -192.168.1.34    www.google.com
+                          -
+----------
+          ID: /etc/motd
+    Function: file.managed
+      Result: None
+     Comment: The file /etc/motd is set to be changed
+     Started: 12:20:25.953348
+    Duration: 20.425 ms
+     Changes:
+              ----------
+              diff:
+                  ---
+                  +++
+                  @@ -1 +1 @@
+                  -Have a lot of fun...
+                  +This is my managed motd
+
+Summary for minion1
+------------
+Succeeded: 2 (unchanged=2, changed=2)
+Failed:    0
+------------
+Total states run:     2
+</pre>
+
+<p>
+Exactly what we expect!.
+</p>
+</div>
+</div>
+
+<section id="outline-container-conclusions" class="outline-2">
+<h2 id="conclusions">Conclusions</h2>
+<div class="outline-text-2" id="text-conclusions">
+<p>
+So with this you can use your configuration management to manage your state against a defined state and on top of that we give you the tooling to inspect and rollback configuration changes.
+</p>
+
+<p>
+We will continue adding the missing pieces to give the administrators full overview and control over their running systems.
+</p>
+
+<p>
+You can find our current work <a href="https://github.com/SUSE/salt-snapper-module">in this github repository</a>. We plan of course to send it upstream once the design and implementation settles down.
+</p>
+</div>
+</section>
+]]></description>
+    </item>
+    
+    <item>
+      <title>Using Salt like Ansible</title>
+      <link>http://localhost:8000//posts/2016-05-18-using-salt-like-ansible/</link>
+      <author>root</author>
+      <guid isPermaLink="false">http://localhost:8000//posts/2016-05-18-using-salt-like-ansible/</guid>
+      <pubDate>Wed, 18 May 2016 00:00:00 +0000</pubDate>
+      <description><![CDATA[
+<section id="outline-container-introduction" class="outline-2">
+<h2 id="introduction">Introduction</h2>
+<div class="outline-text-2" id="text-introduction">
+<p>
+When we were looking for a configuration management engine to integrate with SUSE Manager, we discussed <a href="https://www.ansible.com/">Ansible</a> with some colleagues that were familiar with it.
+</p>
+
+<p>
+At the end, we ended <a href="../2016-03-16-susemanager-3-backstage/index.html">choosing Salt for SUSE Manager 3</a>, but I still often get the question &ldquo;Why not Ansible?&rdquo;.
+</p>
+
+<p>
+The first part of the answer had to do that the master-minion architecture of Salt results in a bunch of interesting features and synergies with the way SUSE Manager operates: real-time management, event-bus, etc. Salt is much more of a framework than a simple &ldquo;command line tool&rdquo;. The minion/master pair is one of the tools built over that framework, but not the only one.
+</p>
+
+
+<figure id="org6468a17">
+<img src="images/salt-0mq.png" alt="salt-0mq.png">
+
+</figure>
+
+<p>
+For example, you can create more scalable topoligies using the concept of syndics:
+</p>
+
+
+<figure id="org26068f0">
+<img src="images/salt-syndic.png" alt="salt-syndic.png">
+
+</figure>
+
+<p>
+Or manage dumb devices with the concept of Salt proxies:
+</p>
+
+
+<figure id="orga4c8905">
+<img src="images/salt-proxy.png" alt="salt-proxy.png">
+
+</figure>
+
+<p>
+It is <a href="https://docs.saltstack.com/en/getstarted/">worth to learn the whole framework</a>.
+</p>
+
+<p>
+However, for a small DevOp team collaborating via git, the model of running Ansible from their workstations to a bunch of nodes defined in a text file is very attractive, and gives you a nice way to learn and experiment with it.
+</p>
+
+<p>
+The second part of the answer is: Salt allows you to do this too. It is called <code>salt-ssh</code>. So lets take <a href="https://serversforhackers.com/an-ansible-tutorial">this Ansible tutorial</a> and show how you would do the same with <code>salt-ssh</code>.
+</p>
+</div>
+</section>
+
+<section id="outline-container-install" class="outline-2">
+<h2 id="install">Install</h2>
+<div class="outline-text-2" id="text-install">
+<blockquote>
+<p>
+This means there&rsquo;s usually a &ldquo;central&rdquo; server running Ansible commands, although there&rsquo;s nothing particularly special about what server Ansible is installed on. Ansible is &ldquo;agentless&rdquo; - there&rsquo;s no central agent(s) running. We can even run Ansible from any server; I often run Tasks from my laptop.
+</p>
+</blockquote>
+
+<p>
+The salt package is made of various components, among others:
+</p>
+
+<ul class="org-ul">
+<li><code>salt</code>: the framework, libraries, modules, etc.</li>
+<li><code>salt-minion</code>: the minion daemon, runs on the managed hosts.</li>
+<li><code>salt-master</code>: the master daemon, runs on the management server.</li>
+<li><code>salt-ssh</code>: a tool to manage servers over ssh.</li>
+</ul>
+
+<p>
+If you want to run Salt like Ansible, you only need to install <code>salt-ssh</code> in your machine (the machine where you want to run tasks from).
+</p>
+
+<p>
+<i>You don&rsquo;t need anything else than Python on the hosts you will manage.</i>
+</p>
+
+<blockquote>
+<p>
+Well, there are a couple of other <a href="https://bugzilla.suse.com/show_bug.cgi?id=1057772">packages required</a>
+</p>
+
+<pre class="example" id="org80c315d">
+ssh $HOST zypper -n install python-pyOpenSSL python-xml
+</pre>
+</blockquote>
+
+<p>
+Salt is available out of the box on <a href="https://www.opensuse.org/">openSUSE Leap and Tumbleweed</a> so if you are using them just type:
+</p>
+
+<pre class="example" id="org8c4c210">
+zypper in salt-ssh
+</pre>
+
+<p>
+For other platforms, please refer to the <a href="https://docs.saltstack.com/en/latest/topics/installation/">install section of the Salt documentation</a>.
+</p>
+</div>
+
+<div id="outline-container-self-contained-setup" class="outline-3">
+<h3 id="self-contained-setup">Self contained setup</h3>
+<div class="outline-text-3" id="text-self-contained-setup">
+<p>
+It is common to put all the project in a single folder. In Ansible you can put the <code>hosts</code> file in a folder, and the playbooks in a subfolder. To accomplish this with <code>salt-ssh</code>.
+</p>
+
+<ul class="org-ul">
+<li>Create a folder for your project, eg: <code>~/Project</code>.</li>
+<li>Create a file named <code>Saltfile</code> in your <code>~/Project</code>.</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-yaml">salt-ssh:
+    config_dir: etc/salt
+    max_procs: 30
+    wipe_ssh: True
+</pre>
+</div>
+
+<p>
+Here we tell Salt that the configuration directory is now relative to the folder. You can name it as you want, but I prefer myself to stick to the same conventions, so <code>/etc/salt</code> becomes <code>~/Project/etc/salt</code>.
+</p>
+
+<p>
+Then create <code>~/Project/etc/salt/master</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml">root_dir: .
+file_roots:
+  base:
+    - srv/salt
+pillar_roots:
+  base:
+    - srv/pillar
+</pre>
+</div>
+
+<p>
+And create both trees:
+</p>
+
+<pre class="example" id="org8f1d4da">
+mkdir -p srv/salt
+mkdir -p srv/pillar
+</pre>
+
+<p>
+Salt will also create a <code>var</code> directory for the cache inside the project tree, unless you chose a different path. What I do is to put <code>var</code> inside <code>.gitignore</code>.
+</p>
+</div>
+</div>
+</section>
+
+<section id="outline-container-managing-servers" class="outline-2">
+<h2 id="managing-servers">Managing servers</h2>
+<div class="outline-text-2" id="text-managing-servers">
+<blockquote>
+<p>
+Ansible has a default inventory file used to define which servers it will be managing. After installation, there&rsquo;s an example one you can reference at /etc/ansible/hosts.
+</p>
+</blockquote>
+
+<p>
+The equivalent file in <code>salt-ssh</code> is <a href="https://docs.saltstack.com/en/latest/topics/ssh/roster.html"><code>/etc/salt/roster</code></a>.
+</p>
+
+<blockquote>
+<p>
+That&rsquo;s good enough for now. If needed, we can define ranges of hosts, multiple groups, reusable variables, and use <a href="http://docs.ansible.com/intro_inventory.html">other fancy setups</a>, including <a href="http://docs.ansible.com/intro_dynamic_inventory.html">creating a dynamic inventory</a>.
+</p>
+</blockquote>
+
+<p>
+Salt can also provide the roster with <a href="https://docs.saltstack.com/en/latest/ref/roster/all/index.html#all-salt-roster">custom modules</a>. Funnily enough, <a href="https://docs.saltstack.com/en/latest/ref/roster/all/salt.roster.ansible.html#module-salt.roster.ansible"><code>ansible</code></a> is one of them.
+</p>
+
+<p>
+As I am using a self-contained setup, I create <code>~/Project/etc/salt/roster</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml">node1:
+  host: node1.example.com
+node2:
+  host: node2.example.com
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-basic-running-commands" class="outline-2">
+<h2 id="basic-running-commands">Basic: Running Commands</h2>
+<div class="outline-text-2" id="text-basic-running-commands">
+<blockquote>
+<p>
+Ansible will assume you have SSH access available to your servers, usually based on SSH-Key. Because Ansible uses SSH, the server it&rsquo;s on needs to be able to SSH into the inventory servers. It will attempt to connect as the current user it is being run as. If I&rsquo;m running Ansible as user vagrant, it will attempt to connect as user vagrant on the other servers.
+</p>
+</blockquote>
+
+<p>
+<code>salt-ssh</code> is not very different here. Either you already have access to the server, otherwise it will optionally ask you for the password and deploy the generated key-pair <code>etc/salt/pki/master/ssh/salt-ssh.rsa.pub</code> to the host so that you have access to it in the future.
+</p>
+
+<p>
+So, in the Ansible tutorial, you did:
+</p>
+
+<pre class="example" id="orge3727f0">
+$ ansible all -m ping
+127.0.0.1 | success &gt;&gt; {
+    "changed": false,
+    "ping": "pong"
+}
+</pre>
+
+<p>
+The equivalent in <code>salt-ssh</code> would be:
+</p>
+
+<pre class="example" id="org9c9b8e2">
+salt-ssh '*' test.ping
+node1:
+    True
+node2:
+    True
+</pre>
+
+<p>
+Just like the Ansible tutorial covers, <code>salt-ssh</code> also has options to change the user, output, roster, etc. Refer to <code>man salt-ssh</code> for details.
+</p>
+</div>
+</section>
+
+<section id="outline-container-modules" class="outline-2">
+<h2 id="modules">Modules</h2>
+<div class="outline-text-2" id="text-modules">
+<blockquote>
+<p>
+Ansible uses &ldquo;modules&rdquo; to accomplish most of its Tasks. Modules can do things like install software, copy files, use templates and much more.
+</p>
+
+<p>
+If we didn&rsquo;t have modules, we&rsquo;d be left running arbitrary shell commands like this:
+</p>
+</blockquote>
+
+<pre class="example" id="orgeedc6a1">
+ansible all -s -m shell -a 'apt-get install nginx'
+</pre>
+
+<blockquote>
+<p>
+However this isn&rsquo;t particularly powerful. While it&rsquo;s handy to be able to run these commands on all of our servers at once, we still only accomplish what any bash script might do.
+</p>
+
+<p>
+If we used a more appropriate module instead, we can run commands with an assurance of the result. Ansible modules ensure indempotence - we can run the same Tasks over and over without affecting the final result.
+</p>
+
+<p>
+For installing software on Debian/Ubuntu servers, the &ldquo;apt&rdquo; module will run the same command, but ensure idempotence.
+</p>
+</blockquote>
+
+<pre class="example" id="org00110cf">
+ansible all -s -m apt -a 'pkg=nginx state=installed update_cache=true'
+127.0.0.1 | success &gt;&gt; {
+    "changed": false
+}
+</pre>
+
+<p>
+The equivalent in Salt is also called &ldquo;modules&rdquo;. There are two types of modules: <a href="https://docs.saltstack.com/en/latest/ref/modules/">Execution modules</a> and <a href="https://docs.saltstack.com/en/latest/ref/states/writing.html">State modules</a>. Execution modules are <i>imperative actions</i> (think of <i>install!</i>). State modules are used to build idempotent declarative state (think of <i>installed</i>).
+</p>
+
+<p>
+There are two execution modules worth to mention:
+</p>
+
+<ul class="org-ul">
+<li>The <code>cmd</code> module, which you can use to run shell commands when you want to accomplish something that is not provided by a built-in execution module. Taking the example above:</li>
+</ul>
+
+<pre class="example" id="org277ac1b">
+salt-ssh '*' cmd.run 'apt-get install nginx'
+</pre>
+
+<ul class="org-ul">
+<li>The <code>state</code> module, which is the execution module that allows to apply state modules and more complex composition of states, known as <code>sls</code> files.</li>
+</ul>
+
+<pre class="example" id="orgaa55304">
+salt-ssh '*' pkg.install nginx
+</pre>
+
+<p>
+You don&rsquo;t need to use the <code>apt</code> module, as it implements the virtual <code>pkg</code> module. So you can use the same module on every platform.
+</p>
+
+<p>
+On Salt you would normally use the non-idempotent execution modules from the command line and use the idempotent state module in <code>sls</code> files (equivalent to Ansible&rsquo;s playbooks).
+</p>
+
+<p>
+If you still want to apply state data like ansible does it:
+</p>
+
+<pre class="example" id="orgd3eeaeb">
+salt-ssh '*' state.high '{"nginx": {"pkg": ["installed"]}}'
+</pre>
+</div>
+</section>
+
+<section id="outline-container-basic-playbook" class="outline-2">
+<h2 id="basic-playbook">Basic Playbook</h2>
+<div class="outline-text-2" id="text-basic-playbook">
+<blockquote>
+<p>
+<a href="http://docs.ansible.com/playbooks_intro.html">Playbooks</a> can run multiple Tasks and provide some more advanced functionality that we would miss out on using ad-hoc commands. Let&rsquo;s move the above Task into a playbook.
+</p>
+</blockquote>
+
+<p>
+The equivalent in Salt is found in <a href="https://docs.saltstack.com/en/latest/topics/tutorials/starting_states.html">states</a>.
+</p>
+
+<p>
+Create <code>srv/salt/nginx/init.sls</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml">nginx:
+  pkg.installed
+</pre>
+</div>
+
+<p>
+To apply this state, you can create a <a href="https://docs.saltstack.com/en/latest/ref/states/top.html"><code>top.sls</code></a> and place it in <code>srv/salt</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml">base:
+  `*`:
+    - nginx
+</pre>
+</div>
+
+<p>
+This means, all hosts should get that state. You can do very <a href="https://docs.saltstack.com/en/latest/ref/states/top.html#advanced-minion-targeting">advanced targetting of minions</a>. When you write a top, you are defining what it will be the <code>highstate</code> of a host.
+</p>
+
+<p>
+So when you run:
+</p>
+
+<pre class="example" id="orgac57227">
+salt-ssh '*' state.apply
+</pre>
+
+<p>
+You are applying the highstate on all hosts, but the highstate of each host is different for each one of them. With the salt-ssh command you are defining which hosts are getting their configuration applied. <i>Which</i> configuration is applied is defined by the <code>top.sls</code> file.
+</p>
+
+<p>
+You can as well apply a specific state, even if that state does not form part of the host highstate:
+</p>
+
+<pre class="example" id="org57ccc1f">
+salt-ssh '*' state.apply nginx
+</pre>
+
+<p>
+Or as we showed above, you can use <code>state.high</code> to apply arbitrary state data.
+</p>
+</div>
+</section>
+
+<section id="outline-container-handlers" class="outline-2">
+<h2 id="handlers">Handlers</h2>
+<div class="outline-text-2" id="text-handlers">
+<p>
+Salt has a similar concept called <a href="https://docs.saltstack.com/en/latest/topics/reactor/">events and reactors</a> which allow you to define a fully reactive infrastructure.
+</p>
+
+<p>
+For the example given here, a simple state <a href="https://docs.saltstack.com/en/latest/ref/states/requisites.html#watch"><code>watch</code> </a><a href="https://docs.saltstack.com/en/latest/ref/states/requisites.html">argument</a> will suffice:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml">nginx:
+  pkg.installed: []
+  service.running:
+    - watch: pkg: nginx
+</pre>
+</div>
+
+<p>
+Note:
+</p>
+
+<p>
+The full syntax is:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml">someid:
+  pkg.installed:
+    name: foo
+</pre>
+</div>
+
+<p>
+But if <code>name</code> is missing, <code>someid</code> is used, so you can write:
+</p>
+
+<p>
+#+BEGIN_SRC yaml
+  foo:
+    pkg.installed
+#+END_END
+</p>
+</div>
+</section>
+
+<section id="outline-container-more-tasks" class="outline-2">
+<h2 id="more-tasks">More Tasks</h2>
+<div class="outline-text-2" id="text-more-tasks">
+<p>
+Looking at the given Ansible example:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml">{% raw %}
+---
+- hosts: local
+  vars:
+   - docroot: /var/www/serversforhackers.com/public
+  tasks:
+   - name: Add Nginx Repository
+     apt_repository: repo='ppa:nginx/stable' state=present
+     register: ppastable
+
+   - name: Install Nginx
+     apt: pkg=nginx state=installed update_cache=true
+     when: ppastable|success
+     register: nginxinstalled
+     notify:
+      - Start Nginx
+
+   - name: Create Web Root
+     when: nginxinstalled|success
+     file: dest={{ docroot }} mode=775 state=directory owner=www-data group=www-data
+     notify:
+      - Reload Nginx
+
+  handlers:
+   - name: Start Nginx
+     service: name=nginx state=started
+
+    - name: Reload Nginx
+      service: name=nginx state=reloaded
+{% endraw %}
+
+</pre>
+</div>
+
+<p>
+You can see that Ansible has a way to specify variables. Salt has the concept of <a href="https://docs.saltstack.com/en/latest/topics/tutorials/pillar.html">pillar</a> which allows you to define data and then make that data visible to hosts using a <code>top.sls</code> matching just like with the states. Pillar data is data defined on the &ldquo;server&rdquo; (there is a equivalent <a href="https://docs.saltstack.com/en/latest/topics/targeting/grains.html">grains</a> for data defined in the client).
+</p>
+
+<p>
+Edit <code>srv/pillar/paths.sls</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml">{% raw %}
+docroot: /var/www/serversforhackers.com/public
+{% endraw %}
+</pre>
+</div>
+
+<p>
+Edit <code>srv/pillar/top.sls</code> and define who will see this pillar (in this case, all hosts):
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml">base:
+  '*':
+    - paths
+</pre>
+</div>
+
+<p>
+Then you can see which data every host sees:
+</p>
+
+<pre class="example" id="org136e0b0">
+salt-ssh '*' pillar.items
+node1:
+    ----------
+    docroot:
+        /var/www/serversforhackers.com/public
+node2:
+    ----------
+    docroot:
+        /var/www/serversforhackers.com/public
+</pre>
+
+<p>
+With this you can make sensitive information visible on the hosts that need it. Now that the data is available, you can use it in your sls files, you can add to
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml">{% raw %}
+nginx package:
+  pkg.installed
+
+nginx service:
+  service.running:
+    - watch: pkg: 'nginx package'
+
+nginx directory:
+  file.directory:
+    - name: {{ pillar['docroot'] }}
+
+{% endraw %}
+</pre>
+</div>
+
+<p>
+Which can be abbreviated as:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml">{% raw %}
+nginx:
+  pkg.installed: []
+  service.running:
+    - watch: pkg: nginx
+
+{{ pillar['docroot'] }}:
+  file.directory
+{% endraw %}
+
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-roles" class="outline-2">
+<h2 id="roles">Roles</h2>
+<div class="outline-text-2" id="text-roles">
+<blockquote>
+<p>
+Roles are good for organizing multiple, related Tasks and encapsulating data needed to accomplish those Tasks. For example, installing Nginx may involve adding a package repository, installing the package and setting up configuration. We&rsquo;ve seen installation in action in a Playbook, but once we start configuring our installations, the Playbooks tend to get a little more busy.
+</p>
+</blockquote>
+
+<p>
+There is no 1:1 concept in Salt as it already organizes the data around a different set of ideas (eg: gains, pillars), but for the utility of the specific Ansible tutorial, lets look at a few examples.
+</p>
+</div>
+
+<div id="outline-container-files" class="outline-3">
+<h3 id="files">Files</h3>
+<div class="outline-text-3" id="text-files">
+<p>
+Every thing you add to the <code>file_roots</code> path (defined in <code>etc/salt/master</code>) can be accessed using the <a href="https://docs.saltstack.com/en/develop/ref/file_server/">Salt file server</a>. Lets say we need a template configuration file, you can put it in &rsquo;srv/salt/nginx/myconfig` (you can use jinja2 templating on it), and then refer to it from the state:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml">/etc/nginx/myconfig:
+  file.managed:
+    - source: salt://nginx/myconfig
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-template" class="outline-3">
+<h3 id="template">Template</h3>
+<div class="outline-text-3" id="text-template">
+<p>
+You can use <a href="https://docs.saltstack.com/en/getstarted/config/jinja.html">Jinja2</a> templating in states and files, and you can refer to grain and pillar data from them. Salt already include a long list of built-in grains you can use (see <code>grains.items</code>) and you can also create your own grain modules to gather other data.
+</p>
+
+<p>
+A common use of pillar data is to distribute passwords to the configuration files. While you can define pillar data in the <code>srv</code> tree, because you can also define <a href="https://docs.saltstack.com/en/latest/topics/development/external_pillars.html">external pillars</a> you can source your data from anywhere.
+</p>
+</div>
+</div>
+
+<div id="outline-container-running-the-role" class="outline-3">
+<h3 id="running-the-role">Running the role</h3>
+<div class="outline-text-3" id="text-running-the-role">
+<p>
+As mentioned before, you can apply the state by either making it part of the host highstate or apply it explicitly.
+</p>
+
+<blockquote>
+<p>
+Let&rsquo;s create a &ldquo;master&rdquo; yaml file which defines the Roles to use and what hosts to run them on: File server.yml:
+</p>
+</blockquote>
+
+<div class="org-src-container">
+<pre class="src src-yaml">---
+- hosts: all
+  roles:
+    - nginx
+</pre>
+</div>
+
+<p>
+This is equivalent to the <code>top.sls</code> file in <code>srv/salt</code> (with a less powerful matching system).
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml">base:
+  `*`:
+    - nginx
+</pre>
+</div>
+
+<blockquote>
+<p>
+Then we can run the Role(s):
+</p>
+</blockquote>
+
+<pre class="example" id="orgfc7980c">
+salt-ssh '*' state.apply
+</pre>
+
+<p>
+Would apply what <code>top.sls</code> defines.
+</p>
+</div>
+</div>
+</section>
+
+<section id="outline-container-facts" class="outline-2">
+<h2 id="facts">Facts</h2>
+<div class="outline-text-2" id="text-facts">
+<p>
+These are equivalent to grains, and you can see what grains you have available by calling:
+</p>
+
+<pre class="example" id="orgd0b2a6f">
+salt-ssh '*' grains.items
+</pre>
+
+<p>
+You can use them from Jinja2 as <code>grains</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml">{% raw %}
+{% if grains['os_family'] == 'RedHat' %}
+...
+{% endif %}
+{% endraw %}
+</pre>
+</div>
+
+<p>
+If you need a custom grain definition, you can <a href="https://docs.saltstack.com/en/latest/topics/targeting/grains.html#writing-grains">write your own</a> and distribute them from the server.
+</p>
+</div>
+</section>
+
+<section id="outline-container-vault" class="outline-2">
+<h2 id="vault">Vault</h2>
+<div class="outline-text-2" id="text-vault">
+<p>
+The equivalent in Salt would be to use the Pillar. If you need encryption support you have various options:
+</p>
+
+<ul class="org-ul">
+<li>Use a external pillar which fetches the data from a vault service</li>
+<li>Use the <a href="https://docs.saltstack.com/en/latest/ref/renderers/">renderer system</a> and add the <a href="https://docs.saltstack.com/en/latest/ref/renderers/all/salt.renderers.gpg.html">gpg renderer</a> to the chain. (Disclaimer: I haven&rsquo;t tried this myself).</li>
+</ul>
+</div>
+</section>
+
+<section id="outline-container-example-users" class="outline-2">
+<h2 id="example-users">Example: Users</h2>
+<div class="outline-text-2" id="text-example-users">
+<p>
+You will need a pillar:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml">admin_password: $6$lpQ1DqjZQ25gq9YW$mHZAmGhFpPVVv0JCYUFaDovu8u5EqvQi.Ih
+deploy_password: $6$edOqVumZrYW9$d5zj1Ok/G80DrnckixhkQDpXl0fACDfNx2EHnC
+common_public_key: ssh-rsa ALongSSHPublicKeyHere
+</pre>
+</div>
+
+<p>
+And then refer to it from the <a href="https://docs.saltstack.com/en/latest/ref/states/all/salt.states.user.html">user state</a>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml">{% raw %}
+admin:
+  user.present:
+    - password: {{ pillar['admin_password'] }}
+    - shell: /bin/bash
+
+sshkeys:
+  ssh_auth.present:
+    - user: admin
+    - name: {{ pillar['common_public_key'] }}
+{% endraw %}
+</pre>
+</div>
+
+<p>
+In order to refresh the pillar data, you can use:
+</p>
+
+<pre class="example" id="orgabe9840">
+salt-ssh '*' saltutil.refresh_pillar
+</pre>
+</div>
+</section>
+
+<section id="outline-container-recap" class="outline-2">
+<h2 id="recap">Recap</h2>
+<div class="outline-text-2" id="text-recap">
+<p>
+So, this is how you use Salt in a way similar to Ansible. The best part of this is that you can start learning about Salt without having to deploy a Salt master/minion infrastructure.
+</p>
+
+<p>
+The master/minion infrastructure brings a whole new set of possibilities. The reason we chose Salt is because here is where it starts, and not where it ends.
+</p>
+</div>
+</section>
+
+<section id="outline-container-thanks--acknowledgements" class="outline-2">
+<h2 id="thanks--acknowledgements">Thanks &amp; Acknowledgements</h2>
+<div class="outline-text-2" id="text-thanks--acknowledgements">
+<ul class="org-ul">
+<li><a href="https://serversforhackers.com">Chris Fidao</a> for the original Ansible tutorial.</li>
+<li><a href="https://github.com/kbaikov">Konstantin Baikov</a> for corrections and suggestions.</li>
+</ul>
+</div>
+</section>
+]]></description>
+    </item>
+    
+    <item>
+      <title>Not sweet but salty, SUSE Manager 3 Technical Backstage Part I</title>
+      <link>http://localhost:8000//posts/2016-03-16-susemanager-3-backstage/</link>
+      <author>root</author>
+      <guid isPermaLink="false">http://localhost:8000//posts/2016-03-16-susemanager-3-backstage/</guid>
+      <pubDate>Wed, 16 Mar 2016 00:00:00 +0000</pubDate>
+      <description><![CDATA[
+<section id="outline-container-introduction" class="outline-2">
+<h2 id="introduction">Introduction</h2>
+<div class="outline-text-2" id="text-introduction">
+<p>
+During the last year we have been working on SUSE Manager 3, the next release of <a href="https://www.suse.com/products/suse-manager/">SUSE&rsquo;s Systems Management product</a>, which includes additional capabilities around Configuration Management and Compliance. This article details this journey from the team&rsquo;s perspective that may be of interest to product enthusiasts and developers.
+</p>
+</div>
+</section>
+
+<section id="outline-container-sweet-did-not-last" class="outline-2">
+<h2 id="sweet-did-not-last">Sweet did not last</h2>
+<div class="outline-text-2" id="text-sweet-did-not-last">
+<p>
+In mid-2014 I wrote about <a href="../2014-06-11-suse-manager-2-1/index.html">SUSE Manager 2.1</a>. It was an important release for us because at that point we became very active upstream, to the point that on a typical day, a considerable chunk of the open pull requests came from SUSE, including a refreshed mobile-enabled user interface.
+</p>
+
+<p>
+But the world is changing, and management offerings are taking new innovative directions, especially around Configuration Management and Compliance. This trend was in several dimensions quite radical for our product, based on the <a href="http://spacewalk.redhat.com/">Spacewalk</a> project, which has been managing Linux systems with the same paradigm since 2008.
+</p>
+
+<p>
+Deploying a management solution is a considerable investment for the customer: operation, training, processes, etc. Telling a customer you will be completely replacing their deployed solution because new trends have appeared means you are throwing all their efforts in the trash.
+</p>
+
+<p>
+On the other hand, it is very easy to find excuses to rewrite software from scratch and there are <a href="http://www.joelonsoftware.com/articles/fog0000000069.html">well-known industry voices giving advice</a> on the topic.
+</p>
+
+<p>
+So are we up to the challenge?. Can we evolve SUSE Manager iteratively within this new world without endangering our customer investments?
+</p>
+</div>
+</section>
+
+<section id="outline-container-choosing-a-configuration-management-engine" class="outline-2">
+<h2 id="choosing-a-configuration-management-engine">Choosing a configuration management engine</h2>
+<div class="outline-text-2" id="text-choosing-a-configuration-management-engine">
+<p>
+After we decided that we would bring this new world into the existing SUSE Manager, we clearly didn&rsquo;t want to write a configuration management engine ourselves: there were multiple opensource projects that were up to the task. We also understood that customers could be already invested into one of them, and that is fine: we were looking for the one that could be <i>tightly</i> integrated into SUSE Manager and had a design that matched our vision.
+</p>
+
+<p>
+And here is where things got even less sweet: they got <i>salty!</i>
+</p>
+
+<p>
+We ended up choosing <a href="http://saltstack.com/community/">Salt</a>. The reasons are endless: From its vibrant community to the &ldquo;aha!&rdquo; moment you get when understanding its internals and seeing the vision behind the architecture. It is a complete toolkit to build datacenter automation, wrapped in usable tools with sane defaults that work out-of-the-box.
+</p>
+
+<blockquote>
+<p>
+SaltStack platform or Salt is a Python-based open source configuration
+management software and remote execution engine. Supporting the
+&ldquo;Infrastructure as Code&rdquo; approach to deployment and cloud management,
+it competes primarily with Puppet, Chef, and Ansible. (Source:
+<a href="https://en.wikipedia.org/wiki/Salt_(software)">Wikipedia</a>]
+</p>
+</blockquote>
+
+<blockquote>
+<p>
+SaltStack software orchestrates the build and ongoing management of
+any modern infrastructure. SaltStack is also the most scalable and
+flexible configuration management software for event-driven automation
+of CloudOps, ITOps and DevOps. (Source:
+<a href="http://saltstack.com/">SaltStack</a>)
+</p>
+</blockquote>
+
+<p>
+We did not get the same impression from the other tools we evaluated. It was clear that Salt fit into the SUSE Manager present and future.
+</p>
+
+<p>
+The fact that Salt implements configuration management (states) on top of the <a href="https://docs.saltstack.com/en/latest/ref/modules/all/salt.modules.state.html">execution engine (state.apply)</a>, and that the executions modules are first class, we could offer almost all features we already had in SUSE Manager and naturally extend the Configuration Management part. On top of that, Salt is written in Python, and the current Spacewalk client stack and partly the server stack are also Python components.
+</p>
+
+<p>
+Things only got better from there. During all this time we got really crazy about Salt. Our sysadmins are using it as well, and a community was formed internally that went beyond our product. Not only with sysadmins and engineers, but even our Product Manager writes <a href="https://docs.saltstack.com/en/latest/topics/beacons/">beacons</a>.
+</p>
+</div>
+
+<div id="outline-container-suminator" class="outline-3">
+<h3 id="suminator">Suminator</h3>
+<div class="outline-text-3" id="text-suminator">
+<p>
+The first serious dogfooding of Salt we did was the birth of <i>Suminator</i>. <a href="https://github.com/moio">Silvio</a> combined Vagrant with Salt to build a small tool that allowed us to build release and development versions of SUSE Manager and vanilla Spacewalk servers and clients in all possible code stream and operating system combinations. Very soon it became the tool of choice for developers to work on the codebase.
+</p>
+
+<p>
+This tool is still tied to our internal build service and package repositories, but we hope we find time to make it useful to others as well.
+</p>
+
+<blockquote>
+<p>
+If you want to play with openSUSE and Salt using <a href="https://www.vagrantup.com/">Vagrant</a>, I have published <a href="https://github.com/dmacvicar/salt-opensuse-playground">a repository</a> that will get you started.
+</p>
+</blockquote>
+</div>
+</div>
+
+<div id="outline-container-susecon-2015" class="outline-3">
+<h3 id="susecon-2015">SUSECon 2015</h3>
+<div class="outline-text-3" id="text-susecon-2015">
+<p>
+The awesomeness of Salt started to click at various levels. The idea of orchestration built on the concept of <a href="https://docs.saltstack.com/en/getstarted/event/index.html">Event-Driven Infrastructure</a> plus the support for <a href="https://docs.saltstack.com/en/latest/topics/proxyminion/index.html">dumb devices</a> culminated in the great SUSECon demo.
+</p>
+
+
+<figure id="org002182e">
+<img src="images/susecon-susemanager-1.png" alt="SUSECon I">
+
+<figcaption><span class="figure-number">Figure 1: </span>Weird picture</figcaption>
+</figure>
+
+<p>
+At SUSECon we showed that with the concept of reactive infrastructure; it was trivial to react to changes in configuration drift, in this case, using an inotify beacon that had &ldquo;knowledge&rdquo; about the managed files on that system, and make SUSE Manager react. On top of that we interacted with <a href="http://www2.meethue.com">smart lights</a> via <a href="https://docs.saltstack.com/en/latest/topics/proxyminion/index.html">proxy minions</a>, just like you will have to do once the <a href="https://en.wikipedia.org/wiki/Internet_of_Things">IoT</a> takes over the world.
+</p>
+
+
+<figure id="orgf7602e7">
+<img src="images/susecon-susemanager-2.png" alt="susecon-susemanager-2.png">
+
+</figure>
+
+<p>
+On top of that we showed that we could achieve all using the power of opensource that SUSE has been doing for almost 25 years. Support for <a href="https://docs.saltstack.com/en/develop/ref/proxy/all/salt.proxy.philips_hue.html">Hue lights in Salt</a> was already upstream by the time of that demonstration.
+</p>
+</div>
+</div>
+</section>
+
+<section id="outline-container-refreshing-our-platform" class="outline-2">
+<h2 id="refreshing-our-platform">Refreshing our platform</h2>
+<div class="outline-text-2" id="text-refreshing-our-platform">
+<p>
+Working on a new release means the opportunity to refresh the platforms and technologies you use, and to look for better alternatives for some of them.
+</p>
+
+<ul class="org-ul">
+<li>We keep rebasing and picking up enhancements from Spacewalk <a href="https://github.com/spacewalkproject/spacewalk">upstream</a>.</li>
+<li>A mature codebase does not mean you should not get rid of code. E.g,:
+here is a pull request from the team to <a href="https://github.com/spacewalkproject/spacewalk/pull/280">remove 30k lines</a> of code that did not make much sense nowadays.</li>
+</ul>
+
+<p>
+With the Salt and Compliance work there was going to be new code written, and that is an opportunity for choosing the right platforms and frameworks.
+</p>
+
+<ul class="org-ul">
+<li>From SLES-11-SP3 to SLES-12-SP1</li>
+<li>From Tomcat 6.x to Tomcat 8.x</li>
+<li>From Java 7 to Java 8</li>
+<li>We started to use <a href="http://sparkjava.com/">Spark</a> for server-side
+Java code.</li>
+<li>We started to use <a href="https://facebook.github.io/react/">React</a> on the
+client side.</li>
+</ul>
+</div>
+</section>
+
+<section id="outline-container-integrating-salt-into-suse-manager" class="outline-2">
+<h2 id="integrating-salt-into-suse-manager">Integrating Salt into SUSE Manager</h2>
+<div class="outline-text-2" id="text-integrating-salt-into-suse-manager">
+<p>
+The first attempt was done as part of <a href="https://hackweek.suse.com/11/projects/514">Hackweek 11</a>. A protoype known as <a href="https://github.com/SUSE/spacewalk-saltstack">Saltwalk</a> was born.
+</p>
+
+<p>
+This protoype (a simple python reactor) helped figuring out what the bulk of the work would be, the non-trivial parts and what decisions we needed to take to move forward.
+</p>
+
+<p>
+The basic architecture of a reactor that handles Salt events and interacts with Spacewalk was in place. What we needed now was a way for Spacewalk to interact with Salt.
+</p>
+
+
+<figure id="org7974ba5">
+<img src="images/suma-salt-architecture.png" alt="suma-salt-architecture.png">
+
+</figure>
+</div>
+
+<div id="outline-container-salt-netapi-client" class="outline-3">
+<h3 id="salt-netapi-client">salt-netapi-client</h3>
+<div class="outline-text-3" id="text-salt-netapi-client">
+<p>
+For the interaction of SUSE Manager with Salt, a <a href="https://github.com/SUSE/salt-netapi-client">Salt client library</a> for Java was created, which allows to consume Salt functionality through <a href="https://docs.saltstack.com/en/latest/ref/cli/salt-api.html">salt-api</a>.
+</p>
+
+<p>
+Months after the <a href="https://groups.google.com/forum/#!topic/salt-users/YdMgcUWiWw8">original announcement</a>, <code>salt-netapi-client</code> keeps being the best option available to interact with <a href="http://suse.github.io/salt-netapi-client/docs/master/overview-summary.html">Salt from Java</a>.
+</p>
+
+<blockquote>
+<p>
+We pointed applicants to <a href="https://attachmatehr.silkroad.com/epostings/index.cfm?fuseaction=app.allpositions&amp;company_id=15495&amp;version=6">our open positions</a> to <a href="https://github.com/SUSE/salt-netapi-client">salt-netapi-client</a> as a challenge. Various contributors to the library became SUSE Manager team members!.
+</p>
+</blockquote>
+</div>
+</div>
+
+<div id="outline-container-becoming-a-salt-master" class="outline-3">
+<h3 id="becoming-a-salt-master">Becoming a Salt Master</h3>
+<div class="outline-text-3" id="text-becoming-a-salt-master">
+<p>
+When the decision of using Salt was clear, it was decided that we would do the integration code on the Java side of SUSE Manager, and so Saltwalk stayed as a protoype, and the functionality was implemented in Java.
+</p>
+
+<p>
+At this point, SUSE Manager default installation was at the same time a full fledged <a href="https://docs.saltstack.com/en/latest/ref/configuration/master.html">Salt master</a> server.
+</p>
+
+<blockquote>
+<p>
+A consequence of this is that you can enjoy Salt on openSUSE out of the box. The <a href="https://software.opensuse.org/package/salt">Salt package</a> is kept updated on <a href="https://en.opensuse.org/Portal:Tumbleweed">Tumbleweed</a> and <a href="https://software.opensuse.org/421/en">Leap</a>, which fits very well with the fact that openSUSE is available from various Cloud Providers e.g. <a href="https://cloud.google.com/compute/docs/operating-systems/linux-os#opensuse">#1</a> out of the box.
+</p>
+</blockquote>
+</div>
+</div>
+
+<div id="outline-container-registering-minions" class="outline-3">
+<h3 id="registering-minions">Registering minions</h3>
+<div class="outline-text-3" id="text-registering-minions">
+<p>
+The next step was to make SUSE Manager aware of minions. First by registering them as they appeared (after <code>salt-key --accept</code> was done), so that they show up together with traditional systems:
+</p>
+
+
+<figure id="org4ae7d46">
+<img src="images/minion-clients-2.png" alt="minion-clients-2.png">
+
+</figure>
+
+<p>
+After we had done work in order to retrieve the inventory data using Salt itself, the details page of minions was also available:
+</p>
+
+
+<figure id="org024db9c">
+<img src="images/minion-overview-1.png" alt="minion-overview-1.png">
+
+</figure>
+
+<p>
+Once this was working we improved on it, allowing to operate the <code>salt-key</code> functionality directly from the user interface. Once a minion key needs to be accepted you would see it in the overview page:
+</p>
+
+
+<figure id="orgd6cc414">
+<img src="images/pending-minions-1.png" alt="pending-minions-1.png">
+
+</figure>
+
+<p>
+And from there you can accept which ones to onboard:
+</p>
+
+
+<figure id="org9228e99">
+<img src="images/minion-onboarding-1.png" alt="minion-onboarding-1.png">
+
+</figure>
+</div>
+</div>
+
+<div id="outline-container-configuration-management-with-suse-manager" class="outline-3">
+<h3 id="configuration-management-with-suse-manager">Configuration Management with SUSE Manager</h3>
+<div class="outline-text-3" id="text-configuration-management-with-suse-manager">
+<p>
+While you can patch, install packages in the same way you did with traditional clients, there are two main differences:
+</p>
+
+<ul class="org-ul">
+<li>What you do is instantaneous (unless you schedule for later)</li>
+<li>Instead of doing imperative actions (eg. install this package), you can also use states to define &ldquo;what should be installed&rdquo; in a declarative way using the <a href="https://docs.saltstack.com/en/latest/topics/tutorials/starting_states.html">power of States</a>.</li>
+<li>You can write plain <code>sls</code> data in custom states</li>
+</ul>
+
+
+<figure id="orgdc87636">
+<img src="images/states-catalog-1.png" alt="states-catalog-1.png">
+
+</figure>
+
+<p>
+Additionally, SUSE Manager also has a higher level state user interface for packages. With this user interface you can search packages in the assigned channels.
+</p>
+
+
+<figure id="org9c7e8e9">
+<img src="images/package-states-1.png" alt="package-states-1.png">
+
+</figure>
+</div>
+
+<div id="outline-container-common-states-for-organizations-and-groups" class="outline-4">
+<h4 id="common-states-for-organizations-and-groups">Common states for organizations and groups</h4>
+<div class="outline-text-4" id="text-common-states-for-organizations-and-groups">
+<p>
+SUSE Manager allows to apply states from the State Catalog to Organizations and Groups. Every system belonging to those entities <a href="https://docs.saltstack.com/en/latest/ref/states/top.html">will be subject to those states</a>.
+</p>
+
+
+<figure id="org91d373f">
+<img src="images/minion-custom-states-1.png" alt="minion-custom-states-1.png">
+
+</figure>
+</div>
+</div>
+</div>
+</section>
+
+<section id="outline-container-massive-command-execution" class="outline-2">
+<h2 id="massive-command-execution">Massive command execution</h2>
+<div class="outline-text-2" id="text-massive-command-execution">
+<p>
+The <code>Remote Commands</code> page in the <code>Salt</code> section gives you a web based version of <code>salt '*' cmd.run</code>. You can preview which minions will be affected with the target before sending the commands and then see the results in real time:
+</p>
+
+
+<figure id="org7c1c00f">
+<img src="images/remote-commands-1.png" alt="remote-commands-1.png">
+
+</figure>
+</div>
+</section>
+
+<section id="outline-container-being-part-of-the-ecosystem" class="outline-2">
+<h2 id="being-part-of-the-ecosystem">Being part of the ecosystem</h2>
+<div class="outline-text-2" id="text-being-part-of-the-ecosystem">
+<p>
+Making Salt an important part of SUSE Manager does not end there. In our industry being an Enterprise distributor of open-source software only works if you are part of it.
+</p>
+
+<ul class="org-ul">
+<li>SUSE already has around 600 commits from 5+ developers in Salt upstream</li>
+<li>The SUSE Manager team is hiring so that we can do more work upstream and help shape Salt&rsquo;s future</li>
+<li>SUSE will be gold sponsor at Saltconf 2016</li>
+</ul>
+
+
+<figure id="org158e809">
+<img src="images/saltconf-sponsor-1.png" alt="saltconf-sponsor-1.png">
+
+</figure>
+</div>
+</section>
+
+<section id="outline-container-the-future" class="outline-2">
+<h2 id="the-future">The future</h2>
+<div class="outline-text-2" id="text-the-future">
+<p>
+As you can see, SUSE Manager with Salt is a powerful duo which allows you to continue managing your infrastructure with the same tool, be 100% backward compatible and start taking advantages of declarative configuration management and the orchestration capabilities of Salt, while keeping everything you have already deployed untouched.
+</p>
+
+<p>
+We are very excited about the possibilities here, which will be guided by feedback from our customers and synergies we have with Salt and other SUSE technologies.
+</p>
+</div>
+</section>
+
+<section id="outline-container-to-be-continued" class="outline-2">
+<h2 id="to-be-continued">To be continued</h2>
+<div class="outline-text-2" id="text-to-be-continued">
+<p>
+Configuration Management is only one of the features that will arrive SUSE Manager 3. Expect to hear from the powerful Subscription Matching and Topology Awareness in future posts.
+</p>
+</div>
+</section>
+]]></description>
+    </item>
+    
+    <item>
+      <title>SUSE Manager 2.1</title>
+      <link>http://localhost:8000//posts/2014-06-11-suse-manager-2-1/</link>
+      <author>root</author>
+      <guid isPermaLink="false">http://localhost:8000//posts/2014-06-11-suse-manager-2-1/</guid>
+      <pubDate>Wed, 11 Jun 2014 00:00:00 +0000</pubDate>
+      <description><![CDATA[<p>
+Back in March, Christian Stankowic <a href="http://blog.christian-stankowic.de/?p=5862&amp;lang=en">analysed Spacewalk 2.1 and its new user interface</a> look and feel. He asked himself how
+SUSE Manager would look like:
+</p>
+
+<blockquote>
+<p>
+I really appreciate this update! The new interface looks more clean
+and well-designed than the elderly look. I&rsquo;m really interested to see
+what the implementation in SUSE Manager will look like and whether Red
+Hat Satellite will also get a new design.
+</p>
+</blockquote>
+
+<p>
+Well, now you can see it yourself, as <a href="https://www.suse.com/company/press/2014/6/new-suse-manager-to-simplify-improve-linux-server-lifecycle-management.html">SUSE Manager 2.1 is out!</a>
+</p>
+
+
+<figure id="org94b9e47">
+<img src="images/suse-manager-systems-systems-details-overview.png" alt="SUSE Manager Systems Systems Details Overview">
+
+</figure>
+
+
+<figure id="orgdb30a21">
+<img src="images/screenshot-from-2014-06-10-234145.png" alt="screenshot-from-2014-06-10-234145.png">
+
+</figure>
+
+<p>
+New features include, among others:
+</p>
+
+<ul class="org-ul">
+<li><p>
+A slick setup wizard to guide administrators through the basic steps
+needed to configure a fully operational SUSE Manager: Proxy, Novell
+Mirror Credentials, SUSE Products.
+</p></li>
+</ul>
+
+<figure id="org5934278">
+<img src="images/suse-manager-admin-setup-wizard-mirror-credentials.png" alt="suse-manager-admin-setup-wizard-mirror-credentials.png">
+
+</figure>
+
+<ul class="org-ul">
+<li>Action chaining that lets administrators bundle and execute related
+management actions in one step</li>
+<li>Unattended bare-metal provisioning that allows customers to power on
+and off and reboot bare-metal systems via the IPMI (Intelligent
+Platform Management Interface) protocol.</li>
+<li>OpenScap (the open source implementation of SCAP &#x2013; Security Content
+Automation Protocol), a standardized approach to maintaining
+enterprise system security.</li>
+<li><p>
+CVE Auditing. This feature goes beyond telling you pending patches but
+instead assisting you to assign the right content to your
+systems: what vulnerabilities affect you where you haven&rsquo;t yet
+assigned the right channels. For example, you may have an affected
+system in production. CVE Auditing may tell you that you can fix the
+security issue by assigning the stage channel to a system.
+</p></li>
+</ul>
+
+<figure id="org1e0ce52">
+<img src="images/cve-audit.png" alt="cve-audit.png">
+
+</figure>
+
+<ul class="org-ul">
+<li>Locks packages on the server which are then enforced on the client
+side (eg. if you login via ssh to the client).</li>
+</ul>
+
+<p>
+And of course, most of the work is <a href="https://github.com/spacewalkproject/spacewalk/pulls">already merged upstream</a>.
+</p>
+]]></description>
+    </item>
+    
+    <item>
+      <title>openSUSE Build service: layering, linking, patching and aggregating</title>
+      <link>http://localhost:8000//posts/2008-08-20-opensuse-build-service-layering-linking-patching-and-aggregating/</link>
+      <author>root</author>
+      <guid isPermaLink="false">http://localhost:8000//posts/2008-08-20-opensuse-build-service-layering-linking-patching-and-aggregating/</guid>
+      <pubDate>Wed, 20 Aug 2008 00:00:00 +0000</pubDate>
+      <description><![CDATA[<p>
+Today I used some of the coolest <a href="http://build.opensuse.org">openSUSE Build Service</a> features: project layering, patches against linked packages and aggregates. I want to write about them.
+</p>
+
+<p>
+I needed to test a feature in PackageKit. I am using openSUSE 11.0. However upstream PackageKit does not play nice with 11.0. <a href="http://en.opensuse.org/User:Haass">Stefan Haas</a> fixed this, taking our PackageKit sources, adding some patches, and building them in his <a href="https://build.opensuse.org/package/show?package=PackageKit&amp;project=home%3Ahaass">home project</a>, which results in a repository <a href="http://download.opensuse.org/repositories/home:/haass/openSUSE_11.0/">here</a>.
+</p>
+
+<p>
+My feature involved a patch against PackageKit and then testing it from a client application (to adapt it), so what I wanted to achieve was to use Stefan&rsquo;s PackageKit plus my patch, packaged in a rpm.
+</p>
+
+<p>
+I could just copy Stefan&rsquo;s sources and patches to my home project, and add my patch, but that would be duplication. Any change Stefan does later would require to copy it again.
+</p>
+
+<p>
+Luckily the build service has a feature call linking, so I can link Stefan&rsquo;s package to my home project. You can do that from osc or from the web user interface (Link package from another project), and that would result in a new package called PackageKit in my project (I created a subproject home:dmacvicar:packagekit for this purpose) with a single file called <i>_link</i>.
+</p>
+
+<p>
+This version of PackageKit only builds with Factory&rsquo;s libzypp, so here we have various options:
+</p>
+
+<ul class="org-ul">
+<li>build on top of zypp:svn/openSUSE_11.0 which is ZYpp svn built on openSUSE_11.0</li>
+<li>link all <a href="https://build.opensuse.org/project/show?project=zypp%3Asvn">zypp:svn</a> packages to my project (too inefficient, Adrian would kill me if I start to rebuild ZYpp in every project :-) )</li>
+<li>aggregate all ZYpp openSUSE_11.0 packages from <a href="https://build.opensuse.org/project/show?project=zypp%3Asvn">zypp:svn</a> in my project (aggregate explained later)</li>
+</ul>
+
+<p>
+Because I already have the <a href="http://download.opensuse.org/repositories/zypp:/svn/openSUSE_11.0/">repo zypp:svn</a> in my repo list, I chose building on top of <a href="https://build.opensuse.org/project/show?project=zypp%3Asvn">zypp:svn</a>. (This will mean that in order to use this modified PackageKit repo, you need to add <a href="https://build.opensuse.org/project/show?project=zypp%3Asvn">zypp:svn</a> as well).
+</p>
+
+<p>
+So now, I can add my patch next to the _link file. However, How to make this patch appear in Stefan&rsquo;s specfile? Do we need to patch the spec file too? No. The build service does it for you. Just edit the _link file which looks like this:
+</p>
+
+<p>
+So it looks like:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xml"><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">link</span> <span class="org-nxml-attribute-local-name">project</span>=<span class="org-string">'zypp:svn'</span> <span class="org-nxml-attribute-local-name">package</span>=<span class="org-string">'PackageKit'</span><span class="org-nxml-tag-delimiter">&gt;</span>
+  <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">patches</span><span class="org-nxml-tag-delimiter">&gt;</span>
+    <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">apply</span> <span class="org-nxml-attribute-local-name">name</span>=<span class="org-string">"patch"</span> <span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+  <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">patches</span><span class="org-nxml-tag-delimiter">&gt;</span>
+<span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">link</span><span class="org-nxml-tag-delimiter">&gt;</span>
+</pre>
+</div>
+
+<p>
+This will insert the patch in the spec file when building. That is real magic.
+</p>
+
+<p>
+Sadly, this bleeding edge PackageKit version requires some libtar-devel not available in 11.0. Stefan had a <a href="https://build.opensuse.org/package/show?package=libtar&amp;project=home%3Ahaass">backport to 11.0 in his home project</a> too. Do we need to link the package to our project too? No. Linking here is unnecessary because we don&rsquo;t really need to rebuild a copy of this package, we only need to make it available in our repository for people installing PackageKit from our project, who don&rsquo;t have Stefan&rsquo;s project added in their repository list, that will get libtar grabbed via dependencies, but we don&rsquo;t care if the metadata grabs the final rpm from Stefan&rsquo;s project.
+</p>
+
+<p>
+That is called &ldquo;aggregate&rdquo;. To aggregate a package from another project, we create a new package (called libtar) and add to it a file called <i>_aggregate</i> (the web interface does not help you here). Edit that file so it looks like:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-xml"><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">aggregatelist</span><span class="org-nxml-tag-delimiter">&gt;</span>
+  <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">aggregate</span> <span class="org-nxml-attribute-local-name">project</span>=<span class="org-string">"home:haas"</span><span class="org-nxml-tag-delimiter">&gt;</span>
+    <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">package</span><span class="org-nxml-tag-delimiter">&gt;</span><span class="org-nxml-text">libtar</span><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">package</span><span class="org-nxml-tag-delimiter">&gt;</span>
+    <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">package</span><span class="org-nxml-tag-delimiter">&gt;</span><span class="org-nxml-text">libtar-devel</span><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">package</span><span class="org-nxml-tag-delimiter">&gt;</span>
+  <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">aggregate</span><span class="org-nxml-tag-delimiter">&gt;</span>
+<span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">aggregatelist</span><span class="org-nxml-tag-delimiter">&gt;</span>
+</pre>
+</div>
+
+<p>
+This will map <i>home:haass</i> repositories 1:1 to our repositories. So if we build our project against <i>openSUSE_11.0</i>, it will aggregate our package with home:haass/openSUSE_11.0 too. If you don&rsquo;t have a 1:1 mapping, look the <a href="http://en.opensuse.org/Build_Service/Tips_and_Tricks#Example_of_an__aggregate">Build Service Tips and Tricks</a> to do more complex aggregates.
+</p>
+
+<p>
+Then I am ready to install my new PackageKit:
+</p>
+
+<pre class="example" id="org778e7f2">
+$ sudo zypper in -r home_dmacvicar_packagekit PackageKit PackageKit-devel
+Reading installed packages...
+
+The following NEW packages are going to be installed:
+PackageKit-devel PackageKit
+
+Overall download size: 1.1 M. After the operation, additional 5.1 M will
+be used.
+Continue? [YES/no]: y
+</pre>
+]]></description>
+    </item>
+    
+    <item>
+      <title>LISTEN I HAVE MY RIGHTS!!!!</title>
+      <link>http://localhost:8000//posts/2006-10-31-listen-i-have-my-rights/</link>
+      <author>root</author>
+      <guid isPermaLink="false">http://localhost:8000//posts/2006-10-31-listen-i-have-my-rights/</guid>
+      <pubDate>Tue, 31 Oct 2006 00:00:00 +0000</pubDate>
+      <description><![CDATA[<p>
+Participating in a opensource community has lot of advantages, you get to know really cool people. You learn lot of new things&#x2026; but also strange anecdotes happen.
+</p>
+
+<p>
+Some time ago I was talking with <a href="https://twitter.com/wstephenson">Will</a>, and we both remembered one of the most funniest (now) things ever happened in <code>#kopete</code> irc channel. We laughed a lot, until Will told me. &ldquo;I still have those logs somewhere&rdquo;. I said &ldquo;Really! I think it is time to blog them.
+</p>
+
+<p>
+April 3, probably 2003 or 2004. I was in Chile by then. It was sleeping time for Europa. In the channel you can see Sean Egan, GAIM&rsquo;s lead developer, and myself. Until&#x2026;.
+</p>
+
+<p>
+The following takes place between 5 am and 6 am&#x2026; Events ocur in real time.
+</p>
+
+<pre class="example" id="orgb12f7b9">
+--&gt; Lazlo ([HOST REMOVED].edu) has joined #kopete
+&lt;Lazlo&gt; uhh, hi all heh. I have a strange request. is that Sean Egan
+from New York (sorry kinda new to irc)
+&lt;SeanEgan&gt; hm?
+&lt;Lazlo&gt; hello ?
+&lt;Lazlo&gt; oh heh
+&lt;SeanEgan&gt; Um, yeah. I'm from New York
+&lt;Lazlo&gt; uh, hi -- I searched on google and it said a 'Sean Egan' was in
+this chat room. Do you know where Valley STream is?
+&lt;SeanEgan&gt; Yeah, that's where I live on Long Island
+&lt;Lazlo&gt; ehh, what's the zip code heh (sorry for these odd questions I have
+to protect an identity here, kinda iffy)?
+&lt;SeanEgan&gt; hehe, um, it's [ZIP CODE REMOVED]. Who are you?
+&lt;Lazlo&gt; uh, Are you at [ADDRESS REMOVED]?
+&lt;SeanEgan&gt; ok. Who are you?
+&lt;Lazlo&gt; can anyone here tell me if this is really Sean Egan?
+&lt;SeanEgan&gt; they're probably all asleep. This is a very European channel.
+&lt;SeanEgan&gt; being KDE and all ;)
+&lt;Lazlo&gt; uhh, hi all heh. I have a strange request. is that Sean Egan
+from New York (sorry
+&lt;Lazlo&gt; um, what's KDE? I don't use computers mujch
+&lt;SeanEgan&gt; It's alright. Why do you know m address?
+&lt;Lazlo&gt; whatever man -- look, are you really Sean Egan?
+&lt;SeanEgan&gt; Yeah.
+&lt;Lazlo&gt; um, I think I may have found your wallet near a truck stop
+&lt;SeanEgan&gt; really?!
+&lt;SeanEgan&gt; haha!
+&lt;SeanEgan&gt; I lost my wallet yesterda
+&lt;SeanEgan&gt; y
+&lt;Lazlo&gt; phew! hah, man i wasn't sure if I could find you heh
+&lt;SeanEgan&gt; well, you do have my address ;)
+&lt;Lazlo&gt; heh, true but i'm in west virginia. you're credit card is [CREDIT
+CARD REMOVED], right?
+&lt;SeanEgan&gt; ,,,
+&lt;SeanEgan&gt; Um, I'll take your word for it...
+&lt;Lazlo&gt; ?? heh, maybe I should buy some stuff haha
+* SeanEgan hopes you're joking.
+&lt;SeanEgan&gt; Ok. The address you have is my Long Island address, but I'm up
+at school in Binghamton
+&lt;Lazlo&gt; um, i can rent a car with the credit card and drive to drop it off
+if you like?
+&lt;Lazlo&gt; by the way, who's the hot girl in the picture ;-) heh
+&lt;SeanEgan&gt; Dude, that's my sister.
+&lt;SeanEgan&gt; Listen, just mail the wallet to me. I'll PM you my address.
+&lt;Lazlo&gt; man just calm down -- i'm trying to help here i didn't know
+&lt;Lazlo&gt; what about the cost to send it?!?
+&lt;SeanEgan&gt; no, it's alright. I'm going to PM you my address, and you can
+mail it to me?
+&lt;SeanEgan&gt; Um... I don't know. Maybe $2?
+&lt;Lazlo&gt; $2?!? i think more than that man
+&lt;SeanEgan&gt; If you want, I should have some cash in there, you can pay with
+my money.
+&lt;SeanEgan&gt; But I need my id and my credit cards and stuff.
+&lt;Lazlo&gt; look i took the time to search your name and stuff
+&lt;SeanEgan&gt; yeah, pay for postage with my own money, I don't care
+&lt;Lazlo&gt; i'm not even talking about postage man -- I'll use the card to buy
+stuff I think is right, seriously. you owe me big time
+&lt;SeanEgan&gt; you want a reward?
+&lt;SeanEgan&gt; How much cash do I have in there? $30?
+&lt;duncanmv&gt; oh, Americans
+&lt;Lazlo&gt; whatever dude -- you don't get it! How much do you have on your
+card, can i buy some stuff?
+&lt;SeanEgan&gt; No, you can't
+&lt;SeanEgan&gt; Are you serious?
+* duncanmv doesn't find it a funny joke
+&lt;Lazlo&gt; why wouldl i joke?! look, i'll just buy some stuff or you won't
+get your wallet
+&lt;SeanEgan&gt; Lazlo: I just called my bank and they've cancelled the credit
+card.
+&lt;SeanEgan&gt; I'll let you keep all the cash I have in there as a reward, but
+if you would please return it to the address I PMed you, I would really
+appreciate it.
+&lt;Lazlo&gt; ??!?!?
+&lt;SeanEgan&gt; And so would the Occidental University Police, if you catch my
+drift.
+&lt;Lazlo&gt; now you WONT GET YOUR FRIGGIN WALLET
+&lt;Lazlo&gt; uHGHGHG
+&lt;duncanmv&gt; ok, just call his college tomorrow
+&lt;duncanmv&gt; and tell them [NAME REMOVED] has your wallet
+&lt;duncanmv&gt; tell them the ip and time log
+&lt;duncanmv&gt; and tell them you offered him even a reward
+&lt;SeanEgan&gt; Lazlo: Let's not make a big deal out of it. Keep the cash, and
+mail the wallet to that address, ok?
+&lt;Lazlo&gt; what the f*XCKC wahta kinda platce is this??!? stay out of
+this duncanmv. dude don't you DARE TELL MY schools
+&lt;Lazlo&gt; SeanEgan: NO! crap there's only $24 dollars in the WALLET man
+&lt;SeanEgan&gt; Listen, that wallet has my drivers license in it, it has my
+social security card, it has my school id... I really need that.
+&lt;SeanEgan&gt; You can keep the $24, just mail it back to me, please.
+&lt;SeanEgan&gt; What do you think is a fair reward?
+&lt;Lazlo&gt; F*CUI@ NO!!! look, i could have sold your stuff already but i
+didn't. social security cards are expensive
+&lt;SeanEgan&gt; Listen, how much do you want from me?
+&lt;duncanmv&gt; I could have sold your social security card? wtf? gansters?
+&lt;Lazlo&gt; LISTEN! I'm talking a few hundred dude -- and some stuff.
+&lt;Lazlo&gt; all i know is the people on the internet always look for this
+identify stuff
+&lt;SeanEgan&gt; It's not worth a few hundred to me. I can just get the ID
+reissued for a hundred.
+&lt;SeanEgan&gt; at most
+&lt;SeanEgan&gt; OK, and you just told me that you're selling my social security
+number, so I can get new one and make sure it's worthless.
+&lt;SeanEgan&gt; I'll offer you $100.
+&lt;SeanEgan&gt; final offer.
+&lt;Lazlo&gt; F@#@! FINE dude, whatever -- how will you send me the money then?
+i definitely WONT send it until the money gets here. i'm no fool buddy
+&lt;duncanmv&gt; ok
+&lt;duncanmv&gt; I logged into [UNIVERSITY NAME REMOVED], and got all his data
+&lt;duncanmv&gt; ;)
+&lt;SeanEgan&gt; My ATM pin is [PIN REMOVED]. That's the Citibank one. If you
+withdraw anymore than $100, I report you to the police and they'll have your
+picture and everything and you'll go to jail, do you understand me?
+&lt;SeanEgan&gt; Also, I'm changing the PIN FIRST THING tomorrow, so you have to
+act on that quick.
+&lt;SeanEgan&gt; deal?
+&lt;Lazlo&gt; This is some world of shit dudes! i try to help and all you do is
+threaten police call!!@@ LISTEN I HAVE MY RIGHTS
+&lt;SeanEgan&gt; Lazlo: You have no clue how deep trouble you're in right now.
+&lt;duncanmv&gt; your rights is stealing Sean's money? come on
+&lt;SeanEgan&gt; 10 people have this conversation logged; we have all your
+personal data; you really are in no position to talk about your rights.
+&lt;Lazlo&gt; WHATEVER This is the LAST time i try to help some looser out who
+can't keep his wallet. Where's your gratitude man?
+&lt;SeanEgan&gt; Ok. Take $100. Send me my wallet.
+&lt;Lazlo&gt; f&amp;%@ fine. you're lucky.
+&lt;-- Lazlo has quit ("leaving")
+</pre>
+
+<p>
+I never knew what happened with Sean&rsquo;s wallet. So today I emailed him and asked. This is the happy end of the story:
+</p>
+
+<blockquote>
+<p>
+Ha! I didn&rsquo;t think anyone remembered that! That guy was nuts. I was able to reason with him, though. It turned out I was able to promise him a feature request in Gaim and that sufficed for him. He sent the wallet back, and I never found any weird fraudulent charges on any of my cards ;)
+</p>
+
+<p>
+My guess is that he wasn&rsquo;t any older than 16.
+</p>
+
+<p>
+Just remember, every time a Gaim user sends someone a file by dragging it into a conversation window, it&rsquo;s because I lost my wallet.
+</p>
+
+<p>
+-s.
+</p>
+</blockquote>
+]]></description>
+    </item>
+    
+
+  </channel>
 </rss>
