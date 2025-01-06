@@ -6,6 +6,8 @@ on:
 
 jobs:
   build:
+    env:
+      ENV: production
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master

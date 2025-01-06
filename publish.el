@@ -11,7 +11,7 @@
 (require 'string-inflection)
 
 (weblorg-site
- :base-url (if (string= (getenv "ENV") "prod")
+ :base-url (if (string= (getenv "ENV") "production")
                "https://mac-vicar.eu"
              "http://localhost:8000")
  :template-vars `(("org_version" . ,org-version)
