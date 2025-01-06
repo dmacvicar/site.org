@@ -120,7 +120,7 @@
         (list "assets"
               :base-directory "./"
               :exclude "theme.*\\|tutorials\\|public"
-              :include '("CNAME" "keybase.txt" "LICENSE" ".nojekyll" "publish.el")
+              :include '("CNAME" "LICENSE" "publish.el")
               :recursive t
               :base-extension (regexp-opt '("jpg" "gif" "png" "js" "svg" "css" "woff" "woff2"))
               :publishing-directory "./public"
