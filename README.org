@@ -1,91 +1,19 @@
 #+title: My homepage with org-mode
 #+author: Duncan Mac-Vicar P.
 #+date: <2019-08-15 Thu>
+#+SLUG: README
 
 [[https://github.com/dmacvicar/site.org/actions?query=workflow%3A%22Build+and+publish+to+pages%22][file:https://github.com/dmacvicar/site.org/workflows/Build%20and%20publish%20to%20pages/badge.svg]]
 
 * Introduction
 
-This setup based on [[https://orgmode.org][org-mode]] aims to replace my previous [[https://jekyllrb.com][Jekyll]] setup used to publish my site.
+This is the source for my website. It is managed using Emacs and [[https://orgmode.org][org-mode]].
 
-* Implementation
+The latest incarnation is based on [[https://emacs.love/weblorg/][weblorg]], a wrapper on top of [[https://orgmode.org/manual/Exporting.html][org-export]].
 
-For details about the implementation see [[file:posts/2019-09-03-migrating-from-jekyll-to-org/index.org][the introductory post]] and the [[https://github.com/dmacvicar/site.org][\faGithub Source]].
+It used to be a heavily customized org-publish setup, but weblorg puts all together in a simpler setup and add support for Jinja like templates.
 
-* Usage
-
-- Posts go into =posts/=
-  Preferably in their own subdirectory together with all their assets (self-contained)
-- Tutorials go in =tutorials/=, as they are rendered (for now) with the [[https://github.com/fniessen/org-html-themes][readtheorg]] theme
-
-To generate:
-
-#+BEGIN_EXAMPLE
-$ make
-#+END_EXAMPLE
-
-The output site will be rendered in =public/=.
-
-** RSS Feeds
-
-I am documenting this part because it is complicated and I tend to forget how it works everytime something breaks.
-
-- Each export block in the project translates the full site, file by file, to another format (taking into account excludes, includes)
-  As we have very different settings for the posts than we have for tutorials, we have different entries in the project for translating each subset.
-
-- Sitemaps allow to generate a map of all converted files in a single org file.
-  Eg. a sitemap in posts, will generate an org file with a list of links to all posts. This is particularly useful for the rss exporter.
-
-- We have an export entry in the project that goes over __posts/_, takes a dummy export function, but generates a sitemap. This allows us to end with a _rss.org_ file without really exporting anything.
-
-- Then we use another entry in the project, that uses the _RSS_ exporter, including only _rss.org_ in order to generate _rss.xml_
-
-- Now, the default sitemap function generates something like:
-
-  #+BEGIN_SRC txt
-    * Entries
-      - [[One entry][http://link]]
-      - [[Second entry][http://link]]
-  #+END_SRC
-
-  Those will not be exported correctly to a list of links. Only the headline  will be exported in the RSS file.
-
-  #+BEGIN_SRC txt
-    * [[One entry][http://link]]
-    * [[Second entry][http://link]]
-  #+END_SRC
-
-- By default, the link will reference the file where the link appears. Something like
-  #+BEGIN_SRC txt
-  <link>http://rss.org#section</link>
-  #+END_SRC
-
-  To change this we use _org-rss-use-entry-url-as-guid_ and set the _RSS_PERMALINK_ property of the headline when generating the sitemap.
-  The _RSS_ exporter will then use the property for the _<link>_ tag content.
-
-- The custom entry formatter adds a headline to a temp buffer and then uses _org-set-property_ to set the custom properties.
-- The sitemap function uses _org-list-to-generic_ to create a list of headlines without adding a star, as it will be added by the entry function.
-
-* Features
-
-*** Redirection
-
-  When the site was generated using Jekyll, posts where generated in the =/:year/:month/:day/:id.html= route.
-  In order to generate a redirect page, use the following keyword to generate a redirect page:
-
-  #+BEGIN_SRC org
-  #+REDIRECT_FROM /old/url/index.html
-  #+END_SRC
-
-** Drafts
-
- To hide a post from the list of recent posts or the full archive, use:
-
-  #+BEGIN_SRC org
-  #+DRAFT t
-  #+END_SRC
- 
-  Note that the post will still be published, but you will need to access it by its URL directly.
+For details about the original implementation see [[file:posts/2019-09-03-migrating-from-jekyll-to-org/index.org][the introductory post]] and the [[https://github.com/dmacvicar/site.org/blob/75e54006a7384cfe8504ab8c6b215ab081d3d8ec/publish.el][\faGithub original source]].
 
 * License
 

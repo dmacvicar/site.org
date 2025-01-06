@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block title %}{{ title }}{% endblock %}
+
+{% block main %}
+{% for p in posts %}
+<li>
+  <span class="timestamp">{{ p.date|strftime("%d %b %Y") }}</span>
+ -
+  <a href="{{ url_for("posts", slug=p.slug) }}">{{ p.title|default(p.slug) }}</a>
+</li>
+{% endfor %}
+{% endblock %}

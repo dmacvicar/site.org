@@ -1,4 +1,5 @@
 #+TITLE: My music setup
+#+SLUG: music
 
 Most of my [[https://www.youtube.com/channel/UC-yn6Cb9c9Q4XFWt3qixJcA][hobby music activities]] are done on a iPad Pro with a [[https://line6.com/sonicport-audio-interface/][SonicPort]] interface.
 

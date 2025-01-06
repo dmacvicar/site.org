@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-1687066-2"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous">
+  <link href="{{ url_for("static", file="css/site.css") }}" rel="stylesheet">
+  <link rel="preload" href="{{ url_for("static", file="fonts/blockzone-webfont.woff2") }}" as="font" type="font/woff2" crossorigin>
+  {% block head %}{% endblock %}
+</head>
+<body>
+  <header id="preamble" class="status">
+    <div class="logo">
+      <a href="/">
+        <img src="https://www.gravatar.com/avatar/3b67365812827fa25df5093b38934a8f?s=80" class="avatar" alt="My photo"/>
+      </a>
+      <a href="/"><h2>Duncan Mac-Vicar P.</h2></a>
+      <div id="social">
+        <a title="dmacvicar on Github" href="https://github.com/dmacvicar">
+        <i class="fa-brands fa-github"></i>
+      </a>
+      <a title="dmacvicar on Hacker News" href="https://news.ycombinator.com/user?id=dmacvicar">
+        <i class="fa-brands fa-hacker-news"></i>
+      </a>
+      <a title="dmacvicar on Twitter" href="https://twitter.com/dmacvicar">
+        <i class="fa-brands fa-twitter"></i>
+      </a>
+      <a title="RSS feed" id="atom" href="posts/rss.xml">
+        <i class="fa-solid fa-rss"></i>
+      </a>
+    </div>
+   <sub>I am inspired by creating software and learning from others. When things break, I fix them or go play guitar <i class="fa-solid fa-guitar"></i> ...</sub>
+ </header>
+ <main id="main">
+ {% block main %}{% endblock %}
+ </main>
+
+<hr/>
+ 
+ <p class='disclaimer'>The postings on this site are my own and don't necessarily represent my employer’s positions, strategies or opinions.</p>
+
+  <p>Last updated {{ now() | strftime("%d %b %Y") }}. Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> {{ emacs_version }} (<a href="https://orgmode.org/">Org</a> mode {{ org_version }}). <a href="{{ url_for("pages", slug="readme") }}">Details</a>.</p>
+</body>
+</html>

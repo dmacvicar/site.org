@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block title %}{{ title }}{% endblock %}
+
+{% block main %}
+<h1>{{ post.title }}</h1>
+<div class="date">{{ post.date | strftime("%d %b %Y") }}</div>
+<div class="content">
+  {{ post.html | safe }}
+</div>
+{% endblock %}

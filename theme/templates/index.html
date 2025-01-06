@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block head %}
+<link href="{{ url_for("static", file="css/index.css") }}" rel="stylesheet">
+{% endblock %}
+{% block title %}{{ title }}{% endblock %}
+
+{% block main %}
+<section class="post-list">
+<h2><i class="fa fa-bookmark"></i>&nbspLatest writings</h2>
+<ul class="org-ul">
+{% for p in weblorg_route_posts("blog") | attr("posts") | take(5)  %}
+<li>
+  <span class="timestamp">{{ p.date|strftime("%d %b %Y") }}</span>
+ -
+  <a href="{{ url_for("posts", slug=p.slug) }}">{{ p.title }}</a>
+</li>
+{% endfor %}
+</ul>
+
+Full list at my <a href="{{ url_for("blog") }}">my Blog</a>.
+
+</section>
+
+<h1>{{ post.title }}</h1>
+<div class="content">
+  {{ post.html | safe }}
+</div>
+
+{% endblock %}
+
+

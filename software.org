@@ -1,3 +1,5 @@
+#+TITLE: Reflections on Software development
+#+SLUG: software
 
 * Reflections on software development
 

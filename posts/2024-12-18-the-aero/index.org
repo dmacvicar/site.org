@@ -1,4 +1,5 @@
 #+TITLE: The Aero: restoring a Compaq Contura Aero 4/33C
+#+SLUG: the-aero
 #+DATE: <2024-12-18 Wed>
 #+OPTIONS: toc:nil
 
