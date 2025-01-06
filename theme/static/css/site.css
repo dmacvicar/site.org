@@ -19,6 +19,11 @@ body {
   padding: 4em 1em;
 }
 
+#github-icon { color: black; }
+#hacker-news-icon { color: #ff6600; }
+#bluesky-icon { color: rgb(16, 131, 254); }
+#rss-icon { color: black; }
+
 section figure {
     margin-top: 1.5em;
 }
