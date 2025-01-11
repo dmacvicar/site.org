@@ -14,11 +14,18 @@
     (setq weblorg-default-url "https://mac-vicar.eu")
   (setq weblorg-default-url "http://localhost:8000"))
 
+(defun get-git-short-hash ()
+  "Get the current short Git revision hash for the current repository."
+  (string-trim
+   (with-output-to-string
+     (call-process "git" nil standard-output nil "rev-parse" "--short" "HEAD"))))
+
 (weblorg-site
   :template-vars `(("org_version" . ,org-version)
                    ("emacs_version" . ,emacs-version)
                    ("site_owner" . ,user-full-name)
-                   ("site_name" . "Duncan Mac-Vicar P. site")))
+                   ("site_name" . "Duncan Mac-Vicar P. site")
+                   ("revision" . ,(get-git-short-hash))))
 
 (defun custom/parse-org-file (file)
   "Custom wrapper for `weblorg--parse-org-file` to set the slug as the last folder name in the file path."
