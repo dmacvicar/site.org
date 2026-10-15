@@ -2,6 +2,7 @@
 #+SLUG: the-aero
 #+DATE: <2024-12-18 Wed>
 #+OPTIONS: toc:nil
+#+FILETAGS: :retro:
 
 * The Aero
 
