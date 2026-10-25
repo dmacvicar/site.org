@@ -1,8 +1,46 @@
-
 h1 {
   display: none;
 }
 
 #main > .post-list {
   margin-bottom: 3rem;
+}
+
+/* This stylesheet is homepage-only; keep article lists unchanged. */
+section.post-list {
+  --date-width: 96px;
+  --date-gap: 20px;
+}
+section.post-list li {
+  padding: 8px 0 8px calc(var(--date-width) + var(--date-gap));
+}
+section.post-list li > .timestamp-wrapper,
+section.post-list li > .timestamp {
+  float: left;
+  width: var(--date-width);
+  margin-inline-start: calc(0px - var(--date-width) - var(--date-gap));
+}
+section.post-list .timestamp {
+  font-size: 12px;
+  line-height: 28.9px;
+}
+.content section.post-list li { padding-block: 10px; }
+.content section.post-list h2 { margin-top: 40px; }
+.content section.post-list ul { margin-bottom: 0; }
+h2 i { font-size: .83em; vertical-align: 1px; margin-right: 5px; }
+
+@media (max-width: 600px) {
+  section.post-list { --date-width: 80px; --date-gap: 14px; }
+  section.post-list .timestamp { font-size: 11px; }
+}
+
+@media (max-width: 360px) {
+  section.post-list li { padding-inline-start: 0; }
+  section.post-list li > .timestamp-wrapper,
+  section.post-list li > .timestamp {
+    float: none;
+    display: block;
+    width: auto;
+    margin-inline-start: 0;
+  }
 }

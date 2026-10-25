@@ -20,20 +20,25 @@
 * { box-sizing: border-box; }
 html { background: var(--paper); }
 body {
-  max-width: 74ch;
+  max-width: 760px;
   margin: 0 auto;
-  padding: 2.5rem 1.25rem;
+  padding: 44px 28px 32px;
   color: var(--ink);
-  font: 17px/1.6 'Adwaita Sans', 'Inter', system-ui, sans-serif;
+  font: 17px/1.7 'Adwaita Sans', 'Inter', system-ui, sans-serif;
   overflow-wrap: break-word;
 }
-a { color: var(--accent); text-underline-offset: .2em; }
+a {
+  color: var(--accent);
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  text-decoration-color: color-mix(in srgb, currentColor 48%, transparent);
+}
 a:visited { color: #721045; }
-a:hover { color: var(--ink); }
+a:hover { color: var(--ink); text-decoration-color: currentColor; }
 a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 h1, h2, h3, h4 { line-height: 1.25; font-weight: 650; text-wrap: balance; }
 h1 { margin: 0 0 .75rem; font-size: clamp(1.8rem, 5vw, 2.6rem); letter-spacing: -.035em; }
-h2 { margin: 2.75rem 0 1rem; font-size: 1.5rem; letter-spacing: -.025em; }
+h2 { margin: 38px 0 17px; font-size: 21px; line-height: 1.35; letter-spacing: -.025em; }
 h3, h4 { margin: 2rem 0 .75rem; font-size: 1.15rem; }
 p, ul, ol, pre, blockquote, table { margin-bottom: 1.25rem; }
 ul, ol { padding-left: 1.4rem; }
@@ -48,15 +53,16 @@ img, video { max-width: 100%; height: auto; }
 figure > img { display: block; margin: 0 auto; }
 figcaption { margin-top: .75rem; color: var(--muted); font-size: .85em; }
 
-#preamble { margin-bottom: 3rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--line); }
-#preamble .logo { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .75rem 1.5rem; }
-#preamble .site-name { display: flex; align-items: center; gap: .8rem; color: var(--ink); font-family: mpdvga, monospace; line-height: 1.4; }
-#preamble .avatar { width: 48px; height: 48px; border-radius: 50%; }
-#preamble .intro { margin: 1rem 0; color: var(--muted); }
+#preamble { margin-bottom: 38px; padding-bottom: 26px; border-bottom: 1px solid var(--line); }
+#preamble .logo { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px; }
+#preamble .site-name { display: flex; align-items: center; gap: 14px; color: var(--ink); font: 16px/1.5 mpdvga, monospace; }
+#preamble .avatar { display: block; width: 40px; height: 40px; border-radius: 50%; }
+#preamble .intro { max-width: 650px; margin: 21px 0 0; color: var(--muted); line-height: 1.75; }
 #preamble a { text-decoration: none; }
 #preamble a:hover { text-decoration: underline; }
-#social { display: flex; gap: .25rem; }
-#social a { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; }
+#social { display: flex; gap: 6px; }
+#social a { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; font-size: 16px; }
+#social a:visited { color: var(--accent); }
 
 code, pre { background: var(--surface); font-family: ui-monospace, 'DejaVu Sans Mono', monospace; font-size: .85em; }
 code { padding: .15em .3em; border-radius: 3px; }
@@ -70,13 +76,23 @@ section.post-list .timestamp { white-space: nowrap; }
 section.post-list h2:first-child { margin-top: 0; }
 table { display: block; max-width: 100%; overflow-x: auto; border-collapse: collapse; }
 th, td { padding: .5rem .75rem; border-bottom: 1px solid var(--line); text-align: left; }
-footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--line); color: var(--muted); font-size: .8rem; }
-footer p { margin-bottom: .75rem; }
+footer { margin-top: 42px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; }
+footer p { margin-bottom: 10px; }
+footer p:last-child { margin-bottom: 0; }
 
-@media (max-width: 480px) {
-  body { padding-top: 1.5rem; }
-  #preamble { margin-bottom: 2rem; }
-  #preamble .site-name { font-size: 1rem; }
+@media (max-width: 600px) {
+  body { padding: 28px 22px; }
+  #preamble { margin-bottom: 30px; padding-bottom: 24px; }
+  #preamble .logo { gap: 13px; }
+  #preamble .site-name { gap: 12px; }
+  #preamble .avatar { width: 36px; height: 36px; }
+  #preamble .intro { margin-top: 17px; }
+  #social { margin-left: 42px; gap: 10px; }
+  h2 { font-size: 20px; }
+}
+
+@media (max-width: 360px) {
+  #preamble .site-name { font-size: 14px; }
 }
 
 /* https://github.com/fniessen/org-html-themes/blob/master/styles/readtheorg/css/htmlize.css */
