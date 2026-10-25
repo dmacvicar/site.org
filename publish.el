@@ -74,13 +74,6 @@
  :url "/")
 
 (weblorg-route
- :name "projects"
- :template "project.html"
- :input-pattern "projects/*/index.org"
- :output "public/{{ slug }}/index.html"
- :url "/{{ slug }}/")
-
-(weblorg-route
  :name "pages"
  :template "page.html"
  :input-pattern "*.org"
