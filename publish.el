@@ -15,10 +15,12 @@
   (setq weblorg-default-url "http://localhost:8000"))
 
 (defun get-git-short-hash ()
-  "Get the current short Git revision hash for the current repository."
-  (string-trim
-   (with-output-to-string
-     (call-process "git" nil standard-output nil "rev-parse" "--short" "HEAD"))))
+  "Get a short revision from GitHub Actions, or Git for local builds."
+  (if-let ((sha (getenv "GITHUB_SHA")))
+      (substring sha 0 7)
+    (string-trim
+     (with-output-to-string
+       (call-process "git" nil standard-output nil "rev-parse" "--short" "HEAD")))))
 
 (weblorg-site
   :template-vars `(("org_version" . ,org-version)
@@ -66,7 +68,7 @@
 
 (weblorg-route
  :name "index"
- :input-pattern "index.org"
+ :input-pattern "[i]ndex.org"
  :template "index.html"
  :output "public/index.html"
  :url "/")
