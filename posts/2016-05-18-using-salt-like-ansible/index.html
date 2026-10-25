@@ -11,8 +11,8 @@
     gtag('config', 'UA-1687066-2');
   </script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous">
-  <link href="https://mac-vicar.eu/css/reset.css?v=ce6d5e7" rel="stylesheet">
-  <link href="https://mac-vicar.eu/css/site.css?v=ce6d5e7" rel="stylesheet">
+  <link href="https://mac-vicar.eu/css/reset.css?v=5cc0bab" rel="stylesheet">
+  <link href="https://mac-vicar.eu/css/site.css?v=5cc0bab" rel="stylesheet">
   <link rel="preload" href="https://mac-vicar.eu/fonts/blockzone-webfont.woff2" as="font" type="font/woff2" crossorigin>
   
 </head>
@@ -62,7 +62,7 @@ The first part of the answer had to do that the master-minion architecture of Sa
 </p>
 
 
-<figure id="orgc427599">
+<figure id="org6e6911a">
 <img src="images/salt-0mq.png" alt="salt-0mq.png">
 
 </figure>
@@ -72,7 +72,7 @@ For example, you can create more scalable topoligies using the concept of syndic
 </p>
 
 
-<figure id="orgdeb1d7e">
+<figure id="org0668753">
 <img src="images/salt-syndic.png" alt="salt-syndic.png">
 
 </figure>
@@ -82,7 +82,7 @@ Or manage dumb devices with the concept of Salt proxies:
 </p>
 
 
-<figure id="org8bab6ff">
+<figure id="orgba9c9c4">
 <img src="images/salt-proxy.png" alt="salt-proxy.png">
 
 </figure>
@@ -134,7 +134,7 @@ If you want to run Salt like Ansible, you only need to install <code>salt-ssh</c
 Well, there are a couple of other <a href="https://bugzilla.suse.com/show_bug.cgi?id=1057772">packages required</a>
 </p>
 
-<pre class="example" id="org28bdf97">
+<pre class="example" id="org4e80965">
 ssh $HOST zypper -n install python-pyOpenSSL python-xml
 </pre>
 </blockquote>
@@ -143,7 +143,7 @@ ssh $HOST zypper -n install python-pyOpenSSL python-xml
 Salt is available out of the box on <a href="https://www.opensuse.org/">openSUSE Leap and Tumbleweed</a> so if you are using them just type:
 </p>
 
-<pre class="example" id="org03c4f4e">
+<pre class="example" id="org453c17b">
 zypper in salt-ssh
 </pre>
 
@@ -195,7 +195,7 @@ pillar_roots:
 And create both trees:
 </p>
 
-<pre class="example" id="org65b9a40">
+<pre class="example" id="org1cff32b">
 mkdir -p srv/salt
 mkdir -p srv/pillar
 </pre>
@@ -261,7 +261,7 @@ Ansible will assume you have SSH access available to your servers, usually based
 So, in the Ansible tutorial, you did:
 </p>
 
-<pre class="example" id="orgbab6487">
+<pre class="example" id="orge0d1c5b">
 $ ansible all -m ping
 127.0.0.1 | success &gt;&gt; {
     "changed": false,
@@ -273,7 +273,7 @@ $ ansible all -m ping
 The equivalent in <code>salt-ssh</code> would be:
 </p>
 
-<pre class="example" id="org47e51ff">
+<pre class="example" id="orgf1b9014">
 salt-ssh '*' test.ping
 node1:
     True
@@ -300,7 +300,7 @@ If we didn&rsquo;t have modules, we&rsquo;d be left running arbitrary shell comm
 </p>
 </blockquote>
 
-<pre class="example" id="org22a5d49">
+<pre class="example" id="orge248f8f">
 ansible all -s -m shell -a 'apt-get install nginx'
 </pre>
 
@@ -318,7 +318,7 @@ For installing software on Debian/Ubuntu servers, the &ldquo;apt&rdquo; module w
 </p>
 </blockquote>
 
-<pre class="example" id="org39b4f84">
+<pre class="example" id="org1e42bed">
 ansible all -s -m apt -a 'pkg=nginx state=installed update_cache=true'
 127.0.0.1 | success &gt;&gt; {
     "changed": false
@@ -337,7 +337,7 @@ There are two execution modules worth to mention:
 <li>The <code>cmd</code> module, which you can use to run shell commands when you want to accomplish something that is not provided by a built-in execution module. Taking the example above:</li>
 </ul>
 
-<pre class="example" id="org6487b0f">
+<pre class="example" id="org7eed72d">
 salt-ssh '*' cmd.run 'apt-get install nginx'
 </pre>
 
@@ -345,7 +345,7 @@ salt-ssh '*' cmd.run 'apt-get install nginx'
 <li>The <code>state</code> module, which is the execution module that allows to apply state modules and more complex composition of states, known as <code>sls</code> files.</li>
 </ul>
 
-<pre class="example" id="org342adc9">
+<pre class="example" id="orgac6ada2">
 salt-ssh '*' pkg.install nginx
 </pre>
 
@@ -361,7 +361,7 @@ On Salt you would normally use the non-idempotent execution modules from the com
 If you still want to apply state data like ansible does it:
 </p>
 
-<pre class="example" id="org17c4c15">
+<pre class="example" id="org5cda56a">
 salt-ssh '*' state.high '{"nginx": {"pkg": ["installed"]}}'
 </pre>
 </div>
@@ -409,7 +409,7 @@ This means, all hosts should get that state. You can do very <a href="https://do
 So when you run:
 </p>
 
-<pre class="example" id="orgbb2a331">
+<pre class="example" id="org7a77d71">
 salt-ssh '*' state.apply
 </pre>
 
@@ -421,7 +421,7 @@ You are applying the highstate on all hosts, but the highstate of each host is d
 You can as well apply a specific state, even if that state does not form part of the host highstate:
 </p>
 
-<pre class="example" id="org7cbd78b">
+<pre class="example" id="orga388c6c">
 salt-ssh '*' state.apply nginx
 </pre>
 
@@ -550,7 +550,7 @@ Edit <code>srv/pillar/top.sls</code> and define who will see this pillar (in thi
 Then you can see which data every host sees:
 </p>
 
-<pre class="example" id="org35e432f">
+<pre class="example" id="org7546d20">
 salt-ssh '*' pillar.items
 node1:
     ----------
@@ -684,7 +684,7 @@ Then we can run the Role(s):
 </p>
 </blockquote>
 
-<pre class="example" id="org2cd2d3e">
+<pre class="example" id="orgf55a829">
 salt-ssh '*' state.apply
 </pre>
 
@@ -702,7 +702,7 @@ Would apply what <code>top.sls</code> defines.
 These are equivalent to grains, and you can see what grains you have available by calling:
 </p>
 
-<pre class="example" id="orge361d0d">
+<pre class="example" id="org7969a7e">
 salt-ssh '*' grains.items
 </pre>
 
@@ -776,7 +776,7 @@ sshkeys:
 In order to refresh the pillar data, you can use:
 </p>
 
-<pre class="example" id="org7257f83">
+<pre class="example" id="org4f67ebc">
 salt-ssh '*' saltutil.refresh_pillar
 </pre>
 </div>
