@@ -11,33 +11,35 @@
     gtag('config', 'UA-1687066-2');
   </script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous">
-  <link href="https://mac-vicar.eu/css/site.css" rel="stylesheet">
+  <link href="https://mac-vicar.eu/css/reset.css?v=ce6d5e7" rel="stylesheet">
+  <link href="https://mac-vicar.eu/css/site.css?v=ce6d5e7" rel="stylesheet">
   <link rel="preload" href="https://mac-vicar.eu/fonts/blockzone-webfont.woff2" as="font" type="font/woff2" crossorigin>
   
 </head>
 <body>
-  <header id="preamble" class="status">
+  <header id="preamble">
     <div class="logo">
-      <a href="/">
-        <img src="https://www.gravatar.com/avatar/3b67365812827fa25df5093b38934a8f?s=80" class="avatar" alt="My photo"/>
+      <a class="site-name" href="/">
+        <img src="https://www.gravatar.com/avatar/3b67365812827fa25df5093b38934a8f?s=80" class="avatar" width="48" height="48" alt="">
+        <span>Duncan Mac-Vicar P.</span>
       </a>
-      <a href="/"><h2>Duncan Mac-Vicar P.</h2></a>
-      <div id="social">
-        <a title="dmacvicar on Github" href="https://github.com/dmacvicar">
-          <i id="github-icon" class="fa-brands fa-github"></i>
-	</a>
-      <a title="dmacvicar on Hacker News" href="https://news.ycombinator.com/user?id=dmacvicar">
-        <i id="hacker-news-icon" class="fa-brands fa-hacker-news"></i>
-      </a>
-      <a title="dmacvicar on Bluesky" href="https://bsky.app/profile/duncan.mac-vicar.eu">
-        <i id="bluesky-icon" class="fa-brands fa-bluesky"></i>
-      </a>
-      <a title="RSS feed" id="atom" href="https://mac-vicar.eu/posts/rss.xml">
-        <i id="rss-icon" class="fa-solid fa-rss"></i>
-      </a>
+      <div id="social" aria-label="Elsewhere">
+        <a aria-label="GitHub" href="https://github.com/dmacvicar">
+          <i class="fa-brands fa-github" aria-hidden="true"></i>
+        </a>
+        <a aria-label="Hacker News" href="https://news.ycombinator.com/user?id=dmacvicar">
+          <i class="fa-brands fa-hacker-news" aria-hidden="true"></i>
+        </a>
+        <a aria-label="Bluesky" href="https://bsky.app/profile/duncan.mac-vicar.eu">
+          <i class="fa-brands fa-bluesky" aria-hidden="true"></i>
+        </a>
+        <a aria-label="RSS feed" href="https://mac-vicar.eu/posts/rss.xml">
+          <i class="fa-solid fa-rss" aria-hidden="true"></i>
+        </a>
+      </div>
     </div>
-   <sub>I am inspired by creating software and learning from others. When things break, I fix them or go play guitar <i class="fa-solid fa-guitar"></i> ...</sub>
- </header>
+    <p class="intro">I am inspired by creating software and learning from others. When things break, I fix them or go play guitar <i class="fa-solid fa-guitar" aria-hidden="true"></i> ...</p>
+  </header>
  <main id="main">
  
 <h1>Prose linting with Vale and Emacs</h1>
@@ -158,7 +160,7 @@ And with this Emacs works:
 </p>
 
 
-<figure id="orgd0c915e">
+<figure id="orgb4e62d9">
 <img src="images/emacs.png" alt="emacs.png">
 
 </figure>
@@ -183,10 +185,9 @@ While writing this post, I had to fix the unintended use of passive voice tens o
 
  </main>
 
-<hr/>
- 
- <p class='disclaimer'>The postings on this site are my own and don't necessarily represent my employer’s positions, strategies or opinions.</p>
-
-  <p>Last updated 06 Jan 2025. Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.2 (<a href="https://orgmode.org/">Org</a> mode 9.4.4). <a href="https://mac-vicar.eu/readme.html">Details</a>.</p>
+  <footer>
+    <p class="disclaimer">The postings on this site are my own and don't necessarily represent my employer’s positions, strategies or opinions.</p>
+    <p>Last updated 25 Oct 2026. Built with <a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.2 (<a href="https://orgmode.org/">Org</a> mode 9.4.4). <a href="https://mac-vicar.eu/readme.html">Details</a>.</p>
+  </footer>
 </body>
 </html>
