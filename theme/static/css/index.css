@@ -2,3 +2,7 @@
 h1 {
   display: none;
 }
+
+#main > .post-list {
+  margin-bottom: 3rem;
+}

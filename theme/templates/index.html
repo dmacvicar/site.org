@@ -6,13 +6,13 @@
 
 {% block main %}
 <section class="post-list">
-<h2><i class="fa fa-bookmark"></i>&nbspLatest writings</h2>
+<h2>Latest writings</h2>
 <ul class="org-ul">
 {% for p in weblorg_route_posts("blog") | attr("posts") | take(5)  %}
 <li>
   <span class="timestamp">{{ p.date|strftime("%d %b %Y") }}</span>
  -
-  <a href="{{ url_for("posts", slug=p.slug) }}">{{ p.title }}</a>
+  <a href="{{ url_for("posts", slug=p.slug) }}">{{ p.title|default(p.slug) }}</a>
 </li>
 {% endfor %}
 </ul>
