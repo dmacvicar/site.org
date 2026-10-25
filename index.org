@@ -7,7 +7,7 @@
   :HTML_CONTAINER_CLASS: post-list
   :END:
 
-- <2016-02-27 Sat> I wrote a [[https://github.com/dmacvicar/terraform-provider-libvirt][libvirt provider]] for [[https://terraform.io][Terraform]]. It became my 2nd most popular open-source project, with > 1.6k Github stars, 40M downloads, and used by many companies world-wide.
+- <2016-02-27 Sat> I wrote a [[https://github.com/dmacvicar/terraform-provider-libvirt][libvirt provider]] for [[https://terraform.io][Terraform]]. It became my 2nd most popular open-source project, with > 1.9k Github stars, 56M downloads, and used by many companies world-wide.
 - <2016-01-08 Fri> As part of my work, I had the chance to start contributing to [[https://github.com/saltstack/salt][Salt]]. My teams were the largest contributors outside SaltStack.
 - <2015-05-21 Thu> I wrote a [[https://github.com/dmacvicar/gorgojo][library to access bugzilla]] in Go
 - <2015-04-24 Fri> For learning purposes, I wrote a [[https://github.com/dmacvicar/garita][simple Docker v2 registry auth server in Go]]
